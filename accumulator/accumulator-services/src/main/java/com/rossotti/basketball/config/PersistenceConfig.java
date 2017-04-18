@@ -14,7 +14,6 @@ import java.util.Properties;
 
 @Configuration
 @EnableJpaRepositories(basePackages = {"com.rossotti.basketball.jpa.repository"})
-//@EnableTransactionManagement
 public class PersistenceConfig {
 
 	private final Environment env;
@@ -51,8 +50,4 @@ public class PersistenceConfig {
 		entityManagerFactoryBean.setJpaProperties(jpaProperties);
 		return entityManagerFactoryBean;
 	}
-
-//	PlatformTransactionManager transactionManager() {
-//		return new JpaTransactionManager(entityManagerFactory().getNativeEntityManagerFactory());
-//	}
 }
