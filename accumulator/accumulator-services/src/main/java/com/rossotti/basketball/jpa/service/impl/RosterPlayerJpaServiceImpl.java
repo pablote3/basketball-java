@@ -58,7 +58,7 @@ public class RosterPlayerJpaServiceImpl implements RosterPlayerJpaService {
 	@Override
 	public List<?> listAll() {
 		List<RosterPlayer> rosterPlayers = new ArrayList<>();
-		rosterPlayerRepository.findAll().forEach(rosterPlayers::add);
+        rosterPlayers.addAll(rosterPlayerRepository.findAll());
 		return rosterPlayers;
 	}
 

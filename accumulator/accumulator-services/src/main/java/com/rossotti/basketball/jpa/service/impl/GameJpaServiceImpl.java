@@ -72,7 +72,7 @@ public class GameJpaServiceImpl implements GameJpaService {
 	@Override
 	public List<?> listAll() {
 		List<Game> games = new ArrayList<>();
-		gameRepository.findAll().forEach(games::add);
+        games.addAll(gameRepository.findAll());
 		return games;
 	}
 
