@@ -78,5 +78,6 @@
 
     <modules>
         <module>accumulator-services</module>
+        <module>accumulator-scoreGame</module>
     </modules>
 </project>
