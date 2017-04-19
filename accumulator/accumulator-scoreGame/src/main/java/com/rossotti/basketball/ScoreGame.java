@@ -16,7 +16,6 @@ import java.util.List;
 @SpringBootApplication
 @IntegrationComponentScan
 public class ScoreGame {
-	private final Logger logger = LoggerFactory.getLogger(ScoreGame.class);
 
 	public static void main(String[] args) {
 		ServiceProperties serviceProperties = new ServiceProperties();
