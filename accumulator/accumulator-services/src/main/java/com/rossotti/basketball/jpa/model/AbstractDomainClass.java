@@ -22,6 +22,9 @@ public class AbstractDomainClass implements ModelObject {
 	@Enumerated(EnumType.STRING)
 	@Transient
 	private StatusCodeDAO statusCode;
+    public StatusCodeDAO getStatusCode() {
+    	return this.statusCode;
+	}
 	public void setStatusCode(StatusCodeDAO statusCode) {
 		this.statusCode = statusCode;
 	}
