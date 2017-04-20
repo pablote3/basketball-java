@@ -53,8 +53,8 @@ public class LoadSchedule {
 			bufRdr.readLine();								            	//jump over header line
 			while((line = bufRdr.readLine()) != null) {
 				StringTokenizer st = new StringTokenizer(line, ",");
-				String gameDate = st.nextToken();                        	//start date
-				String gameDateTime = gameDate + " " + st.nextToken();    	//start time (ET)
+				String gameDate = st.nextToken();                            //start date
+				String gameDateTime = gameDate + " " + st.nextToken();        //start time (ET)
 				String awayTeam = st.nextToken().trim();
 				String homeTeam = st.nextToken().trim();
 
@@ -78,8 +78,8 @@ public class LoadSchedule {
 				boxScoreHome.setGame(game);
 				game.addBoxScore(boxScoreHome);
 
-				gameService.createGame(game);
-				System.out.println("i = " + i++ + " " + teamAway.getFullName() + " at " + teamHome.getFullName());
+				Game result = gameService.createGame(game);
+				System.out.println(result.getStatusCode() + " " + i++ + " " + teamAway.getFullName() + " at " + teamHome.getFullName());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
