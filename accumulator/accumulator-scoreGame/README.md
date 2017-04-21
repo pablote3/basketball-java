@@ -1,10 +1,10 @@
 # accumulator-scoreGame
 
-The accumulator-scoreGame application retrieves game, roster, and standings statistics for NBA games and stores in a relational database.
+The accumulator-scoreGame application retrieves game, roster, and standings statistics for NBA games and stores in a relational database.  It uses Spring Integration to control application flow and relies on accumulator-services to supply Spring components. 
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+These instructions will get a local instance of the project up and running for development and testing purposes.
 
 ## Installing
 
@@ -14,7 +14,7 @@ Unit tests can be run by simply cloning the project.  System testing requires a 
 
 ## Running Unit Tests
 
-Unit tests will complete without additional configuration.  For Spring Integration tests to test functionality, they require JSON input files to be supplied on the file system.
+Unit tests will execute against accumulator-services without additional configuration.  Spring Integration tests require JSON input files to be supplied on the file system for testing application flow.
 
 Copy testIntegration folder to directory on local file system
 
@@ -75,7 +75,3 @@ Package application by running command from project directory
 Launch system tests by running command from project target directory
     
     java -DgameDate="2016-10-27" -DgameTeam="" -jar accumulator-scoreGame.jar
-    
-## Deployment
-
-Add additional notes about how to deploy this on a live system
