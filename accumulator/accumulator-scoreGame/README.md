@@ -1,6 +1,6 @@
 # accumulator-scoreGame
 
-The accumulator-scoreGame application retrieves game, roster, and standings statistics for NBA games and stores in a relational database.  It uses Spring Integration to control application flow and relies on accumulator-services to supply Spring components. 
+The accumulator-scoreGame application retrieves game, roster, and standings statistics for NBA games and stores in a relational database.  It uses Spring Integration to control application flow and relies on [accumulator-services](id:https://github.com/pablote3/basketball/tree/master/accumulator/accumulator-services) to supply Spring components. 
 
 ## Getting Started
 
@@ -8,7 +8,7 @@ These instructions will get a local instance of the project up and running for d
 
 ## Installing
 
-Clone [pablote3/basketball](id:https://github.com/pablote3/basketball) project into favorite IDE.
+Clone [basketball repository](id:https://github.com/pablote3/basketball) into favorite IDE.
 
 Unit tests can be run by simply cloning the project.  System testing requires a MySQL database.
 
