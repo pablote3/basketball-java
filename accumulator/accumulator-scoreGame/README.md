@@ -68,7 +68,7 @@ Update main/resources/service.properties
     
     xmlstats.fileStandings: append "~/pdrive/pwork/basketball/accumulator" with location of testSystem fileStandings directory
     
-Package application by running command from project directory
+Package application by running command from accumulator directory
 
     mvn package
     
