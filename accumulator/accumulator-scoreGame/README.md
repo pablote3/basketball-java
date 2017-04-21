@@ -1,6 +1,6 @@
-# nba-accumulator
+# accumulator-scoreGame
 
-The nba-accumulator application retrieves game, roster, and standings statistics for NBA games and stores in a relational database.
+The accumulator-scoreGame application retrieves game, roster, and standings statistics for NBA games and stores in a relational database.
 
 ## Getting Started
 
@@ -8,13 +8,13 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Installing
 
-Clone project into favorite IDE.
+Clone [pablote3/basketball](id:https://github.com/pablote3/basketball) project into favorite IDE.
 
 Unit tests can be run by simply cloning the project.  System testing requires a MySQL database.
 
 ## Running Unit Tests
 
-Unit tests will complete without additional configuration, but Spring Integration tests require file system to supply JSON input files to execute code.
+Unit tests will complete without additional configuration.  For Spring Integration tests to test functionality, they require JSON input files to be supplied on the file system.
 
 Copy testIntegration folder to directory on local file system
 
@@ -22,11 +22,11 @@ Copy testIntegration folder to directory on local file system
 
 Update test/resources/service.properties
 
-    xmlstats.fileBoxScore: replace "/home/pablote/pdrive/pwork/batch/accumulator" with file location of testIntegration folder
+    xmlstats.fileBoxScore: append "~/pdrive/pwork/basketball/accumulator" with location of testIntegration fileBoxScore directory
     
-    xmlStats.fileRoster: replace "/home/pablote/pdrive/pwork/batch/accumulator" with file location of testIntegration folder
+    xmlStats.fileRoster: append "~/pdrive/pwork/basketball/accumulator" with location of testIntegration fileRoster directory
     
-    xmlstats.fileStandings: replace "/home/pablote/pdrive/pwork/batch/accumulator" with file location of testIntegration folder
+    xmlstats.fileStandings: append "~/pdrive/pwork/basketball/accumulator" with location of testIntegration fileStandings directory
 
 ## Running System Tests
 
@@ -62,11 +62,11 @@ Load database by running mysql command from testSystem directory
 
 Update main/resources/service.properties
 
-    xmlstats.fileBoxScore: replace "/home/pablote/pdrive/pwork/batch/accumulator" with file location of testSystem folder
+    xmlstats.fileBoxScore: append "~/pdrive/pwork/basketball/accumulator" with location of testSystem fileBoxScore directory
     
-    xmlStats.fileRoster: replace "/home/pablote/pdrive/pwork/batch/accumulator" with file location of testSystem folder
+    xmlStats.fileRoster: append "~/pdrive/pwork/basketball/accumulator" with location of testSystem fileRoster directory
     
-    xmlstats.fileStandings: replace "/home/pablote/pdrive/pwork/batch/accumulator" with file location of testSystem folder
+    xmlstats.fileStandings: append "~/pdrive/pwork/basketball/accumulator" with location of testSystem fileStandings directory
     
 Package application by running command from project directory
 
@@ -74,7 +74,7 @@ Package application by running command from project directory
     
 Launch system tests by running command from project target directory
     
-    java -DgameDate="2016-10-27" -DgameTeam="" -jar nba-accumulator-batch.jar
+    java -DgameDate="2016-10-27" -DgameTeam="" -jar accumulator-scoreGame.jar
     
 ## Deployment
 
