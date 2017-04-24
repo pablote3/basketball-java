@@ -1,9 +1,10 @@
 package com.rossotti.basketball.model;
 
-public class TeamReaderInput {
-    String gameDateTime;
-    String teamKey;
-    String status;
+public class Team {
+    private String gameDateTime;
+    private String teamKey;
+    private String status;
+
     public String getGameDateTime() {
         return gameDateTime;
     }
