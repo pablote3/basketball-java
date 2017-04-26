@@ -1,6 +1,6 @@
 package com.rossotti.basketball.model;
 
-public class Team {
+public class TeamBoxScore {
     private String gameDateTime;
     private String teamKey;
     private String status;

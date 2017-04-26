@@ -1,7 +1,7 @@
 package com.rossotti.basketball.config;
 
-import com.rossotti.basketball.mapper.TeamReaderRowMapper;
-import com.rossotti.basketball.model.Team;
+import com.rossotti.basketball.mapper.TeamBoxScoreMapper;
+import com.rossotti.basketball.model.TeamBoxScore;
 import com.rossotti.basketball.processor.TeamProcessor;
 import com.rossotti.basketball.util.DateTimeConverter;
 import org.slf4j.Logger;
@@ -56,16 +56,16 @@ public class BatchConfig {
     @Bean
     public Step stepTeam() {
         return stepBuilderFactory.get("stepTeam")
-                .<Team, Team>chunk(1)
+                .<TeamBoxScore, TeamBoxScore>chunk(1)
                 .reader(teamReader())
                 .processor(teamProcessor())
-                .writer(teamWriter())
+                .writer(teamFileWriter())
                 .build();
     }
 
     @Bean
-    public JdbcCursorItemReader<Team> teamReader() {
-        JdbcCursorItemReader<Team> reader = new JdbcCursorItemReader<>();
+    public JdbcCursorItemReader<TeamBoxScore> teamReader() {
+        JdbcCursorItemReader<TeamBoxScore> reader = new JdbcCursorItemReader<>();
         //LocalDate gameDate = LocalDate.now().minusDays(1);
         LocalDate gameDate = LocalDate.of(2017, 3, 30);
         String minDateTime = DateTimeConverter.getStringDateTime(DateTimeConverter.getLocalDateTimeMin(gameDate));
@@ -79,25 +79,23 @@ public class BatchConfig {
                 "order by g.gameDateTime asc";
         reader.setSql(sql);
         reader.setDataSource(databaseConfig.dataSource());
-        reader.setRowMapper(new TeamReaderRowMapper());
+        reader.setRowMapper(new TeamBoxScoreMapper());
         return reader;
     }
 
     @Bean
     public TeamProcessor teamProcessor() {
-
-
         return new TeamProcessor();
     }
 
     @Bean
-    public FlatFileItemWriter<Team> teamWriter() {
-        FlatFileItemWriter<Team> writer = new FlatFileItemWriter<>();
-        writer.setResource(new FileSystemResource(new File("target/paulOut.txt")));
+    public FlatFileItemWriter<TeamBoxScore> teamFileWriter() {
+        FlatFileItemWriter<TeamBoxScore> writer = new FlatFileItemWriter<>();
+        writer.setResource(new FileSystemResource(new File("/home/pablote/pdrive/pwork/basketball/aggregator/extracts/paulOut.txt")));
         writer.setShouldDeleteIfExists(true);
-        BeanWrapperFieldExtractor<Team> fieldExtractor = new BeanWrapperFieldExtractor<>();
+        BeanWrapperFieldExtractor<TeamBoxScore> fieldExtractor = new BeanWrapperFieldExtractor<>();
         fieldExtractor.setNames(new String[]{"gameDateTime", "teamKey", "status"});
-        DelimitedLineAggregator<Team> lineAggregator = new DelimitedLineAggregator<>();
+        DelimitedLineAggregator<TeamBoxScore> lineAggregator = new DelimitedLineAggregator<>();
         lineAggregator.setFieldExtractor(fieldExtractor);
         writer.setLineAggregator(lineAggregator);
         return writer;
