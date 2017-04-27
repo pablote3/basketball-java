@@ -92,7 +92,6 @@ public class BatchConfig {
             "INNER JOIN boxScore AS bsOppt ON game.id = bsOppt.gameId " +
             "INNER JOIN team AS oppt ON oppt.id = bsOppt.teamId " +
             "WHERE game.gameDateTime BETWEEN '" + minDateTime + "' AND '" + maxDateTime + "' " +
-            "AND bsTeam.location = 'Home' " +
             "AND game.status = 'Completed' " +
             "AND team.abbr <> oppt.abbr " +
             "ORDER BY game.gameDateTime asc";
