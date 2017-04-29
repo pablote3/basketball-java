@@ -2,7 +2,7 @@ package com.rossotti.basketball.config;
 
 import com.rossotti.basketball.mapper.TeamBoxScoreMapper;
 import com.rossotti.basketball.model.TeamBoxScore;
-import com.rossotti.basketball.processor.TeamProcessor;
+import com.rossotti.basketball.processor.TeamBoxScoreProcessor;
 import com.rossotti.basketball.util.DateTimeConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,8 +58,8 @@ public class BatchConfig {
         return stepBuilderFactory.get("stepTeam")
                 .<TeamBoxScore, TeamBoxScore>chunk(1)
                 .reader(teamBoxScoreReader())
-                .processor(teamProcessor())
-                .writer(teamFileWriter())
+                .processor(teamBoxScoreProcessor())
+                .writer(teamBoxScoreFileWriter())
                 .build();
     }
 
@@ -105,17 +105,27 @@ public class BatchConfig {
     }
 
     @Bean
-    public TeamProcessor teamProcessor() {
-        return new TeamProcessor();
+    public TeamBoxScoreProcessor teamBoxScoreProcessor() {
+        return new TeamBoxScoreProcessor();
     }
 
     @Bean
-    public FlatFileItemWriter<TeamBoxScore> teamFileWriter() {
+    public FlatFileItemWriter<TeamBoxScore> teamBoxScoreFileWriter() {
         FlatFileItemWriter<TeamBoxScore> writer = new FlatFileItemWriter<>();
         writer.setResource(new FileSystemResource(new File("/home/pablote/pdrive/pwork/basketball/aggregator/extracts/paulOut.txt")));
         writer.setShouldDeleteIfExists(true);
         BeanWrapperFieldExtractor<TeamBoxScore> fieldExtractor = new BeanWrapperFieldExtractor<>();
-        fieldExtractor.setNames(new String[]{"gameDateTime", "seasonType", "teamAbbr", "teamConference", "teamDivision"});
+        String[] fields = new String[]{"gameDateTime", "seasonType",
+            "teamAbbr", "teamConference", "teamDivision", "teamLocation", "teamResult", "teamMinutes", "teamDaysOff",
+            "teamPoints", "teamAssists", "teamTurnovers", "teamSteals", "teamBlocks", "teamPersonalFouls", "teamFieldGoalAttempts", "teamFieldGoalMade", 
+            "teamThreePointAttempts", "teamThreePointMade", "teamFreeThrowAttempts", "teamFreeThrowMade", "teamReboundsOffense", "teamReboundsDefense",
+            "teamPointsQ1", "teamPointsQ2", "teamPointsQ3", "teamPointsQ4", "teamPointsQ5", "teamPointsQ6", "teamPointsQ7", "teamPointsQ8",
+            "opptAbbr", "opptConference", "opptDivision", "opptLocation", "opptResult", "opptMinutes", "opptDaysOff",
+            "opptPoints", "opptAssists", "opptTurnovers", "opptSteals", "opptBlocks", "opptPersonalFouls", "opptFieldGoalAttempts", "opptFieldGoalMade",
+            "opptThreePointAttempts", "opptThreePointMade", "opptFreeThrowAttempts", "opptFreeThrowMade", "opptReboundsOffense", "opptReboundsDefense",
+            "opptPointsQ1", "opptPointsQ2", "opptPointsQ3", "opptPointsQ4", "opptPointsQ5", "opptPointsQ6", "opptPointsQ7", "opptPointsQ8"
+        };
+        fieldExtractor.setNames(fields);
         DelimitedLineAggregator<TeamBoxScore> lineAggregator = new DelimitedLineAggregator<>();
         lineAggregator.setFieldExtractor(fieldExtractor);
         writer.setLineAggregator(lineAggregator);
