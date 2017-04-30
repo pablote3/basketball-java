@@ -115,7 +115,7 @@ public class BatchConfig {
         writer.setResource(new FileSystemResource(new File("/home/pablote/pdrive/pwork/basketball/aggregator/extracts/paulOut.txt")));
         writer.setShouldDeleteIfExists(true);
         BeanWrapperFieldExtractor<TeamBoxScore> fieldExtractor = new BeanWrapperFieldExtractor<>();
-        String[] fields = new String[]{"gameDateTime", "seasonType",
+        String[] fields = new String[]{"gameDateTime", "seasonType", "possessions", "pace",
             "teamAbbr", "teamConference", "teamDivision", "teamLocation", "teamResult", "teamMinutes", "teamDaysOff",
             "teamPoints", "teamAssists", "teamTurnovers", "teamSteals", "teamBlocks", "teamPersonalFouls", "teamFieldGoalAttempts", "teamFieldGoalMade", 
             "teamThreePointAttempts", "teamThreePointMade", "teamFreeThrowAttempts", "teamFreeThrowMade", "teamReboundsOffense", "teamReboundsDefense",
