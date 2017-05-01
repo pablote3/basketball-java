@@ -12,6 +12,8 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
@@ -99,7 +101,7 @@ public class BatchConfig {
         System.out.println("sql = " +sql);
 
         reader.setSql(sql);
-        reader.setDataSource(databaseConfig.dataSource());
+        reader.setDataSource(databaseConfig.dataSourceAccumulate());
         reader.setRowMapper(new TeamBoxScoreMapper());
         return reader;
     }
@@ -110,10 +112,10 @@ public class BatchConfig {
     }
 
     @Bean
-    public FlatFileItemWriter<TeamBoxScore> teamBoxScoreFileWriter() {
-        FlatFileItemWriter<TeamBoxScore> writer = new FlatFileItemWriter<>();
-        writer.setResource(new FileSystemResource(new File("/home/pablote/pdrive/pwork/basketball/aggregator/extracts/paulOut.txt")));
-        writer.setShouldDeleteIfExists(true);
+    public ItemWriter<TeamBoxScore> teamBoxScoreFileWriter() {
+        FlatFileItemWriter<TeamBoxScore> flatFileItemWriter = new FlatFileItemWriter<>();
+        flatFileItemWriter.setResource(new FileSystemResource(new File("/home/pablote/pdrive/pwork/basketball/aggregator/extracts/teamBoxScore_Extract.txt")));
+        flatFileItemWriter.setShouldDeleteIfExists(true);
         BeanWrapperFieldExtractor<TeamBoxScore> fieldExtractor = new BeanWrapperFieldExtractor<>();
         String[] fields = new String[]{"gameDateTime", "seasonType", "possessions", "pace",
             "teamAbbr", "teamConference", "teamDivision", "teamLocation", "teamResult", "teamMinutes", "teamDaysOff",
@@ -128,7 +130,30 @@ public class BatchConfig {
         fieldExtractor.setNames(fields);
         DelimitedLineAggregator<TeamBoxScore> lineAggregator = new DelimitedLineAggregator<>();
         lineAggregator.setFieldExtractor(fieldExtractor);
-        writer.setLineAggregator(lineAggregator);
-        return writer;
+        flatFileItemWriter.setLineAggregator(lineAggregator);
+        return flatFileItemWriter;
     }
+
+//    @Bean
+//    public ItemWriter<TeamBoxScore> teamBoxScoreJdbcWriter() {
+//        JdbcBatchItemWriter<TeamBoxScore> jdbcBatchItemWriter = new JdbcBatchItemWriter<>();
+//        jdbcBatchItemWriter.setDataSource(databaseConfig.dataSourceAggregate());
+////        jdbcBatchItemWriter.setShouldDeleteIfExists(true);
+//        BeanWrapperFieldExtractor<TeamBoxScore> fieldExtractor = new BeanWrapperFieldExtractor<>();
+//        String[] fields = new String[]{"gameDateTime", "seasonType", "possessions", "pace",
+//                "teamAbbr", "teamConference", "teamDivision", "teamLocation", "teamResult", "teamMinutes", "teamDaysOff",
+//                "teamPoints", "teamAssists", "teamTurnovers", "teamSteals", "teamBlocks", "teamPersonalFouls", "teamFieldGoalAttempts", "teamFieldGoalMade",
+//                "teamThreePointAttempts", "teamThreePointMade", "teamFreeThrowAttempts", "teamFreeThrowMade", "teamReboundsOffense", "teamReboundsDefense",
+//                "teamPointsQ1", "teamPointsQ2", "teamPointsQ3", "teamPointsQ4", "teamPointsQ5", "teamPointsQ6", "teamPointsQ7", "teamPointsQ8",
+//                "opptAbbr", "opptConference", "opptDivision", "opptLocation", "opptResult", "opptMinutes", "opptDaysOff",
+//                "opptPoints", "opptAssists", "opptTurnovers", "opptSteals", "opptBlocks", "opptPersonalFouls", "opptFieldGoalAttempts", "opptFieldGoalMade",
+//                "opptThreePointAttempts", "opptThreePointMade", "opptFreeThrowAttempts", "opptFreeThrowMade", "opptReboundsOffense", "opptReboundsDefense",
+//                "opptPointsQ1", "opptPointsQ2", "opptPointsQ3", "opptPointsQ4", "opptPointsQ5", "opptPointsQ6", "opptPointsQ7", "opptPointsQ8"
+//        };
+//        fieldExtractor.setNames(fields);
+//        DelimitedLineAggregator<TeamBoxScore> lineAggregator = new DelimitedLineAggregator<>();
+//        lineAggregator.setFieldExtractor(fieldExtractor);
+////        jdbcBatchItemWriter.setLineAggregator(lineAggregator);
+//        return jdbcBatchItemWriter;
+//    }
 }
