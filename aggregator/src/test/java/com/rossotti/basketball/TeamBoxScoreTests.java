@@ -5,18 +5,15 @@ import com.rossotti.basketball.processor.TeamBoxScoreProcessor;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class TeamBoxScoreTests {
 
 	@Test
-	public void findTeamByTeamKey_notFound() {
+	public void processorCalculations() {
 		TeamBoxScoreProcessor teamBoxScoreProcessor = new TeamBoxScoreProcessor();
 		TeamBoxScore teamBoxScore = teamBoxScoreProcessor.process(createMockTeamBoxScore());
 		Assert.assertEquals(0, Float.compare(teamBoxScore.getPossessions(), 92.6225f));

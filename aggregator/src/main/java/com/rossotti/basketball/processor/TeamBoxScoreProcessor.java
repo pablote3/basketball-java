@@ -1,14 +1,10 @@
 package com.rossotti.basketball.processor;
 
 import com.rossotti.basketball.model.TeamBoxScore;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
-
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 
 public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBoxScore> {
 
@@ -24,33 +20,18 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
     }
 
     private BigDecimal calculatePossessions() {
-        BigDecimal bdTeam1, bdTeam2, bdTeam3;
-        bdTeam1 = new BigDecimal(teamBoxScore.getTeamFieldGoalAttempts());
-        bdTeam2 = new BigDecimal(teamBoxScore.getTeamReboundsOffense())
-            .divide(new BigDecimal(teamBoxScore.getTeamReboundsOffense() + teamBoxScore.getOpptReboundsDefense()), 4, RoundingMode.HALF_UP)
-            .multiply(new BigDecimal(teamBoxScore.getTeamFieldGoalAttempts() - teamBoxScore.getTeamFieldGoalMade()))
-            .multiply(new BigDecimal(1.07));
-        bdTeam3 = bdTeam1.subtract(bdTeam2)
-            .add(new BigDecimal(teamBoxScore.getTeamTurnovers()))
-            .add(new BigDecimal(.4 * teamBoxScore.getTeamFreeThrowAttempts()));
-
-        BigDecimal bdOppt1, bdOppt2, bdOppt3;
-        bdOppt1 = new BigDecimal(teamBoxScore.getOpptFieldGoalAttempts());
-        bdOppt2 = new BigDecimal(teamBoxScore.getOpptReboundsOffense())
-            .divide(new BigDecimal(teamBoxScore.getOpptReboundsOffense() + teamBoxScore.getTeamReboundsDefense()), 4, RoundingMode.HALF_UP)
-            .multiply(new BigDecimal(teamBoxScore.getOpptFieldGoalAttempts() - teamBoxScore.getOpptFieldGoalMade()))
-            .multiply(new BigDecimal(1.07));
-        bdOppt3 = bdOppt1.subtract(bdOppt2)
-            .add(new BigDecimal(teamBoxScore.getOpptTurnovers()))
-            .add(new BigDecimal(.4 * teamBoxScore.getOpptFreeThrowAttempts()));
-
-        return (bdTeam3.add(bdOppt3)).divide(new BigDecimal(2), 4, RoundingMode.HALF_UP);
+        return StatCalculations.calculatePossessions(
+            teamBoxScore.getTeamFieldGoalAttempts(), teamBoxScore.getTeamReboundsOffense(), teamBoxScore.getOpptReboundsDefense(), teamBoxScore.getTeamFieldGoalMade(), teamBoxScore.getTeamTurnovers(), teamBoxScore.getTeamFreeThrowAttempts(),
+            teamBoxScore.getOpptFieldGoalAttempts(), teamBoxScore.getOpptReboundsOffense(), teamBoxScore.getTeamReboundsDefense(), teamBoxScore.getOpptFieldGoalMade(), teamBoxScore.getOpptTurnovers(), teamBoxScore.getOpptFreeThrowAttempts()
+        );
     }
 
     private BigDecimal calculatePace() {
-        return calculatePossessions()
-            .multiply(new BigDecimal(48 * 5))
-            .divide(new BigDecimal(teamBoxScore.getTeamMinutes()), 4, RoundingMode.HALF_UP);
+        return StatCalculations.calculatePace(
+            teamBoxScore.getTeamFieldGoalAttempts(), teamBoxScore.getTeamReboundsOffense(), teamBoxScore.getOpptReboundsDefense(), teamBoxScore.getTeamFieldGoalMade(), teamBoxScore.getTeamTurnovers(), teamBoxScore.getTeamFreeThrowAttempts(),
+            teamBoxScore.getOpptFieldGoalAttempts(), teamBoxScore.getOpptReboundsOffense(), teamBoxScore.getTeamReboundsDefense(), teamBoxScore.getOpptFieldGoalMade(), teamBoxScore.getOpptTurnovers(), teamBoxScore.getOpptFreeThrowAttempts(),
+            teamBoxScore.getTeamMinutes()
+        );
     }
 
     private Float calculateTeamOffEff() {
