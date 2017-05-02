@@ -18,7 +18,6 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
     @Override
     public TeamBoxScore process(TeamBoxScore teamBoxScoreIn) {
         teamBoxScore = teamBoxScoreIn;
-        logger.info("TeamBoxScore: " + teamBoxScore.getTeamAbbr());
         teamBoxScore.setPossessions(calculatePossessions().floatValue());
         teamBoxScore.setPace(calculatePace().floatValue());
         return teamBoxScore;
