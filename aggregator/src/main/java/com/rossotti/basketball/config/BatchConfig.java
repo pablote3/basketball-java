@@ -141,16 +141,16 @@ public class BatchConfig {
         jdbcBatchItemWriter.setDataSource(databaseConfig.dataSourceAggregate());
         jdbcBatchItemWriter.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
         String sql =
-                "INSERT INTO TeamBoxScore (seasonType, possessions, pace, " +
+                "INSERT INTO TeamBoxScore (gameDateTime, seasonType, possessions, pace, " +
                     "teamAbbr, teamConference, teamDivision, teamLocation, teamResult, teamMinutes, teamDaysOff, " +
                     "teamPoints, teamAssists, teamTurnovers, teamSteals, teamBlocks, teamPersonalFouls, teamFieldGoalAttempts, teamFieldGoalMade, " +
                     "teamThreePointAttempts, teamThreePointMade, teamFreeThrowAttempts, teamFreeThrowMade, teamReboundsOffense, teamReboundsDefense, " +
-                    "teamPointsPeriod1, teamPointsPeriod2, teamPointsPeriod3, teamPointsPeriod4, teamPointsPeriod5, teamPointsPeriod6, teamPointsPeriod7, teamPointsPeriod8, " +
+                    "teamPointsQ1, teamPointsQ2, teamPointsQ3, teamPointsQ4, teamPointsQ5, teamPointsQ6, teamPointsQ7, teamPointsQ8, " +
                     "opptAbbr, opptConference, opptDivision, opptLocation, opptResult, opptMinutes, opptDaysOff, " +
                     "opptPoints, opptAssists, opptTurnovers, opptSteals, opptBlocks, opptPersonalFouls, opptFieldGoalAttempts, opptFieldGoalMade, " +
                     "opptThreePointAttempts, opptThreePointMade, opptFreeThrowAttempts, opptFreeThrowMade, opptReboundsOffense, opptReboundsDefense, " +
-                    "opptPointsPeriod1, opptPointsPeriod2, opptPointsPeriod3, opptPointsPeriod4, opptPointsPeriod5, opptPointsPeriod6, opptPointsPeriod7, opptPointsPeriod8 " +
-                "VALUES (:seasonType, :possessions, :pace, " +
+                    "opptPointsQ1, opptPointsQ2, opptPointsQ3, opptPointsQ4, opptPointsQ5, opptPointsQ6, opptPointsQ7, opptPointsQ8) " +
+                "VALUES (:gameDateTime, :seasonType, :possessions, :pace, " +
                     ":teamAbbr, :teamConference, :teamDivision, :teamLocation, :teamResult, :teamMinutes, :teamDaysOff, " +
                     ":teamPoints, :teamAssists, :teamTurnovers, :teamSteals, :teamBlocks, :teamPersonalFouls, :teamFieldGoalAttempts, :teamFieldGoalMade, " +
                     ":teamThreePointAttempts, :teamThreePointMade, :teamFreeThrowAttempts, :teamFreeThrowMade, :teamReboundsOffense, :teamReboundsDefense, " +
@@ -158,7 +158,7 @@ public class BatchConfig {
                     ":opptAbbr, :opptConference, :opptDivision, :opptLocation, :opptResult, :opptMinutes, :opptDaysOff, " +
                     ":opptPoints, :opptAssists, :opptTurnovers, :opptSteals, :opptBlocks, :opptPersonalFouls, :opptFieldGoalAttempts, :opptFieldGoalMade, " +
                     ":opptThreePointAttempts, :opptThreePointMade, :opptFreeThrowAttempts, :opptFreeThrowMade, :opptReboundsOffense, :opptReboundsDefense, " +
-                    ":opptPointsQ1, :opptPointsQ2, :opptPointsQ3, :opptPointsQ4, :opptPointsQ5, :opptPointsQ6, :opptPointsQ7, :opptPointsQ8";
+                    ":opptPointsQ1, :opptPointsQ2, :opptPointsQ3, :opptPointsQ4, :opptPointsQ5, :opptPointsQ6, :opptPointsQ7, :opptPointsQ8)";
         jdbcBatchItemWriter.setSql(sql);
         return jdbcBatchItemWriter;
     }
