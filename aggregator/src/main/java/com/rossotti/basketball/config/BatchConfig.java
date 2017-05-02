@@ -13,6 +13,7 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
 import org.springframework.batch.item.file.FlatFileItemWriter;
@@ -61,7 +62,7 @@ public class BatchConfig {
                 .<TeamBoxScore, TeamBoxScore>chunk(1)
                 .reader(teamBoxScoreReader())
                 .processor(teamBoxScoreProcessor())
-                .writer(teamBoxScoreFileWriter())
+                .writer(teamBoxScoreJdbcWriter())
                 .build();
     }
 
@@ -134,26 +135,31 @@ public class BatchConfig {
         return flatFileItemWriter;
     }
 
-//    @Bean
-//    public ItemWriter<TeamBoxScore> teamBoxScoreJdbcWriter() {
-//        JdbcBatchItemWriter<TeamBoxScore> jdbcBatchItemWriter = new JdbcBatchItemWriter<>();
-//        jdbcBatchItemWriter.setDataSource(databaseConfig.dataSourceAggregate());
-////        jdbcBatchItemWriter.setShouldDeleteIfExists(true);
-//        BeanWrapperFieldExtractor<TeamBoxScore> fieldExtractor = new BeanWrapperFieldExtractor<>();
-//        String[] fields = new String[]{"gameDateTime", "seasonType", "possessions", "pace",
-//                "teamAbbr", "teamConference", "teamDivision", "teamLocation", "teamResult", "teamMinutes", "teamDaysOff",
-//                "teamPoints", "teamAssists", "teamTurnovers", "teamSteals", "teamBlocks", "teamPersonalFouls", "teamFieldGoalAttempts", "teamFieldGoalMade",
-//                "teamThreePointAttempts", "teamThreePointMade", "teamFreeThrowAttempts", "teamFreeThrowMade", "teamReboundsOffense", "teamReboundsDefense",
-//                "teamPointsQ1", "teamPointsQ2", "teamPointsQ3", "teamPointsQ4", "teamPointsQ5", "teamPointsQ6", "teamPointsQ7", "teamPointsQ8",
-//                "opptAbbr", "opptConference", "opptDivision", "opptLocation", "opptResult", "opptMinutes", "opptDaysOff",
-//                "opptPoints", "opptAssists", "opptTurnovers", "opptSteals", "opptBlocks", "opptPersonalFouls", "opptFieldGoalAttempts", "opptFieldGoalMade",
-//                "opptThreePointAttempts", "opptThreePointMade", "opptFreeThrowAttempts", "opptFreeThrowMade", "opptReboundsOffense", "opptReboundsDefense",
-//                "opptPointsQ1", "opptPointsQ2", "opptPointsQ3", "opptPointsQ4", "opptPointsQ5", "opptPointsQ6", "opptPointsQ7", "opptPointsQ8"
-//        };
-//        fieldExtractor.setNames(fields);
-//        DelimitedLineAggregator<TeamBoxScore> lineAggregator = new DelimitedLineAggregator<>();
-//        lineAggregator.setFieldExtractor(fieldExtractor);
-////        jdbcBatchItemWriter.setLineAggregator(lineAggregator);
-//        return jdbcBatchItemWriter;
-//    }
+    @Bean
+    public ItemWriter<TeamBoxScore> teamBoxScoreJdbcWriter() {
+        JdbcBatchItemWriter<TeamBoxScore> jdbcBatchItemWriter = new JdbcBatchItemWriter<>();
+        jdbcBatchItemWriter.setDataSource(databaseConfig.dataSourceAggregate());
+        jdbcBatchItemWriter.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
+        String sql =
+                "INSERT INTO TeamBoxScore (gameDateTime, seasonType, possessions, pace, " +
+                    "teamAbbr, teamConference, teamDivision, teamLocation, teamResult, teamMinutes, teamDaysOff, " +
+                    "teamPoints, teamAssists, teamTurnovers, teamSteals, teamBlocks, teamPersonalFouls, teamFieldGoalAttempts, teamFieldGoalMade, " +
+                    "teamThreePointAttempts, teamThreePointMade, teamFreeThrowAttempts, teamFreeThrowMade, teamReboundsOffense, teamReboundsDefense, " +
+                    "teamPointsPeriod1, teamPointsPeriod2, teamPointsPeriod3, teamPointsPeriod4, teamPointsPeriod5, teamPointsPeriod6, teamPointsPeriod7, teamPointsPeriod8, " +
+                    "opptAbbr, opptConference, opptDivision, opptLocation, opptResult, opptMinutes, opptDaysOff, " +
+                    "opptPoints, opptAssists, opptTurnovers, opptSteals, opptBlocks, opptPersonalFouls, opptFieldGoalAttempts, opptFieldGoalMade, " +
+                    "opptThreePointAttempts, opptThreePointMade, opptFreeThrowAttempts, opptFreeThrowMade, opptReboundsOffense, opptReboundsDefense, " +
+                    "opptPointsPeriod1, opptPointsPeriod2, opptPointsPeriod3, opptPointsPeriod4, opptPointsPeriod5, opptPointsPeriod6, opptPointsPeriod7, opptPointsPeriod8 " +
+                "VALUES (:gameDateTime, :seasonType, :possessions, :pace, " +
+                    ":teamAbbr, :teamConference, :teamDivision, :teamLocation, :teamResult, :teamMinutes, :teamDaysOff, " +
+                    ":teamPoints, :teamAssists, :teamTurnovers, :teamSteals, :teamBlocks, :teamPersonalFouls, :teamFieldGoalAttempts, :teamFieldGoalMade, " +
+                    ":teamThreePointAttempts, :teamThreePointMade, :teamFreeThrowAttempts, :teamFreeThrowMade, :teamReboundsOffense, :teamReboundsDefense, " +
+                    ":teamPointsQ1, :teamPointsQ2, :teamPointsQ3, :teamPointsQ4, :teamPointsQ5, :teamPointsQ6, :teamPointsQ7, :teamPointsQ8, " +
+                    ":opptAbbr, :opptConference, :opptDivision, :opptLocation, :opptResult, :opptMinutes, :opptDaysOff, " +
+                    ":opptPoints, :opptAssists, :opptTurnovers, :opptSteals, :opptBlocks, :opptPersonalFouls, :opptFieldGoalAttempts, :opptFieldGoalMade, " +
+                    ":opptThreePointAttempts, :opptThreePointMade, :opptFreeThrowAttempts, :opptFreeThrowMade, :opptReboundsOffense, :opptReboundsDefense, " +
+                    ":opptPointsQ1, :opptPointsQ2, :opptPointsQ3, :opptPointsQ4, :opptPointsQ5, :opptPointsQ6, :opptPointsQ7, :opptPointsQ8";
+        jdbcBatchItemWriter.setSql(sql);
+        return jdbcBatchItemWriter;
+    }
 }
