@@ -141,7 +141,7 @@ public class BatchConfig {
         jdbcBatchItemWriter.setDataSource(databaseConfig.dataSourceAggregate());
         jdbcBatchItemWriter.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
         String sql =
-                "INSERT INTO TeamBoxScore (gameDateTime, seasonType, possessions, pace, " +
+                "INSERT INTO TeamBoxScore (seasonType, possessions, pace, " +
                     "teamAbbr, teamConference, teamDivision, teamLocation, teamResult, teamMinutes, teamDaysOff, " +
                     "teamPoints, teamAssists, teamTurnovers, teamSteals, teamBlocks, teamPersonalFouls, teamFieldGoalAttempts, teamFieldGoalMade, " +
                     "teamThreePointAttempts, teamThreePointMade, teamFreeThrowAttempts, teamFreeThrowMade, teamReboundsOffense, teamReboundsDefense, " +
@@ -150,7 +150,7 @@ public class BatchConfig {
                     "opptPoints, opptAssists, opptTurnovers, opptSteals, opptBlocks, opptPersonalFouls, opptFieldGoalAttempts, opptFieldGoalMade, " +
                     "opptThreePointAttempts, opptThreePointMade, opptFreeThrowAttempts, opptFreeThrowMade, opptReboundsOffense, opptReboundsDefense, " +
                     "opptPointsPeriod1, opptPointsPeriod2, opptPointsPeriod3, opptPointsPeriod4, opptPointsPeriod5, opptPointsPeriod6, opptPointsPeriod7, opptPointsPeriod8 " +
-                "VALUES (:gameDateTime, :seasonType, :possessions, :pace, " +
+                "VALUES (:seasonType, :possessions, :pace, " +
                     ":teamAbbr, :teamConference, :teamDivision, :teamLocation, :teamResult, :teamMinutes, :teamDaysOff, " +
                     ":teamPoints, :teamAssists, :teamTurnovers, :teamSteals, :teamBlocks, :teamPersonalFouls, :teamFieldGoalAttempts, :teamFieldGoalMade, " +
                     ":teamThreePointAttempts, :teamThreePointMade, :teamFreeThrowAttempts, :teamFreeThrowMade, :teamReboundsOffense, :teamReboundsDefense, " +
