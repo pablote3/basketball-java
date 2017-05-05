@@ -11,13 +11,13 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
 
     private final Logger logger = LoggerFactory.getLogger(TeamBoxScoreProcessor.class);
     private TeamBoxScore teamBoxScore;
-    private Standing standings;
 
     @Override
     public TeamBoxScore process(TeamBoxScore teamBoxScoreIn) {
         teamBoxScore = teamBoxScoreIn;
         teamBoxScore.setPossessions(calculatePossessions().floatValue());
         teamBoxScore.setPace(calculatePace().floatValue());
+        teamBoxScore.setTeamTrueShootingPct(calculateTeamTrueShootingPct().floatValue());
         return teamBoxScore;
     }
 
@@ -36,13 +36,10 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
         );
     }
 
-    private BigDecimal calculateTeamTrueShootingPercentage() {
-//        return BoxScoreCalculations.calculateTrueShootingPercentage(
-//            teamBoxScore.getTeamFieldGoalAttempts(), teamBoxScore.getTeamReboundsOffense(), teamBoxScore.getOpptReboundsDefense(), teamBoxScore.getTeamFieldGoalMade(), teamBoxScore.getTeamTurnovers(), teamBoxScore.getTeamFreeThrowAttempts(),
-//            teamBoxScore.getOpptFieldGoalAttempts(), teamBoxScore.getOpptReboundsOffense(), teamBoxScore.getTeamReboundsDefense(), teamBoxScore.getOpptFieldGoalMade(), teamBoxScore.getOpptTurnovers(), teamBoxScore.getOpptFreeThrowAttempts(),
-//            teamBoxScore.getTeamMinutes()
-//        );
-        return new BigDecimal(0);
+    private BigDecimal calculateTeamTrueShootingPct() {
+        return BoxScoreCalculations.calculateTrueShootingPct(
+            teamBoxScore.getTeamPoints(), teamBoxScore.getTeamFieldGoalAttempts(), teamBoxScore.getTeamFreeThrowAttempts()
+        );
     }
 
     private Float calculateTeamOffEff() {

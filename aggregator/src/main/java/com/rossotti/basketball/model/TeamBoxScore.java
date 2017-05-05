@@ -3,8 +3,6 @@ package com.rossotti.basketball.model;
 public class TeamBoxScore {
     private String gameDateTime;
     private String seasonType;
-    private Float possessions;
-    private Float pace;
     private String teamAbbr;
     private String teamConference;
     private String teamDivision;
@@ -63,7 +61,9 @@ public class TeamBoxScore {
     private Short opptPointsQ6;
     private Short opptPointsQ7;
     private Short opptPointsQ8;
-    private Float teamTrueShootingPercentage;
+    private Float possessions;
+    private Float pace;
+    private Float teamTrueShootingPct;
 
     public String getGameDateTime() {
         return gameDateTime;
@@ -77,20 +77,6 @@ public class TeamBoxScore {
     }
     public void setSeasonType(String seasonType) {
         this.seasonType = seasonType;
-    }
-
-    public Float getPossessions() {
-        return possessions;
-    }
-    public void setPossessions(Float possessions) {
-        this.possessions = possessions;
-    }
-
-    public Float getPace() {
-        return pace;
-    }
-    public void setPace(Float pace) {
-        this.pace = pace;
     }
 
     public String getTeamAbbr() {
@@ -296,13 +282,6 @@ public class TeamBoxScore {
         this.teamPointsQ8 = teamPointsQ8;
     }
 
-    public Float getTeamTrueShootingPercentage() {
-        return teamTrueShootingPercentage;
-    }
-    public void setTeamTrueShootingPercentage(Float teamTrueShootingPercentage) {
-        this.teamTrueShootingPercentage = teamTrueShootingPercentage;
-    }
-
     public String getOpptAbbr() {
         return opptAbbr;
     }
@@ -504,5 +483,26 @@ public class TeamBoxScore {
     }
     public void setOpptPointsQ8(Short opptPointsQ8) {
         this.opptPointsQ8 = opptPointsQ8;
+    }
+
+    public Float getPossessions() {
+        return possessions;
+    }
+    public void setPossessions(Float possessions) {
+        this.possessions = possessions;
+    }
+
+    public Float getPace() {
+        return pace;
+    }
+    public void setPace(Float pace) {
+        this.pace = pace;
+    }
+
+    public Float getTeamTrueShootingPct() {
+        return teamTrueShootingPct;
+    }
+    public void setTeamTrueShootingPct(Float teamTrueShootingPct) {
+        this.teamTrueShootingPct = teamTrueShootingPct;
     }
 }
