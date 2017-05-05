@@ -59,7 +59,7 @@ public class BatchConfig {
     @Bean
     public Step stepTeam() {
         return stepBuilderFactory.get("stepTeam")
-                .<TeamBoxScore, TeamBoxScore>chunk(1)
+                .<TeamBoxScore, TeamBoxScore>chunk(20)
                 .reader(teamBoxScoreReader())
                 .processor(teamBoxScoreProcessor())
                 .writer(teamBoxScoreJdbcWriter())
@@ -70,9 +70,10 @@ public class BatchConfig {
     public JdbcCursorItemReader<TeamBoxScore> teamBoxScoreReader() {
         JdbcCursorItemReader<TeamBoxScore> reader = new JdbcCursorItemReader<>();
         //LocalDate gameDate = LocalDate.now().minusDays(1);
-        LocalDate gameDate = LocalDate.of(2017, 3, 30);
-        String minDateTime = DateTimeConverter.getStringDateTime(DateTimeConverter.getLocalDateTimeMin(gameDate));
-        String maxDateTime = DateTimeConverter.getStringDateTime(DateTimeConverter.getLocalDateTimeMax(gameDate));
+        LocalDate fromDate = LocalDate.of(2016, 10, 25);
+        LocalDate toDate = LocalDate.of(2017, 4, 12);
+        String minDateTime = DateTimeConverter.getStringDateTime(DateTimeConverter.getLocalDateTimeMin(fromDate));
+        String maxDateTime = DateTimeConverter.getStringDateTime(DateTimeConverter.getLocalDateTimeMax(toDate));
         String sql =
             "SELECT game.gameDateTime, game.seasonType, " +
                 "team.abbr as teamAbbr, team.conference as teamConf, team.division as teamDiv, " +
