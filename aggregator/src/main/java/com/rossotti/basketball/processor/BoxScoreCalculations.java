@@ -3,7 +3,7 @@ package com.rossotti.basketball.processor;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-class StatCalculations {
+class BoxScoreCalculations {
 
     static BigDecimal calculatePossessions(Short teamFieldGoalAttempts, Short teamReboundsOffense, Short opptReboundsDefense, Short teamFieldGoalMade, Short teamTurnovers, Short teamFreeThrowAttempts,
                                            Short opptFieldGoalAttempts, Short opptReboundsOffense, Short teamReboundsDefense, Short opptFieldGoalMade, Short opptTurnovers, Short opptFreeThrowAttempts) {
@@ -37,5 +37,15 @@ class StatCalculations {
                 opptFieldGoalAttempts, opptReboundsOffense, teamReboundsDefense, opptFieldGoalMade, opptTurnovers, opptFreeThrowAttempts)
                 .multiply(new BigDecimal(48 * 5))
                 .divide(new BigDecimal(teamMinutes), 4, RoundingMode.HALF_UP);
+    }
+
+    static BigDecimal calculateTrueShootingPercentage(Short opptGamesWon, Short opptGamesPlayed, Short opptOpptGamesWon, Short opptOpptGamesPlayed) {
+        BigDecimal opptWinPct, opptOpptWinPct;
+
+        opptWinPct = new BigDecimal(opptGamesWon)
+                .divide(new BigDecimal(opptGamesPlayed), 4, RoundingMode.HALF_UP);
+        opptOpptWinPct = new BigDecimal(opptOpptGamesWon)
+                .divide(new BigDecimal(opptOpptGamesPlayed), 4, RoundingMode.HALF_UP);
+        return (opptWinPct.multiply(new BigDecimal(2)).add(opptOpptWinPct)).divide(new BigDecimal(2), 4, RoundingMode.HALF_UP);
     }
 }

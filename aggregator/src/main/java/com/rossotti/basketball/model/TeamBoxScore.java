@@ -63,6 +63,7 @@ public class TeamBoxScore {
     private Short opptPointsQ6;
     private Short opptPointsQ7;
     private Short opptPointsQ8;
+    private Float teamTrueShootingPercentage;
 
     public String getGameDateTime() {
         return gameDateTime;
@@ -293,6 +294,13 @@ public class TeamBoxScore {
     }
     public void setTeamPointsQ8(Short teamPointsQ8) {
         this.teamPointsQ8 = teamPointsQ8;
+    }
+
+    public Float getTeamTrueShootingPercentage() {
+        return teamTrueShootingPercentage;
+    }
+    public void setTeamTrueShootingPercentage(Float teamTrueShootingPercentage) {
+        this.teamTrueShootingPercentage = teamTrueShootingPercentage;
     }
 
     public String getOpptAbbr() {

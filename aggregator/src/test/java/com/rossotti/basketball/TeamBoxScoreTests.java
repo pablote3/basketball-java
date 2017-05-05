@@ -18,6 +18,8 @@ public class TeamBoxScoreTests {
 		TeamBoxScore teamBoxScore = teamBoxScoreProcessor.process(createMockTeamBoxScore());
 		Assert.assertEquals(0, Float.compare(teamBoxScore.getPossessions(), 92.6225f));
 		Assert.assertEquals(0, Float.compare(teamBoxScore.getPace(), 92.6225f));
+		Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamStrengthOfSchedule(), 92.6225f));
+
 	}
 
 	private TeamBoxScore createMockTeamBoxScore() {

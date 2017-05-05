@@ -1,5 +1,6 @@
 package com.rossotti.basketball.processor;
 
+import com.rossotti.basketball.model.Standing;
 import com.rossotti.basketball.model.TeamBoxScore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,28 +11,39 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
 
     private final Logger logger = LoggerFactory.getLogger(TeamBoxScoreProcessor.class);
     private TeamBoxScore teamBoxScore;
+    private Standing standings;
 
     @Override
-    public TeamBoxScore process(TeamBoxScore teamBoxScoreIn) {
-        teamBoxScore = teamBoxScoreIn;
+    public TeamBoxScore process(TeamBoxScore teamBoxScore) {
+        teamBoxScore = this.teamBoxScore;
         teamBoxScore.setPossessions(calculatePossessions().floatValue());
         teamBoxScore.setPace(calculatePace().floatValue());
+        teamBoxScore.setTeamStrengthOfSchedule(calculateTeamTrueShootingPercentage().floatValue());
         return teamBoxScore;
     }
 
     private BigDecimal calculatePossessions() {
-        return StatCalculations.calculatePossessions(
+        return BoxScoreCalculations.calculatePossessions(
             teamBoxScore.getTeamFieldGoalAttempts(), teamBoxScore.getTeamReboundsOffense(), teamBoxScore.getOpptReboundsDefense(), teamBoxScore.getTeamFieldGoalMade(), teamBoxScore.getTeamTurnovers(), teamBoxScore.getTeamFreeThrowAttempts(),
             teamBoxScore.getOpptFieldGoalAttempts(), teamBoxScore.getOpptReboundsOffense(), teamBoxScore.getTeamReboundsDefense(), teamBoxScore.getOpptFieldGoalMade(), teamBoxScore.getOpptTurnovers(), teamBoxScore.getOpptFreeThrowAttempts()
         );
     }
 
     private BigDecimal calculatePace() {
-        return StatCalculations.calculatePace(
+        return BoxScoreCalculations.calculatePace(
             teamBoxScore.getTeamFieldGoalAttempts(), teamBoxScore.getTeamReboundsOffense(), teamBoxScore.getOpptReboundsDefense(), teamBoxScore.getTeamFieldGoalMade(), teamBoxScore.getTeamTurnovers(), teamBoxScore.getTeamFreeThrowAttempts(),
             teamBoxScore.getOpptFieldGoalAttempts(), teamBoxScore.getOpptReboundsOffense(), teamBoxScore.getTeamReboundsDefense(), teamBoxScore.getOpptFieldGoalMade(), teamBoxScore.getOpptTurnovers(), teamBoxScore.getOpptFreeThrowAttempts(),
             teamBoxScore.getTeamMinutes()
         );
+    }
+
+    private BigDecimal calculateTeamTrueShootingPercentage() {
+//        return BoxScoreCalculations.calculateTrueShootingPercentage(
+//            teamBoxScore.getTeamFieldGoalAttempts(), teamBoxScore.getTeamReboundsOffense(), teamBoxScore.getOpptReboundsDefense(), teamBoxScore.getTeamFieldGoalMade(), teamBoxScore.getTeamTurnovers(), teamBoxScore.getTeamFreeThrowAttempts(),
+//            teamBoxScore.getOpptFieldGoalAttempts(), teamBoxScore.getOpptReboundsOffense(), teamBoxScore.getTeamReboundsDefense(), teamBoxScore.getOpptFieldGoalMade(), teamBoxScore.getOpptTurnovers(), teamBoxScore.getOpptFreeThrowAttempts(),
+//            teamBoxScore.getTeamMinutes()
+//        );
+        return new BigDecimal(0);
     }
 
     private Float calculateTeamOffEff() {
@@ -41,11 +53,6 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
 
     private Float calculateTeamDEFR() {
 //      (bsTeam.blocks + bsTeam.steals) * 100 / (bsOppt.fieldGoalAttempts - bsOppt.reboundsOffense + bsOppt.turnovers + (.44 * bsOppt.freeThrowAttempts))
-        return 0F;
-    }
-
-    private Float calculateTeamTrueShootingAPercentage() {
-        //bsTeam.points / (2 * (bsTeam.fieldGoalAttempts + (0.44 * bsTeam.freeThrowAttempts)))
         return 0F;
     }
 
