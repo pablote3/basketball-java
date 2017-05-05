@@ -14,11 +14,10 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
     private Standing standings;
 
     @Override
-    public TeamBoxScore process(TeamBoxScore teamBoxScore) {
-        teamBoxScore = this.teamBoxScore;
+    public TeamBoxScore process(TeamBoxScore teamBoxScoreIn) {
+        teamBoxScore = teamBoxScoreIn;
         teamBoxScore.setPossessions(calculatePossessions().floatValue());
         teamBoxScore.setPace(calculatePace().floatValue());
-        teamBoxScore.setTeamStrengthOfSchedule(calculateTeamTrueShootingPercentage().floatValue());
         return teamBoxScore;
     }
 
