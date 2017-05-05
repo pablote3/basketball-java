@@ -2,13 +2,12 @@ package com.rossotti.basketball.model;
 
 public class Standing {
     private String standingDate;
-    private String seasonType;
     private String teamAbbr;
     private String rank;
     private String ordinalRank;
     private Short gamesWon;
     private Short gamesLost;
-    private Short streak;
+    private String streak;
     private String streakType;
     private Short streakTotal;
     private Float gamesBack;
@@ -26,10 +25,10 @@ public class Standing {
     private Float pointsScoredPerGame;
     private Float pointsAllowedPerGame;
     private Float pointDifferentialPerGame;
-    private Short opptGamesPlayed;
-    private Short opptGamesWon;
-    private Short opptOpptGamesPlayed;
-    private Short opptOpptGamesWon;
+    private Integer opptGamesPlayed;
+    private Integer opptGamesWon;
+    private Integer opptOpptGamesPlayed;
+    private Integer opptOpptGamesWon;
     private Float strengthOfSchedule;
 
     public String getStandingDate() {
@@ -37,13 +36,6 @@ public class Standing {
     }
     public void setStandingDate(String standingDate) {
         this.standingDate = standingDate;
-    }
-
-    public String getSeasonType() {
-        return seasonType;
-    }
-    public void setSeasonType(String seasonType) {
-        this.seasonType = seasonType;
     }
 
     public String getTeamAbbr() {
@@ -81,10 +73,10 @@ public class Standing {
         this.gamesLost = gamesLost;
     }
 
-    public Short getStreak() {
+    public String getStreak() {
         return streak;
     }
-    public void setStreak(Short streak) {
+    public void setStreak(String streak) {
         this.streak = streak;
     }
 
@@ -207,31 +199,31 @@ public class Standing {
         this.pointDifferentialPerGame = pointDifferentialPerGame;
     }
 
-    public Short getOpptGamesPlayed() {
+    public Integer getOpptGamesPlayed() {
         return opptGamesPlayed;
     }
-    public void setOpptGamesPlayed(Short opptGamesPlayed) {
+    public void setOpptGamesPlayed(Integer opptGamesPlayed) {
         this.opptGamesPlayed = opptGamesPlayed;
     }
 
-    public Short getOpptGamesWon() {
+    public Integer getOpptGamesWon() {
         return opptGamesWon;
     }
-    public void setOpptGamesWon(Short opptGamesWon) {
+    public void setOpptGamesWon(Integer opptGamesWon) {
         this.opptGamesWon = opptGamesWon;
     }
 
-    public Short getOpptOpptGamesPlayed() {
+    public Integer getOpptOpptGamesPlayed() {
         return opptOpptGamesPlayed;
     }
-    public void setOpptOpptGamesPlayed(Short opptOpptGamesPlayed) {
+    public void setOpptOpptGamesPlayed(Integer opptOpptGamesPlayed) {
         this.opptOpptGamesPlayed = opptOpptGamesPlayed;
     }
 
-    public Short getOpptOpptGamesWon() {
+    public Integer getOpptOpptGamesWon() {
         return opptOpptGamesWon;
     }
-    public void setOpptOpptGamesWon(Short opptOpptGamesWon) {
+    public void setOpptOpptGamesWon(Integer opptOpptGamesWon) {
         this.opptOpptGamesWon = opptOpptGamesWon;
     }
 

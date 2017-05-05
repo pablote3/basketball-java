@@ -10,8 +10,8 @@ public class StandingProcessor implements ItemProcessor<Standing, Standing> {
     private Standing standing;
 
     @Override
-    public Standing process(Standing standing) {
-        standing = this.standing;
+    public Standing process(Standing standingIn) {
+        standing = standingIn;
         standing.setStrengthOfSchedule(calculateStrengthOfSchedule().floatValue());
         return standing;
     }

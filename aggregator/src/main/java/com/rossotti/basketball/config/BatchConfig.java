@@ -1,5 +1,6 @@
 package com.rossotti.basketball.config;
 
+import com.rossotti.basketball.mapper.StandingMapper;
 import com.rossotti.basketball.mapper.TeamBoxScoreMapper;
 import com.rossotti.basketball.model.Standing;
 import com.rossotti.basketball.model.TeamBoxScore;
@@ -55,31 +56,31 @@ public class BatchConfig {
     @Bean
     public Job aggregateGameJob() {
         return jobBuilderFactory.get("aggregateGameJob")
-                .incrementer(new RunIdIncrementer())
-                .flow(stepTeamBoxScore())
-                .next(stepStanding())
-                .end()
-                .build();
+            .incrementer(new RunIdIncrementer())
+            .flow(stepTeamBoxScore())
+            .next(stepStanding())
+            .end()
+            .build();
     }
 
     @Bean
     public Step stepTeamBoxScore() {
         return stepBuilderFactory.get("stepTeamBoxScore")
-                .<TeamBoxScore, TeamBoxScore>chunk(20)
-                .reader(teamBoxScoreReader())
-                .processor(teamBoxScoreProcessor())
-                .writer(teamBoxScoreJdbcWriter())
-                .build();
+            .<TeamBoxScore, TeamBoxScore>chunk(20)
+            .reader(teamBoxScoreReader())
+            .processor(teamBoxScoreProcessor())
+            .writer(teamBoxScoreFileWriter())
+            .build();
     }
 
     @Bean
     public Step stepStanding() {
         return stepBuilderFactory.get("stepStanding")
-                .<Standing, Standing>chunk(20)
-                .reader(standingReader())
-                .processor(standingProcessor())
-                .writer(standingJdbcWriter())
-                .build();
+            .<Standing, Standing>chunk(20)
+            .reader(standingReader())
+            .processor(standingProcessor())
+            .writer(standingFileWriter())
+            .build();
     }
 
     @Bean
@@ -89,20 +90,21 @@ public class BatchConfig {
         String maxDate = DateTimeConverter.getStringDate(DateTimeConverter.getLocalDateTimeMax(toDate));
         String sql =
             "SELECT " +
-                "standingDate, teamAbbr, " +
-                "rank, ordinalRank, gamesWon, gamesLost, streak, streakType, streakTotal, gamesBack, pointsFor, pointsAgainst,  " +
-                "homeWins, homeLosses, awayWins, awayLosses, conferenceWins, conferenceLosses, lastFive, lastTen, gamesPlayed, " +
-                "pointsScoredPerGame, pointsAllowedPerGame, pointDifferentialPerGame, opptGamesPlayed, opptGamesWon, opptOpptGamesPlayed, " +
-                "opptOpptGamesWon, strengthOfSchedule " +
-            "FROM standing " +
-            "WHERE standing.gameDate BETWEEN '" + minDate + "' AND '" + maxDate + "' " +
-            "ORDER BY standingDate, teamAbbr asc";
+                "standing.standingDate, team.abbr, " +
+                "standing.rank, standing.ordinalRank, standing.gamesWon, standing.gamesLost, standing.streak, standing.streakType, standing.streakTotal, standing.gamesBack, standing.pointsFor, " +
+                "standing.pointsAgainst, standing.homeWins, standing.homeLosses, standing.awayWins, standing.awayLosses, standing.conferenceWins, standing.conferenceLosses, standing.lastFive,  " +
+                "standing.lastTen, standing.gamesPlayed,standing.pointsScoredPerGame, standing.pointsAllowedPerGame, standing.pointDifferentialPerGame, standing.opptGamesPlayed, standing.opptGamesWon, " +
+                "standing.opptOpptGamesPlayed, standing.opptOpptGamesWon " +
+            "FROM standing AS standing " +
+            "INNER JOIN team AS team ON team.id = standing.teamId " +
+            "WHERE standing.standingDate BETWEEN '" + minDate + "' AND '" + maxDate + "' " +
+            "ORDER BY standing.standingDate, team.abbr asc";
 
         System.out.println("sql = " +sql);
 
         reader.setSql(sql);
         reader.setDataSource(databaseConfig.dataSourceAccumulate());
-        reader.setRowMapper(new TeamBoxScoreMapper());
+        reader.setRowMapper(new StandingMapper());
         return reader;
     }
 
@@ -118,7 +120,7 @@ public class BatchConfig {
         flatFileItemWriter.setShouldDeleteIfExists(true);
         BeanWrapperFieldExtractor<Standing> fieldExtractor = new BeanWrapperFieldExtractor<>();
         String[] fields = new String[]{
-            "standingDate", "seasonType", "teamAbbr", "rank", "ordinalRank", "gamesWon", "gamesLost", "streak", "streakType", "streakTotal", "gamesBack", "pointsFor",
+            "standingDate", "teamAbbr", "rank", "ordinalRank", "gamesWon", "gamesLost", "streak", "streakType", "streakTotal", "gamesBack", "pointsFor",
             "pointsAgainst", "homeWins", "homeLosses", "awayWins", "awayLosses", "conferenceWins", "conferenceLosses", "lastFive", "lastTen", "gamesPlayed",
             "pointsScoredPerGame", "pointsAllowedPerGame", "pointDifferentialPerGame", "opptGamesPlayed", "opptGamesWon", "opptOpptGamesPlayed",
             "opptOpptGamesWon", "strengthOfSchedule"
@@ -139,21 +141,16 @@ public class BatchConfig {
 
         String sql =
             "INSERT INTO TeamBoxScore (" +
-                "standingDate, seasonType, teamAbbr, rank, ordinalRank, gamesWon, gamesLost, streak, streakType, streakTotal, gamesBack, pointsFor, " +
+                "standingDate, teamAbbr, rank, ordinalRank, gamesWon, gamesLost, streak, streakType, streakTotal, gamesBack, pointsFor, " +
                 "pointsAgainst, homeWins, homeLosses, awayWins, awayLosses, conferenceWins, conferenceLosses, lastFive, lastTen, gamesPlayed, " +
                 "pointsScoredPerGame, pointsAllowedPerGame, pointDifferentialPerGame, opptGamesPlayed, opptGamesWon, opptOpptGamesPlayed, " +
                 "opptOpptGamesWon, strengthOfSchedule" +
             ") " +
             "VALUES (" +
-                ":gameDateTime, :seasonType, :possessions, :pace, " +
-                ":teamAbbr, :teamConference, :teamDivision, :teamLocation, :teamResult, :teamMinutes, :teamDaysOff, " +
-                ":teamPoints, :teamAssists, :teamTurnovers, :teamSteals, :teamBlocks, :teamPersonalFouls, :teamFieldGoalAttempts, :teamFieldGoalMade, " +
-                ":teamThreePointAttempts, :teamThreePointMade, :teamFreeThrowAttempts, :teamFreeThrowMade, :teamReboundsOffense, :teamReboundsDefense, " +
-                ":teamPointsQ1, :teamPointsQ2, :teamPointsQ3, :teamPointsQ4, :teamPointsQ5, :teamPointsQ6, :teamPointsQ7, :teamPointsQ8, " +
-                ":opptAbbr, :opptConference, :opptDivision, :opptLocation, :opptResult, :opptMinutes, :opptDaysOff, " +
-                ":opptPoints, :opptAssists, :opptTurnovers, :opptSteals, :opptBlocks, :opptPersonalFouls, :opptFieldGoalAttempts, :opptFieldGoalMade, " +
-                ":opptThreePointAttempts, :opptThreePointMade, :opptFreeThrowAttempts, :opptFreeThrowMade, :opptReboundsOffense, :opptReboundsDefense, " +
-                ":opptPointsQ1, :opptPointsQ2, :opptPointsQ3, :opptPointsQ4, :opptPointsQ5, :opptPointsQ6, :opptPointsQ7, :opptPointsQ8" +
+                ":standingDate, :teamAbbr, :rank, :ordinalRank, :gamesWon, :gamesLost, :streak, :streakType, :streakTotal, :gamesBack, :pointsFor, " +
+                ":pointsAgainst, :homeWins, :homeLosses, :awayWins, :awayLosses, :conferenceWins, :conferenceLosses, :lastFive, :lastTen, :gamesPlayed, " +
+                ":pointsScoredPerGame, :pointsAllowedPerGame, :pointDifferentialPerGame, :opptGamesPlayed, :opptGamesWon, :opptOpptGamesPlayed, " +
+                ":opptOpptGamesWon, :strengthOfSchedule" +
             ")";
         jdbcBatchItemWriter.setSql(sql);
         return jdbcBatchItemWriter;
