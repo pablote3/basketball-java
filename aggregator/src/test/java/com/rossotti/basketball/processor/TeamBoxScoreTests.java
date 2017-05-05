@@ -1,4 +1,4 @@
-package com.rossotti.basketball;
+package com.rossotti.basketball.processor;
 
 import com.rossotti.basketball.model.TeamBoxScore;
 import com.rossotti.basketball.processor.TeamBoxScoreProcessor;
