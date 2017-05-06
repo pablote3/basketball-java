@@ -1,9 +1,7 @@
 package com.rossotti.basketball.mapper;
 
 import com.rossotti.basketball.model.Standing;
-import com.rossotti.basketball.model.TeamBoxScore;
 import org.springframework.jdbc.core.RowMapper;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
