@@ -63,7 +63,7 @@ public class StandingConfig {
     }
 
     @Bean
-    public StandingProcessor processor() {
+    public StandingProcessor process() {
         return new StandingProcessor();
     }
 

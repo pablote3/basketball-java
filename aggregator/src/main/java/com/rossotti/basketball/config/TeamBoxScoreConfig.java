@@ -77,7 +77,7 @@ public class TeamBoxScoreConfig {
     }
 
     @Bean
-    public TeamBoxScoreProcessor processor() {
+    public TeamBoxScoreProcessor process() {
         return new TeamBoxScoreProcessor();
     }
 
