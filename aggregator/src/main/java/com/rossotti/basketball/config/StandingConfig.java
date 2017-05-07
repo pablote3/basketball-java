@@ -33,6 +33,7 @@ public class StandingConfig {
         this.databaseConfig = databaseConfig;
     }
 
+    @SuppressWarnings("unchecked")
     @Bean
     public JdbcCursorItemReader<Standing> reader() {
         LocalDate fromDate = propertyService.getProperty_LocalDate("aggregator.fromDate");

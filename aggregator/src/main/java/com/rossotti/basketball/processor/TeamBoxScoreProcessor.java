@@ -1,6 +1,5 @@
 package com.rossotti.basketball.processor;
 
-import com.rossotti.basketball.model.Standing;
 import com.rossotti.basketball.model.TeamBoxScore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
