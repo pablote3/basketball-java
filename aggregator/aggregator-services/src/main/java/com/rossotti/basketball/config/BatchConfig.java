@@ -2,6 +2,8 @@ package com.rossotti.basketball.config;
 
 import com.rossotti.basketball.model.Standing;
 import com.rossotti.basketball.model.TeamBoxScore;
+import com.rossotti.basketball.processor.StandingProcessor;
+import com.rossotti.basketball.processor.TeamBoxScoreProcessor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -47,7 +49,7 @@ public class BatchConfig {
         return stepBuilderFactory.get("stepTeamBoxScore")
             .<TeamBoxScore, TeamBoxScore>chunk(20)
             .reader(teamBoxScoreConfig.reader())
-            .processor(teamBoxScoreConfig.processor())
+            .processor(teamBoxScoreProcessor())
             .writer(teamBoxScoreConfig.jdbcWriter())
             .build();
     }
@@ -57,8 +59,18 @@ public class BatchConfig {
         return stepBuilderFactory.get("stepStanding")
             .<Standing, Standing>chunk(20)
             .reader(standingConfig.reader())
-            .processor(standingConfig.processor())
+            .processor(standingProcessor())
             .writer(standingConfig.jdbcWriter())
             .build();
+    }
+
+    @Bean
+    public TeamBoxScoreProcessor teamBoxScoreProcessor() {
+        return new TeamBoxScoreProcessor();
+    }
+
+    @Bean
+    public StandingProcessor standingProcessor() {
+        return new StandingProcessor();
     }
 }

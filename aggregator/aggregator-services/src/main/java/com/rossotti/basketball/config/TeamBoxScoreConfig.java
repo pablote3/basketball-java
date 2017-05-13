@@ -77,11 +77,6 @@ public class TeamBoxScoreConfig {
     }
 
     @Bean
-    public TeamBoxScoreProcessor process() {
-        return new TeamBoxScoreProcessor();
-    }
-
-    @Bean
     public ItemWriter<TeamBoxScore> fileWriter() {
         FlatFileItemWriter<TeamBoxScore> flatFileItemWriter = new FlatFileItemWriter<>();
         flatFileItemWriter.setResource(new FileSystemResource(new File("/home/pablote/pdrive/pwork/basketball/aggregator/extracts/teamBoxScore_Extract.txt")));

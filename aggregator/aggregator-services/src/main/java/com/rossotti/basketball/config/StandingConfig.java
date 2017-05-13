@@ -2,9 +2,16 @@ package com.rossotti.basketball.config;
 
 import com.rossotti.basketball.mapper.StandingMapper;
 import com.rossotti.basketball.model.Standing;
+import com.rossotti.basketball.model.TeamBoxScore;
 import com.rossotti.basketball.processor.StandingProcessor;
 import com.rossotti.basketball.util.DateTimeConverter;
 import com.rossotti.basketball.util.PropertyService;
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.Step;
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
+import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
@@ -60,11 +67,6 @@ public class StandingConfig {
         reader.setDataSource(databaseConfig.dataSourceAccumulate());
         reader.setRowMapper(new StandingMapper());
         return reader;
-    }
-
-    @Bean
-    public StandingProcessor process() {
-        return new StandingProcessor();
     }
 
     @Bean
