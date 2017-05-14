@@ -1,9 +1,6 @@
-package com.rossotti.basketball.config;
+package com.rossotti.basketball.batch;
 
-import com.rossotti.basketball.mapper.StandingMapper;
-import com.rossotti.basketball.model.Standing;
-import com.rossotti.basketball.model.TeamBoxScore;
-import com.rossotti.basketball.processor.StandingProcessor;
+import com.rossotti.basketball.config.DatabaseConfig;
 import com.rossotti.basketball.util.DateTimeConverter;
 import com.rossotti.basketball.util.PropertyService;
 import org.springframework.batch.core.Job;
@@ -23,21 +20,51 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
-
 import java.io.File;
 import java.time.LocalDate;
 
 @Configuration
+@EnableBatchProcessing
 public class StandingConfig {
 
     private final PropertyService propertyService;
 
     private final DatabaseConfig databaseConfig;
 
+    private final JobBuilderFactory jobBuilderFactory;
+
+    private final StepBuilderFactory stepBuilderFactory;
+
     @Autowired
-    public StandingConfig(PropertyService propertyService, DatabaseConfig databaseConfig) {
+    public StandingConfig(PropertyService propertyService, DatabaseConfig databaseConfig, JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory) {
         this.propertyService = propertyService;
         this.databaseConfig = databaseConfig;
+        this.jobBuilderFactory = jobBuilderFactory;
+        this.stepBuilderFactory = stepBuilderFactory;
+    }
+
+    @Bean
+    public Job aggregateGameJob() {
+        return jobBuilderFactory.get("aggregateGameJob")
+            .incrementer(new RunIdIncrementer())
+            .flow(stepStanding())
+            .end()
+            .build();
+    }
+
+    @Bean
+    public Step stepStanding() {
+        return stepBuilderFactory.get("stepStanding")
+            .<Standing, Standing>chunk(20)
+            .reader(reader())
+            .processor(standingProcessor())
+            .writer(fileWriter())
+            .build();
+    }
+
+    @Bean
+    public StandingProcessor standingProcessor() {
+        return new StandingProcessor();
     }
 
     @SuppressWarnings("unchecked")
@@ -95,7 +122,7 @@ public class StandingConfig {
         jdbcBatchItemWriter.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
 
         String sql =
-            "INSERT INTO Standing " +
+            "INSERT INTO standing " +
             "(" +
                 "standingDate, teamAbbr, rank, ordinalRank, gamesWon, gamesLost, streak, streakType, streakTotal, gamesBack, pointsFor, " +
                 "pointsAgainst, homeWins, homeLosses, awayWins, awayLosses, conferenceWins, conferenceLosses, lastFive, lastTen, gamesPlayed, " +

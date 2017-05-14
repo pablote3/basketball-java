@@ -1,4 +1,4 @@
-package com.rossotti.basketball.processor;
+package com.rossotti.basketball.batch;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

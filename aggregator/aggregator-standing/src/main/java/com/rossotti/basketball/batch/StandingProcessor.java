@@ -1,6 +1,5 @@
-package com.rossotti.basketball.processor;
+package com.rossotti.basketball.batch;
 
-import com.rossotti.basketball.model.Standing;
 import org.springframework.batch.item.ItemProcessor;
 
 import java.math.BigDecimal;
