@@ -59,7 +59,7 @@ public class TeamBoxScoreConfig {
                 .<TeamBoxScore, TeamBoxScore>chunk(20)
                 .reader(reader())
                 .processor(teamBoxScoreProcessor())
-                .writer(fileWriter())
+                .writer(jdbcWriter())
                 .build();
     }
 
@@ -142,7 +142,7 @@ public class TeamBoxScoreConfig {
         jdbcBatchItemWriter.setDataSource(databaseConfig.dataSourceAggregate());
         jdbcBatchItemWriter.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
         String sql =
-            "INSERT INTO TeamBoxScore " +
+            "INSERT INTO teamBoxScore " +
             "(" +
                 "gameDateTime, seasonType, " +
                 "teamAbbr, teamConference, teamDivision, teamLocation, teamResult, teamMinutes, teamDaysOff, " +
