@@ -18,7 +18,7 @@ Copy testSystem folder to directory on local file system
  
 Update main/resources/service.properties
 
-    loader.fileSchedule: append "~/pdrive/pwork/basketball/accumulator" with location of testLoad directory
+    loader.fileSchedule: append "~/pdrive/pwork/basketball-java/accumulator" with location of testLoad directory
 
 Package application by running command from accumulator directory
 
