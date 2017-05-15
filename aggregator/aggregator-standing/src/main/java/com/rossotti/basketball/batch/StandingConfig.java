@@ -58,7 +58,7 @@ public class StandingConfig {
             .<Standing, Standing>chunk(20)
             .reader(reader())
             .processor(standingProcessor())
-            .writer(fileWriter())
+            .writer(jdbcWriter())
             .build();
     }
 
