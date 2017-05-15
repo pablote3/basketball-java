@@ -1,4 +1,4 @@
-package com.rossotti.basketball.model;
+package com.rossotti.basketball.batch;
 
 public class TeamBoxScore {
     private String gameDateTime;

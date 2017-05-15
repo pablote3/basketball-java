@@ -1,6 +1,5 @@
-package com.rossotti.basketball.processor;
+package com.rossotti.basketball.batch;
 
-import com.rossotti.basketball.model.TeamBoxScore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
@@ -21,14 +20,14 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
     }
 
     private BigDecimal calculatePossessions() {
-        return BoxScoreCalculations.calculatePossessions(
+        return TeamBoxScoreCalculations.calculatePossessions(
             teamBoxScore.getTeamFieldGoalAttempts(), teamBoxScore.getTeamReboundsOffense(), teamBoxScore.getOpptReboundsDefense(), teamBoxScore.getTeamFieldGoalMade(), teamBoxScore.getTeamTurnovers(), teamBoxScore.getTeamFreeThrowAttempts(),
             teamBoxScore.getOpptFieldGoalAttempts(), teamBoxScore.getOpptReboundsOffense(), teamBoxScore.getTeamReboundsDefense(), teamBoxScore.getOpptFieldGoalMade(), teamBoxScore.getOpptTurnovers(), teamBoxScore.getOpptFreeThrowAttempts()
         );
     }
 
     private BigDecimal calculatePace() {
-        return BoxScoreCalculations.calculatePace(
+        return TeamBoxScoreCalculations.calculatePace(
             teamBoxScore.getTeamFieldGoalAttempts(), teamBoxScore.getTeamReboundsOffense(), teamBoxScore.getOpptReboundsDefense(), teamBoxScore.getTeamFieldGoalMade(), teamBoxScore.getTeamTurnovers(), teamBoxScore.getTeamFreeThrowAttempts(),
             teamBoxScore.getOpptFieldGoalAttempts(), teamBoxScore.getOpptReboundsOffense(), teamBoxScore.getTeamReboundsDefense(), teamBoxScore.getOpptFieldGoalMade(), teamBoxScore.getOpptTurnovers(), teamBoxScore.getOpptFreeThrowAttempts(),
             teamBoxScore.getTeamMinutes()
@@ -36,7 +35,7 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
     }
 
     private BigDecimal calculateTeamTrueShootingPct() {
-        return BoxScoreCalculations.calculateTrueShootingPct(
+        return TeamBoxScoreCalculations.calculateTrueShootingPct(
             teamBoxScore.getTeamPoints(), teamBoxScore.getTeamFieldGoalAttempts(), teamBoxScore.getTeamFreeThrowAttempts()
         );
     }

@@ -1,10 +1,14 @@
-package com.rossotti.basketball.config;
+package com.rossotti.basketball.batch;
 
-import com.rossotti.basketball.mapper.TeamBoxScoreMapper;
-import com.rossotti.basketball.model.TeamBoxScore;
-import com.rossotti.basketball.processor.TeamBoxScoreProcessor;
+import com.rossotti.basketball.config.DatabaseConfig;
 import com.rossotti.basketball.util.DateTimeConverter;
 import com.rossotti.basketball.util.PropertyService;
+import org.springframework.batch.core.Job;
+import org.springframework.batch.core.Step;
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
+import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
@@ -21,16 +25,47 @@ import java.io.File;
 import java.time.LocalDate;
 
 @Configuration
+@EnableBatchProcessing
 public class TeamBoxScoreConfig {
 
     private final PropertyService propertyService;
 
     private final DatabaseConfig databaseConfig;
 
+    private final JobBuilderFactory jobBuilderFactory;
+
+    private final StepBuilderFactory stepBuilderFactory;
+
     @Autowired
-    public TeamBoxScoreConfig(PropertyService propertyService, DatabaseConfig databaseConfig) {
+    public TeamBoxScoreConfig(PropertyService propertyService, DatabaseConfig databaseConfig, JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory) {
         this.propertyService = propertyService;
         this.databaseConfig = databaseConfig;
+        this.jobBuilderFactory = jobBuilderFactory;
+        this.stepBuilderFactory = stepBuilderFactory;
+    }
+
+    @Bean
+    public Job aggregateTeamBoxScoreJob() {
+        return jobBuilderFactory.get("aggregateTeamBoxScoreJob")
+            .incrementer(new RunIdIncrementer())
+            .flow(stepTeamBoxScore())
+            .end()
+            .build();
+    }
+
+    @Bean
+    public Step stepTeamBoxScore() {
+        return stepBuilderFactory.get("stepTeamBoxScore")
+                .<TeamBoxScore, TeamBoxScore>chunk(20)
+                .reader(reader())
+                .processor(teamBoxScoreProcessor())
+                .writer(fileWriter())
+                .build();
+    }
+
+    @Bean
+    public TeamBoxScoreProcessor teamBoxScoreProcessor() {
+        return new TeamBoxScoreProcessor();
     }
 
     @SuppressWarnings("unchecked")

@@ -1,9 +1,9 @@
-package com.rossotti.basketball.processor;
+package com.rossotti.basketball.batch;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-class BoxScoreCalculations {
+class TeamBoxScoreCalculations {
 
     static BigDecimal calculatePossessions(Short teamFieldGoalAttempts, Short teamReboundsOffense, Short opptReboundsDefense, Short teamFieldGoalMade, Short teamTurnovers, Short teamFreeThrowAttempts,
                                            Short opptFieldGoalAttempts, Short opptReboundsOffense, Short teamReboundsDefense, Short opptFieldGoalMade, Short opptTurnovers, Short opptFreeThrowAttempts) {
