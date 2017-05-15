@@ -1,6 +1,6 @@
-# basketball
+# basketball-java
 
-Set of applications to gather and sweeten basketball statistics.
+Set of Java applications to gather and sweeten basketball statistics.
 
 ## Accumulator
 
