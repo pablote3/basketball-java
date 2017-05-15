@@ -44,8 +44,8 @@ public class StandingConfig {
     }
 
     @Bean
-    public Job aggregateGameJob() {
-        return jobBuilderFactory.get("aggregateGameJob")
+    public Job aggregateStandingJob() {
+        return jobBuilderFactory.get("aggregateStandingJob")
             .incrementer(new RunIdIncrementer())
             .flow(stepStanding())
             .end()
