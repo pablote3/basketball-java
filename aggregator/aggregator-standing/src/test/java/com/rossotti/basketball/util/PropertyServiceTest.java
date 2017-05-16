@@ -42,4 +42,26 @@ public class PropertyServiceTest {
     public void getProperty_LocalDate_Null() {
         Assert.assertNull(propertyService.getProperty_LocalDate("aggregator.localDate.null"));
     }
+
+    @Test
+    public void getProperty_Path_Valid() {
+        String prop = propertyService.getProperty_Path("aggregator.path.valid");
+        Assert.assertEquals("/usr/bin", prop);
+    }
+    @Test()
+    public void getProperty_Path_Invalid() {
+        String prop = propertyService.getProperty_Path("aggregator.path.invalid");
+        Assert.assertNull(prop);
+    }
+    @Test()
+    public void getProperty_Path_Empty() {
+        String prop = propertyService.getProperty_Path("aggregator.path.empty");
+        Assert.assertNull(prop);
+    }
+    @Test()
+    public void getProperty_Path_Null() {
+        String prop = propertyService.getProperty_Path("aggregator.path.null");
+        Assert.assertNull(prop);
+    }
+
 }

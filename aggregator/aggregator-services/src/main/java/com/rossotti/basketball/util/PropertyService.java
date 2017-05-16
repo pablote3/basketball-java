@@ -1,5 +1,6 @@
 package com.rossotti.basketball.util;
 
+import com.thoughtworks.xstream.mapper.Mapper;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -7,6 +8,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -46,5 +49,19 @@ public class PropertyService {
 			}
 		}
 		return localDate;
+	}
+
+	public String getProperty_Path(String propertyName) {
+		String path = getProperty_String(propertyName);
+		try {
+            if (!new File(path).exists()) {
+                logger.info("property exception = path " + propertyName + " does not exist");
+                return null;
+            }
+        }
+        catch (NullPointerException ne) {
+		    return null;
+        }
+		return path;
 	}
 }
