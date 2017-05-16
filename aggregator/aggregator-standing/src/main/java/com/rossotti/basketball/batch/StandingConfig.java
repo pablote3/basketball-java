@@ -99,20 +99,26 @@ public class StandingConfig {
     @Bean
     public ItemWriter<Standing> fileWriter() {
         FlatFileItemWriter<Standing> flatFileItemWriter = new FlatFileItemWriter<>();
-        flatFileItemWriter.setResource(new FileSystemResource(new File("/home/pablote/pdrive/pwork/basketball/aggregator/extracts/standing_Extract.txt")));
-        flatFileItemWriter.setShouldDeleteIfExists(true);
-        BeanWrapperFieldExtractor<Standing> fieldExtractor = new BeanWrapperFieldExtractor<>();
-        String[] fields = new String[]{
-            "standingDate", "teamAbbr", "rank", "ordinalRank", "gamesWon", "gamesLost", "streak", "streakType", "streakTotal", "gamesBack", "pointsFor",
-            "pointsAgainst", "homeWins", "homeLosses", "awayWins", "awayLosses", "conferenceWins", "conferenceLosses", "lastFive", "lastTen", "gamesPlayed",
-            "pointsScoredPerGame", "pointsAllowedPerGame", "pointDifferentialPerGame", "opptGamesPlayed", "opptGamesWon", "opptOpptGamesPlayed",
-            "opptOpptGamesWon", "strengthOfSchedule"
-        };
-        fieldExtractor.setNames(fields);
-        DelimitedLineAggregator<Standing> lineAggregator = new DelimitedLineAggregator<>();
-        lineAggregator.setFieldExtractor(fieldExtractor);
-        flatFileItemWriter.setLineAggregator(lineAggregator);
-        return flatFileItemWriter;
+        String path = propertyService.getProperty_Path("standing.extract");
+        if (path != null) {
+            flatFileItemWriter.setResource(new FileSystemResource(new File(path + "/standing_Extract.txt")));
+            flatFileItemWriter.setShouldDeleteIfExists(true);
+            BeanWrapperFieldExtractor<Standing> fieldExtractor = new BeanWrapperFieldExtractor<>();
+            String[] fields = new String[]{
+                    "standingDate", "teamAbbr", "rank", "ordinalRank", "gamesWon", "gamesLost", "streak", "streakType", "streakTotal", "gamesBack", "pointsFor",
+                    "pointsAgainst", "homeWins", "homeLosses", "awayWins", "awayLosses", "conferenceWins", "conferenceLosses", "lastFive", "lastTen", "gamesPlayed",
+                    "pointsScoredPerGame", "pointsAllowedPerGame", "pointDifferentialPerGame", "opptGamesPlayed", "opptGamesWon", "opptOpptGamesPlayed",
+                    "opptOpptGamesWon", "strengthOfSchedule"
+            };
+            fieldExtractor.setNames(fields);
+            DelimitedLineAggregator<Standing> lineAggregator = new DelimitedLineAggregator<>();
+            lineAggregator.setFieldExtractor(fieldExtractor);
+            flatFileItemWriter.setLineAggregator(lineAggregator);
+            return flatFileItemWriter;
+        }
+        else {
+            return null;
+        }
     }
 
     @Bean
