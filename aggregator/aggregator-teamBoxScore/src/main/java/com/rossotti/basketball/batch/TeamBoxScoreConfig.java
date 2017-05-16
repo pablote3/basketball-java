@@ -114,27 +114,33 @@ public class TeamBoxScoreConfig {
     @Bean
     public ItemWriter<TeamBoxScore> fileWriter() {
         FlatFileItemWriter<TeamBoxScore> flatFileItemWriter = new FlatFileItemWriter<>();
-        flatFileItemWriter.setResource(new FileSystemResource(new File("/home/pablote/pdrive/pwork/basketball/aggregator/extracts/teamBoxScore_Extract.txt")));
-        flatFileItemWriter.setShouldDeleteIfExists(true);
-        BeanWrapperFieldExtractor<TeamBoxScore> fieldExtractor = new BeanWrapperFieldExtractor<>();
-        String[] fields = new String[]{
-            "gameDateTime", "seasonType",
-            "teamAbbr", "teamConference", "teamDivision", "teamLocation", "teamResult", "teamMinutes", "teamDaysOff",
-            "teamPoints", "teamAssists", "teamTurnovers", "teamSteals", "teamBlocks", "teamPersonalFouls", "teamFieldGoalAttempts", "teamFieldGoalMade",
-            "teamThreePointAttempts", "teamThreePointMade", "teamFreeThrowAttempts", "teamFreeThrowMade", "teamReboundsOffense", "teamReboundsDefense",
-            "teamPointsQ1", "teamPointsQ2", "teamPointsQ3", "teamPointsQ4", "teamPointsQ5", "teamPointsQ6", "teamPointsQ7", "teamPointsQ8",
-            "opptAbbr", "opptConference", "opptDivision", "opptLocation", "opptResult", "opptMinutes", "opptDaysOff",
-            "opptPoints", "opptAssists", "opptTurnovers", "opptSteals", "opptBlocks", "opptPersonalFouls", "opptFieldGoalAttempts", "opptFieldGoalMade",
-            "opptThreePointAttempts", "opptThreePointMade", "opptFreeThrowAttempts", "opptFreeThrowMade", "opptReboundsOffense", "opptReboundsDefense",
-            "opptPointsQ1", "opptPointsQ2", "opptPointsQ3", "opptPointsQ4", "opptPointsQ5", "opptPointsQ6", "opptPointsQ7", "opptPointsQ8",
-            "possessions", "pace", "teamTrueShootingPct"
-    };
-    fieldExtractor.setNames(fields);
-    DelimitedLineAggregator<TeamBoxScore> lineAggregator = new DelimitedLineAggregator<>();
-    lineAggregator.setFieldExtractor(fieldExtractor);
-    flatFileItemWriter.setLineAggregator(lineAggregator);
-    return flatFileItemWriter;
-}
+        String path = propertyService.getProperty_Path("teamBoxScore.extract");
+        if (path != null) {
+            flatFileItemWriter.setResource(new FileSystemResource(new File(path + "/teamBoxScore_Extract.txt")));
+            flatFileItemWriter.setShouldDeleteIfExists(true);
+            BeanWrapperFieldExtractor<TeamBoxScore> fieldExtractor = new BeanWrapperFieldExtractor<>();
+            String[] fields = new String[]{
+                    "gameDateTime", "seasonType",
+                    "teamAbbr", "teamConference", "teamDivision", "teamLocation", "teamResult", "teamMinutes", "teamDaysOff",
+                    "teamPoints", "teamAssists", "teamTurnovers", "teamSteals", "teamBlocks", "teamPersonalFouls", "teamFieldGoalAttempts", "teamFieldGoalMade",
+                    "teamThreePointAttempts", "teamThreePointMade", "teamFreeThrowAttempts", "teamFreeThrowMade", "teamReboundsOffense", "teamReboundsDefense",
+                    "teamPointsQ1", "teamPointsQ2", "teamPointsQ3", "teamPointsQ4", "teamPointsQ5", "teamPointsQ6", "teamPointsQ7", "teamPointsQ8",
+                    "opptAbbr", "opptConference", "opptDivision", "opptLocation", "opptResult", "opptMinutes", "opptDaysOff",
+                    "opptPoints", "opptAssists", "opptTurnovers", "opptSteals", "opptBlocks", "opptPersonalFouls", "opptFieldGoalAttempts", "opptFieldGoalMade",
+                    "opptThreePointAttempts", "opptThreePointMade", "opptFreeThrowAttempts", "opptFreeThrowMade", "opptReboundsOffense", "opptReboundsDefense",
+                    "opptPointsQ1", "opptPointsQ2", "opptPointsQ3", "opptPointsQ4", "opptPointsQ5", "opptPointsQ6", "opptPointsQ7", "opptPointsQ8",
+                    "possessions", "pace", "teamTrueShootingPct"
+            };
+            fieldExtractor.setNames(fields);
+            DelimitedLineAggregator<TeamBoxScore> lineAggregator = new DelimitedLineAggregator<>();
+            lineAggregator.setFieldExtractor(fieldExtractor);
+            flatFileItemWriter.setLineAggregator(lineAggregator);
+            return flatFileItemWriter;
+        }
+        else {
+            return null;
+        }
+    }
 
     @Bean
     public ItemWriter<TeamBoxScore> jdbcWriter() {
