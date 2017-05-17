@@ -64,6 +64,9 @@ public class TeamBoxScore {
     private Float possessions;
     private Float pace;
     private Float teamTrueShootingPct;
+    private Float teamEffectiveFieldGoalPct;
+    private Float teamOffensiveReboundPct;
+    private Float teamDefensiveReboundPct;
 
     public String getGameDateTime() {
         return gameDateTime;
@@ -504,5 +507,26 @@ public class TeamBoxScore {
     }
     public void setTeamTrueShootingPct(Float teamTrueShootingPct) {
         this.teamTrueShootingPct = teamTrueShootingPct;
+    }
+
+    public Float getTeamEffectiveFieldGoalPct() {
+        return teamEffectiveFieldGoalPct;
+    }
+    public void setTeamEffectiveFieldGoalPct(Float teamEffectiveFieldGoalPct) {
+        this.teamEffectiveFieldGoalPct = teamEffectiveFieldGoalPct;
+    }
+
+    public Float getTeamOffensiveReboundPct() {
+        return teamOffensiveReboundPct;
+    }
+    public void setTeamOffensiveReboundPct(Float teamOffensiveReboundPct) {
+        this.teamOffensiveReboundPct = teamOffensiveReboundPct;
+    }
+
+    public Float getTeamDefensiveReboundPct() {
+        return teamDefensiveReboundPct;
+    }
+    public void setTeamDefensiveReboundPct(Float teamDefensiveReboundPct) {
+        this.teamDefensiveReboundPct = teamDefensiveReboundPct;
     }
 }

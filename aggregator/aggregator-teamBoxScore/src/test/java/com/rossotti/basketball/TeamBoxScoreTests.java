@@ -16,9 +16,12 @@ public class TeamBoxScoreTests {
     public void processorCalculations() {
         TeamBoxScoreProcessor teamBoxScoreProcessor = new TeamBoxScoreProcessor();
         TeamBoxScore teamBoxScore = teamBoxScoreProcessor.process(createMockTeamBoxScore());
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getPossessions(), 92.6225f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getPace(), 92.6225f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getPossessions(), 99.7703f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getPace(), 99.7703f));
         Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamTrueShootingPct(), 0.5582f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamEffectiveFieldGoalPct(), 0.5063f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamOffensiveReboundPct(), 21.0526f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamDefensiveReboundPct(), 78.2609f));
     }
 
     private TeamBoxScore createMockTeamBoxScore() {
@@ -44,7 +47,7 @@ public class TeamBoxScoreTests {
         teamBoxScore.setTeamThreePointMade((short)8);
         teamBoxScore.setTeamFreeThrowAttempts((short)22);
         teamBoxScore.setTeamFreeThrowMade((short)15);
-        teamBoxScore.setTeamReboundsOffense((short)15);
+        teamBoxScore.setTeamReboundsOffense((short)8);
         teamBoxScore.setTeamReboundsDefense((short)36);
         teamBoxScore.setTeamPointsQ1((short)50);
         teamBoxScore.setTeamPointsQ2((short)50);
@@ -73,8 +76,8 @@ public class TeamBoxScoreTests {
         teamBoxScore.setOpptThreePointMade((short)7);
         teamBoxScore.setOpptFreeThrowAttempts((short)12);
         teamBoxScore.setOpptFreeThrowMade((short)8);
-        teamBoxScore.setOpptReboundsOffense((short)14);
-        teamBoxScore.setOpptReboundsDefense((short)17);
+        teamBoxScore.setOpptReboundsOffense((short)10);
+        teamBoxScore.setOpptReboundsDefense((short)30);
         teamBoxScore.setOpptPointsQ1((short)50);
         teamBoxScore.setOpptPointsQ2((short)50);
         teamBoxScore.setOpptPointsQ3((short)50);

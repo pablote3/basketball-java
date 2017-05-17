@@ -1,13 +1,10 @@
 package com.rossotti.basketball.batch;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
 import java.math.BigDecimal;
 
 public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBoxScore> {
 
-    private final Logger logger = LoggerFactory.getLogger(TeamBoxScoreProcessor.class);
     private TeamBoxScore teamBoxScore;
 
     @Override
@@ -16,6 +13,9 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
         teamBoxScore.setPossessions(calculatePossessions().floatValue());
         teamBoxScore.setPace(calculatePace().floatValue());
         teamBoxScore.setTeamTrueShootingPct(calculateTeamTrueShootingPct().floatValue());
+        teamBoxScore.setTeamEffectiveFieldGoalPct(calculateTeamEffectiveFieldGoalPct().floatValue());
+        teamBoxScore.setTeamOffensiveReboundPct(calculateTeamOffensiveReboundPercentage().floatValue());
+        teamBoxScore.setTeamDefensiveReboundPct(calculateTeamDefensiveReboundPercentage().floatValue());
         return teamBoxScore;
     }
 
@@ -37,6 +37,24 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
     private BigDecimal calculateTeamTrueShootingPct() {
         return TeamBoxScoreCalculations.calculateTrueShootingPct(
             teamBoxScore.getTeamPoints(), teamBoxScore.getTeamFieldGoalAttempts(), teamBoxScore.getTeamFreeThrowAttempts()
+        );
+    }
+
+    private BigDecimal calculateTeamEffectiveFieldGoalPct() {
+        return TeamBoxScoreCalculations.calculateEffectiveFieldGoalPct(
+            teamBoxScore.getTeamFieldGoalMade(), teamBoxScore.getTeamThreePointMade(), teamBoxScore.getTeamFieldGoalAttempts()
+        );
+    }
+
+    private BigDecimal calculateTeamOffensiveReboundPercentage() {
+        return TeamBoxScoreCalculations.calculateOffensiveReboundPct(
+            teamBoxScore.getTeamReboundsOffense(), teamBoxScore.getOpptReboundsDefense()
+        );
+    }
+
+    private BigDecimal calculateTeamDefensiveReboundPercentage() {
+        return TeamBoxScoreCalculations.calculateDefensiveReboundPct(
+            teamBoxScore.getTeamReboundsDefense(), teamBoxScore.getOpptReboundsOffense()
         );
     }
 
@@ -72,16 +90,6 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
 
     private Float calculateTeamTOR() {
         //bsTeam.turnovers * 100 / (bsTeam.fieldGoalAttempts + (.44 * bsTeam.freeThrowAttempts) + bsTeam.turnovers)
-        return 0F;
-    }
-
-    private Float calculateTeamOffensiveReboundPercentage() {
-        //bsTeam.reboundsOffense * 100 / (bsTeam.reboundsOffense + bsOppt.reboundsDefense)
-        return 0F;
-    }
-
-    private Float calculateTeamDefensiveReboundPercentage() {
-        //bsTeam.reboundsDefense * 100 / (bsTeam.reboundsOffense + bsOppt.reboundsDefense)
         return 0F;
     }
 

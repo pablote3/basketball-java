@@ -46,4 +46,27 @@ class TeamBoxScoreCalculations {
             .multiply(new BigDecimal(2));
         return new BigDecimal(points).divide(bd, 4, RoundingMode.HALF_UP);
     }
+
+    static BigDecimal calculateEffectiveFieldGoalPct(Short fieldGoalMade, Short threePointMade, Short fieldGoalAttempts) {
+        BigDecimal bd = new BigDecimal(fieldGoalMade)
+            .add((new BigDecimal(threePointMade))
+            .multiply(new BigDecimal(0.5)));
+        return bd.divide(new BigDecimal(fieldGoalAttempts), 4, RoundingMode.HALF_UP);
+    }
+
+    static BigDecimal calculateOffensiveReboundPct(Short teamOffensiveRebound, Short opptDefensiveRebound) {
+        BigDecimal top = new BigDecimal(teamOffensiveRebound)
+            .multiply(new BigDecimal(100));
+        BigDecimal bottom = new BigDecimal(teamOffensiveRebound)
+            .add(new BigDecimal(opptDefensiveRebound));
+        return top.divide(bottom, 4, RoundingMode.HALF_UP);
+    }
+
+    static BigDecimal calculateDefensiveReboundPct(Short teamDefensiveRebound, Short opptOffensiveRebound) {
+        BigDecimal top = new BigDecimal(teamDefensiveRebound)
+                .multiply(new BigDecimal(100));
+        BigDecimal bottom = new BigDecimal(teamDefensiveRebound)
+                .add(new BigDecimal(opptOffensiveRebound));
+        return top.divide(bottom, 4, RoundingMode.HALF_UP);
+    }
 }
