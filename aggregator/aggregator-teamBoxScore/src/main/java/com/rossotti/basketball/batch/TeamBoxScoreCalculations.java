@@ -96,4 +96,30 @@ class TeamBoxScoreCalculations {
             .add(new BigDecimal(teamTurnover));
         return top.divide(bottom, 4, RoundingMode.HALF_UP);
     }
+
+    static BigDecimal calculateStealPct(Short teamSteal, Short teamFieldGoalAttempts, Short teamReboundsOffense, Short opptReboundsDefense, Short teamFieldGoalMade, Short teamTurnovers, Short teamFreeThrowAttempts,
+                                        Short opptFieldGoalAttempts, Short opptReboundsOffense, Short teamReboundsDefense, Short opptFieldGoalMade, Short opptTurnovers, Short opptFreeThrowAttempts) {
+        BigDecimal top = new BigDecimal(teamSteal)
+            .multiply(new BigDecimal(100));
+        BigDecimal bottom = calculatePossessions(teamFieldGoalAttempts, teamReboundsOffense, opptReboundsDefense, teamFieldGoalMade, teamTurnovers, teamFreeThrowAttempts,
+            opptFieldGoalAttempts, opptReboundsOffense, teamReboundsDefense, opptFieldGoalMade, opptTurnovers, opptFreeThrowAttempts);
+        return top.divide(bottom, 4, RoundingMode.HALF_UP);
+    }
+
+    static BigDecimal calculateBlockPct(Short teamBlock, Short teamFieldGoalAttempts, Short teamReboundsOffense, Short opptReboundsDefense, Short teamFieldGoalMade, Short teamTurnovers, Short teamFreeThrowAttempts,
+                                        Short opptFieldGoalAttempts, Short opptReboundsOffense, Short teamReboundsDefense, Short opptFieldGoalMade, Short opptTurnovers, Short opptFreeThrowAttempts) {
+        BigDecimal top = new BigDecimal(teamBlock)
+            .multiply(new BigDecimal(100));
+        BigDecimal bottom = calculatePossessions(teamFieldGoalAttempts, teamReboundsOffense, opptReboundsDefense, teamFieldGoalMade, teamTurnovers, teamFreeThrowAttempts,
+            opptFieldGoalAttempts, opptReboundsOffense, teamReboundsDefense, opptFieldGoalMade, opptTurnovers, opptFreeThrowAttempts);
+        return top.divide(bottom, 4, RoundingMode.HALF_UP);
+    }
+
+    static BigDecimal calculateBlockRate(Short teamBlock, Short teamFieldGoalAttempt, Short teamThreePointAttempt) {
+        BigDecimal top = new BigDecimal(teamBlock)
+            .multiply(new BigDecimal(100));
+        BigDecimal bottom = new BigDecimal(teamFieldGoalAttempt)
+            .subtract(new BigDecimal(teamThreePointAttempt));
+        return top.divide(bottom, 4, RoundingMode.HALF_UP);
+    }
 }

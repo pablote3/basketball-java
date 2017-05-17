@@ -19,6 +19,9 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
         teamBoxScore.setTeamTotalReboundPct(calculateTeamTotalReboundPercentage().floatValue());
         teamBoxScore.setTeamAssistedFieldGoalPct(calculateTeamAssistedFieldGoalPercentage().floatValue());
         teamBoxScore.setTeamTurnoverPct(calculateTeamTurnoverPercentage().floatValue());
+        teamBoxScore.setTeamStealPct(calculateTeamStealPercentage().floatValue());
+        teamBoxScore.setTeamBlockPct(calculateTeamBlockPercentage().floatValue());
+        teamBoxScore.setTeamBlockRate(calculateTeamBlockRate().floatValue());
         return teamBoxScore;
     }
 
@@ -79,6 +82,26 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
         );
     }
 
+    private BigDecimal calculateTeamStealPercentage() {
+        return TeamBoxScoreCalculations.calculateStealPct(
+            teamBoxScore.getTeamSteals(), teamBoxScore.getTeamFieldGoalAttempts(), teamBoxScore.getTeamReboundsOffense(), teamBoxScore.getOpptReboundsDefense(), teamBoxScore.getTeamFieldGoalMade(), teamBoxScore.getTeamTurnovers(), teamBoxScore.getTeamFreeThrowAttempts(),
+            teamBoxScore.getOpptFieldGoalAttempts(), teamBoxScore.getOpptReboundsOffense(), teamBoxScore.getTeamReboundsDefense(), teamBoxScore.getOpptFieldGoalMade(), teamBoxScore.getOpptTurnovers(), teamBoxScore.getOpptFreeThrowAttempts()
+        );
+    }
+
+    private BigDecimal calculateTeamBlockPercentage() {
+        return TeamBoxScoreCalculations.calculateBlockPct(
+            teamBoxScore.getTeamBlocks(), teamBoxScore.getTeamFieldGoalAttempts(), teamBoxScore.getTeamReboundsOffense(), teamBoxScore.getOpptReboundsDefense(), teamBoxScore.getTeamFieldGoalMade(), teamBoxScore.getTeamTurnovers(), teamBoxScore.getTeamFreeThrowAttempts(),
+            teamBoxScore.getOpptFieldGoalAttempts(), teamBoxScore.getOpptReboundsOffense(), teamBoxScore.getTeamReboundsDefense(), teamBoxScore.getOpptFieldGoalMade(), teamBoxScore.getOpptTurnovers(), teamBoxScore.getOpptFreeThrowAttempts()
+        );
+    }
+
+    private BigDecimal calculateTeamBlockRate() {
+        return TeamBoxScoreCalculations.calculateBlockRate(
+            teamBoxScore.getTeamBlocks(), teamBoxScore.getTeamFieldGoalAttempts(), teamBoxScore.getTeamThreePointAttempts()
+        );
+    }
+
     private Float calculateTeamOffEff() {
 //        bsTeam.points * 100 / (bsTeam.fieldGoalAttempts - bsTeam.reboundsOffense + bsTeam.turnovers + (.44 * bsTeam.freeThrowAttempts))
         return 0F;
@@ -114,7 +137,7 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
         return 0F;
     }
 
-    private Float calculateTeamBlockPercentage() {
+    private Float calculateTeamBlockPct() {
         //bsTeam.blocks / bsTeam.fieldGoalAttempts
         return 0F;
     }

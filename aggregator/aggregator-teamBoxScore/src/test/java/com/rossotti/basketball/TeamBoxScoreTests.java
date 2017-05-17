@@ -25,6 +25,9 @@ public class TeamBoxScoreTests {
         Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamTotalReboundPct(), 52.381f));
         Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamAssistedFieldGoalPct(), 0.6111f));
         Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamTurnoverPct(), 13.802f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamStealPct(), 11.3004f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamBlockPct(), 5.1365f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamBlockRate(), 7.2464f));
     }
 
     private TeamBoxScore createMockTeamBoxScore() {
@@ -42,7 +45,7 @@ public class TeamBoxScoreTests {
         teamBoxScore.setTeamAssists((short)22);
         teamBoxScore.setTeamTurnovers((short)15);
         teamBoxScore.setTeamSteals((short)11);
-        teamBoxScore.setTeamBlocks((short)9);
+        teamBoxScore.setTeamBlocks((short)5);
         teamBoxScore.setTeamPersonalFouls((short)18);
         teamBoxScore.setTeamFieldGoalAttempts((short)84);
         teamBoxScore.setTeamFieldGoalMade((short)36);
@@ -71,7 +74,7 @@ public class TeamBoxScoreTests {
         teamBoxScore.setOpptAssists((short)20);
         teamBoxScore.setOpptTurnovers((short)14);
         teamBoxScore.setOpptSteals((short)13);
-        teamBoxScore.setOpptBlocks((short)13);
+        teamBoxScore.setOpptBlocks((short)4);
         teamBoxScore.setOpptPersonalFouls((short)19);
         teamBoxScore.setOpptFieldGoalAttempts((short)83);
         teamBoxScore.setOpptFieldGoalMade((short)43);
