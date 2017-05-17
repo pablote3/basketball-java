@@ -64,9 +64,36 @@ class TeamBoxScoreCalculations {
 
     static BigDecimal calculateDefensiveReboundPct(Short teamDefensiveRebound, Short opptOffensiveRebound) {
         BigDecimal top = new BigDecimal(teamDefensiveRebound)
-                .multiply(new BigDecimal(100));
+            .multiply(new BigDecimal(100));
         BigDecimal bottom = new BigDecimal(teamDefensiveRebound)
-                .add(new BigDecimal(opptOffensiveRebound));
+            .add(new BigDecimal(opptOffensiveRebound));
+        return top.divide(bottom, 4, RoundingMode.HALF_UP);
+    }
+
+    static BigDecimal calculateTotalReboundPct(Short teamOffensiveRebound, Short teamDefensiveRebound, Short opptOffensiveRebound, Short opptDefensiveRebound) {
+        BigDecimal teamTotalRebound = new BigDecimal(teamOffensiveRebound)
+            .add(new BigDecimal(teamDefensiveRebound));
+        BigDecimal opptTotalRebound = new BigDecimal(opptOffensiveRebound)
+            .add(new BigDecimal(opptDefensiveRebound));
+        BigDecimal top = teamTotalRebound
+            .multiply(new BigDecimal(100));
+        BigDecimal bottom = teamTotalRebound
+            .add(opptTotalRebound);
+        return top.divide(bottom, 4, RoundingMode.HALF_UP);
+    }
+
+    static BigDecimal calculateAssistedFieldGoalPct(Short teamAssist, Short fieldGoalMade) {
+        return new BigDecimal(teamAssist)
+            .divide(new BigDecimal(fieldGoalMade), 4, RoundingMode.HALF_UP);
+    }
+
+    static BigDecimal calculateTurnoverPct(Short teamTurnover, Short fieldGoalAttempt, Short freeThrowAttempt) {
+        BigDecimal top = new BigDecimal(teamTurnover)
+            .multiply(new BigDecimal(100));
+        BigDecimal bottom = new BigDecimal(fieldGoalAttempt)
+            .add((new BigDecimal(freeThrowAttempt))
+            .multiply(new BigDecimal(0.44)))
+            .add(new BigDecimal(teamTurnover));
         return top.divide(bottom, 4, RoundingMode.HALF_UP);
     }
 }

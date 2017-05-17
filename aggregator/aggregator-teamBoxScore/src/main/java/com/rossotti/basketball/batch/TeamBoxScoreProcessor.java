@@ -16,6 +16,9 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
         teamBoxScore.setTeamEffectiveFieldGoalPct(calculateTeamEffectiveFieldGoalPct().floatValue());
         teamBoxScore.setTeamOffensiveReboundPct(calculateTeamOffensiveReboundPercentage().floatValue());
         teamBoxScore.setTeamDefensiveReboundPct(calculateTeamDefensiveReboundPercentage().floatValue());
+        teamBoxScore.setTeamTotalReboundPct(calculateTeamTotalReboundPercentage().floatValue());
+        teamBoxScore.setTeamAssistedFieldGoalPct(calculateTeamAssistedFieldGoalPercentage().floatValue());
+        teamBoxScore.setTeamTurnoverPct(calculateTeamTurnoverPercentage().floatValue());
         return teamBoxScore;
     }
 
@@ -55,6 +58,24 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
     private BigDecimal calculateTeamDefensiveReboundPercentage() {
         return TeamBoxScoreCalculations.calculateDefensiveReboundPct(
             teamBoxScore.getTeamReboundsDefense(), teamBoxScore.getOpptReboundsOffense()
+        );
+    }
+
+    private BigDecimal calculateTeamTotalReboundPercentage() {
+        return TeamBoxScoreCalculations.calculateTotalReboundPct(
+            teamBoxScore.getTeamReboundsOffense(), teamBoxScore.getTeamReboundsDefense(), teamBoxScore.getOpptReboundsOffense(), teamBoxScore.getOpptReboundsDefense()
+        );
+    }
+
+    private BigDecimal calculateTeamAssistedFieldGoalPercentage() {
+        return TeamBoxScoreCalculations.calculateAssistedFieldGoalPct(
+            teamBoxScore.getTeamAssists(), teamBoxScore.getTeamFieldGoalMade()
+        );
+    }
+
+    private BigDecimal calculateTeamTurnoverPercentage() {
+        return TeamBoxScoreCalculations.calculateTurnoverPct(
+            teamBoxScore.getTeamTurnovers(), teamBoxScore.getTeamFieldGoalAttempts(), teamBoxScore.getTeamFreeThrowAttempts()
         );
     }
 
