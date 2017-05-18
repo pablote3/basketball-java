@@ -73,6 +73,12 @@ public class TeamBoxScore {
     private Float teamStealPct;
     private Float teamBlockPct;
     private Float teamBlockRate;
+    private Float teamPointsPerShot;
+    private Float teamFloorImpactCounter;
+    private Float teamFloorImpactCounterPer40;
+    private Float teamOffensiveRating;
+    private Float teamDefensiveRating;
+    private Float teamEfficiencyDifferential;
 
     public String getGameDateTime() {
         return gameDateTime;
@@ -576,5 +582,47 @@ public class TeamBoxScore {
     }
     public void setTeamBlockRate(Float teamBlockRate) {
         this.teamBlockRate = teamBlockRate;
+    }
+
+    public Float getTeamPointsPerShot() {
+        return teamPointsPerShot;
+    }
+    public void setTeamPointsPerShot(Float teamPointsPerShot) {
+        this.teamPointsPerShot = teamPointsPerShot;
+    }
+
+    public Float getTeamFloorImpactCounter() {
+        return teamFloorImpactCounter;
+    }
+    public void setTeamFloorImpactCounter(Float teamFloorImpactCounter) {
+        this.teamFloorImpactCounter = teamFloorImpactCounter;
+    }
+
+    public Float getTeamFloorImpactCounterPer40() {
+        return teamFloorImpactCounterPer40;
+    }
+    public void setTeamFloorImpactCounterPer40(Float teamFloorImpactCounterPer40) {
+        this.teamFloorImpactCounterPer40 = teamFloorImpactCounterPer40;
+    }
+
+    public Float getTeamOffensiveRating() {
+        return teamOffensiveRating;
+    }
+    public void setTeamOffensiveRating(Float teamOffensiveRating) {
+        this.teamOffensiveRating = teamOffensiveRating;
+    }
+
+    public Float getTeamDefensiveRating() {
+        return teamDefensiveRating;
+    }
+    public void setTeamDefensiveRating(Float teamDefensiveRating) {
+        this.teamDefensiveRating = teamDefensiveRating;
+    }
+
+    public Float getTeamEfficiencyDifferential() {
+        return teamEfficiencyDifferential;
+    }
+    public void setTeamEfficiencyDifferential(Float teamEfficiencyDifferential) {
+        this.teamEfficiencyDifferential = teamEfficiencyDifferential;
     }
 }

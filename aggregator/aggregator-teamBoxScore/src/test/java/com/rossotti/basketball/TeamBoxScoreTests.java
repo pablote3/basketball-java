@@ -28,6 +28,12 @@ public class TeamBoxScoreTests {
         Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamStealPct(), 11.3004f));
         Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamBlockPct(), 5.1365f));
         Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamBlockRate(), 7.2464f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamPointsPerShot(), 1.1786f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamFloorImpactCounter(), 76.75f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamFloorImpactCounterPer40(), 63.9583f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamOffensiveRating(), 101.7033f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamDefensiveRating(), 103.7579f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamEfficiencyDifferential(), -2.0546f));
     }
 
     private TeamBoxScore createMockTeamBoxScore() {

@@ -122,4 +122,65 @@ class TeamBoxScoreCalculations {
             .subtract(new BigDecimal(teamThreePointAttempt));
         return top.divide(bottom, 4, RoundingMode.HALF_UP);
     }
+
+    static BigDecimal calculatePointsPerShot(Short teamPoint, Short teamFieldGoalAttempt) {
+        return new BigDecimal(teamPoint)
+            .divide(new BigDecimal(teamFieldGoalAttempt), 4, RoundingMode.HALF_UP);
+    }
+
+    static BigDecimal calculateFloorImpactCounter(Short teamPoint, Short teamOffensiveRebound, Short teamDefensiveRebound, Short teamAssist, Short teamSteal, Short teamBlock, Short teamFieldGoalAttempt,
+                                                  Short teamFreeThrowAttempt, Short teamTurnover, Short teamPersonalFoul) {
+        return new BigDecimal(teamPoint)
+            .add(new BigDecimal(teamOffensiveRebound))
+            .add((new BigDecimal(teamDefensiveRebound)).multiply(new BigDecimal(0.75)))
+            .add(new BigDecimal(teamAssist))
+            .add(new BigDecimal(teamSteal))
+            .add(new BigDecimal(teamBlock))
+            .subtract((new BigDecimal(teamFieldGoalAttempt)).multiply(new BigDecimal(0.75)))
+            .subtract((new BigDecimal(teamFreeThrowAttempt)).multiply(new BigDecimal(0.375)))
+            .subtract(new BigDecimal(teamTurnover))
+            .subtract((new BigDecimal(teamPersonalFoul)).multiply(new BigDecimal(0.5)));
+    }
+
+    static BigDecimal calculateFloorImpactCounterPer40(Short teamPoint, Short teamOffensiveRebound, Short teamDefensiveRebound, Short teamAssist, Short teamSteal, Short teamBlock, Short teamFieldGoalAttempt,
+                                                       Short teamFreeThrowAttempt, Short teamTurnover, Short teamPersonalFoul, Short teamMinutePlayed) {
+        BigDecimal top = calculateFloorImpactCounter(teamPoint, teamOffensiveRebound, teamDefensiveRebound, teamAssist, teamSteal, teamBlock, teamFieldGoalAttempt, teamFreeThrowAttempt, teamTurnover, teamPersonalFoul)
+            .multiply(new BigDecimal(40)
+            .multiply(new BigDecimal(5)));
+        return top.
+            divide(new BigDecimal(teamMinutePlayed), 4, RoundingMode.HALF_UP);
+    }
+
+    static BigDecimal calculateOffensiveRating(Short teamFieldGoalAttempts, Short teamReboundsOffense, Short opptReboundsDefense, Short teamFieldGoalMade, Short teamTurnovers, Short teamFreeThrowAttempts,
+                                               Short opptFieldGoalAttempts, Short opptReboundsOffense, Short teamReboundsDefense, Short opptFieldGoalMade, Short opptTurnovers, Short opptFreeThrowAttempts,
+                                               Short teamPoints) {
+        BigDecimal bottom =  calculatePossessions(teamFieldGoalAttempts, teamReboundsOffense, opptReboundsDefense, teamFieldGoalMade, teamTurnovers, teamFreeThrowAttempts,
+                                                  opptFieldGoalAttempts, opptReboundsOffense, teamReboundsDefense, opptFieldGoalMade, opptTurnovers, opptFreeThrowAttempts);
+        BigDecimal top = new BigDecimal(teamPoints)
+            .multiply(new BigDecimal(100));
+        return top.divide(bottom, 4, RoundingMode.HALF_UP);
+    }
+
+    static BigDecimal calculateDefensiveRating(Short teamFieldGoalAttempts, Short teamReboundsOffense, Short opptReboundsDefense, Short teamFieldGoalMade, Short teamTurnovers, Short teamFreeThrowAttempts,
+                                               Short opptFieldGoalAttempts, Short opptReboundsOffense, Short teamReboundsDefense, Short opptFieldGoalMade, Short opptTurnovers, Short opptFreeThrowAttempts,
+                                               Short opptPoints) {
+        BigDecimal bottom =  calculatePossessions(teamFieldGoalAttempts, teamReboundsOffense, opptReboundsDefense, teamFieldGoalMade, teamTurnovers, teamFreeThrowAttempts,
+                                                  opptFieldGoalAttempts, opptReboundsOffense, teamReboundsDefense, opptFieldGoalMade, opptTurnovers, opptFreeThrowAttempts);
+        BigDecimal top = new BigDecimal(opptPoints)
+            .multiply(new BigDecimal(100));
+        return top.divide(bottom, 4, RoundingMode.HALF_UP);
+    }
+
+    static BigDecimal calculateEfficiencyDifferential(Short teamFieldGoalAttempts, Short teamReboundsOffense, Short opptReboundsDefense, Short teamFieldGoalMade, Short teamTurnovers, Short teamFreeThrowAttempts,
+                                               Short opptFieldGoalAttempts, Short opptReboundsOffense, Short teamReboundsDefense, Short opptFieldGoalMade, Short opptTurnovers, Short opptFreeThrowAttempts,
+                                               Short teamPoints, Short opptPoints) {
+        BigDecimal offensiveRating =  calculateOffensiveRating(teamFieldGoalAttempts, teamReboundsOffense, opptReboundsDefense, teamFieldGoalMade, teamTurnovers, teamFreeThrowAttempts,
+                                                               opptFieldGoalAttempts, opptReboundsOffense, teamReboundsDefense, opptFieldGoalMade, opptTurnovers, opptFreeThrowAttempts,
+                                                               teamPoints);
+        BigDecimal defensiveRating =  calculateDefensiveRating(teamFieldGoalAttempts, teamReboundsOffense, opptReboundsDefense, teamFieldGoalMade, teamTurnovers, teamFreeThrowAttempts,
+                                                               opptFieldGoalAttempts, opptReboundsOffense, teamReboundsDefense, opptFieldGoalMade, opptTurnovers, opptFreeThrowAttempts,
+                                                               opptPoints);
+        return offensiveRating
+            .subtract(defensiveRating);
+    }
 }
