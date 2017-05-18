@@ -12,12 +12,34 @@ public class StandingProcessor implements ItemProcessor<Standing, Standing> {
     public Standing process(Standing standingIn) {
         standing = standingIn;
         standing.setStrengthOfSchedule(calculateStrengthOfSchedule().floatValue());
+        standing.setRelativePercentageIndex(calculateRelativePercentageIndex().floatValue());
+        standing.setMarginOfVictory(calculateMarginOfVictory().floatValue());
+        standing.setSimpleRatingSystem(calculateSimpleRatingSystem().floatValue());
         return standing;
     }
 
     private BigDecimal calculateStrengthOfSchedule() {
         return StandingCalculations.calculateStrengthOfSchedule(
             standing.getOpptGamesWon(), standing.getOpptGamesPlayed(), standing.getOpptOpptGamesWon(), standing.getOpptOpptGamesPlayed()
+        );
+    }
+
+    private BigDecimal calculateRelativePercentageIndex() {
+        return StandingCalculations.calculateRelativePercentageIndex(
+            standing.getGamesWon(), standing.getGamesPlayed(), standing.getOpptGamesWon(), standing.getOpptGamesPlayed(), standing.getOpptOpptGamesWon(), standing.getOpptOpptGamesPlayed()
+        );
+    }
+
+    private BigDecimal calculateMarginOfVictory() {
+        return StandingCalculations.calculateMarginOfVictory(
+            standing.getPointsFor(), standing.getPointsAgainst(), standing.getGamesPlayed()
+        );
+    }
+
+    private BigDecimal calculateSimpleRatingSystem() {
+        return StandingCalculations.calculateSimpleRatingSystem(
+            standing.getOpptGamesWon(), standing.getOpptGamesPlayed(), standing.getOpptOpptGamesWon(), standing.getOpptOpptGamesPlayed(),
+            standing.getPointsFor(), standing.getPointsAgainst(), standing.getGamesPlayed()
         );
     }
 }

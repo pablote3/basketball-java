@@ -17,6 +17,9 @@ public class StandingTests {
         StandingProcessor standingProcessor = new StandingProcessor();
         Standing standing = standingProcessor.process(createMockStanding());
         Assert.assertEquals(0, Float.compare(standing.getStrengthOfSchedule(), 0.3867f));
+        Assert.assertEquals(0, Float.compare(standing.getRelativePercentageIndex(), 0.456725f));
+        Assert.assertEquals(0, Float.compare(standing.getMarginOfVictory(), 10.5f));
+        Assert.assertEquals(0, Float.compare(standing.getSimpleRatingSystem(), 10.1133f));
     }
 
     private Standing createMockStanding() {

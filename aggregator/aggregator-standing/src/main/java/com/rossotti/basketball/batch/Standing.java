@@ -30,6 +30,9 @@ public class Standing {
     private Integer opptOpptGamesPlayed;
     private Integer opptOpptGamesWon;
     private Float strengthOfSchedule;
+    private Float relativePercentageIndex;
+    private Float marginOfVictory;
+    private Float simpleRatingSystem;
 
     public String getStandingDate() {
         return standingDate;
@@ -232,5 +235,26 @@ public class Standing {
     }
     public void setStrengthOfSchedule(Float strengthOfSchedule) {
         this.strengthOfSchedule = strengthOfSchedule;
+    }
+
+    public Float getRelativePercentageIndex() {
+        return relativePercentageIndex;
+    }
+    public void setRelativePercentageIndex(Float relativePercentageIndex) {
+        this.relativePercentageIndex = relativePercentageIndex;
+    }
+
+    public Float getMarginOfVictory() {
+        return marginOfVictory;
+    }
+    public void setMarginOfVictory(Float marginOfVictory) {
+        this.marginOfVictory = marginOfVictory;
+    }
+
+    public Float getSimpleRatingSystem() {
+        return simpleRatingSystem;
+    }
+    public void setSimpleRatingSystem(Float simpleRatingSystem) {
+        this.simpleRatingSystem = simpleRatingSystem;
     }
 }
