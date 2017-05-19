@@ -16,6 +16,12 @@ public class TeamBoxScoreTests {
     public void processorCalculations() {
         TeamBoxScoreProcessor teamBoxScoreProcessor = new TeamBoxScoreProcessor();
         TeamBoxScore teamBoxScore = teamBoxScoreProcessor.process(createMockTeamBoxScore());
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamTwoPointAttempts(), (short)69));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamTwoPointMade(), (short)28));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamTwoPointPct(), (float)0.4058));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptTwoPointAttempts(), (short)65));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptTwoPointMade(), (short)36));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptTwoPointPct(), (float)0.5538));
         Assert.assertEquals(0, Float.compare(teamBoxScore.getPossessions(), 97.342f));
         Assert.assertEquals(0, Float.compare(teamBoxScore.getPace(), 97.342f));
         Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamTrueShootingPct(), 0.5284f));

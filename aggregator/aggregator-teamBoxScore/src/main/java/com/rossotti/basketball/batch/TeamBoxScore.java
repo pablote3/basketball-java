@@ -18,6 +18,9 @@ public class TeamBoxScore {
     private Short teamPersonalFouls;
     private Short teamFieldGoalAttempts;
     private Short teamFieldGoalMade;
+    private Short teamTwoPointAttempts;
+    private Short teamTwoPointMade;
+    private Float teamTwoPointPct;
     private Short teamThreePointAttempts;
     private Short teamThreePointMade;
     private Short teamFreeThrowAttempts;
@@ -47,6 +50,9 @@ public class TeamBoxScore {
     private Short opptPersonalFouls;
     private Short opptFieldGoalAttempts;
     private Short opptFieldGoalMade;
+    private Short opptTwoPointAttempts;
+    private Short opptTwoPointMade;
+    private Float opptTwoPointPct;
     private Short opptThreePointAttempts;
     private Short opptThreePointMade;
     private Short opptFreeThrowAttempts;
@@ -197,6 +203,27 @@ public class TeamBoxScore {
     }
     public void setTeamFieldGoalMade(Short teamFieldGoalMade) {
         this.teamFieldGoalMade = teamFieldGoalMade;
+    }
+
+    public Short getTeamTwoPointAttempts() {
+        return teamTwoPointAttempts;
+    }
+    public void setTeamTwoPointAttempts(Short teamTwoPointAttempts) {
+        this.teamTwoPointAttempts = teamTwoPointAttempts;
+    }
+
+    public Short getTeamTwoPointMade() {
+        return teamTwoPointMade;
+    }
+    public void setTeamTwoPointMade(Short teamTwoPointMade) {
+        this.teamTwoPointMade = teamTwoPointMade;
+    }
+
+    public Float getTeamTwoPointPct() {
+        return teamTwoPointPct;
+    }
+    public void setTeamTwoPointPct(Float teamTwoPointPct) {
+        this.teamTwoPointPct = teamTwoPointPct;
     }
 
     public Short getTeamThreePointAttempts() {
@@ -400,6 +427,27 @@ public class TeamBoxScore {
     }
     public void setOpptFieldGoalMade(Short opptFieldGoalMade) {
         this.opptFieldGoalMade = opptFieldGoalMade;
+    }
+
+    public Short getOpptTwoPointAttempts() {
+        return opptTwoPointAttempts;
+    }
+    public void setOpptTwoPointAttempts(Short opptTwoPointAttempts) {
+        this.opptTwoPointAttempts = opptTwoPointAttempts;
+    }
+
+    public Short getOpptTwoPointMade() {
+        return opptTwoPointMade;
+    }
+    public void setOpptTwoPointMade(Short opptTwoPointMade) {
+        this.opptTwoPointMade = opptTwoPointMade;
+    }
+
+    public Float getOpptTwoPointPct() {
+        return opptTwoPointPct;
+    }
+    public void setOpptTwoPointPct(Float opptTwoPointPct) {
+        this.opptTwoPointPct = opptTwoPointPct;
     }
 
     public Short getOpptThreePointAttempts() {

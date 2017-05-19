@@ -5,6 +5,19 @@ import java.math.RoundingMode;
 
 class TeamBoxScoreCalculations {
 
+    static Short calculateTwoPointAttempt(Short fieldGoalAttempt, Short threePointAttempt) {
+        return (short)(fieldGoalAttempt - threePointAttempt);
+    }
+
+    static Short calculateTwoPointMade(Short fieldGoalMade, Short threePointMade) {
+        return (short)(fieldGoalMade - threePointMade);
+    }
+
+    static BigDecimal calculatePercentMade(Short attempts, Short made) {
+        return new BigDecimal(made)
+            .divide(new BigDecimal(attempts), 4, RoundingMode.HALF_UP);
+    }
+
     static BigDecimal calculatePossessions(Short teamFieldGoalAttempts, Short teamReboundsOffense, Short opptReboundsDefense, Short teamFieldGoalMade, Short teamTurnovers, Short teamFreeThrowAttempts,
                                            Short opptFieldGoalAttempts, Short opptReboundsOffense, Short teamReboundsDefense, Short opptFieldGoalMade, Short opptTurnovers, Short opptFreeThrowAttempts) {
         BigDecimal bdTeam1, bdTeam2, bdTeam3;
