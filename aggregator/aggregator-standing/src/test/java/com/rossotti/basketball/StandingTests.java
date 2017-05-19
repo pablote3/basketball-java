@@ -20,6 +20,7 @@ public class StandingTests {
         Assert.assertEquals(0, Float.compare(standing.getRelativePercentageIndex(), 0.456725f));
         Assert.assertEquals(0, Float.compare(standing.getMarginOfVictory(), 10.5f));
         Assert.assertEquals(0, Float.compare(standing.getSimpleRatingSystem(), 10.1133f));
+        Assert.assertEquals(0, Float.compare(standing.getProjectedWinningPct(),0.8457f));
     }
 
     private Standing createMockStanding() {

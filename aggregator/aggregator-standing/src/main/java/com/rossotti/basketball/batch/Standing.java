@@ -33,6 +33,7 @@ public class Standing {
     private Float relativePercentageIndex;
     private Float marginOfVictory;
     private Float simpleRatingSystem;
+    private Float projectedWinningPct;
 
     public String getStandingDate() {
         return standingDate;
@@ -256,5 +257,12 @@ public class Standing {
     }
     public void setSimpleRatingSystem(Float simpleRatingSystem) {
         this.simpleRatingSystem = simpleRatingSystem;
+    }
+
+    public Float getProjectedWinningPct() {
+        return projectedWinningPct;
+    }
+    public void setProjectedWinningPct(Float projectedWinningPct) {
+        this.projectedWinningPct = projectedWinningPct;
     }
 }

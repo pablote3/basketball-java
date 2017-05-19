@@ -48,4 +48,13 @@ class StandingCalculations {
         return marginOfVictory
             .subtract(strenthOfSchedule);
     }
+
+    static BigDecimal calculateProjectedWinningPct(Short pointsFor, Short pointsAgainst, Short gamesPlayed) {
+        BigDecimal marginOfVictory = calculateMarginOfVictory(pointsFor, pointsAgainst, gamesPlayed);
+        BigDecimal top =  (marginOfVictory
+            .multiply(new BigDecimal(2.7)))
+            .add(new BigDecimal(41));
+        return top
+            .divide(new BigDecimal(82), 4, RoundingMode.HALF_UP);
+    }
 }

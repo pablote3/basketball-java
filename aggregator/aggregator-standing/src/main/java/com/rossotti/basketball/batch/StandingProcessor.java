@@ -15,6 +15,7 @@ public class StandingProcessor implements ItemProcessor<Standing, Standing> {
         standing.setRelativePercentageIndex(calculateRelativePercentageIndex().floatValue());
         standing.setMarginOfVictory(calculateMarginOfVictory().floatValue());
         standing.setSimpleRatingSystem(calculateSimpleRatingSystem().floatValue());
+        standing.setProjectedWinningPct(calculateProjectedWinningPercentage().floatValue());
         return standing;
     }
 
@@ -39,6 +40,12 @@ public class StandingProcessor implements ItemProcessor<Standing, Standing> {
     private BigDecimal calculateSimpleRatingSystem() {
         return StandingCalculations.calculateSimpleRatingSystem(
             standing.getOpptGamesWon(), standing.getOpptGamesPlayed(), standing.getOpptOpptGamesWon(), standing.getOpptOpptGamesPlayed(),
+            standing.getPointsFor(), standing.getPointsAgainst(), standing.getGamesPlayed()
+        );
+    }
+
+    private BigDecimal calculateProjectedWinningPercentage() {
+        return StandingCalculations.calculateProjectedWinningPct(
             standing.getPointsFor(), standing.getPointsAgainst(), standing.getGamesPlayed()
         );
     }
