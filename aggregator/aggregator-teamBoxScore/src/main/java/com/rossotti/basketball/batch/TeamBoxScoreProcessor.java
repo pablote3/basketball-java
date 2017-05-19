@@ -13,9 +13,15 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
         teamBoxScore.setTeamTwoPointAttempts(calculateTeamTwoPointAttempt());
         teamBoxScore.setTeamTwoPointMade(calculateTeamTwoPointMade());
         teamBoxScore.setTeamTwoPointPct(calculateTeamTwoPointPct().floatValue());
+        teamBoxScore.setTeamFieldGoalPct(calculateTeamFieldGoalPct().floatValue());
+        teamBoxScore.setTeamThreePointPct(calculateTeamThreePointPct().floatValue());
+        teamBoxScore.setTeamFreeThrowPct(calculateTeamFreeThrowPct().floatValue());
         teamBoxScore.setOpptTwoPointAttempts(calculateOpptTwoPointAttempt());
         teamBoxScore.setOpptTwoPointMade(calculateOpptTwoPointMade());
         teamBoxScore.setOpptTwoPointPct(calculateOpptTwoPointPct().floatValue());
+        teamBoxScore.setOpptFieldGoalPct(calculateOpptFieldGoalPct().floatValue());
+        teamBoxScore.setOpptThreePointPct(calculateOpptThreePointPct().floatValue());
+        teamBoxScore.setOpptFreeThrowPct(calculateOpptFreeThrowPct().floatValue());
         teamBoxScore.setPossessions(calculatePossessions().floatValue());
         teamBoxScore.setPace(calculatePace().floatValue());
         teamBoxScore.setTeamTrueShootingPct(calculateTeamTrueShootingPct().floatValue());
@@ -61,6 +67,24 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
         );
     }
 
+    private BigDecimal calculateTeamFieldGoalPct() {
+        return TeamBoxScoreCalculations.calculatePercentMade(
+                teamBoxScore.getTeamFieldGoalAttempts(), teamBoxScore.getTeamFieldGoalMade()
+        );
+    }
+
+    private BigDecimal calculateTeamFreeThrowPct() {
+        return TeamBoxScoreCalculations.calculatePercentMade(
+                teamBoxScore.getTeamFreeThrowAttempts(), teamBoxScore.getTeamFreeThrowMade()
+        );
+    }
+
+    private BigDecimal calculateTeamThreePointPct() {
+        return TeamBoxScoreCalculations.calculatePercentMade(
+                teamBoxScore.getTeamThreePointAttempts(), teamBoxScore.getTeamThreePointMade()
+        );
+    }
+
     private Short calculateOpptTwoPointMade() {
         return TeamBoxScoreCalculations.calculateTwoPointMade(
                 teamBoxScore.getOpptFieldGoalMade(), teamBoxScore.getOpptThreePointMade()
@@ -82,6 +106,24 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
         );
         return TeamBoxScoreCalculations.calculatePercentMade(
                 attempt, made
+        );
+    }
+
+    private BigDecimal calculateOpptFieldGoalPct() {
+        return TeamBoxScoreCalculations.calculatePercentMade(
+                teamBoxScore.getOpptFieldGoalAttempts(), teamBoxScore.getOpptFieldGoalMade()
+        );
+    }
+
+    private BigDecimal calculateOpptFreeThrowPct() {
+        return TeamBoxScoreCalculations.calculatePercentMade(
+                teamBoxScore.getOpptFreeThrowAttempts(), teamBoxScore.getOpptFreeThrowMade()
+        );
+    }
+
+    private BigDecimal calculateOpptThreePointPct() {
+        return TeamBoxScoreCalculations.calculatePercentMade(
+                teamBoxScore.getOpptThreePointAttempts(), teamBoxScore.getOpptThreePointMade()
         );
     }
 
@@ -213,21 +255,6 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
 
     private Float calculateTeamDEFR() {
 //      (bsTeam.blocks + bsTeam.steals) * 100 / (bsOppt.fieldGoalAttempts - bsOppt.reboundsOffense + bsOppt.turnovers + (.44 * bsOppt.freeThrowAttempts))
-        return 0F;
-    }
-
-    private Float calculateTeamFieldGoalPercentage() {
-        //bsTeam.fieldGoalMade / bsTeam.fieldGoalAttempts
-        return 0F;
-    }
-
-    private Float calculateTeamThreePointPercentage() {
-        //bsTeam.threePointMade / bsTeam.threePointAttempts
-        return 0F;
-    }
-
-    private Float calculateTeamFreeThrowPercentage() {
-        //bsTeam.freeThrowMade / bsTeam.freeThrowAttempts
         return 0F;
     }
 

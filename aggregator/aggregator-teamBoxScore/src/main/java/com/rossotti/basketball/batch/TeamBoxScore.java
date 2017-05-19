@@ -18,13 +18,16 @@ public class TeamBoxScore {
     private Short teamPersonalFouls;
     private Short teamFieldGoalAttempts;
     private Short teamFieldGoalMade;
+    private Float teamFieldGoalPct;
     private Short teamTwoPointAttempts;
     private Short teamTwoPointMade;
     private Float teamTwoPointPct;
     private Short teamThreePointAttempts;
     private Short teamThreePointMade;
+    private Float teamThreePointPct;
     private Short teamFreeThrowAttempts;
     private Short teamFreeThrowMade;
+    private Float teamFreeThrowPct;
     private Short teamReboundsOffense;
     private Short teamReboundsDefense;
     private Short teamPointsQ1;
@@ -50,13 +53,16 @@ public class TeamBoxScore {
     private Short opptPersonalFouls;
     private Short opptFieldGoalAttempts;
     private Short opptFieldGoalMade;
+    private Float opptFieldGoalPct;
     private Short opptTwoPointAttempts;
     private Short opptTwoPointMade;
     private Float opptTwoPointPct;
     private Short opptThreePointAttempts;
     private Short opptThreePointMade;
+    private Float opptThreePointPct;
     private Short opptFreeThrowAttempts;
     private Short opptFreeThrowMade;
+    private Float opptFreeThrowPct;
     private Short opptReboundsOffense;
     private Short opptReboundsDefense;
     private Short opptPointsQ1;
@@ -205,6 +211,13 @@ public class TeamBoxScore {
         this.teamFieldGoalMade = teamFieldGoalMade;
     }
 
+    public Float getTeamFieldGoalPct() {
+        return teamFieldGoalPct;
+    }
+    public void setTeamFieldGoalPct(Float teamFieldGoalPct) {
+        this.teamFieldGoalPct = teamFieldGoalPct;
+    }
+
     public Short getTeamTwoPointAttempts() {
         return teamTwoPointAttempts;
     }
@@ -240,6 +253,13 @@ public class TeamBoxScore {
         this.teamThreePointMade = teamThreePointMade;
     }
 
+    public Float getTeamThreePointPct() {
+        return teamThreePointPct;
+    }
+    public void setTeamThreePointPct(Float teamThreePointPct) {
+        this.teamThreePointPct = teamThreePointPct;
+    }
+
     public Short getTeamFreeThrowAttempts() {
         return teamFreeThrowAttempts;
     }
@@ -252,6 +272,13 @@ public class TeamBoxScore {
     }
     public void setTeamFreeThrowMade(Short teamFreeThrowMade) {
         this.teamFreeThrowMade = teamFreeThrowMade;
+    }
+
+    public Float getTeamFreeThrowPct() {
+        return teamFreeThrowPct;
+    }
+    public void setTeamFreeThrowPct(Float teamFreeThrowPct) {
+        this.teamFreeThrowPct = teamFreeThrowPct;
     }
 
     public Short getTeamReboundsOffense() {
@@ -429,6 +456,13 @@ public class TeamBoxScore {
         this.opptFieldGoalMade = opptFieldGoalMade;
     }
 
+    public Float getOpptFieldGoalPct() {
+        return opptFieldGoalPct;
+    }
+    public void setOpptFieldGoalPct(Float opptFieldGoalPct) {
+        this.opptFieldGoalPct = opptFieldGoalPct;
+    }
+
     public Short getOpptTwoPointAttempts() {
         return opptTwoPointAttempts;
     }
@@ -464,6 +498,13 @@ public class TeamBoxScore {
         this.opptThreePointMade = opptThreePointMade;
     }
 
+    public Float getOpptThreePointPct() {
+        return opptThreePointPct;
+    }
+    public void setOpptThreePointPct(Float opptThreePointPct) {
+        this.opptThreePointPct = opptThreePointPct;
+    }
+
     public Short getOpptFreeThrowAttempts() {
         return opptFreeThrowAttempts;
     }
@@ -476,6 +517,13 @@ public class TeamBoxScore {
     }
     public void setOpptFreeThrowMade(Short opptFreeThrowMade) {
         this.opptFreeThrowMade = opptFreeThrowMade;
+    }
+
+    public Float getOpptFreeThrowPct() {
+        return opptFreeThrowPct;
+    }
+    public void setOpptFreeThrowPct(Float opptFreeThrowPct) {
+        this.opptFreeThrowPct = opptFreeThrowPct;
     }
 
     public Short getOpptReboundsOffense() {
