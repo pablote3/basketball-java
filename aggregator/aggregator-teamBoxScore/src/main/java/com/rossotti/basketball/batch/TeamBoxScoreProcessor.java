@@ -13,15 +13,21 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
         teamBoxScore.setTeamTwoPointAttempts(calculateTeamTwoPointAttempt());
         teamBoxScore.setTeamTwoPointMade(calculateTeamTwoPointMade());
         teamBoxScore.setTeamTwoPointPct(calculateTeamTwoPointPct().floatValue());
+        teamBoxScore.setTeamTwoPointRate(calculateTeamTwoPointRate().floatValue());
         teamBoxScore.setTeamFieldGoalPct(calculateTeamFieldGoalPct().floatValue());
         teamBoxScore.setTeamThreePointPct(calculateTeamThreePointPct().floatValue());
+        teamBoxScore.setTeamThreePointRate(calculateTeamThreePointRate().floatValue());
         teamBoxScore.setTeamFreeThrowPct(calculateTeamFreeThrowPct().floatValue());
+        teamBoxScore.setTeamFreeThrowRate(calculateTeamFreeThrowRate().floatValue());
         teamBoxScore.setOpptTwoPointAttempts(calculateOpptTwoPointAttempt());
         teamBoxScore.setOpptTwoPointMade(calculateOpptTwoPointMade());
         teamBoxScore.setOpptTwoPointPct(calculateOpptTwoPointPct().floatValue());
+        teamBoxScore.setOpptTwoPointRate(calculateOpptTwoPointRate().floatValue());
         teamBoxScore.setOpptFieldGoalPct(calculateOpptFieldGoalPct().floatValue());
         teamBoxScore.setOpptThreePointPct(calculateOpptThreePointPct().floatValue());
+        teamBoxScore.setOpptThreePointRate(calculateOpptThreePointRate().floatValue());
         teamBoxScore.setOpptFreeThrowPct(calculateOpptFreeThrowPct().floatValue());
+        teamBoxScore.setOpptFreeThrowRate(calculateOpptFreeThrowRate().floatValue());
         teamBoxScore.setPossessions(calculatePossessions().floatValue());
         teamBoxScore.setPace(calculatePace().floatValue());
         teamBoxScore.setTeamTrueShootingPct(calculateTeamTrueShootingPct().floatValue());
@@ -62,26 +68,44 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
         Short made = TeamBoxScoreCalculations.calculateTwoPointMade(
                 teamBoxScore.getTeamFieldGoalMade(), teamBoxScore.getTeamThreePointMade()
         );
-        return TeamBoxScoreCalculations.calculatePercentMade(
-            attempt, made
+        return TeamBoxScoreCalculations.calculatePercent(
+            made, attempt
+        );
+    }
+
+    private BigDecimal calculateTeamTwoPointRate() {
+        return TeamBoxScoreCalculations.calculatePercent(
+            teamBoxScore.getTeamTwoPointAttempts(), teamBoxScore.getTeamFieldGoalAttempts()
         );
     }
 
     private BigDecimal calculateTeamFieldGoalPct() {
-        return TeamBoxScoreCalculations.calculatePercentMade(
-                teamBoxScore.getTeamFieldGoalAttempts(), teamBoxScore.getTeamFieldGoalMade()
+        return TeamBoxScoreCalculations.calculatePercent(
+                teamBoxScore.getTeamFieldGoalMade(), teamBoxScore.getTeamFieldGoalAttempts()
         );
     }
 
     private BigDecimal calculateTeamFreeThrowPct() {
-        return TeamBoxScoreCalculations.calculatePercentMade(
-                teamBoxScore.getTeamFreeThrowAttempts(), teamBoxScore.getTeamFreeThrowMade()
+        return TeamBoxScoreCalculations.calculatePercent(
+                teamBoxScore.getTeamFreeThrowMade(), teamBoxScore.getTeamFreeThrowAttempts()
+        );
+    }
+
+    private BigDecimal calculateTeamFreeThrowRate() {
+        return TeamBoxScoreCalculations.calculatePercent(
+                teamBoxScore.getTeamFreeThrowAttempts(), teamBoxScore.getTeamFieldGoalAttempts()
         );
     }
 
     private BigDecimal calculateTeamThreePointPct() {
-        return TeamBoxScoreCalculations.calculatePercentMade(
-                teamBoxScore.getTeamThreePointAttempts(), teamBoxScore.getTeamThreePointMade()
+        return TeamBoxScoreCalculations.calculatePercent(
+                teamBoxScore.getTeamThreePointMade(), teamBoxScore.getTeamThreePointAttempts()
+        );
+    }
+
+    private BigDecimal calculateTeamThreePointRate() {
+        return TeamBoxScoreCalculations.calculatePercent(
+                teamBoxScore.getTeamThreePointAttempts(), teamBoxScore.getTeamFieldGoalAttempts()
         );
     }
 
@@ -104,26 +128,44 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
         Short made = TeamBoxScoreCalculations.calculateTwoPointMade(
                 teamBoxScore.getOpptFieldGoalMade(), teamBoxScore.getOpptThreePointMade()
         );
-        return TeamBoxScoreCalculations.calculatePercentMade(
-                attempt, made
+        return TeamBoxScoreCalculations.calculatePercent(
+                made, attempt
+        );
+    }
+
+    private BigDecimal calculateOpptTwoPointRate() {
+        return TeamBoxScoreCalculations.calculatePercent(
+                teamBoxScore.getOpptTwoPointAttempts(), teamBoxScore.getOpptFieldGoalAttempts()
         );
     }
 
     private BigDecimal calculateOpptFieldGoalPct() {
-        return TeamBoxScoreCalculations.calculatePercentMade(
-                teamBoxScore.getOpptFieldGoalAttempts(), teamBoxScore.getOpptFieldGoalMade()
+        return TeamBoxScoreCalculations.calculatePercent(
+                teamBoxScore.getOpptFieldGoalMade(), teamBoxScore.getOpptFieldGoalAttempts()
         );
     }
 
     private BigDecimal calculateOpptFreeThrowPct() {
-        return TeamBoxScoreCalculations.calculatePercentMade(
-                teamBoxScore.getOpptFreeThrowAttempts(), teamBoxScore.getOpptFreeThrowMade()
+        return TeamBoxScoreCalculations.calculatePercent(
+                teamBoxScore.getOpptFreeThrowMade(), teamBoxScore.getOpptFreeThrowAttempts()
+        );
+    }
+
+    private BigDecimal calculateOpptFreeThrowRate() {
+        return TeamBoxScoreCalculations.calculatePercent(
+                teamBoxScore.getOpptFreeThrowAttempts(), teamBoxScore.getOpptFieldGoalAttempts()
         );
     }
 
     private BigDecimal calculateOpptThreePointPct() {
-        return TeamBoxScoreCalculations.calculatePercentMade(
-                teamBoxScore.getOpptThreePointAttempts(), teamBoxScore.getOpptThreePointMade()
+        return TeamBoxScoreCalculations.calculatePercent(
+                teamBoxScore.getOpptThreePointMade(), teamBoxScore.getOpptThreePointAttempts()
+        );
+    }
+
+    private BigDecimal calculateOpptThreePointRate() {
+        return TeamBoxScoreCalculations.calculatePercent(
+                teamBoxScore.getOpptThreePointAttempts(), teamBoxScore.getOpptFieldGoalAttempts()
         );
     }
 

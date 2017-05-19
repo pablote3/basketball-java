@@ -13,9 +13,9 @@ class TeamBoxScoreCalculations {
         return (short)(fieldGoalMade - threePointMade);
     }
 
-    static BigDecimal calculatePercentMade(Short attempts, Short made) {
-        return new BigDecimal(made)
-            .divide(new BigDecimal(attempts), 4, RoundingMode.HALF_UP);
+    static BigDecimal calculatePercent(Short top, Short bottom) {
+        return new BigDecimal(top)
+            .divide(new BigDecimal(bottom), 4, RoundingMode.HALF_UP);
     }
 
     static BigDecimal calculatePossessions(Short teamFieldGoalAttempts, Short teamReboundsOffense, Short opptReboundsDefense, Short teamFieldGoalMade, Short teamTurnovers, Short teamFreeThrowAttempts,
