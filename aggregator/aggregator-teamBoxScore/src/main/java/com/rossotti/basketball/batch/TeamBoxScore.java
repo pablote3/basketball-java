@@ -97,6 +97,10 @@ public class TeamBoxScore {
     private Float teamOffensiveRating;
     private Float teamDefensiveRating;
     private Float teamEfficiencyDifferential;
+    private Float teamPlayPct;
+    private Float teamAssistRate;
+    private Float teamAssistToTurnoverRatio;
+
 
     public String getGameDateTime() {
         return gameDateTime;
@@ -768,5 +772,26 @@ public class TeamBoxScore {
     }
     public void setTeamEfficiencyDifferential(Float teamEfficiencyDifferential) {
         this.teamEfficiencyDifferential = teamEfficiencyDifferential;
+    }
+
+    public Float getTeamPlayPct() {
+        return teamPlayPct;
+    }
+    public void setTeamPlayPct(Float teamPlayPct) {
+        this.teamPlayPct = teamPlayPct;
+    }
+
+    public Float getTeamAssistRate() {
+        return teamAssistRate;
+    }
+    public void setTeamAssistRate(Float teamAssistRate) {
+        this.teamAssistRate = teamAssistRate;
+    }
+
+    public Float getTeamAssistToTurnoverRatio() {
+        return teamAssistToTurnoverRatio;
+    }
+    public void setTeamAssistToTurnoverRatio(Float teamAssistToTurnoverRatio) {
+        this.teamAssistToTurnoverRatio = teamAssistToTurnoverRatio;
     }
 }

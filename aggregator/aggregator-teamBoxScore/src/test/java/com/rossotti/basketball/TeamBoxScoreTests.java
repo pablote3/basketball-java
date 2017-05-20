@@ -52,6 +52,9 @@ public class TeamBoxScoreTests {
         Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamOffensiveRating(), 101.7033f));
         Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamDefensiveRating(), 103.7579f));
         Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamEfficiencyDifferential(), -2.0546f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamPlayPct(), 0.3956f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamAssistRate(), 16.835f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamAssistToTurnoverRatio(), 1.4667f));
     }
 
     private TeamBoxScore createMockTeamBoxScore() {

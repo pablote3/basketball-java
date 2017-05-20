@@ -194,4 +194,26 @@ class TeamBoxScoreCalculations {
         return offensiveRating
             .subtract(defensiveRating);
     }
+
+    static BigDecimal calculatePlayPct(Short fieldGoalAttempts, Short fieldGoalMade, Short reboundsOffense, Short turnovers) {
+        BigDecimal bottom =  new BigDecimal(fieldGoalAttempts)
+            .subtract(new BigDecimal(reboundsOffense))
+            .add(new BigDecimal(turnovers));
+        return calculatePercent(new BigDecimal(fieldGoalMade), bottom);
+    }
+
+    static BigDecimal calculateAssistRate(Short assist, Short fieldGoalAttempt, Short freeThrowAttempt, Short turnover) {
+        BigDecimal top = new BigDecimal(assist)
+            .multiply(new BigDecimal(100));
+        BigDecimal bottom =  new BigDecimal(fieldGoalAttempt)
+            .add((new BigDecimal(freeThrowAttempt))
+            .multiply(new BigDecimal(0.44)))
+            .add(new BigDecimal(assist))
+            .add(new BigDecimal(turnover));
+        return calculatePercent(top, bottom);
+    }
+
+    static BigDecimal calculateAssistToTurnoverRatio(Short assist, Short turnover) {
+        return calculatePercent(assist, turnover);
+    }
 }

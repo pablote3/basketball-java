@@ -46,6 +46,9 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
         teamBoxScore.setTeamOffensiveRating(calculateTeamOffensiveRating().floatValue());
         teamBoxScore.setTeamDefensiveRating(calculateTeamDefensiveRating().floatValue());
         teamBoxScore.setTeamEfficiencyDifferential(calculateTeamEfficiencyDifferential().floatValue());
+        teamBoxScore.setTeamPlayPct(calculateTeamPlayPct().floatValue());
+        teamBoxScore.setTeamAssistRate(calculateTeamAssisstRate().floatValue());
+        teamBoxScore.setTeamAssistToTurnoverRatio(calculateTeamAssistToTurnoverRatio().floatValue());
         return teamBoxScore;
     }
 
@@ -276,6 +279,24 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
             teamBoxScore.getTeamFieldGoalAttempts(), teamBoxScore.getTeamReboundsOffense(), teamBoxScore.getOpptReboundsDefense(), teamBoxScore.getTeamFieldGoalMade(), teamBoxScore.getTeamTurnovers(), teamBoxScore.getTeamFreeThrowAttempts(),
             teamBoxScore.getOpptFieldGoalAttempts(), teamBoxScore.getOpptReboundsOffense(), teamBoxScore.getTeamReboundsDefense(), teamBoxScore.getOpptFieldGoalMade(), teamBoxScore.getOpptTurnovers(), teamBoxScore.getOpptFreeThrowAttempts(),
             teamBoxScore.getTeamPoints(), teamBoxScore.getOpptPoints()
+        );
+    }
+
+    private BigDecimal calculateTeamPlayPct() {
+        return TeamBoxScoreCalculations.calculatePlayPct(
+                teamBoxScore.getTeamFieldGoalAttempts(), teamBoxScore.getTeamFieldGoalMade(), teamBoxScore.getTeamReboundsOffense(), teamBoxScore.getTeamTurnovers()
+        );
+    }
+
+    private BigDecimal calculateTeamAssisstRate() {
+        return TeamBoxScoreCalculations.calculateAssistRate(
+                teamBoxScore.getTeamAssists(), teamBoxScore.getTeamFieldGoalAttempts(), teamBoxScore.getTeamFreeThrowAttempts(), teamBoxScore.getTeamTurnovers()
+        );
+    }
+
+    private BigDecimal calculateTeamAssistToTurnoverRatio() {
+        return TeamBoxScoreCalculations.calculateAssistedFieldGoalPct(
+                teamBoxScore.getTeamAssists(), teamBoxScore.getTeamTurnovers()
         );
     }
 
