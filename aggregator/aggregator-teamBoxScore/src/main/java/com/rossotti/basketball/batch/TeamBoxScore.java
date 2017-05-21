@@ -100,7 +100,13 @@ public class TeamBoxScore {
     private Float teamPlayPct;
     private Float teamAssistRate;
     private Float teamAssistToTurnoverRatio;
-
+    private Float teamStealToTurnoverRatio;
+    private Float pythagoreanWinningPct_13_91;
+    private Float pythagoreanWins_13_91;
+    private Float pythagoreanLosses_13_91;
+    private Float pythagoreanWinningPct_16_5;
+    private Float pythagoreanWins_16_5;
+    private Float pythagoreanLosses_16_5;
 
     public String getGameDateTime() {
         return gameDateTime;
@@ -793,5 +799,54 @@ public class TeamBoxScore {
     }
     public void setTeamAssistToTurnoverRatio(Float teamAssistToTurnoverRatio) {
         this.teamAssistToTurnoverRatio = teamAssistToTurnoverRatio;
+    }
+
+    public Float getTeamStealToTurnoverRatio() {
+        return teamStealToTurnoverRatio;
+    }
+    public void setTeamStealToTurnoverRatio(Float teamStealToTurnoverRatio) {
+        this.teamStealToTurnoverRatio = teamStealToTurnoverRatio;
+    }
+
+    public Float getPythagoreanWinningPct_13_91() {
+        return pythagoreanWinningPct_13_91;
+    }
+    public void setPythagoreanWinningPct_13_91(Float pythagoreanWinningPct_13_91) {
+        this.pythagoreanWinningPct_13_91 = pythagoreanWinningPct_13_91;
+    }
+
+    public Float getPythagoreanWins_13_91() {
+        return pythagoreanWins_13_91;
+    }
+    public void setPythagoreanWins_13_91(Float pythagoreanWins_13_91) {
+        this.pythagoreanWins_13_91 = pythagoreanWins_13_91;
+    }
+
+    public Float getPythagoreanLosses_13_91() {
+        return pythagoreanLosses_13_91;
+    }
+    public void setPythagoreanLosses_13_91(Float pythagoreanLosses_13_91) {
+        this.pythagoreanLosses_13_91 = pythagoreanLosses_13_91;
+    }
+
+    public Float getPythagoreanWinningPct_16_5() {
+        return pythagoreanWinningPct_16_5;
+    }
+    public void setPythagoreanWinningPct_16_5(Float pythagoreanWinningPct_16_5) {
+        this.pythagoreanWinningPct_16_5 = pythagoreanWinningPct_16_5;
+    }
+
+    public Float getPythagoreanWins_16_5() {
+        return pythagoreanWins_16_5;
+    }
+    public void setPythagoreanWins_16_5(Float pythagoreanWins_16_5) {
+        this.pythagoreanWins_16_5 = pythagoreanWins_16_5;
+    }
+
+    public Float getPythagoreanLosses_16_5() {
+        return pythagoreanLosses_16_5;
+    }
+    public void setPythagoreanLosses_16_5(Float pythagoreanLosses_16_5) {
+        this.pythagoreanLosses_16_5 = pythagoreanLosses_16_5;
     }
 }

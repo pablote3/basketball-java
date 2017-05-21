@@ -49,6 +49,13 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
         teamBoxScore.setTeamPlayPct(calculateTeamPlayPct().floatValue());
         teamBoxScore.setTeamAssistRate(calculateTeamAssisstRate().floatValue());
         teamBoxScore.setTeamAssistToTurnoverRatio(calculateTeamAssistToTurnoverRatio().floatValue());
+        teamBoxScore.setTeamStealToTurnoverRatio(calculateTeamStealToTurnoverRatio().floatValue());
+        teamBoxScore.setPythagoreanWinningPct_13_91(calculatePythagoreanWinningPct_13_91().floatValue());
+        teamBoxScore.setPythagoreanWins_13_91(calculatePythagoreanWins_13_91().floatValue());
+        teamBoxScore.setPythagoreanLosses_13_91(calculatePythagoreanLosses_13_91().floatValue());
+        teamBoxScore.setPythagoreanWinningPct_16_5(calculatePythagoreanWinningPct_16_5().floatValue());
+        teamBoxScore.setPythagoreanWins_16_5(calculatePythagoreanWins_16_5().floatValue());
+        teamBoxScore.setPythagoreanLosses_16_5(calculatePythagoreanLosses_16_5().floatValue());
         return teamBoxScore;
     }
 
@@ -284,19 +291,61 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
 
     private BigDecimal calculateTeamPlayPct() {
         return TeamBoxScoreCalculations.calculatePlayPct(
-                teamBoxScore.getTeamFieldGoalAttempts(), teamBoxScore.getTeamFieldGoalMade(), teamBoxScore.getTeamReboundsOffense(), teamBoxScore.getTeamTurnovers()
+            teamBoxScore.getTeamFieldGoalAttempts(), teamBoxScore.getTeamFieldGoalMade(), teamBoxScore.getTeamReboundsOffense(), teamBoxScore.getTeamTurnovers()
         );
     }
 
     private BigDecimal calculateTeamAssisstRate() {
         return TeamBoxScoreCalculations.calculateAssistRate(
-                teamBoxScore.getTeamAssists(), teamBoxScore.getTeamFieldGoalAttempts(), teamBoxScore.getTeamFreeThrowAttempts(), teamBoxScore.getTeamTurnovers()
+            teamBoxScore.getTeamAssists(), teamBoxScore.getTeamFieldGoalAttempts(), teamBoxScore.getTeamFreeThrowAttempts(), teamBoxScore.getTeamTurnovers()
         );
     }
 
     private BigDecimal calculateTeamAssistToTurnoverRatio() {
-        return TeamBoxScoreCalculations.calculateAssistedFieldGoalPct(
-                teamBoxScore.getTeamAssists(), teamBoxScore.getTeamTurnovers()
+        return TeamBoxScoreCalculations.calculateAssistToTurnoverRatio(
+            teamBoxScore.getTeamAssists(), teamBoxScore.getTeamTurnovers()
+        );
+    }
+
+    private BigDecimal calculateTeamStealToTurnoverRatio() {
+        return TeamBoxScoreCalculations.calculateStealToTurnoverRatio(
+            teamBoxScore.getTeamSteals(), teamBoxScore.getTeamTurnovers()
+        );
+    }
+
+    private BigDecimal calculatePythagoreanWinningPct_13_91() {
+        return TeamBoxScoreCalculations.calculatePythagoreanWinningPct_13_91(
+            teamBoxScore.getTeamPoints(), teamBoxScore.getOpptPoints()
+        );
+    }
+
+    private BigDecimal calculatePythagoreanWins_13_91() {
+        return TeamBoxScoreCalculations.calculatePythagoreanWins_13_91(
+            teamBoxScore.getTeamPoints(), teamBoxScore.getOpptPoints()
+        );
+    }
+
+    private BigDecimal calculatePythagoreanLosses_13_91() {
+        return TeamBoxScoreCalculations.calculatePythagoreanLosses_13_91(
+            teamBoxScore.getTeamPoints(), teamBoxScore.getOpptPoints()
+        );
+    }
+
+    private BigDecimal calculatePythagoreanWinningPct_16_5() {
+        return TeamBoxScoreCalculations.calculatePythagoreanWinningPct_16_5(
+                teamBoxScore.getTeamPoints(), teamBoxScore.getOpptPoints()
+        );
+    }
+
+    private BigDecimal calculatePythagoreanWins_16_5() {
+        return TeamBoxScoreCalculations.calculatePythagoreanWins_16_5(
+                teamBoxScore.getTeamPoints(), teamBoxScore.getOpptPoints()
+        );
+    }
+
+    private BigDecimal calculatePythagoreanLosses_16_5() {
+        return TeamBoxScoreCalculations.calculatePythagoreanLosses_16_5(
+                teamBoxScore.getTeamPoints(), teamBoxScore.getOpptPoints()
         );
     }
 

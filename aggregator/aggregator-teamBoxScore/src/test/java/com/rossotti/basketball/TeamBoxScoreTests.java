@@ -55,6 +55,13 @@ public class TeamBoxScoreTests {
         Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamPlayPct(), 0.3956f));
         Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamAssistRate(), 16.835f));
         Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamAssistToTurnoverRatio(), 1.4667f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamStealToTurnoverRatio(), 73.3333f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getPythagoreanWinningPct_13_91(), 0.4309f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getPythagoreanWins_13_91(), 35.3338f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getPythagoreanLosses_13_91(), 46.6662f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getPythagoreanWinningPct_16_5(), 0.4182f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getPythagoreanWins_16_5(), 34.2924f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getPythagoreanLosses_16_5(), 47.7076f));
     }
 
     private TeamBoxScore createMockTeamBoxScore() {

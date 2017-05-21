@@ -216,4 +216,46 @@ class TeamBoxScoreCalculations {
     static BigDecimal calculateAssistToTurnoverRatio(Short assist, Short turnover) {
         return calculatePercent(assist, turnover);
     }
+
+    static BigDecimal calculateStealToTurnoverRatio(Short steal, Short turnover) {
+        BigDecimal top = new BigDecimal(steal)
+            .multiply(new BigDecimal(100));
+        return calculatePercent(top, new BigDecimal(turnover));
+    }
+
+    static BigDecimal calculatePythagoreanWinningPct_13_91(Short teamPoints, Short opptPoints) {
+        BigDecimal teamPoints_13_91 = new BigDecimal(Math.pow(new Double(teamPoints), 13.91));
+        BigDecimal opptPoints_13_91 = new BigDecimal(Math.pow(new Double(opptPoints), 13.91));
+        BigDecimal bottom = teamPoints_13_91
+            .add(opptPoints_13_91);
+        return calculatePercent(teamPoints_13_91, bottom);
+    }
+
+    static BigDecimal calculatePythagoreanWins_13_91(Short teamPoints, Short opptPoints) {
+        return calculatePythagoreanWinningPct_13_91(teamPoints, opptPoints)
+            .multiply(new BigDecimal(82));
+    }
+
+    static BigDecimal calculatePythagoreanLosses_13_91(Short teamPoints, Short opptPoints) {
+        return new BigDecimal(82)
+            .subtract(calculatePythagoreanWins_13_91(teamPoints, opptPoints));
+    }
+
+    static BigDecimal calculatePythagoreanWinningPct_16_5(Short teamPoints, Short opptPoints) {
+        BigDecimal teamPoints_16_5 = new BigDecimal(Math.pow(new Double(teamPoints), 16.5));
+        BigDecimal opptPoints_16_5 = new BigDecimal(Math.pow(new Double(opptPoints), 16.5));
+        BigDecimal bottom = teamPoints_16_5
+                .add(opptPoints_16_5);
+        return calculatePercent(teamPoints_16_5, bottom);
+    }
+
+    static BigDecimal calculatePythagoreanWins_16_5(Short teamPoints, Short opptPoints) {
+        return calculatePythagoreanWinningPct_16_5(teamPoints, opptPoints)
+                .multiply(new BigDecimal(82));
+    }
+
+    static BigDecimal calculatePythagoreanLosses_16_5(Short teamPoints, Short opptPoints) {
+        return new BigDecimal(82)
+                .subtract(calculatePythagoreanWins_16_5(teamPoints, opptPoints));
+    }
 }
