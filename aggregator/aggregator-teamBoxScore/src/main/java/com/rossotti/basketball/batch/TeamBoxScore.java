@@ -41,6 +41,28 @@ public class TeamBoxScore {
     private Short teamPointsQ6;
     private Short teamPointsQ7;
     private Short teamPointsQ8;
+
+    private Float teamTrueShootingPct;
+    private Float teamEffectiveFieldGoalPct;
+    private Float teamOffensiveReboundPct;
+    private Float teamDefensiveReboundPct;
+    private Float teamTotalReboundPct;
+    private Float teamAssistedFieldGoalPct;
+    private Float teamTurnoverPct;
+    private Float teamStealPct;
+    private Float teamBlockPct;
+    private Float teamBlockRate;
+    private Float teamPointsPerShot;
+    private Float teamFloorImpactCounter;
+    private Float teamFloorImpactCounterPer40;
+    private Float teamOffensiveRating;
+    private Float teamDefensiveRating;
+    private Float teamEfficiencyDifferential;
+    private Float teamPlayPct;
+    private Float teamAssistRate;
+    private Float teamAssistToTurnoverRatio;
+    private Float teamStealToTurnoverRatio;
+
     private String opptAbbr;
     private String opptConference;
     private String opptDivision;
@@ -79,28 +101,30 @@ public class TeamBoxScore {
     private Short opptPointsQ6;
     private Short opptPointsQ7;
     private Short opptPointsQ8;
+
+    private Float opptTrueShootingPct;
+    private Float opptEffectiveFieldGoalPct;
+    private Float opptOffensiveReboundPct;
+    private Float opptDefensiveReboundPct;
+    private Float opptTotalReboundPct;
+    private Float opptAssistedFieldGoalPct;
+    private Float opptTurnoverPct;
+    private Float opptStealPct;
+    private Float opptBlockPct;
+    private Float opptBlockRate;
+    private Float opptPointsPerShot;
+    private Float opptFloorImpactCounter;
+    private Float opptFloorImpactCounterPer40;
+    private Float opptOffensiveRating;
+    private Float opptDefensiveRating;
+    private Float opptEfficiencyDifferential;
+    private Float opptPlayPct;
+    private Float opptAssistRate;
+    private Float opptAssistToTurnoverRatio;
+    private Float opptStealToTurnoverRatio;
+
     private Float possessions;
     private Float pace;
-    private Float teamTrueShootingPct;
-    private Float teamEffectiveFieldGoalPct;
-    private Float teamOffensiveReboundPct;
-    private Float teamDefensiveReboundPct;
-    private Float teamTotalReboundPct;
-    private Float teamAssistedFieldGoalPct;
-    private Float teamTurnoverPct;
-    private Float teamStealPct;
-    private Float teamBlockPct;
-    private Float teamBlockRate;
-    private Float teamPointsPerShot;
-    private Float teamFloorImpactCounter;
-    private Float teamFloorImpactCounterPer40;
-    private Float teamOffensiveRating;
-    private Float teamDefensiveRating;
-    private Float teamEfficiencyDifferential;
-    private Float teamPlayPct;
-    private Float teamAssistRate;
-    private Float teamAssistToTurnoverRatio;
-    private Float teamStealToTurnoverRatio;
     private Float pythagoreanWinningPct_13_91;
     private Float pythagoreanWins_13_91;
     private Float pythagoreanLosses_13_91;
@@ -388,6 +412,147 @@ public class TeamBoxScore {
         this.teamPointsQ8 = teamPointsQ8;
     }
 
+    public Float getTeamTrueShootingPct() {
+        return teamTrueShootingPct;
+    }
+    public void setTeamTrueShootingPct(Float teamTrueShootingPct) {
+        this.teamTrueShootingPct = teamTrueShootingPct;
+    }
+
+    public Float getTeamEffectiveFieldGoalPct() {
+        return teamEffectiveFieldGoalPct;
+    }
+    public void setTeamEffectiveFieldGoalPct(Float teamEffectiveFieldGoalPct) {
+        this.teamEffectiveFieldGoalPct = teamEffectiveFieldGoalPct;
+    }
+
+    public Float getTeamOffensiveReboundPct() {
+        return teamOffensiveReboundPct;
+    }
+    public void setTeamOffensiveReboundPct(Float teamOffensiveReboundPct) {
+        this.teamOffensiveReboundPct = teamOffensiveReboundPct;
+    }
+
+    public Float getTeamDefensiveReboundPct() {
+        return teamDefensiveReboundPct;
+    }
+    public void setTeamDefensiveReboundPct(Float teamDefensiveReboundPct) {
+        this.teamDefensiveReboundPct = teamDefensiveReboundPct;
+    }
+
+    public Float getTeamTotalReboundPct() {
+        return teamTotalReboundPct;
+    }
+    public void setTeamTotalReboundPct(Float teamTotalReboundPct) {
+        this.teamTotalReboundPct = teamTotalReboundPct;
+    }
+
+    public Float getTeamAssistedFieldGoalPct() {
+        return teamAssistedFieldGoalPct;
+    }
+    public void setTeamAssistedFieldGoalPct(Float teamAssistedFieldGoalPct) {
+        this.teamAssistedFieldGoalPct = teamAssistedFieldGoalPct;
+    }
+
+    public Float getTeamTurnoverPct() {
+        return teamTurnoverPct;
+    }
+    public void setTeamTurnoverPct(Float teamTurnoverPct) {
+        this.teamTurnoverPct = teamTurnoverPct;
+    }
+
+    public Float getTeamStealPct() {
+        return teamStealPct;
+    }
+    public void setTeamStealPct(Float teamStealPct) {
+        this.teamStealPct = teamStealPct;
+    }
+
+    public Float getTeamBlockPct() {
+        return teamBlockPct;
+    }
+    public void setTeamBlockPct(Float teamBlockPct) {
+        this.teamBlockPct = teamBlockPct;
+    }
+
+    public Float getTeamBlockRate() {
+        return teamBlockRate;
+    }
+    public void setTeamBlockRate(Float teamBlockRate) {
+        this.teamBlockRate = teamBlockRate;
+    }
+
+    public Float getTeamPointsPerShot() {
+        return teamPointsPerShot;
+    }
+    public void setTeamPointsPerShot(Float teamPointsPerShot) {
+        this.teamPointsPerShot = teamPointsPerShot;
+    }
+
+    public Float getTeamFloorImpactCounter() {
+        return teamFloorImpactCounter;
+    }
+    public void setTeamFloorImpactCounter(Float teamFloorImpactCounter) {
+        this.teamFloorImpactCounter = teamFloorImpactCounter;
+    }
+
+    public Float getTeamFloorImpactCounterPer40() {
+        return teamFloorImpactCounterPer40;
+    }
+    public void setTeamFloorImpactCounterPer40(Float teamFloorImpactCounterPer40) {
+        this.teamFloorImpactCounterPer40 = teamFloorImpactCounterPer40;
+    }
+
+    public Float getTeamOffensiveRating() {
+        return teamOffensiveRating;
+    }
+    public void setTeamOffensiveRating(Float teamOffensiveRating) {
+        this.teamOffensiveRating = teamOffensiveRating;
+    }
+
+    public Float getTeamDefensiveRating() {
+        return teamDefensiveRating;
+    }
+    public void setTeamDefensiveRating(Float teamDefensiveRating) {
+        this.teamDefensiveRating = teamDefensiveRating;
+    }
+
+    public Float getTeamEfficiencyDifferential() {
+        return teamEfficiencyDifferential;
+    }
+    public void setTeamEfficiencyDifferential(Float teamEfficiencyDifferential) {
+        this.teamEfficiencyDifferential = teamEfficiencyDifferential;
+    }
+
+    public Float getTeamPlayPct() {
+        return teamPlayPct;
+    }
+    public void setTeamPlayPct(Float teamPlayPct) {
+        this.teamPlayPct = teamPlayPct;
+    }
+
+    public Float getTeamAssistRate() {
+        return teamAssistRate;
+    }
+    public void setTeamAssistRate(Float teamAssistRate) {
+        this.teamAssistRate = teamAssistRate;
+    }
+
+    public Float getTeamAssistToTurnoverRatio() {
+        return teamAssistToTurnoverRatio;
+    }
+    public void setTeamAssistToTurnoverRatio(Float teamAssistToTurnoverRatio) {
+        this.teamAssistToTurnoverRatio = teamAssistToTurnoverRatio;
+    }
+
+    public Float getTeamStealToTurnoverRatio() {
+        return teamStealToTurnoverRatio;
+    }
+    public void setTeamStealToTurnoverRatio(Float teamStealToTurnoverRatio) {
+        this.teamStealToTurnoverRatio = teamStealToTurnoverRatio;
+    }
+
+
     public String getOpptAbbr() {
         return opptAbbr;
     }
@@ -654,6 +819,149 @@ public class TeamBoxScore {
         this.opptPointsQ8 = opptPointsQ8;
     }
 
+
+
+    public Float getOpptTrueShootingPct() {
+        return opptTrueShootingPct;
+    }
+    public void setOpptTrueShootingPct(Float opptTrueShootingPct) {
+        this.opptTrueShootingPct = opptTrueShootingPct;
+    }
+
+    public Float getOpptEffectiveFieldGoalPct() {
+        return opptEffectiveFieldGoalPct;
+    }
+    public void setOpptEffectiveFieldGoalPct(Float opptEffectiveFieldGoalPct) {
+        this.opptEffectiveFieldGoalPct = opptEffectiveFieldGoalPct;
+    }
+
+    public Float getOpptOffensiveReboundPct() {
+        return opptOffensiveReboundPct;
+    }
+    public void setOpptOffensiveReboundPct(Float opptOffensiveReboundPct) {
+        this.opptOffensiveReboundPct = opptOffensiveReboundPct;
+    }
+
+    public Float getOpptDefensiveReboundPct() {
+        return opptDefensiveReboundPct;
+    }
+    public void setOpptDefensiveReboundPct(Float opptDefensiveReboundPct) {
+        this.opptDefensiveReboundPct = opptDefensiveReboundPct;
+    }
+
+    public Float getOpptTotalReboundPct() {
+        return opptTotalReboundPct;
+    }
+    public void setOpptTotalReboundPct(Float opptTotalReboundPct) {
+        this.opptTotalReboundPct = opptTotalReboundPct;
+    }
+
+    public Float getOpptAssistedFieldGoalPct() {
+        return opptAssistedFieldGoalPct;
+    }
+    public void setOpptAssistedFieldGoalPct(Float opptAssistedFieldGoalPct) {
+        this.opptAssistedFieldGoalPct = opptAssistedFieldGoalPct;
+    }
+
+    public Float getOpptTurnoverPct() {
+        return opptTurnoverPct;
+    }
+    public void setOpptTurnoverPct(Float opptTurnoverPct) {
+        this.opptTurnoverPct = opptTurnoverPct;
+    }
+
+    public Float getOpptStealPct() {
+        return opptStealPct;
+    }
+    public void setOpptStealPct(Float opptStealPct) {
+        this.opptStealPct = opptStealPct;
+    }
+
+    public Float getOpptBlockPct() {
+        return opptBlockPct;
+    }
+    public void setOpptBlockPct(Float opptBlockPct) {
+        this.opptBlockPct = opptBlockPct;
+    }
+
+    public Float getOpptBlockRate() {
+        return opptBlockRate;
+    }
+    public void setOpptBlockRate(Float opptBlockRate) {
+        this.opptBlockRate = opptBlockRate;
+    }
+
+    public Float getOpptPointsPerShot() {
+        return opptPointsPerShot;
+    }
+    public void setOpptPointsPerShot(Float opptPointsPerShot) {
+        this.opptPointsPerShot = opptPointsPerShot;
+    }
+
+    public Float getOpptFloorImpactCounter() {
+        return opptFloorImpactCounter;
+    }
+    public void setOpptFloorImpactCounter(Float opptFloorImpactCounter) {
+        this.opptFloorImpactCounter = opptFloorImpactCounter;
+    }
+
+    public Float getOpptFloorImpactCounterPer40() {
+        return opptFloorImpactCounterPer40;
+    }
+    public void setOpptFloorImpactCounterPer40(Float opptFloorImpactCounterPer40) {
+        this.opptFloorImpactCounterPer40 = opptFloorImpactCounterPer40;
+    }
+
+    public Float getOpptOffensiveRating() {
+        return opptOffensiveRating;
+    }
+    public void setOpptOffensiveRating(Float opptOffensiveRating) {
+        this.opptOffensiveRating = opptOffensiveRating;
+    }
+
+    public Float getOpptDefensiveRating() {
+        return opptDefensiveRating;
+    }
+    public void setOpptDefensiveRating(Float opptDefensiveRating) {
+        this.opptDefensiveRating = opptDefensiveRating;
+    }
+
+    public Float getOpptEfficiencyDifferential() {
+        return opptEfficiencyDifferential;
+    }
+    public void setOpptEfficiencyDifferential(Float opptEfficiencyDifferential) {
+        this.opptEfficiencyDifferential = opptEfficiencyDifferential;
+    }
+
+    public Float getOpptPlayPct() {
+        return opptPlayPct;
+    }
+    public void setOpptPlayPct(Float opptPlayPct) {
+        this.opptPlayPct = opptPlayPct;
+    }
+
+    public Float getOpptAssistRate() {
+        return opptAssistRate;
+    }
+    public void setOpptAssistRate(Float opptAssistRate) {
+        this.opptAssistRate = opptAssistRate;
+    }
+
+    public Float getOpptAssistToTurnoverRatio() {
+        return opptAssistToTurnoverRatio;
+    }
+    public void setOpptAssistToTurnoverRatio(Float opptAssistToTurnoverRatio) {
+        this.opptAssistToTurnoverRatio = opptAssistToTurnoverRatio;
+    }
+
+    public Float getOpptStealToTurnoverRatio() {
+        return opptStealToTurnoverRatio;
+    }
+    public void setOpptStealToTurnoverRatio(Float opptStealToTurnoverRatio) {
+        this.opptStealToTurnoverRatio = opptStealToTurnoverRatio;
+    }
+
+
     public Float getPossessions() {
         return possessions;
     }
@@ -666,146 +974,6 @@ public class TeamBoxScore {
     }
     public void setPace(Float pace) {
         this.pace = pace;
-    }
-
-    public Float getTeamTrueShootingPct() {
-        return teamTrueShootingPct;
-    }
-    public void setTeamTrueShootingPct(Float teamTrueShootingPct) {
-        this.teamTrueShootingPct = teamTrueShootingPct;
-    }
-
-    public Float getTeamEffectiveFieldGoalPct() {
-        return teamEffectiveFieldGoalPct;
-    }
-    public void setTeamEffectiveFieldGoalPct(Float teamEffectiveFieldGoalPct) {
-        this.teamEffectiveFieldGoalPct = teamEffectiveFieldGoalPct;
-    }
-
-    public Float getTeamOffensiveReboundPct() {
-        return teamOffensiveReboundPct;
-    }
-    public void setTeamOffensiveReboundPct(Float teamOffensiveReboundPct) {
-        this.teamOffensiveReboundPct = teamOffensiveReboundPct;
-    }
-
-    public Float getTeamDefensiveReboundPct() {
-        return teamDefensiveReboundPct;
-    }
-    public void setTeamDefensiveReboundPct(Float teamDefensiveReboundPct) {
-        this.teamDefensiveReboundPct = teamDefensiveReboundPct;
-    }
-
-    public Float getTeamTotalReboundPct() {
-        return teamTotalReboundPct;
-    }
-    public void setTeamTotalReboundPct(Float teamTotalReboundPct) {
-        this.teamTotalReboundPct = teamTotalReboundPct;
-    }
-
-    public Float getTeamAssistedFieldGoalPct() {
-        return teamAssistedFieldGoalPct;
-    }
-    public void setTeamAssistedFieldGoalPct(Float teamAssistedFieldGoalPct) {
-        this.teamAssistedFieldGoalPct = teamAssistedFieldGoalPct;
-    }
-
-    public Float getTeamTurnoverPct() {
-        return teamTurnoverPct;
-    }
-    public void setTeamTurnoverPct(Float teamTurnoverPct) {
-        this.teamTurnoverPct = teamTurnoverPct;
-    }
-
-    public Float getTeamStealPct() {
-        return teamStealPct;
-    }
-    public void setTeamStealPct(Float teamStealPct) {
-        this.teamStealPct = teamStealPct;
-    }
-
-    public Float getTeamBlockPct() {
-        return teamBlockPct;
-    }
-    public void setTeamBlockPct(Float teamBlockPct) {
-        this.teamBlockPct = teamBlockPct;
-    }
-
-    public Float getTeamBlockRate() {
-        return teamBlockRate;
-    }
-    public void setTeamBlockRate(Float teamBlockRate) {
-        this.teamBlockRate = teamBlockRate;
-    }
-
-    public Float getTeamPointsPerShot() {
-        return teamPointsPerShot;
-    }
-    public void setTeamPointsPerShot(Float teamPointsPerShot) {
-        this.teamPointsPerShot = teamPointsPerShot;
-    }
-
-    public Float getTeamFloorImpactCounter() {
-        return teamFloorImpactCounter;
-    }
-    public void setTeamFloorImpactCounter(Float teamFloorImpactCounter) {
-        this.teamFloorImpactCounter = teamFloorImpactCounter;
-    }
-
-    public Float getTeamFloorImpactCounterPer40() {
-        return teamFloorImpactCounterPer40;
-    }
-    public void setTeamFloorImpactCounterPer40(Float teamFloorImpactCounterPer40) {
-        this.teamFloorImpactCounterPer40 = teamFloorImpactCounterPer40;
-    }
-
-    public Float getTeamOffensiveRating() {
-        return teamOffensiveRating;
-    }
-    public void setTeamOffensiveRating(Float teamOffensiveRating) {
-        this.teamOffensiveRating = teamOffensiveRating;
-    }
-
-    public Float getTeamDefensiveRating() {
-        return teamDefensiveRating;
-    }
-    public void setTeamDefensiveRating(Float teamDefensiveRating) {
-        this.teamDefensiveRating = teamDefensiveRating;
-    }
-
-    public Float getTeamEfficiencyDifferential() {
-        return teamEfficiencyDifferential;
-    }
-    public void setTeamEfficiencyDifferential(Float teamEfficiencyDifferential) {
-        this.teamEfficiencyDifferential = teamEfficiencyDifferential;
-    }
-
-    public Float getTeamPlayPct() {
-        return teamPlayPct;
-    }
-    public void setTeamPlayPct(Float teamPlayPct) {
-        this.teamPlayPct = teamPlayPct;
-    }
-
-    public Float getTeamAssistRate() {
-        return teamAssistRate;
-    }
-    public void setTeamAssistRate(Float teamAssistRate) {
-        this.teamAssistRate = teamAssistRate;
-    }
-
-    public Float getTeamAssistToTurnoverRatio() {
-        return teamAssistToTurnoverRatio;
-    }
-    public void setTeamAssistToTurnoverRatio(Float teamAssistToTurnoverRatio) {
-        this.teamAssistToTurnoverRatio = teamAssistToTurnoverRatio;
-    }
-
-    public Float getTeamStealToTurnoverRatio() {
-        return teamStealToTurnoverRatio;
-    }
-    public void setTeamStealToTurnoverRatio(Float teamStealToTurnoverRatio) {
-        this.teamStealToTurnoverRatio = teamStealToTurnoverRatio;
     }
 
     public Float getPythagoreanWinningPct_13_91() {
