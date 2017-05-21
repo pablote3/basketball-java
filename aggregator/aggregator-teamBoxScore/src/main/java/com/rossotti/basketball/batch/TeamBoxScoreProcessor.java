@@ -504,39 +504,4 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
                 teamBoxScore.getTeamPoints(), teamBoxScore.getOpptPoints()
         );
     }
-
-    private Float calculateTeamOffEff() {
-//        bsTeam.points * 100 / (bsTeam.fieldGoalAttempts - bsTeam.reboundsOffense + bsTeam.turnovers + (.44 * bsTeam.freeThrowAttempts))
-        return 0F;
-    }
-
-    private Float calculateTeamDEFR() {
-//      (bsTeam.blocks + bsTeam.steals) * 100 / (bsOppt.fieldGoalAttempts - bsOppt.reboundsOffense + bsOppt.turnovers + (.44 * bsOppt.freeThrowAttempts))
-        return 0F;
-    }
-
-    private Float calculateTeamAR() {
-        //bsTeam.assists * 100 / (bsTeam.fieldGoalAttempts + (.44 * bsTeam.freeThrowAttempts) + bsTeam.turnovers)
-        return 0F;
-    }
-
-    private Float calculateTeamTOR() {
-        //bsTeam.turnovers * 100 / (bsTeam.fieldGoalAttempts + (.44 * bsTeam.freeThrowAttempts) + bsTeam.turnovers)
-        return 0F;
-    }
-
-    private Float calculateTeamBlockPct2() {
-        //bsTeam.blocks / bsTeam.fieldGoalAttempts
-        return 0F;
-    }
-
-    private Float calculateTeamBLK() {
-        //bsTeam.blocks * 100 / (bsOppt.fieldGoalAttempts - bsOppt.reboundsOffense + bsOppt.turnovers + (.44 * bsOppt.freeThrowAttempts))
-        return 0F;
-    }
-
-    private Float calculateTeam3PR() {
-        //bsTeam.freeThrowAttempts / bsTeam.fieldGoalAttempts as homeFTR, bsTeam.threePointAttempts / bsTeam.fieldGoalAttempts
-        return 0F;
-    }
 }
