@@ -33,6 +33,7 @@ public class TeamBoxScore {
     private Float teamFreeThrowRate;
     private Short teamReboundsOffense;
     private Short teamReboundsDefense;
+    private Short teamReboundsTotal;
     private Short teamPointsQ1;
     private Short teamPointsQ2;
     private Short teamPointsQ3;
@@ -93,6 +94,7 @@ public class TeamBoxScore {
     private Float opptFreeThrowRate;
     private Short opptReboundsOffense;
     private Short opptReboundsDefense;
+    private Short opptReboundsTotal;
     private Short opptPointsQ1;
     private Short opptPointsQ2;
     private Short opptPointsQ3;
@@ -354,6 +356,13 @@ public class TeamBoxScore {
     }
     public void setTeamReboundsDefense(Short teamReboundsDefense) {
         this.teamReboundsDefense = teamReboundsDefense;
+    }
+
+    public Short getTeamReboundsTotal() {
+        return teamReboundsTotal;
+    }
+    public void setTeamReboundsTotal(Short teamReboundsTotal) {
+        this.teamReboundsTotal = teamReboundsTotal;
     }
 
     public Short getTeamPointsQ1() {
@@ -761,6 +770,13 @@ public class TeamBoxScore {
     }
     public void setOpptReboundsDefense(Short opptReboundsDefense) {
         this.opptReboundsDefense = opptReboundsDefense;
+    }
+
+    public Short getOpptReboundsTotal() {
+        return opptReboundsTotal;
+    }
+    public void setOpptReboundsTotal(Short opptReboundsTotal) {
+        this.opptReboundsTotal = opptReboundsTotal;
     }
 
     public Short getOpptPointsQ1() {

@@ -21,6 +21,10 @@ class TeamBoxScoreCalculations {
         return (short)(fieldGoalMade - threePointMade);
     }
 
+    static Short calculateTotalRebound(Short reboundOffense, Short reboundDefense) {
+        return (short)(reboundOffense + reboundDefense);
+    }
+
     static BigDecimal calculatePossessions(Short teamFieldGoalAttempts, Short teamReboundsOffense, Short opptReboundsDefense, Short teamFieldGoalMade, Short teamTurnovers, Short teamFreeThrowAttempts,
                                            Short opptFieldGoalAttempts, Short opptReboundsOffense, Short teamReboundsDefense, Short opptFieldGoalMade, Short opptTurnovers, Short opptFreeThrowAttempts) {
         BigDecimal bdTeam1, bdTeam2, bdTeam3;

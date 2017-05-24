@@ -19,6 +19,7 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
         teamBoxScore.setTeamFieldGoalPct(calculateTeamFieldGoalPct().floatValue());
         teamBoxScore.setTeamFreeThrowPct(calculateTeamFreeThrowPct().floatValue());
         teamBoxScore.setTeamFreeThrowRate(calculateTeamFreeThrowRate().floatValue());
+        teamBoxScore.setTeamReboundsTotal(calculateTeamReboundTotal());
 
         teamBoxScore.setTeamTrueShootingPct(calculateTeamTrueShootingPct().floatValue());
         teamBoxScore.setTeamEffectiveFieldGoalPct(calculateTeamEffectiveFieldGoalPct().floatValue());
@@ -50,6 +51,7 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
         teamBoxScore.setOpptFieldGoalPct(calculateOpptFieldGoalPct().floatValue());
         teamBoxScore.setOpptFreeThrowPct(calculateOpptFreeThrowPct().floatValue());
         teamBoxScore.setOpptFreeThrowRate(calculateOpptFreeThrowRate().floatValue());
+        teamBoxScore.setOpptReboundsTotal(calculateOpptReboundTotal());
 
         teamBoxScore.setOpptTrueShootingPct(calculateOpptTrueShootingPct().floatValue());
         teamBoxScore.setOpptEffectiveFieldGoalPct(calculateOpptEffectiveFieldGoalPct().floatValue());
@@ -133,6 +135,12 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
     private BigDecimal calculateTeamFreeThrowRate() {
         return TeamBoxScoreCalculations.calculatePercent(
             teamBoxScore.getTeamFreeThrowAttempts(), teamBoxScore.getTeamFieldGoalAttempts()
+        );
+    }
+
+    private Short calculateTeamReboundTotal() {
+        return TeamBoxScoreCalculations.calculateTotalRebound(
+                teamBoxScore.getTeamReboundsOffense(), teamBoxScore.getTeamReboundsDefense()
         );
     }
 
@@ -320,6 +328,12 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
     private BigDecimal calculateOpptFreeThrowRate() {
         return TeamBoxScoreCalculations.calculatePercent(
             teamBoxScore.getOpptFreeThrowAttempts(), teamBoxScore.getOpptFieldGoalAttempts()
+        );
+    }
+
+    private Short calculateOpptReboundTotal() {
+        return TeamBoxScoreCalculations.calculateTotalRebound(
+            teamBoxScore.getOpptReboundsOffense(), teamBoxScore.getOpptReboundsDefense()
         );
     }
 
