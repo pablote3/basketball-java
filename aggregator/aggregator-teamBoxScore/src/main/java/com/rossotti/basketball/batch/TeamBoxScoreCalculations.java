@@ -101,7 +101,10 @@ class TeamBoxScoreCalculations {
     }
 
     static BigDecimal calculateAssistedFieldGoalPct(Short teamAssist, Short fieldGoalMade) {
-        return calculatePercent(teamAssist, fieldGoalMade);
+        BigDecimal top = new BigDecimal(teamAssist)
+            .multiply(new BigDecimal(100));
+        BigDecimal bottom = new BigDecimal(fieldGoalMade);
+        return calculatePercent(top, bottom);
     }
 
     static BigDecimal calculateTurnoverPct(Short teamTurnover, Short fieldGoalAttempt, Short freeThrowAttempt) {
@@ -132,11 +135,10 @@ class TeamBoxScoreCalculations {
         return calculatePercent(top, bottom);
     }
 
-    static BigDecimal calculateBlockRate(Short teamBlock, Short teamFieldGoalAttempt, Short teamThreePointAttempt) {
+    static BigDecimal calculateBlockRate(Short teamBlock, Short opptFieldGoalAttempt, Short opptThreePointAttempt) {
         BigDecimal top = new BigDecimal(teamBlock)
             .multiply(new BigDecimal(100));
-        BigDecimal bottom = new BigDecimal(teamFieldGoalAttempt)
-            .subtract(new BigDecimal(teamThreePointAttempt));
+        BigDecimal bottom = new BigDecimal(calculateTwoPointAttempt(opptFieldGoalAttempt, opptThreePointAttempt));
         return calculatePercent(top, bottom);
     }
 
