@@ -79,10 +79,10 @@ public class StandingConfig {
         String sql =
             "SELECT " +
                 "standing.standingDate, team.abbr, " +
-                "standing.rank, standing.ordinalRank, standing.gamesWon, standing.gamesLost, standing.streak, standing.streakType, standing.streakTotal, standing.gamesBack, standing.pointsFor, " +
-                "standing.pointsAgainst, standing.homeWins, standing.homeLosses, standing.awayWins, standing.awayLosses, standing.conferenceWins, standing.conferenceLosses, standing.lastFive,  " +
-                "standing.lastTen, standing.gamesPlayed,standing.pointsScoredPerGame, standing.pointsAllowedPerGame, standing.pointDifferentialPerGame, standing.opptGamesPlayed, standing.opptGamesWon, " +
-                "standing.opptOpptGamesPlayed, standing.opptOpptGamesWon " +
+                "standing.rank, standing.ordinalRank, standing.gamesWon, standing.gamesLost, standing.streak, standing.streakType, standing.streakTotal, standing.gamesBack, " +
+                "standing.pointsFor, standing.pointsAgainst, standing.homeWins, standing.homeLosses, standing.awayWins, standing.awayLosses, standing.conferenceWins, standing.conferenceLosses, " +
+                "standing.lastFive, standing.lastTen, standing.gamesPlayed,standing.pointsScoredPerGame, standing.pointsAllowedPerGame, standing.pointDifferentialPerGame, " +
+                "standing.opptGamesPlayed, standing.opptGamesWon, standing.opptOpptGamesPlayed, standing.opptOpptGamesWon " +
             "FROM standing AS standing " +
             "INNER JOIN team AS team ON team.id = standing.teamId " +
             "WHERE standing.standingDate BETWEEN '" + minDate + "' AND '" + maxDate + "' " +
@@ -105,10 +105,10 @@ public class StandingConfig {
             flatFileItemWriter.setShouldDeleteIfExists(true);
             BeanWrapperFieldExtractor<Standing> fieldExtractor = new BeanWrapperFieldExtractor<>();
             String[] fields = new String[]{
-                    "standingDate", "teamAbbr", "rank", "ordinalRank", "gamesWon", "gamesLost", "streak", "streakType", "streakTotal", "gamesBack", "pointsFor",
-                    "pointsAgainst", "homeWins", "homeLosses", "awayWins", "awayLosses", "conferenceWins", "conferenceLosses", "lastFive", "lastTen", "gamesPlayed",
-                    "pointsScoredPerGame", "pointsAllowedPerGame", "pointDifferentialPerGame", "opptGamesPlayed", "opptGamesWon", "opptOpptGamesPlayed",
-                    "opptOpptGamesWon", "strengthOfSchedule"
+                "standingDate", "teamAbbr", "rank", "ordinalRank", "gamesWon", "gamesLost", "streak", "streakType", "streakTotal", "gamesBack", "pointsFor",
+                "pointsAgainst", "homeWins", "homeLosses", "awayWins", "awayLosses", "conferenceWins", "conferenceLosses", "lastFive", "lastTen", "gamesPlayed",
+                "pointsScoredPerGame", "pointsAllowedPerGame", "pointDifferentialPerGame", "opptGamesPlayed", "opptGamesWon", "opptOpptGamesPlayed", "opptOpptGamesWon",
+                "strengthOfSchedule", "relativePercentageIndex", "marginOfVictory", "simpleRatingSystem", "projectedWinningPct"
             };
             fieldExtractor.setNames(fields);
             DelimitedLineAggregator<Standing> lineAggregator = new DelimitedLineAggregator<>();
@@ -133,14 +133,14 @@ public class StandingConfig {
                 "standingDate, teamAbbr, rank, ordinalRank, gamesWon, gamesLost, streak, streakType, streakTotal, gamesBack, pointsFor, " +
                 "pointsAgainst, homeWins, homeLosses, awayWins, awayLosses, conferenceWins, conferenceLosses, lastFive, lastTen, gamesPlayed, " +
                 "pointsScoredPerGame, pointsAllowedPerGame, pointDifferentialPerGame, opptGamesPlayed, opptGamesWon, opptOpptGamesPlayed, " +
-                "opptOpptGamesWon, strengthOfSchedule" +
+                "opptOpptGamesWon, strengthOfSchedule, relativePercentageIndex, marginOfVictory, simpleRatingSystem, projectedWinningPct" +
             ") " +
             "VALUES " +
             "(" +
                 ":standingDate, :teamAbbr, :rank, :ordinalRank, :gamesWon, :gamesLost, :streak, :streakType, :streakTotal, :gamesBack, :pointsFor, " +
                 ":pointsAgainst, :homeWins, :homeLosses, :awayWins, :awayLosses, :conferenceWins, :conferenceLosses, :lastFive, :lastTen, :gamesPlayed, " +
                 ":pointsScoredPerGame, :pointsAllowedPerGame, :pointDifferentialPerGame, :opptGamesPlayed, :opptGamesWon, :opptOpptGamesPlayed, " +
-                ":opptOpptGamesWon, :strengthOfSchedule" +
+                ":opptOpptGamesWon, :strengthOfSchedule, :relativePercentageIndex, :marginOfVictory, :simpleRatingSystem, :projectedWinningPct" +
             ")";
         jdbcBatchItemWriter.setSql(sql);
         return jdbcBatchItemWriter;

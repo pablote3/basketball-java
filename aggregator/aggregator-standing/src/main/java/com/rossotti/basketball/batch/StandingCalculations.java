@@ -37,9 +37,14 @@ class StandingCalculations {
     }
 
     static BigDecimal calculateMarginOfVictory(Short pointsFor, Short pointsAgainst, Short gamesPlayed) {
-        return new BigDecimal(pointsFor)
-            .subtract(new BigDecimal(pointsAgainst))
-            .divide(new BigDecimal(gamesPlayed), 4, RoundingMode.HALF_UP);
+        if (gamesPlayed > 0) {
+            return new BigDecimal(pointsFor)
+                .subtract(new BigDecimal(pointsAgainst))
+                .divide(new BigDecimal(gamesPlayed), 4, RoundingMode.HALF_UP);
+        }
+        else {
+            return new BigDecimal(0);
+        }
     }
 
     static BigDecimal calculateSimpleRatingSystem(Integer opptGamesWon, Integer opptGamesPlayed, Integer opptOpptGamesWon, Integer opptOpptGamesPlayed, Short pointsFor, Short pointsAgainst, Short teamGamesPlayed) {
