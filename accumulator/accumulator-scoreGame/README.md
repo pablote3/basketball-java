@@ -10,17 +10,15 @@ These instructions will get a local instance of the project up and running for d
 
 Clone [basketball repository](id:https://github.com/pablote3/basketball-java) into favorite IDE.
 
-Unit tests can be run by simply cloning the project.  System testing requires a MySQL database.
-
 ## Running Unit Tests
 
-Unit tests will execute against accumulator-services without additional configuration.  Spring Integration tests require JSON input files to be supplied on the file system for testing application flow.
+Unit tests execute against mock data. The Spring Integration tests require the location of JSON input files.
 
-Copy testIntegration folder to directory on local file system
+  Copy testIntegration folder to directory on local file system
 
-    https://drive.google.com/open?id=0ByBsbTluZmwKa3NFTENYcWlDSDQ
+        https://drive.google.com/open?id=0ByBsbTluZmwKa3NFTENYcWlDSDQ
 
-Update test/resources/service.properties
+  Update test/resources/service.properties
 
     xmlstats.fileBoxScore: append "~/pdrive/pwork/basketball-test/accumulator" with location of testIntegration fileBoxScore directory
     
@@ -35,27 +33,15 @@ System tests require MySQL database to persist data and file system to supply JS
 Install MySQL on Linux based system using command
 
     sudo apt-get install mysql-server
+    
+Copy testSystem folder to directory on local file system
+   
+    https://drive.google.com/open?id=0ByBsbTluZmwKa3NFTENYcWlDSDQ
 
 Create database schema using mysql command
 
     mysql -u root -p CREATE SCHEMA `accumulate_test` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-
-Update main/resources/application.properties
-
-    hibernate.hbm2ddl.auto= to hibernate.hbm2ddl.auto=create
     
-Create tables by running command from project directory
-
-    mvn clean install
- 
-Reset main/resources/application.properties
-
-    hibernate.hbm2ddl.auto=create to hibernate.hbm2ddl.auto=
-
-Copy testSystem folder to directory on local file system
-
-    https://drive.google.com/open?id=0ByBsbTluZmwKa3NFTENYcWlDSDQ
-
 Load database by running mysql command from testSystem directory
 
     mysql -u root -p accumulate_test < accumulate_systemTest_20161026.sql
