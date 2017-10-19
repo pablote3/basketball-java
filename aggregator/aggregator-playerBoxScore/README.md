@@ -1,11 +1,9 @@
-
-
 # aggregator-playerBoxScore
 
-The aggregator- playerBoxScore application flattens box score data from player perspective.
-
-####Still Needs to be coded
+The aggregator- playerBoxScore application flattens box score data from the perspective of the player
 
 ## Getting Started
 
-Instructions for installing and testing are provided in [aggregator-standing](id:https://github.com/pablote3/basketball-java/tree/master/aggregator/aggregator-standing)
+See parent project [aggregator-parent](id:https://github.com/pablote3/basketball-java/tree/master/aggregator) for instructions on installation and testing
+
+## *** Still Needs to be coded
