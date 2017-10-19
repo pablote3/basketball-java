@@ -32,7 +32,7 @@ public class TeamBoxScoreTests {
         Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamOffensiveReboundPct(), 21.0526f));
         Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamDefensiveReboundPct(), 78.2609f));
         Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamTotalReboundPct(), 52.381f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamAssistedFieldGoalPct(), 0.6111f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamAssistedFieldGoalPct(), 61.1111f));
         Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamTurnoverPct(), 13.802f));
         Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamStealPct(), 11.3004f));
         Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamBlockPct(), 5.1365f));
@@ -64,7 +64,7 @@ public class TeamBoxScoreTests {
         Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptOffensiveReboundPct(), 25.0f));
         Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptDefensiveReboundPct(), 75.0f));
         Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptTotalReboundPct(), 47.619f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptAssistedFieldGoalPct(), 0.4651f));
+        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptAssistedFieldGoalPct(), 46.5116f));
         Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptTurnoverPct(), 12.963f));
         Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptStealPct(), 11.3004f));
         Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptBlockPct(), 4.1092f));
