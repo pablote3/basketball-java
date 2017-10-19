@@ -1,11 +1,11 @@
 
-# aggregator-standing
+# aggregator-parent
 
-The aggregator-standing application flattens standings data.
+The aggregator-parent application flattens and enhances basketball data from relational database into domain centric data perspectives.
 
 ## Getting Started
 
-These instructions will get a local instance of the project up and running for development and testing purposes.
+These instructions will get a local instance of the project up and running for development and testing.
 
 ## Installing
 
@@ -13,9 +13,7 @@ Clone [basketball repository](id:https://github.com/pablote3/basketball-java) in
 
 ## Running Unit Tests
 
-Unit tests execute against mock data that does get changed during execution.
-
-  Run all JUnit tests in package com.rossotti.basketball
+Unit tests execute against mock data. 
 
   Update test/resources/service.properties
 
@@ -24,6 +22,8 @@ Unit tests execute against mock data that does get changed during execution.
     xmlStats.fileRoster: append "~/pdrive/pwork/basketball/accumulator-test" with location of testIntegration fileRoster directory
     
     xmlstats.fileStandings: append "~/pdrive/pwork/basketball/accumulator-test" with location of testIntegration fileStandings directory
+    
+   Run all JUnit tests in package com.rossotti.basketball
 
 ## Running System Tests
 

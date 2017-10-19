@@ -12,7 +12,7 @@ Clone [basketball repository](id:https://github.com/pablote3/basketball-java) in
 
 ## Running Unit Tests
 
-Unit tests execute against mock data. The Spring Integration tests require the location of JSON input files.
+Unit tests execute against mock data. Need to prepare the location of JSON input files.
 
   Copy testIntegration folder to directory on local file system
 
