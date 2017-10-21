@@ -115,19 +115,18 @@ public class TeamBoxScoreConfig {
     public ItemWriter<TeamBoxScore> writer() {
         String destination = propertyService.getProperty_String("writer.destination");
         System.out.println("made it to the writer for " + destination);
-        if (destination.equals("database")) {
-            return jdbcWriter();
-        }
-        else if (destination.equals("file")) {
-            return fileWriter();
-        }
-        else {
-            System.out.println("invalid property value for writer.destination");
-            return null;
+        switch (destination) {
+            case "database":
+                return jdbcWriter();
+            case "file":
+                return fileWriter();
+            default:
+                System.out.println("invalid property value for writer.destination");
+                return null;
         }
     }
 
-    public ItemWriter<TeamBoxScore> fileWriter() {
+    private ItemWriter<TeamBoxScore> fileWriter() {
         FlatFileItemWriter<TeamBoxScore> flatFileItemWriter = new FlatFileItemWriter<>();
         String path = propertyService.getProperty_Path("writer.extract");
         if (path != null) {
@@ -168,7 +167,7 @@ public class TeamBoxScoreConfig {
         }
     }
 
-    public ItemWriter<TeamBoxScore> jdbcWriter() {
+    private ItemWriter<TeamBoxScore> jdbcWriter() {
         JdbcBatchItemWriter<TeamBoxScore> jdbcBatchItemWriter = new JdbcBatchItemWriter<>();
         jdbcBatchItemWriter.setDataSource(databaseConfig.dataSourceAggregate());
         jdbcBatchItemWriter.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
