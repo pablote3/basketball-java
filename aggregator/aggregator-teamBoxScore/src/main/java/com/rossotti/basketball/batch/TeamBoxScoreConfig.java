@@ -59,7 +59,7 @@ public class TeamBoxScoreConfig {
             .<TeamBoxScore, TeamBoxScore>chunk(20)
             .reader(reader())
             .processor(teamBoxScoreProcessor())
-            .writer(jdbcWriter())
+            .writer(writer())
             .build();
     }
 
@@ -112,9 +112,24 @@ public class TeamBoxScoreConfig {
     }
 
     @Bean
+    public ItemWriter<TeamBoxScore> writer() {
+        String destination = propertyService.getProperty_String("writer.destination");
+        System.out.println("made it to the writer for " + destination);
+        if (destination.equals("database")) {
+            return jdbcWriter();
+        }
+        else if (destination.equals("file")) {
+            return fileWriter();
+        }
+        else {
+            System.out.println("invalid property value for writer.destination");
+            return null;
+        }
+    }
+
     public ItemWriter<TeamBoxScore> fileWriter() {
         FlatFileItemWriter<TeamBoxScore> flatFileItemWriter = new FlatFileItemWriter<>();
-        String path = propertyService.getProperty_Path("teamBoxScore.extract");
+        String path = propertyService.getProperty_Path("writer.extract");
         if (path != null) {
             flatFileItemWriter.setResource(new FileSystemResource(new File(path + "/teamBoxScore_Extract.txt")));
             flatFileItemWriter.setShouldDeleteIfExists(true);
@@ -153,7 +168,6 @@ public class TeamBoxScoreConfig {
         }
     }
 
-    @Bean
     public ItemWriter<TeamBoxScore> jdbcWriter() {
         JdbcBatchItemWriter<TeamBoxScore> jdbcBatchItemWriter = new JdbcBatchItemWriter<>();
         jdbcBatchItemWriter.setDataSource(databaseConfig.dataSourceAggregate());
