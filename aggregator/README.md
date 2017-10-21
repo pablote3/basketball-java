@@ -23,7 +23,7 @@ Unit tests execute against mock data.
     
     xmlstats.fileStandings: append "~/pdrive/pwork/basketball/accumulator-test" with location of testIntegration fileStandings directory
     
-   Run all JUnit tests in package com.rossotti.basketball
+  Run all JUnit tests in package com.rossotti.basketball
 
 ## Running System Tests
 
