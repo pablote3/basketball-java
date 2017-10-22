@@ -34,7 +34,7 @@ Unit tests execute against mock data external to the application
         
     replace xmlstats.fileStandings value with path to fileStandings directory under testUnit
 
-## Unit Test Execution
+## Unit Test Execution for scoreGame
 
   Run all tests in package for module accumulator-scoreGame
 
@@ -65,7 +65,9 @@ System tests uses the file system to supply JSON input files and MySQL database 
   #####Create database schema using mysql command
 
     mysql -u root -p CREATE SCHEMA `accumulate_test` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-    
+      
+## System Test Execution for scoreGame
+
   #####Load database by running mysql command from testSystem directory
 
     mysql -u root -p accumulate_test < accumulate_systemTest_20161026.sql
@@ -73,8 +75,6 @@ System tests uses the file system to supply JSON input files and MySQL database 
   #####Package application by running command from accumulator root directory
 
     mvn package
-    
-## System Test Execution for scoreGame
      
   Launch system tests by running commands from accumulator root directory
     
