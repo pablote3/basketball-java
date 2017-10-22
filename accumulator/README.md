@@ -68,7 +68,7 @@ System tests uses the file system to supply JSON input files and MySQL database 
       
 ## System Test Execution for scoreGame
 
-  ##### Load database by running mysql command from testSystem directory
+  ##### Reset database to 10/26/2016 by running mysql command from testSystem directory
 
     mysql -u root -p accumulate_test < accumulate_systemTest_20161026.sql
    
@@ -91,7 +91,15 @@ System tests uses the file system to supply JSON input files and MySQL database 
     java -DgameDate="2016-10-27" -DgameTeam="" -jar accumulator-scoreGame.jar
 
 ## System Test Execution for loadSchedule
+
+  ##### Reset database to 10/26/2016 by running mysql command from testSystem directory
+
+    mysql -u root -p accumulate_test < accumulate_systemTest_20161026.sql
+   
+  ##### Package application by running command from accumulator root directory
+
+    mvn package
      
-  Launch system tests by running commands from accumulator root directory
+  ##### Launch system tests by running commands from accumulator root directory
   
     java -DfileName="Schedule_2017-2018.csv" -jar accumulator-loadSchedule.jar
