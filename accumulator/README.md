@@ -18,15 +18,15 @@ These instructions will get a local instance of the project up and running for d
 
 Clone [basketball repository](id:https://github.com/pablote3/basketball-java) and import into your favorite IDE
 
-## Running Unit Tests
+## Unit Test Preparation
 
 Unit tests execute against mock data external to the application
 
-  Copy testUnit folder to directory on local file system
+  #####Copy testUnit folder to directory on local file system
 
     https://drive.google.com/open?id=0ByBsbTluZmwKa3NFTENYcWlDSDQ
 
-  Update test/resources/service.properties
+  #####Update accumulator-scoreGame/src/test/resources/service.properties
 
     replace xmlstats.fileBoxScore value with path to fileBoxScore directory under testUnit
         
@@ -34,39 +34,64 @@ Unit tests execute against mock data external to the application
         
     replace xmlstats.fileStandings value with path to fileStandings directory under testUnit
 
-## Running System Tests
+## Unit Test Execution
 
-System tests uses the file system to supply JSON input files and MySQL database to persist results.
+  Run all tests in package for module accumulator-scoreGame
 
-  Copy testSystem folder to directory on local file system
+## System Test Preparation
+
+System tests uses the file system to supply JSON input files and MySQL database to persist results
+
+  #####Copy testSystem folder to directory on local file system
    
     https://drive.google.com/open?id=0ByBsbTluZmwKa3NFTENYcWlDSDQ
     
-  Update main/resources/service.properties
+  #####Update accumulator-scoreGame/src/main/resources/service.properties
   
     replace xmlstats.fileBoxScore value with path to fileBoxScore directory under testSystem
         
     replace xmlStats.fileRoster value with path to fileRoster directory under testSystem
         
     replace xmlstats.fileStandings value with path to fileStandings directory under testSystem
+    
+  #####Update accumulator-loadSchedule/src/main/resources/service.properties
+      
+    replace loader.fileSchedule value with path to fileLoad directory under testSystem
 
-
-Install MySQL on Linux based system running command
+  #####Install MySQL on Linux based system running command
 
     sudo apt-get install mysql-server
  
-Create database schema using mysql command
+  #####Create database schema using mysql command
 
     mysql -u root -p CREATE SCHEMA `accumulate_test` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
     
-Load database by running mysql command from testSystem directory
+  #####Load database by running mysql command from testSystem directory
 
     mysql -u root -p accumulate_test < accumulate_systemTest_20161026.sql
    
-Package application by running command from accumulator directory
+  #####Package application by running command from accumulator root directory
 
     mvn package
     
-Launch system tests by running command from project target directory
+## System Test Execution for scoreGame
+     
+  Launch system tests by running commands from accumulator root directory
     
+  #####No roster changes 
+    java -DgameDate="2016-10-27" -DgameTeam="sacramento-kings" -jar accumulator-scoreGame.jar
+  
+  #####1 roster change
+    java -DgameDate="2016-10-27" -DgameTeam="chicago-bulls" -jar accumulator-scoreGame.jar
+  
+  #####2 roster changes
+    java -DgameDate="2016-10-27" -DgameTeam="atlanta-hawks" -jar accumulator-scoreGame.jar
+  
+  #####Remaining games for date
     java -DgameDate="2016-10-27" -DgameTeam="" -jar accumulator-scoreGame.jar
+
+## System Test Execution for loadSchedule
+     
+  Launch system tests by running commands from accumulator root directory
+  
+    java -DfileName="Schedule_2017-2018.csv" -jar accumulator-loadSchedule.jar
