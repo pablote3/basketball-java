@@ -28,11 +28,11 @@ Unit tests execute against mock data external to the application
 
   Update test/resources/service.properties
 
-    replace xmlstats.fileBoxScore path with location of testUnit fileBoxScore directory
+    replace xmlstats.fileBoxScore value with path to fileBoxScore directory under testUnit
         
-    replace xmlStats.fileRoster path with location of testUnit fileRoster directory
+    replace xmlStats.fileRoster value with path to fileRoster directory under testUnit
         
-    replace xmlstats.fileStandings path with location of testUnit fileStandings directory
+    replace xmlstats.fileStandings value with path to fileStandings directory under testUnit
 
 ## Running System Tests
 
@@ -44,11 +44,11 @@ System tests uses the file system to supply JSON input files and MySQL database 
     
   Update main/resources/service.properties
   
-    replace xmlstats.fileBoxScore path with location of testSystem fileBoxScore directory
+    replace xmlstats.fileBoxScore value with path to fileBoxScore directory under testSystem
         
-    replace xmlStats.fileRoster path with location of testSystem fileRoster directory
+    replace xmlStats.fileRoster value with path to fileRoster directory under testSystem
         
-    xmlstats.fileStandings  path with location of testSystem fileStandings directory
+    replace xmlstats.fileStandings value with path to fileStandings directory under testSystem
 
 
 Install MySQL on Linux based system running command
