@@ -6,7 +6,7 @@
     <name>accumulator-parent</name>
     <groupId>com.rossotti.basketball</groupId>
     <artifactId>accumulator-parent</artifactId>
-    <version>5.0</version>
+    <version>5.1</version>
     <packaging>pom</packaging>
 
     <parent>
