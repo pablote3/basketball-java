@@ -1,6 +1,8 @@
-# accumulator
+# Accumulator
 
-The accumulator project is composed of three main components:
+Accumulator is a set of Java applications to gather and sweeten basketball statistics.
+
+It is composed of three main components:
 
 * The [accumulator-scoreGame](id:https://github.com/pablote3/basketball-java/tree/master/accumulator/accumulator-scoreGame) application retrieves game, roster, and standings statistics for NBA games and stores in a relational database
 
