@@ -20,9 +20,9 @@ It is composed of four main components:
 
 These instructions will get a local instance of the project up and running for development and testing.
 
-## Installing
+## Installation
 
-* Clone [basketball repository](https://github.com/pablote3/basketball-java)
+* Clone or download [basketball repository](https://github.com/pablote3/basketball-java)
 
 * Import aggregator project into favorite IDE.
 

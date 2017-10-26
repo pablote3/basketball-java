@@ -14,9 +14,9 @@ It is composed of three main components:
 
 These instructions will get a local instance of the project up and running for development and testing purposes.
 
-## Installing
+## Installation
 
-* Clone [basketball repository](https://github.com/pablote3/basketball-java)
+* Clone or download [basketball repository](https://github.com/pablote3/basketball-java)
 
 * Import accumulator project into your favorite IDE.
 
