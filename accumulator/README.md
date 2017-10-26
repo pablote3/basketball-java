@@ -4,13 +4,11 @@ Accumulator is a set of Java applications to gather and sweeten basketball stati
 
 It is composed of three main components:
 
-* The [accumulator-scoreGame](id:https://github.com/pablote3/basketball-java/tree/master/accumulator/accumulator-scoreGame) application retrieves game, roster, and standings statistics for NBA games and stores in a relational database
+* [accumulator-scoreGame](https://github.com/pablote3/basketball-java/tree/master/accumulator/accumulator-scoreGame) retrieves game, roster, and standings statistics for NBA games and stores in a relational database
 
-  The application uses Spring Integration to control application flow and relies on [accumulator-services](id:https://github.com/pablote3/basketball-java/tree/master/accumulator/accumulator-services) to supply Spring components 
-* The [accumulator-loadSchedule](id:https://github.com/pablote3/basketball-java/tree/master/accumulator/accumulator-loadSchedule) application loads a .csv file of scheduled games and stores in a relational database
+* [accumulator-loadSchedule](https://github.com/pablote3/basketball-java/tree/master/accumulator/accumulator-loadSchedule) loads a .csv file of scheduled games and stores in a relational database
 
-  The application relies on [accumulator-services](id:https://github.com/pablote3/basketball-java/tree/master/accumulator/accumulator-services) to supply Spring components
-* The [accumulator-services](id:https://github.com/pablote3/basketball-java/tree/master/accumulator/accumulator-services) application provides sharable Spring componets extended from Spring Boot projects
+* [accumulator-services](https://github.com/pablote3/basketball-java/tree/master/accumulator/accumulator-services) provides sharable Spring componets extended from Spring Boot projects
 
 ## Getting Started
 
