@@ -1,7 +1,20 @@
 
-# aggregator-parent
+# Aggregator
 
-The aggregator-parent application flattens and enhances basketball data from relational database into domain centric data perspectives.
+Aggregator is a set of Java applications to flatten and enhance basketball statistics from a relational database populated by the accumulator applications.
+
+It is composed of four main components:
+
+* [aggregator-teamBoxScore](https://github.com/pablote3/basketball-java/tree/master/aggregator/aggregator-teamBoxScore) stores game data from each teams perspective
+
+* [aggregator-officialBoxScore](https://github.com/pablote3/basketball-java/tree/master/aggregator/aggregator-officialBoxScore) stores game data from each officials perspective
+
+* [aggregator-playerBoxScore](https://github.com/pablote3/basketball-java/tree/master/aggregator/aggregator-playerBoxScore) stores game data from each players perspective
+
+* [aggregator-standing](https://github.com/pablote3/basketball-java/tree/master/aggregator/aggregator-standing) stores standings data for each team every day during the season
+
+* [aggregator-services](https://github.com/pablote3/basketball-java/tree/master/aggregator/aggregator-services) provides sharable Spring components
+
 
 ## Getting Started
 
