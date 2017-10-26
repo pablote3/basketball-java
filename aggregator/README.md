@@ -22,7 +22,9 @@ These instructions will get a local instance of the project up and running for d
 
 ## Installing
 
-Clone [basketball repository](id:https://github.com/pablote3/basketball-java) into favorite IDE.
+* Clone [basketball repository](https://github.com/pablote3/basketball-java)
+
+* Import aggregator project into favorite IDE.
 
 ## Running Unit Tests
 
