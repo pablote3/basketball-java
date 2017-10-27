@@ -28,17 +28,16 @@ These instructions will get a local instance of the project up and running for d
 
 ## Running Unit Tests
 
-Unit tests execute against mock data. 
+Run all JUnit tests in the whole project.
 
-  Update test/resources/service.properties
+There are two types of tests that will be executed: 
 
-    xmlstats.fileBoxScore: append "~/pdrive/pwork/basketball-test/accumulator" with location of testIntegration fileBoxScore directory
-    
-    xmlStats.fileRoster: append "~/pdrive/pwork/basketball/accumulator-test" with location of testIntegration fileRoster directory
-    
-    xmlstats.fileStandings: append "~/pdrive/pwork/basketball/accumulator-test" with location of testIntegration fileStandings directory
-    
-  Run all JUnit tests in package com.rossotti.basketball
+* Unit tests defined in test projects execute against mock data.  These essentially test the processors.
+
+* Spring Batch will also run the jobs defined in the configuration file against the databases defined in test resources.  
+
+  These tests launch automatically without interaction outside of property files.  Results need to be confirmed manually.
+
 
 ## Running System Tests
 
