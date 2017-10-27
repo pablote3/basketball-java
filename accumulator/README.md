@@ -1,6 +1,6 @@
 # Accumulator
 
-Accumulator is a set of Java applications to gather and sweeten basketball statistics.
+Accumulator is a set of Java applications to gather and sweeten basketball statistics
 
 It is composed of three main components:
 
@@ -12,13 +12,13 @@ It is composed of three main components:
 
 ## Getting Started
 
-These instructions will get a local instance of the project up and running for development and testing purposes.
+These instructions will get a local instance of the project up and running for development and testing purposes
 
 ## Installation
 
 * Clone or download [basketball repository](https://github.com/pablote3/basketball-java)
 
-* Import accumulator project into your favorite IDE.
+* Import accumulator project into your favorite IDE
 
 ## Unit Test Preparation
 

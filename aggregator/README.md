@@ -1,7 +1,7 @@
 
 # Aggregator
 
-Aggregator is a set of Java applications to flatten and enhance basketball statistics from a relational database populated by the accumulator applications.
+Aggregator is a set of Java applications to flatten and enhance basketball statistics from a relational database populated by the accumulator applications
 
 It is composed of four main components:
 
@@ -18,27 +18,27 @@ It is composed of four main components:
 
 ## Getting Started
 
-These instructions will get a local instance of the project up and running for development and testing.
+These instructions will get a local instance of the project up and running for development and testing
 
 ## Installation
 
 * Clone or download [basketball repository](https://github.com/pablote3/basketball-java)
 
-* Import aggregator project into favorite IDE.
+* Import aggregator project into favorite IDE
 
 ## Running Unit Tests
 
-Run all JUnit tests in the whole project.
+Run all JUnit tests in the whole project
 
 There are two types of tests that will be executed: 
 
-* Unit tests are defined in test projects test processor logic and run against mock data.
+* Unit tests are defined in test projects test processor logic and run against mock data
 
-* Spring Batch automatically runs the jobs defined in the configuration files using the test resources.  
+* Spring Batch automatically runs the jobs defined in the configuration files using the test resources 
 
     Data input into these tests are based off MySQL database generated from successful completion of [accumulator](https://github.com/pablote3/basketball-java/tree/master/accumulator) system tests.  
 
-    Results are .csv extract files that need to be confirmed manually by comparing against expectations.
+    Results are .csv extract files written to the extract directory.  These need to be confirmed manually by comparing against expectations.
 
     * TeamBoxScoreTests extract file teamBoxScore.csv should contain 8 entries from games played on 10/27/2016
 
@@ -46,23 +46,21 @@ There are two types of tests that will be executed:
 
 ## Running System Tests
 
-System tests require MySQL database to persist data and file system to supply JSON input files.
-
-Install MySQL on Linux based system using command
-
-    sudo apt-get install mysql-server
-    
 Copy testSystem folder to directory on local file system
    
-    https://drive.google.com/open?id=0ByBsbTluZmwKa3NFTENYcWlDSDQ
+    https://drive.google.com/open?id=0ByBsbTluZmwKVm94SC1CdVVOYUE
 
+System tests require MySQL database to provide and to persist data
+
+  It is assumed that this was accomplished during setup of [accumulator](https://github.com/pablote3/basketball-java/tree/master/accumulator) project.
+   
 Create database schema using mysql command
 
-    mysql -u root -p CREATE SCHEMA `accumulate_test` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+    mysql -u root -p CREATE SCHEMA `aggregate_test` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
     
 Load database by running mysql command from testSystem directory
 
-    mysql -u root -p accumulate_test < accumulate_systemTest_20161026.sql
+    mysql -u root -p aggregate_test < aggregate_systemTest_20161026.sql
 
 Update main/resources/service.properties
 
