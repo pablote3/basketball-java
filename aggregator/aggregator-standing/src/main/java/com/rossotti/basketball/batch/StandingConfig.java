@@ -58,7 +58,7 @@ public class StandingConfig {
             .<Standing, Standing>chunk(20)
             .reader(reader())
             .processor(standingProcessor())
-            .writer(jdbcWriter())
+            .writer(writer())
             .build();
     }
 
@@ -97,11 +97,25 @@ public class StandingConfig {
     }
 
     @Bean
+    public ItemWriter<Standing> writer() {
+        String destination = propertyService.getProperty_String("writer.destination");
+        System.out.println("made it to the writer for " + destination);
+        switch (destination) {
+            case "database":
+                return jdbcWriter();
+            case "file":
+                return fileWriter();
+            default:
+                System.out.println("invalid property value for writer.destination");
+                return null;
+        }
+    }
+
     public ItemWriter<Standing> fileWriter() {
         FlatFileItemWriter<Standing> flatFileItemWriter = new FlatFileItemWriter<>();
         String path = propertyService.getProperty_Path("standing.extract");
         if (path != null) {
-            flatFileItemWriter.setResource(new FileSystemResource(new File(path + "/standing_Extract.txt")));
+            flatFileItemWriter.setResource(new FileSystemResource(new File(path + "/standings.csv")));
             flatFileItemWriter.setShouldDeleteIfExists(true);
             BeanWrapperFieldExtractor<Standing> fieldExtractor = new BeanWrapperFieldExtractor<>();
             String[] fields = new String[]{
@@ -121,7 +135,6 @@ public class StandingConfig {
         }
     }
 
-    @Bean
     public ItemWriter<Standing> jdbcWriter() {
         JdbcBatchItemWriter<Standing> jdbcBatchItemWriter = new JdbcBatchItemWriter<>();
         jdbcBatchItemWriter.setDataSource(databaseConfig.dataSourceAggregate());

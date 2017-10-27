@@ -130,7 +130,7 @@ public class TeamBoxScoreConfig {
         FlatFileItemWriter<TeamBoxScore> flatFileItemWriter = new FlatFileItemWriter<>();
         String path = propertyService.getProperty_Path("writer.extract");
         if (path != null) {
-            flatFileItemWriter.setResource(new FileSystemResource(new File(path + "/teamBoxScore_Extract.txt")));
+            flatFileItemWriter.setResource(new FileSystemResource(new File(path + "/teamBoxScore.csv")));
             flatFileItemWriter.setShouldDeleteIfExists(true);
             BeanWrapperFieldExtractor<TeamBoxScore> fieldExtractor = new BeanWrapperFieldExtractor<>();
             String[] fields = new String[]{
