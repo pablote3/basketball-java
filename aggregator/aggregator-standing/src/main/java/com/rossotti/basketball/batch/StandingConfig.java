@@ -113,7 +113,7 @@ public class StandingConfig {
 
     public ItemWriter<Standing> fileWriter() {
         FlatFileItemWriter<Standing> flatFileItemWriter = new FlatFileItemWriter<>();
-        String path = propertyService.getProperty_Path("standing.extract");
+        String path = propertyService.getProperty_Path("writer.extract");
         if (path != null) {
             flatFileItemWriter.setResource(new FileSystemResource(new File(path + "/standings.csv")));
             flatFileItemWriter.setShouldDeleteIfExists(true);
