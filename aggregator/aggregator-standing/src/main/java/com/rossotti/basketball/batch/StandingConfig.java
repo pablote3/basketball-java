@@ -111,7 +111,7 @@ public class StandingConfig {
         }
     }
 
-    public ItemWriter<Standing> fileWriter() {
+    private ItemWriter<Standing> fileWriter() {
         FlatFileItemWriter<Standing> flatFileItemWriter = new FlatFileItemWriter<>();
         String path = propertyService.getProperty_Path("writer.extract");
         if (path != null) {
@@ -135,7 +135,7 @@ public class StandingConfig {
         }
     }
 
-    public ItemWriter<Standing> jdbcWriter() {
+    private ItemWriter<Standing> jdbcWriter() {
         JdbcBatchItemWriter<Standing> jdbcBatchItemWriter = new JdbcBatchItemWriter<>();
         jdbcBatchItemWriter.setDataSource(databaseConfig.dataSourceAggregate());
         jdbcBatchItemWriter.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
