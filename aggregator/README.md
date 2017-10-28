@@ -50,9 +50,8 @@ Copy testSystem folder to directory on local file system
    
     https://drive.google.com/open?id=0ByBsbTluZmwKVm94SC1CdVVOYUE
 
-System tests require MySQL database to provide and to persist data
-
-  It is assumed that this was accomplished during setup of [accumulator](https://github.com/pablote3/basketball-java/tree/master/accumulator) project.
+System tests require MySQL database to provide and to persist data.
+    This should have been accomplished setting up the accumulator applications (see [accumulator](https://github.com/pablote3/basketball-java/tree/master/accumulator) project)
    
 Create database schema using mysql command
 
@@ -62,15 +61,7 @@ Load database by running mysql command from testSystem directory
 
     mysql -u root -p aggregate_test < aggregate_systemTest_20161026.sql
 
-Update main/resources/service.properties
-
-    xmlstats.fileBoxScore: append "~/pdrive/pwork/basketball-java/accumulator" with location of testSystem fileBoxScore directory
-    
-    xmlStats.fileRoster: append "~/pdrive/pwork/basketball-java/accumulator" with location of testSystem fileRoster directory
-    
-    xmlstats.fileStandings: append "~/pdrive/pwork/basketball-java/accumulator" with location of testSystem fileStandings directory
-    
-Package application by running command from accumulator directory
+Package application by running command from aggregator directory
 
     mvn package
     
