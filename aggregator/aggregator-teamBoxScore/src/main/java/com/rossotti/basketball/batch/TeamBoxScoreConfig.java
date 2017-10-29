@@ -71,7 +71,6 @@ public class TeamBoxScoreConfig {
     @SuppressWarnings("unchecked")
     @Bean
     public JdbcCursorItemReader<TeamBoxScore> reader() {
-
         String minDateTime = null;
         String maxDateTime = null;
 

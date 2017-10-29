@@ -70,12 +70,50 @@ public class StandingConfig {
     @SuppressWarnings("unchecked")
     @Bean
     public JdbcCursorItemReader<Standing> reader() {
-        LocalDate fromDate = propertyService.getProperty_LocalDate("aggregator.fromDate");
-        LocalDate toDate = propertyService.getProperty_LocalDate("aggregator.toDate");
+        String fromDate = null;
+        String toDate = null;
+
+        if (System.getProperty("fromDate") != null) {
+            String fromDateProp = System.getProperty("fromDate");
+            if (fromDateProp.isEmpty()) {
+                fromDate = DateTimeConverter.getStringDate(LocalDate.now().minusDays(1));
+            }
+            else {
+                if (DateTimeConverter.isDate(fromDateProp)) {
+                    fromDate = fromDateProp;
+                }
+                else {
+                    System.out.println("Invalid fromDate argument");
+                    System.exit(1);
+                }
+            }
+        }
+        else {
+            System.out.println("Argument fromDate not supplied - assumed to be unit test execution");
+            fromDate = "2016-10-26";
+        }
+
+        if (System.getProperty("toDate") != null) {
+            String toDateProp = System.getProperty("toDate");
+            if (toDateProp.isEmpty()) {
+                toDate = DateTimeConverter.getStringDate(LocalDate.now().minusDays(1));
+            }
+            else {
+                if (DateTimeConverter.isDate(toDateProp)) {
+                    toDate = toDateProp;
+                }
+                else {
+                    System.out.println("Invalid toDate argument");
+                    System.exit(1);
+                }
+            }
+        }
+        else {
+            System.out.println("Argument toDate not supplied - assumed to be unit test execution");
+            toDate = "2016-10-26";
+        }
 
         JdbcCursorItemReader<Standing> reader = new JdbcCursorItemReader<>();
-        String minDate = DateTimeConverter.getStringDate(DateTimeConverter.getLocalDateTimeMin(fromDate));
-        String maxDate = DateTimeConverter.getStringDate(DateTimeConverter.getLocalDateTimeMax(toDate));
         String sql =
             "SELECT " +
                 "standing.standingDate, team.abbr, " +
@@ -85,7 +123,7 @@ public class StandingConfig {
                 "standing.opptGamesPlayed, standing.opptGamesWon, standing.opptOpptGamesPlayed, standing.opptOpptGamesWon " +
             "FROM standing AS standing " +
             "INNER JOIN team AS team ON team.id = standing.teamId " +
-            "WHERE standing.standingDate BETWEEN '" + minDate + "' AND '" + maxDate + "' " +
+            "WHERE standing.standingDate BETWEEN '" + fromDate + "' AND '" + toDate + "' " +
             "ORDER BY standing.standingDate, team.abbr asc";
 
         System.out.println("sql = " +sql);
