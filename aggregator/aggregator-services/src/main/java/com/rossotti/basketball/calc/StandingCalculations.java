@@ -1,11 +1,11 @@
-package com.rossotti.basketball.batch;
+package com.rossotti.basketball.calc;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-class StandingCalculations {
+public class StandingCalculations {
 
-    static BigDecimal calculateStrengthOfSchedule(Integer opptGamesWon, Integer opptGamesPlayed, Integer opptOpptGamesWon, Integer opptOpptGamesPlayed) {
+    public static BigDecimal calculateStrengthOfSchedule(Integer opptGamesWon, Integer opptGamesPlayed, Integer opptOpptGamesWon, Integer opptOpptGamesPlayed) {
         if (opptGamesPlayed > 0 && opptOpptGamesPlayed > 0 && opptOpptGamesWon > 0) {
             BigDecimal opptWinPct = new BigDecimal(opptGamesWon)
                 .divide(new BigDecimal(opptGamesPlayed), 4, RoundingMode.HALF_UP);
@@ -19,7 +19,7 @@ class StandingCalculations {
         }
     }
 
-    static BigDecimal calculateRelativePercentageIndex(Short teamGamesWon, Short teamGamesPlayed, Integer opptGamesWon, Integer opptGamesPlayed, Integer opptOpptGamesWon, Integer opptOpptGamesPlayed) {
+    public static BigDecimal calculateRelativePercentageIndex(Short teamGamesWon, Short teamGamesPlayed, Integer opptGamesWon, Integer opptGamesPlayed, Integer opptOpptGamesWon, Integer opptOpptGamesPlayed) {
         if (teamGamesPlayed > 0 && opptGamesPlayed > 0 && opptOpptGamesPlayed > 0 && opptOpptGamesWon > 0) {
             BigDecimal teamWinPct = new BigDecimal(teamGamesWon)
                 .divide(new BigDecimal(teamGamesPlayed), 4, RoundingMode.HALF_UP);
@@ -36,7 +36,7 @@ class StandingCalculations {
         }
     }
 
-    static BigDecimal calculateMarginOfVictory(Short pointsFor, Short pointsAgainst, Short gamesPlayed) {
+    public static BigDecimal calculateMarginOfVictory(Short pointsFor, Short pointsAgainst, Short gamesPlayed) {
         if (gamesPlayed > 0) {
             return new BigDecimal(pointsFor)
                 .subtract(new BigDecimal(pointsAgainst))
@@ -47,14 +47,14 @@ class StandingCalculations {
         }
     }
 
-    static BigDecimal calculateSimpleRatingSystem(Integer opptGamesWon, Integer opptGamesPlayed, Integer opptOpptGamesWon, Integer opptOpptGamesPlayed, Short pointsFor, Short pointsAgainst, Short teamGamesPlayed) {
-        BigDecimal strenthOfSchedule = calculateStrengthOfSchedule(opptGamesWon, opptGamesPlayed, opptOpptGamesWon, opptOpptGamesPlayed);
+    public static BigDecimal calculateSimpleRatingSystem(Integer opptGamesWon, Integer opptGamesPlayed, Integer opptOpptGamesWon, Integer opptOpptGamesPlayed, Short pointsFor, Short pointsAgainst, Short teamGamesPlayed) {
+        BigDecimal strengthOfSchedule = calculateStrengthOfSchedule(opptGamesWon, opptGamesPlayed, opptOpptGamesWon, opptOpptGamesPlayed);
         BigDecimal marginOfVictory = calculateMarginOfVictory(pointsFor, pointsAgainst, teamGamesPlayed);
         return marginOfVictory
-            .subtract(strenthOfSchedule);
+            .subtract(strengthOfSchedule);
     }
 
-    static BigDecimal calculateProjectedWinningPct(Short pointsFor, Short pointsAgainst, Short gamesPlayed) {
+    public static BigDecimal calculateProjectedWinningPct(Short pointsFor, Short pointsAgainst, Short gamesPlayed) {
         BigDecimal marginOfVictory = calculateMarginOfVictory(pointsFor, pointsAgainst, gamesPlayed);
         BigDecimal top =  (marginOfVictory
             .multiply(new BigDecimal(2.7)))
