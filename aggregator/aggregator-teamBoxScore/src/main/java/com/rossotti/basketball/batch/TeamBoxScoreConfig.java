@@ -243,7 +243,7 @@ public class TeamBoxScoreConfig {
             "VALUES " +
             "(" +
                 ":gameDateTime, :seasonType, " +
-                ":officialLastName1, :officialFirstName, :officialLastName2, :officialFirstName2, :officialLastName3, :officialFirstName3, " +
+                ":officialLastName1, :officialFirstName1, :officialLastName2, :officialFirstName2, :officialLastName3, :officialFirstName3, " +
                 ":teamAbbr, :teamConference, :teamDivision, :teamLocation, :teamResult, :teamMinutes, :teamDaysOff, :teamPoints, :teamAssists, " +
                 ":teamTurnovers, :teamSteals, :teamBlocks, :teamPersonalFouls, :teamFieldGoalAttempts, :teamFieldGoalMade, :teamFieldGoalPct, " +
                 ":teamTwoPointAttempts, :teamTwoPointMade, :teamTwoPointPct, :teamThreePointAttempts, :teamThreePointMade, :teamThreePointPct, " +
