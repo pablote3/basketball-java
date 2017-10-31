@@ -1,6 +1,5 @@
 package com.rossotti.basketball.batch;
 
-import com.rossotti.basketball.batch.TeamBoxScore;
 import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
