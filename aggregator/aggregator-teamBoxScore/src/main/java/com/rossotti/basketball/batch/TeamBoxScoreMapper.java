@@ -11,6 +11,12 @@ public class TeamBoxScoreMapper implements RowMapper {
         TeamBoxScore teamBoxScore = new TeamBoxScore();
         teamBoxScore.setGameDateTime(resultSet.getString("gameDateTime"));
         teamBoxScore.setSeasonType(resultSet.getString("seasonType"));
+        teamBoxScore.setOfficialLastName1(resultSet.getString("officialLastName1"));
+        teamBoxScore.setOfficialFirstName1(resultSet.getString("officialFirstName1"));
+        teamBoxScore.setOfficialLastName2(resultSet.getString("officialLastName2"));
+        teamBoxScore.setOfficialFirstName2(resultSet.getString("officialFirstName2"));
+        teamBoxScore.setOfficialLastName3(resultSet.getString("officialLastName3"));
+        teamBoxScore.setOfficialFirstName3(resultSet.getString("officialFirstName3"));
         teamBoxScore.setTeamAbbr(resultSet.getString("teamAbbr"));
         teamBoxScore.setTeamConference(resultSet.getString("teamConf"));
         teamBoxScore.setTeamDivision(resultSet.getString("teamDiv"));

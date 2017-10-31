@@ -94,6 +94,12 @@ public class TeamBoxScoreTests {
         TeamBoxScore teamBoxScore = new TeamBoxScore();
         teamBoxScore.setGameDateTime("2017-03-30T00:00");
         teamBoxScore.setSeasonType("Regular");
+        teamBoxScore.setOfficialLastName1("Tiven");
+        teamBoxScore.setOfficialFirstName1("Josh");
+        teamBoxScore.setOfficialLastName2("Ford");
+        teamBoxScore.setOfficialFirstName2("Tyler");
+        teamBoxScore.setOfficialLastName3("Kennedy");
+        teamBoxScore.setOfficialFirstName3("Bill");
         teamBoxScore.setTeamAbbr("LAL");
         teamBoxScore.setTeamConference("West");
         teamBoxScore.setTeamDivision("Pacific");

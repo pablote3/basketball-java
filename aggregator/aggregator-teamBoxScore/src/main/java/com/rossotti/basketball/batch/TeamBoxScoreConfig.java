@@ -117,6 +117,12 @@ public class TeamBoxScoreConfig {
         JdbcCursorItemReader<TeamBoxScore> reader = new JdbcCursorItemReader<>();
         String sql =
             "SELECT game.gameDateTime, game.seasonType, " +
+                "(select o1.lastName from gameOfficial as go1 inner join official as o1 on go1.officialId = o1.id where gameId = game.id limit 1 offset 0) as officialLastName1, " +
+                "(select o2.firstName from gameOfficial as go2 inner join official as o2 on go2.officialId = o2.id where gameId = game.id limit 1 offset 0) as officialFirstName1, " +
+                "(select o3.lastName from gameOfficial as go3 inner join official as o3 on go3.officialId = o3.id where gameId = game.id limit 1 offset 1) as officialLastName2, " +
+                "(select o4.firstName from gameOfficial as go4 inner join official as o4 on go4.officialId = o4.id where gameId = game.id limit 1 offset 1) as officialFirstName2, " +
+                "(select o5.lastName from gameOfficial as go5 inner join official as o5 on go5.officialId = o5.id where gameId = game.id limit 1 offset 2) as officialLastName3, " +
+                "(select o6.firstName from gameOfficial as go6 inner join official as o6 on go6.officialId = o6.id where gameId = game.id limit 1 offset 2) as officialFirstName3, " +
                 "team.abbr as teamAbbr, team.conference as teamConf, team.division as teamDiv, " +
                 "bsTeam.location as teamLocation, bsTeam.result as teamResult, bsTeam.minutes as teamMinutes, bsTeam.daysOff as teamDaysOff, " +
                 "bsTeam.points as teamPTS, bsTeam.assists as teamAST, bsTeam.turnovers as teamTOV, bsTeam.steals as teamSTL, bsTeam.blocks as teamBLK, bsTeam.personalFouls as teamPF, " +
@@ -173,6 +179,7 @@ public class TeamBoxScoreConfig {
             BeanWrapperFieldExtractor<TeamBoxScore> fieldExtractor = new BeanWrapperFieldExtractor<>();
             String[] fields = new String[]{
                 "gameDateTime", "seasonType",
+                "officialLastName1", "officialFirstName1", "officialLastName2", "officialFirstName2", "officialLastName3", "officialFirstName3",
                 "teamAbbr", "teamConference", "teamDivision", "teamLocation", "teamResult", "teamMinutes", "teamDaysOff", "teamPoints", "teamAssists",
                 "teamTurnovers", "teamSteals", "teamBlocks", "teamPersonalFouls", "teamFieldGoalAttempts", "teamFieldGoalMade", "teamFieldGoalPct",
                 "teamTwoPointAttempts", "teamTwoPointMade", "teamTwoPointPct", "teamThreePointAttempts", "teamThreePointMade", "teamThreePointPct",
@@ -181,7 +188,6 @@ public class TeamBoxScoreConfig {
                 "teamAssistedFieldGoalPct", "teamTrueShootingPct", "teamEffectiveFieldGoalPct", "teamOffensiveReboundPct", "teamDefensiveReboundPct", "teamTurnoverPct",
                 "teamStealPct", "teamBlockPct", "teamBlockRate", "teamPointsPerShot", "teamFloorImpactCounter", "teamFloorImpactCounterPer40", "teamOffensiveRating",
                 "teamDefensiveRating", "teamEfficiencyDifferential", "teamPlayPct", "teamAssistRate", "teamAssistToTurnoverRatio", "teamStealToTurnoverRatio",
-
                 "opptAbbr", "opptConference", "opptDivision", "opptLocation", "opptResult", "opptMinutes", "opptDaysOff", "opptPoints", "opptAssists",
                 "opptTurnovers", "opptSteals", "opptBlocks", "opptPersonalFouls", "opptFieldGoalAttempts", "opptFieldGoalMade", "opptFieldGoalPct",
                 "opptTwoPointAttempts", "opptTwoPointMade", "opptTwoPointPct", "opptThreePointAttempts", "opptThreePointMade", "opptThreePointPct",
@@ -190,7 +196,6 @@ public class TeamBoxScoreConfig {
                 "opptAssistedFieldGoalPct", "opptTrueShootingPct", "opptEffectiveFieldGoalPct", "opptOffensiveReboundPct", "opptDefensiveReboundPct", "opptTurnoverPct",
                 "opptStealPct", "opptBlockPct", "opptBlockRate", "opptPointsPerShot", "opptFloorImpactCounter", "opptFloorImpactCounterPer40", "opptOffensiveRating",
                 "opptDefensiveRating", "opptEfficiencyDifferential", "opptPlayPct", "opptAssistRate", "opptAssistToTurnoverRatio", "opptStealToTurnoverRatio",
-
                 "possessions", "pace", "teamTrueShootingPct", "pythagoreanWinningPct_13_91", "pythagoreanWins_13_91", "pythagoreanLosses_13_91",
                 "pythagoreanWinningPct_16_5", "pythagoreanWins_16_5", "pythagoreanLosses_16_5"
             };
@@ -213,6 +218,7 @@ public class TeamBoxScoreConfig {
             "INSERT INTO teamBoxScore " +
             "(" +
                 "gameDateTime, seasonType, " +
+                "officialLastName1, officialFirstName1, officialLastName2, officialFirstName2, officialLastName3, officialFirstName3, " +
                 "teamAbbr, teamConference, teamDivision, teamLocation, teamResult, teamMinutes, teamDaysOff, teamPoints, teamAssists, " +
                 "teamTurnovers, teamSteals, teamBlocks, teamPersonalFouls, teamFieldGoalAttempts, teamFieldGoalMade, teamFieldGoalPct, " +
                 "teamTwoPointAttempts, teamTwoPointMade, teamTwoPointPct, teamThreePointAttempts, teamThreePointMade, teamThreePointPct, " +
@@ -222,7 +228,6 @@ public class TeamBoxScoreConfig {
                 "teamAssistedFieldGoalPct, teamTurnoverPct, teamStealPct, teamBlockPct, teamBlockRate, teamPointsPerShot, teamFloorImpactCounter, " +
                 "teamFloorImpactCounterPer40, teamOffensiveRating, teamDefensiveRating, teamEfficiencyDifferential, teamPlayPct, teamAssistRate, " +
                 "teamAssistToTurnoverRatio, teamStealToTurnoverRatio, " +
-
                 "opptAbbr, opptConference, opptDivision, opptLocation, opptResult, opptMinutes, opptDaysOff, opptPoints, opptAssists, " +
                 "opptTurnovers, opptSteals, opptBlocks, opptPersonalFouls, opptFieldGoalAttempts, opptFieldGoalMade, opptFieldGoalPct, " +
                 "opptTwoPointAttempts, opptTwoPointMade, opptTwoPointPct, opptThreePointAttempts, opptThreePointMade, opptThreePointPct, " +
@@ -232,13 +237,13 @@ public class TeamBoxScoreConfig {
                 "opptAssistedFieldGoalPct, opptTurnoverPct, opptStealPct, opptBlockPct, opptBlockRate, opptPointsPerShot, opptFloorImpactCounter, " +
                 "opptFloorImpactCounterPer40, opptOffensiveRating, opptDefensiveRating, opptEfficiencyDifferential, opptPlayPct, opptAssistRate, " +
                 "opptAssistToTurnoverRatio, opptStealToTurnoverRatio, " +
-
                 "possessions, pace, pythagoreanWinningPct_13_91, pythagoreanWins_13_91, pythagoreanLosses_13_91, pythagoreanWinningPct_16_5, " +
                 "pythagoreanWins_16_5, pythagoreanLosses_16_5" +
             ") " +
             "VALUES " +
             "(" +
                 ":gameDateTime, :seasonType, " +
+                ":officialLastName1, :officialFirstName, :officialLastName2, :officialFirstName2, :officialLastName3, :officialFirstName3, " +
                 ":teamAbbr, :teamConference, :teamDivision, :teamLocation, :teamResult, :teamMinutes, :teamDaysOff, :teamPoints, :teamAssists, " +
                 ":teamTurnovers, :teamSteals, :teamBlocks, :teamPersonalFouls, :teamFieldGoalAttempts, :teamFieldGoalMade, :teamFieldGoalPct, " +
                 ":teamTwoPointAttempts, :teamTwoPointMade, :teamTwoPointPct, :teamThreePointAttempts, :teamThreePointMade, :teamThreePointPct, " +
@@ -248,7 +253,6 @@ public class TeamBoxScoreConfig {
                 ":teamAssistedFieldGoalPct, :teamTurnoverPct, :teamStealPct, :teamBlockPct, :teamBlockRate, :teamPointsPerShot, :teamFloorImpactCounter, " +
                 ":teamFloorImpactCounterPer40, :teamOffensiveRating, :teamDefensiveRating, :teamEfficiencyDifferential, :teamPlayPct, :teamAssistRate, " +
                 ":teamAssistToTurnoverRatio, :teamStealToTurnoverRatio, " +
-
                 ":opptAbbr, :opptConference, :opptDivision, :opptLocation, :opptResult, :opptMinutes, :opptDaysOff, :opptPoints, :opptAssists, " +
                 ":opptTurnovers, :opptSteals, :opptBlocks, :opptPersonalFouls, :opptFieldGoalAttempts, :opptFieldGoalMade, :opptFieldGoalPct, " +
                 ":opptTwoPointAttempts, :opptTwoPointMade, :opptTwoPointPct, :opptThreePointAttempts, :opptThreePointMade, :opptThreePointPct, " +
@@ -258,7 +262,6 @@ public class TeamBoxScoreConfig {
                 ":opptAssistedFieldGoalPct, :opptTurnoverPct, :opptStealPct, :opptBlockPct, :opptBlockRate, :opptPointsPerShot, :opptFloorImpactCounter, " +
                 ":opptFloorImpactCounterPer40, :opptOffensiveRating, :opptDefensiveRating, :opptEfficiencyDifferential, :opptPlayPct, :opptAssistRate, " +
                 ":opptAssistToTurnoverRatio, :opptStealToTurnoverRatio, " +
-
                 ":possessions, :pace, :pythagoreanWinningPct_13_91, :pythagoreanWins_13_91, :pythagoreanLosses_13_91, :pythagoreanWinningPct_16_5," +
                 ":pythagoreanWins_16_5, :pythagoreanLosses_16_5" +
             ")";
