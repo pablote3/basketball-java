@@ -71,7 +71,7 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
         teamBoxScore.setOpptDefensiveRating(calculateOpptDefensiveRating().floatValue());
         teamBoxScore.setOpptEfficiencyDifferential(calculateOpptEfficiencyDifferential().floatValue());
         teamBoxScore.setOpptPlayPct(calculateOpptPlayPct().floatValue());
-        teamBoxScore.setOpptAssistRate(calculateOpptAssisstRate().floatValue());
+        teamBoxScore.setOpptAssistRate(calculateOpptAssistRate().floatValue());
         teamBoxScore.setOpptAssistToTurnoverRatio(calculateOpptAssistToTurnoverRatio().floatValue());
         teamBoxScore.setOpptStealToTurnoverRatio(calculateOpptStealToTurnoverRatio().floatValue());
 
@@ -450,7 +450,7 @@ public class TeamBoxScoreProcessor implements ItemProcessor<TeamBoxScore, TeamBo
         );
     }
 
-    private BigDecimal calculateOpptAssisstRate() {
+    private BigDecimal calculateOpptAssistRate() {
         return BoxScoreCalculations.calculateAssistRate(
             teamBoxScore.getOpptAssists(), teamBoxScore.getOpptFieldGoalAttempts(), teamBoxScore.getOpptFreeThrowAttempts(), teamBoxScore.getOpptTurnovers()
         );
