@@ -40,17 +40,21 @@ There are two types of tests that will be executed:
 
     Results are .csv extract files written to the extract directory.  These need to be confirmed manually by comparing against expectations.
 
-    * TeamBoxScoreTests extract file teamBoxScore.csv should contain 8 entries from games played on 10/27/2016
-
+    * OfficialBoxScoreTests extract file officialBoxScore.csv should contain 24 official entries from games played on 10/27/2016
+    
+    * PlayerBoxScoreTests extract file playerBoxScore.csv should contain 85 player entries from games played on 10/27/2016
+    
+    * TeamBoxScoreTests extract file teamBoxScore.csv should contain 8 team entries from games played on 10/27/2016
+    
     * StandingTests extract file standings.csv should contain 30 entries from all teams on 10/27/2016
 
-## Running System Tests
+## System Test Preparation
 
 Copy testSystem folder to directory on local file system
    
     https://drive.google.com/open?id=0ByBsbTluZmwKVm94SC1CdVVOYUE
 
-System tests require MySQL database to provide and to persist data.
+System tests require MySQL database to provide and to persist data
     This should have been accomplished setting up the accumulator applications (see [accumulator](https://github.com/pablote3/basketball-java/tree/master/accumulator) project)
    
 Create database schema using mysql command
@@ -65,6 +69,16 @@ Package application by running command from aggregator directory
 
     mvn package
     
-Launch system tests by running command from project target directory
+## System Test Execution
+
+Launch OfficialBoxScore system tests by running command from project target directory
+    java -DfromDate="2016-10-27" -DtoDate="2016-10-27" -jar aggregator-officialBoxScore.jar
     
-    java -DgameDate="2016-10-27" -DgameTeam="" -jar accumulator-scoreGame.jar
+Launch PlayerBoxScore system tests by running command from project target directory
+    java -DfromDate="2016-10-27" -DtoDate="2016-10-27" -jar aggregator-playerBoxScore.jar
+    
+Launch TeamBoxScore system tests by running command from project target directory
+    java -DfromDate="2016-10-27" -DtoDate="2016-10-27" -jar aggregator-teamBoxScore.jar
+
+Launch Standing system tests by running command from project target directory
+    java -DfromDate="2016-10-27" -DtoDate="2016-10-27" -jar aggregator-standing.jar
