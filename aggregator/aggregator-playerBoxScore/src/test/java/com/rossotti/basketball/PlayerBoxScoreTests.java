@@ -37,6 +37,7 @@ public class PlayerBoxScoreTests {
         playerBoxScore.setTeamLocation("Home");
         playerBoxScore.setTeamResult("Loss");
         playerBoxScore.setTeamDaysOff((short)2);
+        playerBoxScore.setStatus("1");
 
         playerBoxScore.setPoints((short)99);
         playerBoxScore.setAssists((short)22);
