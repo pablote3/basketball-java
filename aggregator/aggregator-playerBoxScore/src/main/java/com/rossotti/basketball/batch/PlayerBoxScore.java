@@ -463,4 +463,13 @@ public class PlayerBoxScore {
             this.getReboundsOffense(), this.getReboundsDefense()
         );
     }
+
+    public String calculateStatus() {
+        if(this.getStatus().equals("1")) {
+            return "Starter";
+        }
+        else {
+            return "Bench";
+        }
+    }
 }

@@ -14,6 +14,7 @@ public class PlayerBoxScoreProcessor implements ItemProcessor<PlayerBoxScore, Pl
         playerBoxScore.setFieldGoalPct(playerBoxScore.calculateFieldGoalPct().floatValue());
         playerBoxScore.setFreeThrowPct(playerBoxScore.calculateFreeThrowPct().floatValue());
         playerBoxScore.setReboundsTotal(playerBoxScore.calculateReboundTotal());
+        playerBoxScore.setStatus(playerBoxScore.calculateStatus());
         return playerBoxScore;
     }
 }
