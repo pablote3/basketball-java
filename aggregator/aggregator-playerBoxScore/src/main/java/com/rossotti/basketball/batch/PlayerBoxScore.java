@@ -29,8 +29,8 @@ public class PlayerBoxScore {
     private String position;
     private Short height;
     private Short weight;
-    private String birthDate;
-    private String birthPlace;
+    private String birthdate;
+    private String birthplace;
 
     private Short points;
     private Short assists;
@@ -215,18 +215,18 @@ public class PlayerBoxScore {
         this.weight = weight;
     }
 
-    public String getBirthDate() {
-        return birthDate;
+    public String getBirthdate() {
+        return birthdate;
     }
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
     }
 
-    public String getBirthPlace() {
-        return birthPlace;
+    public String getBirthplace() {
+        return birthplace;
     }
-    public void setBirthPlace(String birthPlace) {
-        this.birthPlace = birthPlace;
+    public void setBirthplace(String birthplace) {
+        this.birthplace = birthplace;
     }
 
     public Short getPoints() {

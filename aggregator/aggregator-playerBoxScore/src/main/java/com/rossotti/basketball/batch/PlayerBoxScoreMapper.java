@@ -32,8 +32,8 @@ public class PlayerBoxScoreMapper implements RowMapper {
         playerBoxScore.setPosition(resultSet.getString("position"));
         playerBoxScore.setHeight(resultSet.getShort("height"));
         playerBoxScore.setWeight(resultSet.getShort("weight"));
-        playerBoxScore.setBirthDate(resultSet.getString("birthdate"));
-        playerBoxScore.setBirthPlace(resultSet.getString("birthplace"));
+        playerBoxScore.setBirthdate(resultSet.getString("birthdate"));
+        playerBoxScore.setBirthplace(resultSet.getString("birthplace"));
 
         playerBoxScore.setPoints(resultSet.getShort("points"));
         playerBoxScore.setAssists(resultSet.getShort("assists"));
