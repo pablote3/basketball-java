@@ -6,7 +6,12 @@ import java.math.RoundingMode;
 public class BoxScoreCalculations {
 
     private static BigDecimal calculatePercent(BigDecimal top, BigDecimal bottom) {
-        return top.divide(bottom, 4, RoundingMode.HALF_UP);
+        if (top.compareTo(BigDecimal.ZERO) == 0 && bottom.compareTo(BigDecimal.ZERO) == 0) {
+            return BigDecimal.ZERO;
+        }
+        else {
+            return top.divide(bottom, 4, RoundingMode.HALF_UP);
+        }
     }
 
     static public BigDecimal calculatePercent(Short top, Short bottom) {
