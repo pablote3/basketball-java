@@ -195,11 +195,11 @@ public class PlayerBoxScoreConfig {
         jdbcBatchItemWriter.setDataSource(databaseConfig.dataSourceAggregate());
         jdbcBatchItemWriter.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>());
         String sql =
-            "INSERT INTO officialBoxScore " +
+            "INSERT INTO playerBoxScore " +
             "(" +
                 "gameDateTime, playerLastName, playerFirstName, seasonType, teamAbbr, " +
                 "officialLastName1, officialFirstName1, officialLastName2, officialFirstName2, officialLastName3, officialFirstName3, " +
-                "teamConference, teamDivision, teamLocation, teamResult, teamDaysOff, displayName, status, minutes, position, height, birthplace, birthdate, " +
+                "teamConference, teamDivision, teamLocation, teamResult, teamDaysOff, displayName, status, minutes, position, height, weight, birthplace, birthdate, " +
                 "points, assists, turnovers, steals, blocks, personalFouls, fieldGoalAttempts, fieldGoalMade, fieldGoalPct, " +
                 "twoPointAttempts, twoPointMade, twoPointPct, threePointAttempts, threePointMade, threePointPct, freeThrowAttempts, freeThrowMade, freeThrowPct, " +
                 "reboundsOffense, reboundsDefense, reboundsTotal, opptAbbr, opptConference, opptDivision, opptLocation, opptResult, opptDaysOff " +
@@ -208,7 +208,7 @@ public class PlayerBoxScoreConfig {
             "(" +
                 ":gameDateTime, :playerLastName, :playerFirstName, :seasonType, :teamAbbr, " +
                 ":officialLastName1, :officialFirstName1, :officialLastName2, :officialFirstName2, :officialLastName3, :officialFirstName3, " +
-                ":teamConference, :teamDivision, :teamLocation, :teamResult, :teamDaysOff, :displayName, :status, :minutes, :position, :height, :birthplace, :birthdate, " +
+                ":teamConference, :teamDivision, :teamLocation, :teamResult, :teamDaysOff, :displayName, :status, :minutes, :position, :height, :weight, :birthplace, :birthdate, " +
                 ":points, :assists, :turnovers, :steals, :blocks, :personalFouls, :fieldGoalAttempts, :fieldGoalMade, :fieldGoalPct, " +
                 ":twoPointAttempts, :twoPointMade, :twoPointPct, :threePointAttempts, :threePointMade, :threePointPct, :freeThrowAttempts, :freeThrowMade, :freeThrowPct, " +
                 ":reboundsOffense, :reboundsDefense, :reboundsTotal, :opptAbbr, :opptConference, :opptDivision, :opptLocation, :opptResult, :opptDaysOff " +
