@@ -5,8 +5,7 @@ import org.springframework.batch.item.ItemProcessor;
 public class OfficialBoxScoreProcessor implements ItemProcessor<OfficialBoxScore, OfficialBoxScore> {
 
     @Override
-    public OfficialBoxScore process(OfficialBoxScore officialBoxScoreIn) {
-        OfficialBoxScore officialBoxScore = officialBoxScoreIn;
+    public OfficialBoxScore process(OfficialBoxScore officialBoxScore) {
         officialBoxScore.setTeamTwoPointAttempts(officialBoxScore.calculateTeamTwoPointAttempt());
         officialBoxScore.setTeamTwoPointMade(officialBoxScore.calculateTeamTwoPointMade());
         officialBoxScore.setTeamTwoPointPct(officialBoxScore.calculateTeamTwoPointPct().floatValue());
