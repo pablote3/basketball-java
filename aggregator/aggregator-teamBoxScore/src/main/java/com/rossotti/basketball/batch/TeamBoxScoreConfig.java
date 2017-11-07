@@ -196,8 +196,8 @@ public class TeamBoxScoreConfig {
                 "opptAssistedFieldGoalPct", "opptTrueShootingPct", "opptEffectiveFieldGoalPct", "opptOffensiveReboundPct", "opptDefensiveReboundPct", "opptTurnoverPct",
                 "opptStealPct", "opptBlockPct", "opptBlockRate", "opptPointsPerShot", "opptFloorImpactCounter", "opptFloorImpactCounterPer40", "opptOffensiveRating",
                 "opptDefensiveRating", "opptEfficiencyDifferential", "opptPlayPct", "opptAssistRate", "opptAssistToTurnoverRatio", "opptStealToTurnoverRatio",
-                "possessions", "pace", "teamTrueShootingPct", "pythagoreanWinningPct_13_91", "pythagoreanWins_13_91", "pythagoreanLosses_13_91",
-                "pythagoreanWinningPct_16_5", "pythagoreanWins_16_5", "pythagoreanLosses_16_5"
+                "possessions", "pace", "pythagoreanWinningPct_13_91", "pythagoreanWins_13_91", "pythagoreanLosses_13_91", "pythagoreanWinningPct_16_5",
+                "pythagoreanWins_16_5", "pythagoreanLosses_16_5"
             };
             fieldExtractor.setNames(fields);
             DelimitedLineAggregator<TeamBoxScore> lineAggregator = new DelimitedLineAggregator<>();
