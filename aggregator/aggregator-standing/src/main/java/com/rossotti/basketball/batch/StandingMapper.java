@@ -4,7 +4,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class StandingMapper implements RowMapper {
+class StandingMapper implements RowMapper {
     @Override
     public Object mapRow(ResultSet resultSet, int i) throws SQLException {
         Standing standing = new Standing();
