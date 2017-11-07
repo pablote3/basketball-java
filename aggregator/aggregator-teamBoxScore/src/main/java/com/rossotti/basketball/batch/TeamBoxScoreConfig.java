@@ -1,7 +1,6 @@
 package com.rossotti.basketball.batch;
 
 import com.rossotti.basketball.config.DatabaseConfig;
-import com.rossotti.basketball.util.DateTimeConverter;
 import com.rossotti.basketball.util.PropertyService;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -20,9 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
-
 import java.io.File;
-import java.time.LocalDate;
 
 @Configuration
 @EnableBatchProcessing
@@ -71,48 +68,8 @@ public class TeamBoxScoreConfig {
     @SuppressWarnings("unchecked")
     @Bean
     public JdbcCursorItemReader<TeamBoxScore> reader() {
-        String minDateTime = null;
-        String maxDateTime = null;
-
-        if (System.getProperty("fromDate") != null) {
-            String fromDate = System.getProperty("fromDate");
-            if (fromDate.isEmpty()) {
-                minDateTime = DateTimeConverter.getStringDateTime(DateTimeConverter.getLocalDateTimeMin(LocalDate.now().minusDays(1)));
-            }
-            else {
-                if (DateTimeConverter.isDate(fromDate)) {
-                    minDateTime = DateTimeConverter.getStringDateTime(DateTimeConverter.getLocalDateTimeMin(DateTimeConverter.getLocalDate(fromDate)));
-                }
-                else {
-                    System.out.println("Invalid fromDate argument");
-                    System.exit(1);
-                }
-            }
-        }
-        else {
-            System.out.println("Argument fromDate not supplied - assumed to be unit test execution");
-            minDateTime = DateTimeConverter.getStringDateTime(DateTimeConverter.getLocalDateTimeMin(DateTimeConverter.getLocalDate("2016-10-26")));
-        }
-
-        if (System.getProperty("toDate") != null) {
-            String toDate = System.getProperty("toDate");
-            if (toDate.isEmpty()) {
-                maxDateTime = DateTimeConverter.getStringDateTime(DateTimeConverter.getLocalDateTimeMax(LocalDate.now().minusDays(1)));
-            }
-            else {
-                if (DateTimeConverter.isDate(toDate)) {
-                    maxDateTime = DateTimeConverter.getStringDateTime(DateTimeConverter.getLocalDateTimeMax(DateTimeConverter.getLocalDate(toDate)));
-                }
-                else {
-                    System.out.println("Invalid toDate argument");
-                    System.exit(1);
-                }
-            }
-        }
-        else {
-            System.out.println("Argument toDate not supplied - assumed to be unit test execution");
-            maxDateTime = DateTimeConverter.getStringDateTime(DateTimeConverter.getLocalDateTimeMax(DateTimeConverter.getLocalDate("2016-10-26")));
-        }
+        String minDateTime = PropertyService.getMinDateTimeProperty();
+        String maxDateTime = PropertyService.getMaxDateTimeProperty();
 
         JdbcCursorItemReader<TeamBoxScore> reader = new JdbcCursorItemReader<>();
         String sql =
