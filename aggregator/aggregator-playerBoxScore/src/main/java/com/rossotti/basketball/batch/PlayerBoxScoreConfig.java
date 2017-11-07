@@ -1,7 +1,6 @@
 package com.rossotti.basketball.batch;
 
 import com.rossotti.basketball.config.DatabaseConfig;
-import com.rossotti.basketball.util.DateTimeConverter;
 import com.rossotti.basketball.util.PropertyService;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -20,9 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
-
 import java.io.File;
-import java.time.LocalDate;
 
 @Configuration
 @EnableBatchProcessing
