@@ -1039,19 +1039,19 @@ public class BoxScore {
         this.pythagoreanLosses_16_5 = pythagoreanLosses_16_5;
     }
 
-    public Short calculateTeamTwoPointMade() {
+    private Short calculateTeamTwoPointMade() {
         return BoxScoreCalculations.calculateTwoPointMade(
             this.getTeamFieldGoalMade(), this.getTeamThreePointMade()
         );
     }
 
-    public Short calculateTeamTwoPointAttempt() {
+    private Short calculateTeamTwoPointAttempt() {
         return BoxScoreCalculations.calculateTwoPointAttempt(
             this.getTeamFieldGoalAttempts(), this.getTeamThreePointAttempts()
         );
     }
 
-    public BigDecimal calculateTeamTwoPointPct() {
+    private BigDecimal calculateTeamTwoPointPct() {
         Short attempt = BoxScoreCalculations.calculateTwoPointAttempt(
             this.getTeamFieldGoalAttempts(), this.getTeamThreePointAttempts()
         );
@@ -1061,131 +1061,131 @@ public class BoxScore {
         return BoxScoreCalculations.calculatePercent(made, attempt);
     }
 
-    public BigDecimal calculateTeamTwoPointRate() {
+    private BigDecimal calculateTeamTwoPointRate() {
         return BoxScoreCalculations.calculatePercent (
             this.getTeamTwoPointAttempts(), this.getTeamFieldGoalAttempts()
         );
     }
 
-    public BigDecimal calculateTeamThreePointPct() {
+    private BigDecimal calculateTeamThreePointPct() {
         return BoxScoreCalculations.calculatePercent(
             this.getTeamThreePointMade(), this.getTeamThreePointAttempts()
         );
     }
 
-    public BigDecimal calculateTeamThreePointRate() {
+    private BigDecimal calculateTeamThreePointRate() {
         return BoxScoreCalculations.calculatePercent(
             this.getTeamThreePointAttempts(), this.getTeamFieldGoalAttempts()
         );
     }
 
-    public BigDecimal calculateTeamFieldGoalPct() {
+    private BigDecimal calculateTeamFieldGoalPct() {
         return BoxScoreCalculations.calculatePercent(
             this.getTeamFieldGoalMade(), this.getTeamFieldGoalAttempts()
         );
     }
 
-    public BigDecimal calculateTeamFreeThrowPct() {
+    private BigDecimal calculateTeamFreeThrowPct() {
         return BoxScoreCalculations.calculatePercent(
             this.getTeamFreeThrowMade(), this.getTeamFreeThrowAttempts()
         );
     }
 
-    public BigDecimal calculateTeamFreeThrowRate() {
+    private BigDecimal calculateTeamFreeThrowRate() {
         return BoxScoreCalculations.calculatePercent(
             this.getTeamFreeThrowAttempts(), this.getTeamFieldGoalAttempts()
         );
     }
 
-    public Short calculateTeamReboundTotal() {
+    private Short calculateTeamReboundTotal() {
         return BoxScoreCalculations.calculateTotalRebound(
             this.getTeamReboundsOffense(), this.getTeamReboundsDefense()
         );
     }
 
-    public BigDecimal calculateTeamTrueShootingPct() {
+    private BigDecimal calculateTeamTrueShootingPct() {
         return BoxScoreCalculations.calculateTrueShootingPct(
             this.getTeamPoints(), this.getTeamFieldGoalAttempts(), this.getTeamFreeThrowAttempts()
         );
     }
 
-    public BigDecimal calculateTeamEffectiveFieldGoalPct() {
+    private BigDecimal calculateTeamEffectiveFieldGoalPct() {
         return BoxScoreCalculations.calculateEffectiveFieldGoalPct(
             this.getTeamFieldGoalMade(), this.getTeamThreePointMade(), this.getTeamFieldGoalAttempts()
         );
     }
 
-    public BigDecimal calculateTeamOffensiveReboundPct() {
+    private BigDecimal calculateTeamOffensiveReboundPct() {
         return BoxScoreCalculations.calculateOffensiveReboundPct(
             this.getTeamReboundsOffense(), this.getOpptReboundsDefense()
         );
     }
 
-    public BigDecimal calculateTeamDefensiveReboundPct() {
+    private BigDecimal calculateTeamDefensiveReboundPct() {
         return BoxScoreCalculations.calculateDefensiveReboundPct(
             this.getTeamReboundsDefense(), this.getOpptReboundsOffense()
         );
     }
 
-    public BigDecimal calculateTeamTotalReboundPct() {
+    private BigDecimal calculateTeamTotalReboundPct() {
         return BoxScoreCalculations.calculateTotalReboundPct(
             this.getTeamReboundsOffense(), this.getTeamReboundsDefense(), this.getOpptReboundsOffense(), this.getOpptReboundsDefense()
         );
     }
 
-    public BigDecimal calculateTeamAssistedFieldGoalPct() {
+    private BigDecimal calculateTeamAssistedFieldGoalPct() {
         return BoxScoreCalculations.calculateAssistedFieldGoalPct(
             this.getTeamAssists(), this.getTeamFieldGoalMade()
         );
     }
 
-    public BigDecimal calculateTeamTurnoverPct() {
+    private BigDecimal calculateTeamTurnoverPct() {
         return BoxScoreCalculations.calculateTurnoverPct(
             this.getTeamTurnovers(), this.getTeamFieldGoalAttempts(), this.getTeamFreeThrowAttempts()
         );
     }
 
-    public BigDecimal calculateTeamStealPct() {
+    private BigDecimal calculateTeamStealPct() {
         return BoxScoreCalculations.calculateStealPct(
             this.getTeamSteals(), this.getTeamFieldGoalAttempts(), this.getTeamReboundsOffense(), this.getOpptReboundsDefense(), this.getTeamFieldGoalMade(), this.getTeamTurnovers(), this.getTeamFreeThrowAttempts(),
             this.getOpptFieldGoalAttempts(), this.getOpptReboundsOffense(), this.getTeamReboundsDefense(), this.getOpptFieldGoalMade(), this.getOpptTurnovers(), this.getOpptFreeThrowAttempts()
         );
     }
 
-    public BigDecimal calculateTeamBlockPct() {
+    private BigDecimal calculateTeamBlockPct() {
         return BoxScoreCalculations.calculateBlockPct(
             this.getTeamBlocks(), this.getTeamFieldGoalAttempts(), this.getTeamReboundsOffense(), this.getOpptReboundsDefense(), this.getTeamFieldGoalMade(), this.getTeamTurnovers(), this.getTeamFreeThrowAttempts(),
             this.getOpptFieldGoalAttempts(), this.getOpptReboundsOffense(), this.getTeamReboundsDefense(), this.getOpptFieldGoalMade(), this.getOpptTurnovers(), this.getOpptFreeThrowAttempts()
         );
     }
 
-    public BigDecimal calculateTeamBlockRate() {
+    private BigDecimal calculateTeamBlockRate() {
         return BoxScoreCalculations.calculateBlockRate(
             this.getTeamBlocks(), this.getTeamFieldGoalAttempts(), this.getTeamThreePointAttempts()
         );
     }
 
-    public BigDecimal calculateTeamPointsPerShot() {
+    private BigDecimal calculateTeamPointsPerShot() {
         return BoxScoreCalculations.calculatePointsPerShot(
             this.getTeamPoints(), this.getTeamFieldGoalAttempts()
         );
     }
 
-    public BigDecimal calculateTeamFloorImpactCounter() {
+    private BigDecimal calculateTeamFloorImpactCounter() {
         return BoxScoreCalculations.calculateFloorImpactCounter(
             this.getTeamPoints(), this.getTeamReboundsOffense(), this.getTeamReboundsDefense(), this.getTeamAssists(), this.getTeamSteals(), this.getTeamBlocks(), this.getTeamFieldGoalAttempts(),
             this.getTeamFreeThrowAttempts(), this.getTeamTurnovers(), this.getTeamPersonalFouls()
         );
     }
 
-    public BigDecimal calculateTeamFloorImpactCounterPer40() {
+    private BigDecimal calculateTeamFloorImpactCounterPer40() {
         return BoxScoreCalculations.calculateFloorImpactCounterPer40(
             this.getTeamPoints(), this.getTeamReboundsOffense(), this.getTeamReboundsDefense(), this.getTeamAssists(), this.getTeamSteals(), this.getTeamBlocks(), this.getTeamFieldGoalAttempts(),
             this.getTeamFreeThrowAttempts(), this.getTeamTurnovers(), this.getTeamPersonalFouls(), this.getTeamMinutes()
         );
     }
 
-    public BigDecimal calculateTeamOffensiveRating() {
+    private BigDecimal calculateTeamOffensiveRating() {
         return BoxScoreCalculations.calculateOffensiveRating(
             this.getTeamFieldGoalAttempts(), this.getTeamReboundsOffense(), this.getOpptReboundsDefense(), this.getTeamFieldGoalMade(), this.getTeamTurnovers(), this.getTeamFreeThrowAttempts(),
             this.getOpptFieldGoalAttempts(), this.getOpptReboundsOffense(), this.getTeamReboundsDefense(), this.getOpptFieldGoalMade(), this.getOpptTurnovers(), this.getOpptFreeThrowAttempts(),
@@ -1193,7 +1193,7 @@ public class BoxScore {
         );
     }
 
-    public BigDecimal calculateTeamDefensiveRating() {
+    private BigDecimal calculateTeamDefensiveRating() {
         return BoxScoreCalculations.calculateDefensiveRating(
             this.getTeamFieldGoalAttempts(), this.getTeamReboundsOffense(), this.getOpptReboundsDefense(), this.getTeamFieldGoalMade(), this.getTeamTurnovers(), this.getTeamFreeThrowAttempts(),
             this.getOpptFieldGoalAttempts(), this.getOpptReboundsOffense(), this.getTeamReboundsDefense(), this.getOpptFieldGoalMade(), this.getOpptTurnovers(), this.getOpptFreeThrowAttempts(),
@@ -1201,7 +1201,7 @@ public class BoxScore {
         );
     }
 
-    public BigDecimal calculateTeamEfficiencyDifferential() {
+    private BigDecimal calculateTeamEfficiencyDifferential() {
         return BoxScoreCalculations.calculateEfficiencyDifferential(
             this.getTeamFieldGoalAttempts(), this.getTeamReboundsOffense(), this.getOpptReboundsDefense(), this.getTeamFieldGoalMade(), this.getTeamTurnovers(), this.getTeamFreeThrowAttempts(),
             this.getOpptFieldGoalAttempts(), this.getOpptReboundsOffense(), this.getTeamReboundsDefense(), this.getOpptFieldGoalMade(), this.getOpptTurnovers(), this.getOpptFreeThrowAttempts(),
@@ -1209,43 +1209,43 @@ public class BoxScore {
         );
     }
 
-    public BigDecimal calculateTeamPlayPct() {
+    private BigDecimal calculateTeamPlayPct() {
         return BoxScoreCalculations.calculatePlayPct(
             this.getTeamFieldGoalAttempts(), this.getTeamFieldGoalMade(), this.getTeamReboundsOffense(), this.getTeamTurnovers()
         );
     }
 
-    public BigDecimal calculateTeamAssistRate() {
+    private BigDecimal calculateTeamAssistRate() {
         return BoxScoreCalculations.calculateAssistRate(
             this.getTeamAssists(), this.getTeamFieldGoalAttempts(), this.getTeamFreeThrowAttempts(), this.getTeamTurnovers()
         );
     }
 
-    public BigDecimal calculateTeamAssistToTurnoverRatio() {
+    private BigDecimal calculateTeamAssistToTurnoverRatio() {
         return BoxScoreCalculations.calculateAssistToTurnoverRatio(
             this.getTeamAssists(), this.getTeamTurnovers()
         );
     }
 
-    public BigDecimal calculateTeamStealToTurnoverRatio() {
+    private BigDecimal calculateTeamStealToTurnoverRatio() {
         return BoxScoreCalculations.calculateStealToTurnoverRatio(
             this.getTeamSteals(), this.getTeamTurnovers()
         );
     }
 
-    public Short calculateOpptTwoPointMade() {
+    private Short calculateOpptTwoPointMade() {
         return BoxScoreCalculations.calculateTwoPointMade(
             this.getOpptFieldGoalMade(), this.getOpptThreePointMade()
         );
     }
 
-    public Short calculateOpptTwoPointAttempt() {
+    private Short calculateOpptTwoPointAttempt() {
         return BoxScoreCalculations.calculateTwoPointAttempt(
             this.getOpptFieldGoalAttempts(), this.getOpptThreePointAttempts()
         );
     }
 
-    public BigDecimal calculateOpptTwoPointPct() {
+    private BigDecimal calculateOpptTwoPointPct() {
         Short attempt = BoxScoreCalculations.calculateTwoPointAttempt(
             this.getOpptFieldGoalAttempts(), this.getOpptThreePointAttempts()
         );
@@ -1257,130 +1257,130 @@ public class BoxScore {
         );
     }
 
-    public BigDecimal calculateOpptTwoPointRate() {
+    private BigDecimal calculateOpptTwoPointRate() {
         return BoxScoreCalculations.calculatePercent(
             this.getOpptTwoPointAttempts(), this.getOpptFieldGoalAttempts()
         );
     }
 
-    public BigDecimal calculateOpptThreePointPct() {
+    private BigDecimal calculateOpptThreePointPct() {
         return BoxScoreCalculations.calculatePercent(
             this.getOpptThreePointMade(), this.getOpptThreePointAttempts()
         );
     }
-    public BigDecimal calculateOpptThreePointRate() {
+    private BigDecimal calculateOpptThreePointRate() {
         return BoxScoreCalculations.calculatePercent(
             this.getOpptThreePointAttempts(), this.getOpptFieldGoalAttempts()
         );
     }
 
-    public BigDecimal calculateOpptFieldGoalPct() {
+    private BigDecimal calculateOpptFieldGoalPct() {
         return BoxScoreCalculations.calculatePercent(
             this.getOpptFieldGoalMade(), this.getOpptFieldGoalAttempts()
         );
     }
 
-    public BigDecimal calculateOpptFreeThrowPct() {
+    private BigDecimal calculateOpptFreeThrowPct() {
         return BoxScoreCalculations.calculatePercent(
             this.getOpptFreeThrowMade(), this.getOpptFreeThrowAttempts()
         );
     }
 
-    public BigDecimal calculateOpptFreeThrowRate() {
+    private BigDecimal calculateOpptFreeThrowRate() {
         return BoxScoreCalculations.calculatePercent(
             this.getOpptFreeThrowAttempts(), this.getOpptFieldGoalAttempts()
         );
     }
 
-    public Short calculateOpptReboundTotal() {
+    private Short calculateOpptReboundTotal() {
         return BoxScoreCalculations.calculateTotalRebound(
             this.getOpptReboundsOffense(), this.getOpptReboundsDefense()
         );
     }
 
-    public BigDecimal calculateOpptTrueShootingPct() {
+    private BigDecimal calculateOpptTrueShootingPct() {
         return BoxScoreCalculations.calculateTrueShootingPct(
             this.getOpptPoints(), this.getOpptFieldGoalAttempts(), this.getOpptFreeThrowAttempts()
         );
     }
 
-    public BigDecimal calculateOpptEffectiveFieldGoalPct() {
+    private BigDecimal calculateOpptEffectiveFieldGoalPct() {
         return BoxScoreCalculations.calculateEffectiveFieldGoalPct(
             this.getOpptFieldGoalMade(), this.getOpptThreePointMade(), this.getOpptFieldGoalAttempts()
         );
     }
 
-    public BigDecimal calculateOpptOffensiveReboundPct() {
+    private BigDecimal calculateOpptOffensiveReboundPct() {
         return BoxScoreCalculations.calculateOffensiveReboundPct(
             this.getOpptReboundsOffense(), this.getOpptReboundsDefense()
         );
     }
 
-    public BigDecimal calculateOpptDefensiveReboundPct() {
+    private BigDecimal calculateOpptDefensiveReboundPct() {
         return BoxScoreCalculations.calculateDefensiveReboundPct(
             this.getOpptReboundsDefense(), this.getOpptReboundsOffense()
         );
     }
 
-    public BigDecimal calculateOpptTotalReboundPct() {
+    private BigDecimal calculateOpptTotalReboundPct() {
         return BoxScoreCalculations.calculateTotalReboundPct(
             this.getOpptReboundsOffense(), this.getOpptReboundsDefense(), this.getTeamReboundsOffense(), this.getTeamReboundsDefense()
         );
     }
 
-    public BigDecimal calculateOpptAssistedFieldGoalPct() {
+    private BigDecimal calculateOpptAssistedFieldGoalPct() {
         return BoxScoreCalculations.calculateAssistedFieldGoalPct(
             this.getOpptAssists(), this.getOpptFieldGoalMade()
         );
     }
 
-    public BigDecimal calculateOpptTurnoverPct() {
+    private BigDecimal calculateOpptTurnoverPct() {
         return BoxScoreCalculations.calculateTurnoverPct(
             this.getOpptTurnovers(), this.getOpptFieldGoalAttempts(), this.getOpptFreeThrowAttempts()
         );
     }
 
-    public BigDecimal calculateOpptStealPct() {
+    private BigDecimal calculateOpptStealPct() {
         return BoxScoreCalculations.calculateStealPct(
             this.getOpptSteals(), this.getOpptFieldGoalAttempts(), this.getOpptReboundsOffense(), this.getTeamReboundsDefense(), this.getOpptFieldGoalMade(), this.getOpptTurnovers(), this.getOpptFreeThrowAttempts(),
             this.getTeamFieldGoalAttempts(), this.getTeamReboundsOffense(), this.getOpptReboundsDefense(), this.getTeamFieldGoalMade(), this.getTeamTurnovers(), this.getTeamFreeThrowAttempts()
         );
     }
 
-    public BigDecimal calculateOpptBlockPct() {
+    private BigDecimal calculateOpptBlockPct() {
         return BoxScoreCalculations.calculateBlockPct(
             this.getOpptBlocks(), this.getOpptFieldGoalAttempts(), this.getOpptReboundsOffense(), this.getTeamReboundsDefense(), this.getOpptFieldGoalMade(), this.getOpptTurnovers(), this.getOpptFreeThrowAttempts(),
             this.getTeamFieldGoalAttempts(), this.getTeamReboundsOffense(), this.getOpptReboundsDefense(), this.getTeamFieldGoalMade(), this.getTeamTurnovers(), this.getTeamFreeThrowAttempts()
         );
     }
 
-    public BigDecimal calculateOpptBlockRate() {
+    private BigDecimal calculateOpptBlockRate() {
         return BoxScoreCalculations.calculateBlockRate(
             this.getOpptBlocks(), this.getOpptFieldGoalAttempts(), this.getOpptThreePointAttempts()
         );
     }
 
-    public BigDecimal calculateOpptPointsPerShot() {
+    private BigDecimal calculateOpptPointsPerShot() {
         return BoxScoreCalculations.calculatePointsPerShot(
             this.getOpptPoints(), this.getOpptFieldGoalAttempts()
         );
     }
 
-    public BigDecimal calculateOpptFloorImpactCounter() {
+    private BigDecimal calculateOpptFloorImpactCounter() {
         return BoxScoreCalculations.calculateFloorImpactCounter(
             this.getOpptPoints(), this.getOpptReboundsOffense(), this.getOpptReboundsDefense(), this.getOpptAssists(), this.getOpptSteals(), this.getOpptBlocks(), this.getOpptFieldGoalAttempts(),
             this.getOpptFreeThrowAttempts(), this.getOpptTurnovers(), this.getOpptPersonalFouls()
         );
     }
 
-    public BigDecimal calculateOpptFloorImpactCounterPer40() {
+    private BigDecimal calculateOpptFloorImpactCounterPer40() {
         return BoxScoreCalculations.calculateFloorImpactCounterPer40(
             this.getOpptPoints(), this.getOpptReboundsOffense(), this.getOpptReboundsDefense(), this.getOpptAssists(), this.getOpptSteals(), this.getOpptBlocks(), this.getOpptFieldGoalAttempts(),
             this.getOpptFreeThrowAttempts(), this.getOpptTurnovers(), this.getOpptPersonalFouls(), this.getOpptMinutes()
         );
     }
 
-    public BigDecimal calculateOpptOffensiveRating() {
+    private BigDecimal calculateOpptOffensiveRating() {
         return BoxScoreCalculations.calculateOffensiveRating(
             this.getOpptFieldGoalAttempts(), this.getOpptReboundsOffense(), this.getTeamReboundsDefense(), this.getOpptFieldGoalMade(), this.getOpptTurnovers(), this.getOpptFreeThrowAttempts(),
             this.getTeamFieldGoalAttempts(), this.getTeamReboundsOffense(), this.getOpptReboundsDefense(), this.getTeamFieldGoalMade(), this.getTeamTurnovers(), this.getTeamFreeThrowAttempts(),
@@ -1388,7 +1388,7 @@ public class BoxScore {
         );
     }
 
-    public BigDecimal calculateOpptDefensiveRating() {
+    private BigDecimal calculateOpptDefensiveRating() {
         return BoxScoreCalculations.calculateDefensiveRating(
             this.getOpptFieldGoalAttempts(), this.getOpptReboundsOffense(), this.getTeamReboundsDefense(), this.getOpptFieldGoalMade(), this.getOpptTurnovers(), this.getOpptFreeThrowAttempts(),
             this.getTeamFieldGoalAttempts(), this.getTeamReboundsOffense(), this.getOpptReboundsDefense(), this.getTeamFieldGoalMade(), this.getTeamTurnovers(), this.getTeamFreeThrowAttempts(),
@@ -1396,7 +1396,7 @@ public class BoxScore {
         );
     }
 
-    public BigDecimal calculateOpptEfficiencyDifferential() {
+    private BigDecimal calculateOpptEfficiencyDifferential() {
         return BoxScoreCalculations.calculateEfficiencyDifferential(
             this.getOpptFieldGoalAttempts(), this.getOpptReboundsOffense(), this.getTeamReboundsDefense(), this.getOpptFieldGoalMade(), this.getOpptTurnovers(), this.getOpptFreeThrowAttempts(),
             this.getTeamFieldGoalAttempts(), this.getTeamReboundsOffense(), this.getOpptReboundsDefense(), this.getTeamFieldGoalMade(), this.getTeamTurnovers(), this.getTeamFreeThrowAttempts(),
@@ -1404,38 +1404,38 @@ public class BoxScore {
         );
     }
 
-    public BigDecimal calculateOpptPlayPct() {
+    private BigDecimal calculateOpptPlayPct() {
         return BoxScoreCalculations.calculatePlayPct(
             this.getOpptFieldGoalAttempts(), this.getOpptFieldGoalMade(), this.getOpptReboundsOffense(), this.getOpptTurnovers()
         );
     }
 
-    public BigDecimal calculateOpptAssistRate() {
+    private BigDecimal calculateOpptAssistRate() {
         return BoxScoreCalculations.calculateAssistRate(
             this.getOpptAssists(), this.getOpptFieldGoalAttempts(), this.getOpptFreeThrowAttempts(), this.getOpptTurnovers()
         );
     }
 
-    public BigDecimal calculateOpptAssistToTurnoverRatio() {
+    private BigDecimal calculateOpptAssistToTurnoverRatio() {
         return BoxScoreCalculations.calculateAssistToTurnoverRatio(
             this.getOpptAssists(), this.getOpptTurnovers()
         );
     }
 
-    public BigDecimal calculateOpptStealToTurnoverRatio() {
+    private BigDecimal calculateOpptStealToTurnoverRatio() {
         return BoxScoreCalculations.calculateStealToTurnoverRatio(
             this.getOpptSteals(), this.getOpptTurnovers()
         );
     }
 
-    public BigDecimal calculatePossessions() {
+    private BigDecimal calculatePossessions() {
         return BoxScoreCalculations.calculatePossessions(
             this.getTeamFieldGoalAttempts(), this.getTeamReboundsOffense(), this.getOpptReboundsDefense(), this.getTeamFieldGoalMade(), this.getTeamTurnovers(), this.getTeamFreeThrowAttempts(),
             this.getOpptFieldGoalAttempts(), this.getOpptReboundsOffense(), this.getTeamReboundsDefense(), this.getOpptFieldGoalMade(), this.getOpptTurnovers(), this.getOpptFreeThrowAttempts()
         );
     }
 
-    public BigDecimal calculatePace() {
+    private BigDecimal calculatePace() {
         return BoxScoreCalculations.calculatePace(
             this.getTeamFieldGoalAttempts(), this.getTeamReboundsOffense(), this.getOpptReboundsDefense(), this.getTeamFieldGoalMade(), this.getTeamTurnovers(), this.getTeamFreeThrowAttempts(),
             this.getOpptFieldGoalAttempts(), this.getOpptReboundsOffense(), this.getTeamReboundsDefense(), this.getOpptFieldGoalMade(), this.getOpptTurnovers(), this.getOpptFreeThrowAttempts(),
@@ -1443,39 +1443,114 @@ public class BoxScore {
         );
     }
 
-    public BigDecimal calculatePythagoreanWinningPct_13_91() {
+    private BigDecimal calculatePythagoreanWinningPct_13_91() {
         return BoxScoreCalculations.calculatePythagoreanWinningPct_13_91(
             this.getTeamPoints(), this.getOpptPoints()
         );
     }
 
-    public BigDecimal calculatePythagoreanWins_13_91() {
+    private BigDecimal calculatePythagoreanWins_13_91() {
         return BoxScoreCalculations.calculatePythagoreanWins_13_91(
             this.getTeamPoints(), this.getOpptPoints()
         );
     }
 
-    public BigDecimal calculatePythagoreanLosses_13_91() {
+    private BigDecimal calculatePythagoreanLosses_13_91() {
         return BoxScoreCalculations.calculatePythagoreanLosses_13_91(
             this.getTeamPoints(), this.getOpptPoints()
         );
     }
 
-    public BigDecimal calculatePythagoreanWinningPct_16_5() {
+    private BigDecimal calculatePythagoreanWinningPct_16_5() {
         return BoxScoreCalculations.calculatePythagoreanWinningPct_16_5(
             this.getTeamPoints(), this.getOpptPoints()
         );
     }
 
-    public BigDecimal calculatePythagoreanWins_16_5() {
+    private BigDecimal calculatePythagoreanWins_16_5() {
         return BoxScoreCalculations.calculatePythagoreanWins_16_5(
             this.getTeamPoints(), this.getOpptPoints()
         );
     }
 
-    public BigDecimal calculatePythagoreanLosses_16_5() {
+    private BigDecimal calculatePythagoreanLosses_16_5() {
         return BoxScoreCalculations.calculatePythagoreanLosses_16_5(
             this.getTeamPoints(), this.getOpptPoints()
         );
+    }
+
+    public static void process(BoxScore boxScore) {
+        boxScore.setTeamTwoPointAttempts(boxScore.calculateTeamTwoPointAttempt());
+        boxScore.setTeamTwoPointMade(boxScore.calculateTeamTwoPointMade());
+        boxScore.setTeamTwoPointPct(boxScore.calculateTeamTwoPointPct().floatValue());
+        boxScore.setTeamTwoPointRate(boxScore.calculateTeamTwoPointRate().floatValue());
+        boxScore.setTeamThreePointPct(boxScore.calculateTeamThreePointPct().floatValue());
+        boxScore.setTeamThreePointRate(boxScore.calculateTeamThreePointRate().floatValue());
+        boxScore.setTeamFieldGoalPct(boxScore.calculateTeamFieldGoalPct().floatValue());
+        boxScore.setTeamFreeThrowPct(boxScore.calculateTeamFreeThrowPct().floatValue());
+        boxScore.setTeamFreeThrowRate(boxScore.calculateTeamFreeThrowRate().floatValue());
+        boxScore.setTeamReboundsTotal(boxScore.calculateTeamReboundTotal());
+
+        boxScore.setTeamTrueShootingPct(boxScore.calculateTeamTrueShootingPct().floatValue());
+        boxScore.setTeamEffectiveFieldGoalPct(boxScore.calculateTeamEffectiveFieldGoalPct().floatValue());
+        boxScore.setTeamOffensiveReboundPct(boxScore.calculateTeamOffensiveReboundPct().floatValue());
+        boxScore.setTeamDefensiveReboundPct(boxScore.calculateTeamDefensiveReboundPct().floatValue());
+        boxScore.setTeamTotalReboundPct(boxScore.calculateTeamTotalReboundPct().floatValue());
+        boxScore.setTeamAssistedFieldGoalPct(boxScore.calculateTeamAssistedFieldGoalPct().floatValue());
+        boxScore.setTeamTurnoverPct(boxScore.calculateTeamTurnoverPct().floatValue());
+        boxScore.setTeamStealPct(boxScore.calculateTeamStealPct().floatValue());
+        boxScore.setTeamBlockPct(boxScore.calculateTeamBlockPct().floatValue());
+        boxScore.setTeamBlockRate(boxScore.calculateTeamBlockRate().floatValue());
+        boxScore.setTeamPointsPerShot(boxScore.calculateTeamPointsPerShot().floatValue());
+        boxScore.setTeamFloorImpactCounter(boxScore.calculateTeamFloorImpactCounter().floatValue());
+        boxScore.setTeamFloorImpactCounterPer40(boxScore.calculateTeamFloorImpactCounterPer40().floatValue());
+        boxScore.setTeamOffensiveRating(boxScore.calculateTeamOffensiveRating().floatValue());
+        boxScore.setTeamDefensiveRating(boxScore.calculateTeamDefensiveRating().floatValue());
+        boxScore.setTeamEfficiencyDifferential(boxScore.calculateTeamEfficiencyDifferential().floatValue());
+        boxScore.setTeamPlayPct(boxScore.calculateTeamPlayPct().floatValue());
+        boxScore.setTeamAssistRate(boxScore.calculateTeamAssistRate().floatValue());
+        boxScore.setTeamAssistToTurnoverRatio(boxScore.calculateTeamAssistToTurnoverRatio().floatValue());
+        boxScore.setTeamStealToTurnoverRatio(boxScore.calculateTeamStealToTurnoverRatio().floatValue());
+
+        boxScore.setOpptTwoPointAttempts(boxScore.calculateOpptTwoPointAttempt());
+        boxScore.setOpptTwoPointMade(boxScore.calculateOpptTwoPointMade());
+        boxScore.setOpptTwoPointPct(boxScore.calculateOpptTwoPointPct().floatValue());
+        boxScore.setOpptTwoPointRate(boxScore.calculateOpptTwoPointRate().floatValue());
+        boxScore.setOpptThreePointPct(boxScore.calculateOpptThreePointPct().floatValue());
+        boxScore.setOpptThreePointRate(boxScore.calculateOpptThreePointRate().floatValue());
+        boxScore.setOpptFieldGoalPct(boxScore.calculateOpptFieldGoalPct().floatValue());
+        boxScore.setOpptFreeThrowPct(boxScore.calculateOpptFreeThrowPct().floatValue());
+        boxScore.setOpptFreeThrowRate(boxScore.calculateOpptFreeThrowRate().floatValue());
+        boxScore.setOpptReboundsTotal(boxScore.calculateOpptReboundTotal());
+
+        boxScore.setOpptTrueShootingPct(boxScore.calculateOpptTrueShootingPct().floatValue());
+        boxScore.setOpptEffectiveFieldGoalPct(boxScore.calculateOpptEffectiveFieldGoalPct().floatValue());
+        boxScore.setOpptOffensiveReboundPct(boxScore.calculateOpptOffensiveReboundPct().floatValue());
+        boxScore.setOpptDefensiveReboundPct(boxScore.calculateOpptDefensiveReboundPct().floatValue());
+        boxScore.setOpptTotalReboundPct(boxScore.calculateOpptTotalReboundPct().floatValue());
+        boxScore.setOpptAssistedFieldGoalPct(boxScore.calculateOpptAssistedFieldGoalPct().floatValue());
+        boxScore.setOpptTurnoverPct(boxScore.calculateOpptTurnoverPct().floatValue());
+        boxScore.setOpptStealPct(boxScore.calculateOpptStealPct().floatValue());
+        boxScore.setOpptBlockPct(boxScore.calculateOpptBlockPct().floatValue());
+        boxScore.setOpptBlockRate(boxScore.calculateOpptBlockRate().floatValue());
+        boxScore.setOpptPointsPerShot(boxScore.calculateOpptPointsPerShot().floatValue());
+        boxScore.setOpptFloorImpactCounter(boxScore.calculateOpptFloorImpactCounter().floatValue());
+        boxScore.setOpptFloorImpactCounterPer40(boxScore.calculateOpptFloorImpactCounterPer40().floatValue());
+        boxScore.setOpptOffensiveRating(boxScore.calculateOpptOffensiveRating().floatValue());
+        boxScore.setOpptDefensiveRating(boxScore.calculateOpptDefensiveRating().floatValue());
+        boxScore.setOpptEfficiencyDifferential(boxScore.calculateOpptEfficiencyDifferential().floatValue());
+        boxScore.setOpptPlayPct(boxScore.calculateOpptPlayPct().floatValue());
+        boxScore.setOpptAssistRate(boxScore.calculateOpptAssistRate().floatValue());
+        boxScore.setOpptAssistToTurnoverRatio(boxScore.calculateOpptAssistToTurnoverRatio().floatValue());
+        boxScore.setOpptStealToTurnoverRatio(boxScore.calculateOpptStealToTurnoverRatio().floatValue());
+
+        boxScore.setPossessions(boxScore.calculatePossessions().floatValue());
+        boxScore.setPace(boxScore.calculatePace().floatValue());
+        boxScore.setPythagoreanWinningPct_13_91(boxScore.calculatePythagoreanWinningPct_13_91().floatValue());
+        boxScore.setPythagoreanWins_13_91(boxScore.calculatePythagoreanWins_13_91().floatValue());
+        boxScore.setPythagoreanLosses_13_91(boxScore.calculatePythagoreanLosses_13_91().floatValue());
+        boxScore.setPythagoreanWinningPct_16_5(boxScore.calculatePythagoreanWinningPct_16_5().floatValue());
+        boxScore.setPythagoreanWins_16_5(boxScore.calculatePythagoreanWins_16_5().floatValue());
+        boxScore.setPythagoreanLosses_16_5(boxScore.calculatePythagoreanLosses_16_5().floatValue());
     }
 }
