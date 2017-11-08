@@ -12,6 +12,7 @@ public class DateTimeConverter {
 
 	private static final DateTimeFormatter dateNakedFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 	private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 	private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
 	
 	static public String getStringDate(LocalDate date) {
@@ -32,6 +33,10 @@ public class DateTimeConverter {
 
 	static public String getStringDateTime(LocalDateTime dateTime) {
 		return dateTime.format(dateTimeFormatter);
+	}
+
+	static public String getStringTime(LocalDateTime dateTime) {
+		return dateTime.format(timeFormatter);
 	}
 
 	static public LocalDate getLocalDate(String strDate) {

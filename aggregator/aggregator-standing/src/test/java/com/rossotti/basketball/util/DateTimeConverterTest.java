@@ -40,6 +40,12 @@ public class DateTimeConverterTest {
     }
 
     @Test
+    public void getStringTime_FromDateTime() {
+        String dateTime = DateTimeConverter.getStringTime(LocalDateTime.of(2013, 3, 30, 10, 30));
+        Assert.assertEquals("10:30", dateTime);
+    }
+
+    @Test
     public void getLocalDate_FromString() {
         LocalDate date = DateTimeConverter.getLocalDate("2014-06-30");
         Assert.assertEquals(LocalDate.of(2014, 6, 30), date);
