@@ -2,6 +2,7 @@ package com.rossotti.basketball.batch;
 
 import com.rossotti.basketball.config.DatabaseConfig;
 import com.rossotti.basketball.util.PropertyService;
+import com.rossotti.basketball.util.StringHeaderWriter;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -131,8 +132,22 @@ public class TeamBoxScoreConfig {
         FlatFileItemWriter<TeamBoxScore> flatFileItemWriter = new FlatFileItemWriter<>();
         String path = propertyService.getProperty_Path("writer.extract");
         if (path != null) {
+            String exportHeaderWriter = "gmDtTm;seasTyp;offLNm1;offFNm1;offLNm2;offFNm2;offLNm3;offFNm3;teamAbbr;teamConf;teamDiv;teamLoc;teamRslt;teamMin;" +
+                                        "teamDayOff;teamPTS;teamAST;teamTO;teamSTL;teamBLK;teamPF;teamFGA;teamFGM;teamFG%;team2PA;team2PM;team2P%;team3PA;" +
+                                        "team3PM;team3P%;teamFTA;teamFTM;teamFT%;teamORB;teamDRB;teamTRB;teamPTS1;teamPTS2;teamPTS3;teamPTS4;teamPTS5;teamPTS6;" +
+                                        "teamPTS7;teamPTS8;teamTREB%;teamASST%;teamTS%;teamEFG%;teamOREB%;teamDREB%;teamTO%;teamSTL%;teamBLK%;teamBLKR;teamPPS;" +
+                                        "teamFIC;teamFIC40;teamOrtg;teamDrtg;teamEDiff;teamPlay%;teamAR;teamAST/TO;teamSTL/TO;opptAbbr;opptConf;opptDiv;opptLoc;" +
+                                        "opptRslt;opptMin;opptDayOff;opptPTS;opptAST;opptTO;opptSTL;opptBLK;opptPF;opptFGA;opptFGM;opptFG%;oppt2PA;oppt2PM;oppt2P%;" +
+                                        "oppt3PA;oppt3PM;oppt3P%;opptFTA;opptFTM;opptFT%;opptORB;opptDRB;opptTRB;opptPTS1;opptPTS2;opptPTS3;opptPTS4;opptPTS5;" +
+                                        "opptPTS6;opptPTS7;opptPTS8;opptTREB%;opptASST%;opptTS%;opptEFG%;opptOREB%;opptDREB%;opptTO%;opptSTL%;opptBLK%;opptBLKR;" +
+                                        "opptPPS;opptFIC;opptFIC40;opptOrtg;opptDrtg;opptEDiff;opptPlay%;opptAR;opptAST/TO;opptSTL/TO;poss;pace;pyth%13.91;" +
+                                        "wpyth13.91;lpyth13.91;pyth%16.5;wpyth16.5;lpyth16.5";
+            StringHeaderWriter headerWriter = new StringHeaderWriter(exportHeaderWriter);
+            flatFileItemWriter.setHeaderCallback(headerWriter);
+
             flatFileItemWriter.setResource(new FileSystemResource(new File(path + "/teamBoxScore.csv")));
             flatFileItemWriter.setShouldDeleteIfExists(true);
+
             BeanWrapperFieldExtractor<TeamBoxScore> fieldExtractor = new BeanWrapperFieldExtractor<>();
             String[] fields = new String[]{
                 "gameDateTime", "seasonType",
