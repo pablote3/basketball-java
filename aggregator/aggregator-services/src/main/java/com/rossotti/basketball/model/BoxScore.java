@@ -1,11 +1,14 @@
 package com.rossotti.basketball.model;
 
 import com.rossotti.basketball.calc.BoxScoreCalculations;
+import com.rossotti.basketball.util.DateTimeConverter;
 
 import java.math.BigDecimal;
 
 public class BoxScore {
     private String gameDateTime;
+    private String gameDate;
+    private String gameTime;
     private String seasonType;
 
     private String teamAbbr;
@@ -144,6 +147,20 @@ public class BoxScore {
     }
     public void setGameDateTime(String gameDateTime) {
         this.gameDateTime = gameDateTime;
+    }
+
+    public String getGameDate() {
+        return gameDate;
+    }
+    public void setGameDate(String gameDate) {
+        this.gameDate = gameDate;
+    }
+
+    public String getGameTime() {
+        return gameTime;
+    }
+    public void setGameTime(String gameTime) {
+        this.gameTime = gameTime;
     }
 
     public String getSeasonType() {
@@ -1480,6 +1497,9 @@ public class BoxScore {
     }
 
     public static void process(BoxScore boxScore) {
+        boxScore.setGameDate(DateTimeConverter.getStringDate(DateTimeConverter.getLocalDateTime(boxScore.getGameDateTime())));
+        boxScore.setGameTime(DateTimeConverter.getStringTime(DateTimeConverter.getLocalDateTime(boxScore.getGameDateTime())));
+
         boxScore.setTeamTwoPointAttempts(boxScore.calculateTeamTwoPointAttempt());
         boxScore.setTeamTwoPointMade(boxScore.calculateTeamTwoPointMade());
         boxScore.setTeamTwoPointPct(boxScore.calculateTeamTwoPointPct().floatValue());

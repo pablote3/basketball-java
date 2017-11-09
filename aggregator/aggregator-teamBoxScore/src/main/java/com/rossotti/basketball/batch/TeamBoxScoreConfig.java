@@ -132,8 +132,8 @@ public class TeamBoxScoreConfig {
         FlatFileItemWriter<TeamBoxScore> flatFileItemWriter = new FlatFileItemWriter<>();
         String path = propertyService.getProperty_Path("writer.extract");
         if (path != null) {
-            String exportHeaderWriter = "gmDtTm;seasTyp;offLNm1;offFNm1;offLNm2;offFNm2;offLNm3;offFNm3;teamAbbr;teamConf;teamDiv;teamLoc;teamRslt;teamMin;" +
-                                        "teamDayOff;teamPTS;teamAST;teamTO;teamSTL;teamBLK;teamPF;teamFGA;teamFGM;teamFG%;team2PA;team2PM;team2P%;team3PA;" +
+            String exportHeaderWriter = "gmDate;gmTime;seasTyp;offLNm;offFNm;" +
+                                        "teamMin;teamDayOff;teamPTS;teamAST;teamTO;teamSTL;teamBLK;teamPF;teamFGA;teamFGM;teamFG%;team2PA;team2PM;team2P%;team3PA;" +
                                         "team3PM;team3P%;teamFTA;teamFTM;teamFT%;teamORB;teamDRB;teamTRB;teamPTS1;teamPTS2;teamPTS3;teamPTS4;teamPTS5;teamPTS6;" +
                                         "teamPTS7;teamPTS8;teamTREB%;teamASST%;teamTS%;teamEFG%;teamOREB%;teamDREB%;teamTO%;teamSTL%;teamBLK%;teamBLKR;teamPPS;" +
                                         "teamFIC;teamFIC40;teamOrtg;teamDrtg;teamEDiff;teamPlay%;teamAR;teamAST/TO;teamSTL/TO;opptAbbr;opptConf;opptDiv;opptLoc;" +
@@ -150,7 +150,7 @@ public class TeamBoxScoreConfig {
 
             BeanWrapperFieldExtractor<TeamBoxScore> fieldExtractor = new BeanWrapperFieldExtractor<>();
             String[] fields = new String[]{
-                "gameDateTime", "seasonType",
+                "gameDate", "gameTime", "seasonType",
                 "officialLastName1", "officialFirstName1", "officialLastName2", "officialFirstName2", "officialLastName3", "officialFirstName3",
                 "teamAbbr", "teamConference", "teamDivision", "teamLocation", "teamResult", "teamMinutes", "teamDaysOff", "teamPoints", "teamAssists",
                 "teamTurnovers", "teamSteals", "teamBlocks", "teamPersonalFouls", "teamFieldGoalAttempts", "teamFieldGoalMade", "teamFieldGoalPct",
@@ -189,7 +189,7 @@ public class TeamBoxScoreConfig {
         String sql =
             "INSERT INTO teamBoxScore " +
             "(" +
-                "gameDateTime, seasonType, " +
+                "gameDate, gameTime, seasonType, " +
                 "officialLastName1, officialFirstName1, officialLastName2, officialFirstName2, officialLastName3, officialFirstName3, " +
                 "teamAbbr, teamConference, teamDivision, teamLocation, teamResult, teamMinutes, teamDaysOff, teamPoints, teamAssists, " +
                 "teamTurnovers, teamSteals, teamBlocks, teamPersonalFouls, teamFieldGoalAttempts, teamFieldGoalMade, teamFieldGoalPct, " +
@@ -214,7 +214,7 @@ public class TeamBoxScoreConfig {
             ") " +
             "VALUES " +
             "(" +
-                ":gameDateTime, :seasonType, " +
+                ":gameDate, :gameTime, :seasonType, " +
                 ":officialLastName1, :officialFirstName1, :officialLastName2, :officialFirstName2, :officialLastName3, :officialFirstName3, " +
                 ":teamAbbr, :teamConference, :teamDivision, :teamLocation, :teamResult, :teamMinutes, :teamDaysOff, :teamPoints, :teamAssists, " +
                 ":teamTurnovers, :teamSteals, :teamBlocks, :teamPersonalFouls, :teamFieldGoalAttempts, :teamFieldGoalMade, :teamFieldGoalPct, " +
