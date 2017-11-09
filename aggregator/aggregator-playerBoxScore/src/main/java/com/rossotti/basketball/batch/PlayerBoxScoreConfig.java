@@ -2,6 +2,7 @@ package com.rossotti.basketball.batch;
 
 import com.rossotti.basketball.config.DatabaseConfig;
 import com.rossotti.basketball.util.PropertyService;
+import com.rossotti.basketball.util.StringHeaderWriter;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -125,13 +126,21 @@ public class PlayerBoxScoreConfig {
         FlatFileItemWriter<PlayerBoxScore> flatFileItemWriter = new FlatFileItemWriter<>();
         String path = propertyService.getProperty_Path("writer.extract");
         if (path != null) {
+            String exportHeaderWriter = "gmDate;gmTime;seasTyp;playLNm;playFNm;teamAbbr;teamConf;teamDiv;teamLoc;teamRslt;teamDayOff;offLNm1;offFNm1;offLNm2;offFNm2;offLNm3;offFNm3;" +
+                                        "playDispNm;playStat;playMin;playPos;playHeight;playWeight;playBDate;playPTS;playAST;playTO;playSTL;playBLK;" +
+                                        "playPF;playFGA;playFGM;playFG%;play2PA;play2PM;play2P%;play3PA;play3PM;play3P%;playFTA;playFTM;playFT%;playORB;playDRB;playTRB;opptAbbr;opptConf;" +
+                                        "opptDiv;opptLoc;opptRslt;opptDayOff";
+            StringHeaderWriter headerWriter = new StringHeaderWriter(exportHeaderWriter);
+            flatFileItemWriter.setHeaderCallback(headerWriter);
+
             flatFileItemWriter.setResource(new FileSystemResource(new File(path + "/playerBoxScore.csv")));
             flatFileItemWriter.setShouldDeleteIfExists(true);
+
             BeanWrapperFieldExtractor<PlayerBoxScore> fieldExtractor = new BeanWrapperFieldExtractor<>();
             String[] fields = new String[]{
-                "gameDateTime", "playerLastName", "playerFirstName", "seasonType", "teamAbbr",
-                "officialLastName1", "officialFirstName1", "officialLastName2", "officialFirstName2", "officialLastName3", "officialFirstName3",
-                "teamConference", "teamDivision", "teamLocation", "teamResult", "teamDaysOff", "displayName", "status", "minutes", "position", "height", "birthplace", "birthdate",
+                "gameDate", "gameTime", "seasonType", "playerLastName", "playerFirstName", "teamAbbr",
+                "teamConference", "teamDivision", "teamLocation", "teamResult", "teamDaysOff", "officialLastName1", "officialFirstName1", "officialLastName2",
+                "officialFirstName2", "officialLastName3", "officialFirstName3","displayName", "status", "minutes", "position", "height", "weight", "birthdate",
                 "points", "assists", "turnovers", "steals", "blocks", "personalFouls", "fieldGoalAttempts", "fieldGoalMade", "fieldGoalPct",
                 "twoPointAttempts", "twoPointMade", "twoPointPct", "threePointAttempts", "threePointMade", "threePointPct", "freeThrowAttempts", "freeThrowMade", "freeThrowPct",
                 "reboundsOffense", "reboundsDefense", "reboundsTotal", "opptAbbr", "opptConference", "opptDivision", "opptLocation", "opptResult", "opptDaysOff"
@@ -154,7 +163,7 @@ public class PlayerBoxScoreConfig {
         String sql =
             "INSERT INTO playerBoxScore " +
             "(" +
-                "gameDateTime, playerLastName, playerFirstName, seasonType, teamAbbr, " +
+                "gameDate, gameTime, playerLastName, playerFirstName, seasonType, teamAbbr, " +
                 "officialLastName1, officialFirstName1, officialLastName2, officialFirstName2, officialLastName3, officialFirstName3, " +
                 "teamConference, teamDivision, teamLocation, teamResult, teamDaysOff, displayName, status, minutes, position, height, weight, birthplace, birthdate, " +
                 "points, assists, turnovers, steals, blocks, personalFouls, fieldGoalAttempts, fieldGoalMade, fieldGoalPct, " +
@@ -163,7 +172,7 @@ public class PlayerBoxScoreConfig {
             ") " +
             "VALUES " +
             "(" +
-                ":gameDateTime, :playerLastName, :playerFirstName, :seasonType, :teamAbbr, " +
+                ":gameDate, :gameTime, :playerLastName, :playerFirstName, :seasonType, :teamAbbr, " +
                 ":officialLastName1, :officialFirstName1, :officialLastName2, :officialFirstName2, :officialLastName3, :officialFirstName3, " +
                 ":teamConference, :teamDivision, :teamLocation, :teamResult, :teamDaysOff, :displayName, :status, :minutes, :position, :height, :weight, :birthplace, :birthdate, " +
                 ":points, :assists, :turnovers, :steals, :blocks, :personalFouls, :fieldGoalAttempts, :fieldGoalMade, :fieldGoalPct, " +

@@ -6,32 +6,34 @@ import java.math.BigDecimal;
 
 public class PlayerBoxScore {
     private String gameDateTime;
+    private String gameDate;
+    private String gameTime;
+    private String seasonType;
+
     private String playerLastName;
     private String playerFirstName;
-    private String teamAbbr;
-
-    private String seasonType;
-    private String officialLastName1;
-    private String officialFirstName1;
-    private String officialLastName2;
-    private String officialFirstName2;
-    private String officialLastName3;
-    private String officialFirstName3;
-    private String teamConference;
-    private String teamDivision;
-    private String teamLocation;
-    private String teamResult;
-    private Short teamDaysOff;
-
     private String displayName;
     private String status;
-    private Short minutes;
     private String position;
     private Short height;
     private Short weight;
     private String birthdate;
     private String birthplace;
 
+    private String officialLastName1;
+    private String officialFirstName1;
+    private String officialLastName2;
+    private String officialFirstName2;
+    private String officialLastName3;
+    private String officialFirstName3;
+
+    private String teamAbbr;
+    private String teamConference;
+    private String teamDivision;
+    private String teamLocation;
+    private String teamResult;
+    private Short minutes;
+    private Short teamDaysOff;
     private Short points;
     private Short assists;
     private Short turnovers;
@@ -66,6 +68,20 @@ public class PlayerBoxScore {
     }
     public void setGameDateTime(String gameDateTime) {
         this.gameDateTime = gameDateTime;
+    }
+
+    public String getGameDate() {
+        return gameDate;
+    }
+    public void setGameDate(String gameDate) {
+        this.gameDate = gameDate;
+    }
+
+    public String getGameTime() {
+        return gameTime;
+    }
+    public void setGameTime(String gameTime) {
+        this.gameTime = gameTime;
     }
 
     public String getPlayerLastName() {

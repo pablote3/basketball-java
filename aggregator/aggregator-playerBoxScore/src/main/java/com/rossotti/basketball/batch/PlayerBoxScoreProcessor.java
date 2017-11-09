@@ -1,11 +1,14 @@
 package com.rossotti.basketball.batch;
 
+import com.rossotti.basketball.util.DateTimeConverter;
 import org.springframework.batch.item.ItemProcessor;
 
 public class PlayerBoxScoreProcessor implements ItemProcessor<PlayerBoxScore, PlayerBoxScore> {
 
     @Override
     public PlayerBoxScore process(PlayerBoxScore playerBoxScore) {
+        playerBoxScore.setGameDate(DateTimeConverter.getStringDate(DateTimeConverter.getLocalDateTime(playerBoxScore.getGameDateTime())));
+        playerBoxScore.setGameTime(DateTimeConverter.getStringTime(DateTimeConverter.getLocalDateTime(playerBoxScore.getGameDateTime())));
         playerBoxScore.setTwoPointAttempts(playerBoxScore.calculateTwoPointAttempt());
         playerBoxScore.setTwoPointMade(playerBoxScore.calculateTwoPointMade());
         playerBoxScore.setTwoPointPct(playerBoxScore.calculateTwoPointPct().floatValue());
