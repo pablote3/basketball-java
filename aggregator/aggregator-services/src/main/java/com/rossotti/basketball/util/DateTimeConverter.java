@@ -48,6 +48,9 @@ public class DateTimeConverter {
 	}
 
 	static public LocalDateTime getLocalDateTime(String strDateTime) {
+		if (strDateTime.charAt(10) == ' ') {
+			strDateTime = strDateTime.replace(" ", "T");
+		}
 		return LocalDateTime.parse(strDateTime);
 	}
 
