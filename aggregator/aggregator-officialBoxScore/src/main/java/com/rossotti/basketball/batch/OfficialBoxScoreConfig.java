@@ -184,7 +184,7 @@ public class OfficialBoxScoreConfig {
         String sql =
             "INSERT INTO officialBoxScore " +
             "(" +
-                "gameDateTime, seasonType, officialLastName, officialFirstName, " +
+                "gameDate, gameTime, seasonType, officialLastName, officialFirstName, " +
                 "teamAbbr, teamConference, teamDivision, teamLocation, teamResult, teamMinutes, teamDaysOff, teamPoints, teamAssists, " +
                 "teamTurnovers, teamSteals, teamBlocks, teamPersonalFouls, teamFieldGoalAttempts, teamFieldGoalMade, teamFieldGoalPct, " +
                 "teamTwoPointAttempts, teamTwoPointMade, teamTwoPointPct, teamThreePointAttempts, teamThreePointMade, teamThreePointPct, " +
@@ -208,7 +208,7 @@ public class OfficialBoxScoreConfig {
             ") " +
             "VALUES " +
             "(" +
-                ":gameDateTime, :seasonType, :officialLastName, :officialFirstName, " +
+                ":gameDate, :gameTime, :seasonType, :officialLastName, :officialFirstName, " +
                 ":teamAbbr, :teamConference, :teamDivision, :teamLocation, :teamResult, :teamMinutes, :teamDaysOff, :teamPoints, :teamAssists, " +
                 ":teamTurnovers, :teamSteals, :teamBlocks, :teamPersonalFouls, :teamFieldGoalAttempts, :teamFieldGoalMade, :teamFieldGoalPct, " +
                 ":teamTwoPointAttempts, :teamTwoPointMade, :teamTwoPointPct, :teamThreePointAttempts, :teamThreePointMade, :teamThreePointPct, " +
