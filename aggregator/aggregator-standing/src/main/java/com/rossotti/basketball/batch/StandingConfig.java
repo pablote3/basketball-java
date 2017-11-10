@@ -3,6 +3,7 @@ package com.rossotti.basketball.batch;
 import com.rossotti.basketball.config.DatabaseConfig;
 import com.rossotti.basketball.util.DateTimeConverter;
 import com.rossotti.basketball.util.PropertyService;
+import com.rossotti.basketball.util.StringHeaderWriter;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -153,8 +154,14 @@ public class StandingConfig {
         FlatFileItemWriter<Standing> flatFileItemWriter = new FlatFileItemWriter<>();
         String path = propertyService.getProperty_Path("writer.extract");
         if (path != null) {
+            String exportHeaderWriter = "stDate;teamAbbr;rank;rankOrd;gameWon;gameLost;stk;stkType;stkTot;gameBack;ptsFor;ptsAgnst;homeWin;homeLoss;awayWin;awayLoss;confWin;confLoss;" +
+                                        "lastFive;lastTen;gamePlay;ptsScore;ptsAllow;ptsDiff;opptGmPlay;opptGmWon;opptOpptGmPlay;opptOpptGmWon;sos;rel%Indx;mov;srs;pw%";
+            StringHeaderWriter headerWriter = new StringHeaderWriter(exportHeaderWriter);
+            flatFileItemWriter.setHeaderCallback(headerWriter);
+
             flatFileItemWriter.setResource(new FileSystemResource(new File(path + "/standings.csv")));
             flatFileItemWriter.setShouldDeleteIfExists(true);
+
             BeanWrapperFieldExtractor<Standing> fieldExtractor = new BeanWrapperFieldExtractor<>();
             String[] fields = new String[]{
                 "standingDate", "teamAbbr", "rank", "ordinalRank", "gamesWon", "gamesLost", "streak", "streakType", "streakTotal", "gamesBack", "pointsFor",
