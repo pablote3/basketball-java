@@ -154,8 +154,8 @@ public class StandingConfig {
         FlatFileItemWriter<Standing> flatFileItemWriter = new FlatFileItemWriter<>();
         String path = propertyService.getProperty_Path("writer.extract");
         if (path != null) {
-            String exportHeaderWriter = "stDate;teamAbbr;rank;rankOrd;gameWon;gameLost;stk;stkType;stkTot;gameBack;ptsFor;ptsAgnst;homeWin;homeLoss;awayWin;awayLoss;confWin;confLoss;" +
-                                        "lastFive;lastTen;gamePlay;ptsScore;ptsAllow;ptsDiff;opptGmPlay;opptGmWon;opptOpptGmPlay;opptOpptGmWon;sos;rel%Indx;mov;srs;pw%";
+            String exportHeaderWriter = "stDate,teamAbbr,rank,rankOrd,gameWon,gameLost,stk,stkType,stkTot,gameBack,ptsFor,ptsAgnst,homeWin,homeLoss,awayWin,awayLoss,confWin,confLoss," +
+                                        "lastFive,lastTen,gamePlay,ptsScore,ptsAllow,ptsDiff,opptGmPlay,opptGmWon,opptOpptGmPlay,opptOpptGmWon,sos,rel%Indx,mov,srs,pw%";
             StringHeaderWriter headerWriter = new StringHeaderWriter(exportHeaderWriter);
             flatFileItemWriter.setHeaderCallback(headerWriter);
 

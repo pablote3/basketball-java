@@ -126,10 +126,10 @@ public class PlayerBoxScoreConfig {
         FlatFileItemWriter<PlayerBoxScore> flatFileItemWriter = new FlatFileItemWriter<>();
         String path = propertyService.getProperty_Path("writer.extract");
         if (path != null) {
-            String exportHeaderWriter = "gmDate;gmTime;seasTyp;playLNm;playFNm;teamAbbr;teamConf;teamDiv;teamLoc;teamRslt;teamDayOff;offLNm1;offFNm1;offLNm2;offFNm2;offLNm3;offFNm3;" +
-                                        "playDispNm;playStat;playMin;playPos;playHeight;playWeight;playBDate;playPTS;playAST;playTO;playSTL;playBLK;" +
-                                        "playPF;playFGA;playFGM;playFG%;play2PA;play2PM;play2P%;play3PA;play3PM;play3P%;playFTA;playFTM;playFT%;playORB;playDRB;playTRB;opptAbbr;opptConf;" +
-                                        "opptDiv;opptLoc;opptRslt;opptDayOff";
+            String exportHeaderWriter = "gmDate,gmTime,seasTyp,playLNm,playFNm,teamAbbr,teamConf,teamDiv,teamLoc,teamRslt,teamDayOff,offLNm1,offFNm1,offLNm2,offFNm2,offLNm3,offFNm3," +
+                                        "playDispNm,playStat,playMin,playPos,playHeight,playWeight,playBDate,playPTS,playAST,playTO,playSTL,playBLK," +
+                                        "playPF,playFGA,playFGM,playFG%,play2PA,play2PM,play2P%,play3PA,play3PM,play3P%,playFTA,playFTM,playFT%,playORB,playDRB,playTRB,opptAbbr,opptConf," +
+                                        "opptDiv,opptLoc,opptRslt,opptDayOff";
             StringHeaderWriter headerWriter = new StringHeaderWriter(exportHeaderWriter);
             flatFileItemWriter.setHeaderCallback(headerWriter);
 
