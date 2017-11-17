@@ -200,9 +200,7 @@ public class OfficialBoxScoreConfig {
                 "opptTrueShootingPct, opptEffectiveFieldGoalPct, opptOffensiveReboundPct, opptDefensiveReboundPct, opptTotalReboundPct, " +
                 "opptAssistedFieldGoalPct, opptTurnoverPct, opptStealPct, opptBlockPct, opptBlockRate, opptPointsPerShot, opptFloorImpactCounter, " +
                 "opptFloorImpactCounterPer40, opptOffensiveRating, opptDefensiveRating, opptEfficiencyDifferential, opptPlayPct, opptAssistRate, " +
-                "opptAssistToTurnoverRatio, opptStealToTurnoverRatio, " +
-                "possessions, pace, pythagoreanWinningPct_13_91, pythagoreanWins_13_91, pythagoreanLosses_13_91, pythagoreanWinningPct_16_5, " +
-                "pythagoreanWins_16_5, pythagoreanLosses_16_5" +
+                "opptAssistToTurnoverRatio, opptStealToTurnoverRatio, possessions, pace" +
             ") " +
             "VALUES " +
             "(" +
@@ -224,9 +222,7 @@ public class OfficialBoxScoreConfig {
                 ":opptTrueShootingPct, :opptEffectiveFieldGoalPct, :opptOffensiveReboundPct, :opptDefensiveReboundPct, :opptTotalReboundPct, " +
                 ":opptAssistedFieldGoalPct, :opptTurnoverPct, :opptStealPct, :opptBlockPct, :opptBlockRate, :opptPointsPerShot, :opptFloorImpactCounter, " +
                 ":opptFloorImpactCounterPer40, :opptOffensiveRating, :opptDefensiveRating, :opptEfficiencyDifferential, :opptPlayPct, :opptAssistRate, " +
-                ":opptAssistToTurnoverRatio, :opptStealToTurnoverRatio, " +
-                ":possessions, :pace, :pythagoreanWinningPct_13_91, :pythagoreanWins_13_91, :pythagoreanLosses_13_91, :pythagoreanWinningPct_16_5," +
-                ":pythagoreanWins_16_5, :pythagoreanLosses_16_5" +
+                ":opptAssistToTurnoverRatio, :opptStealToTurnoverRatio, :possessions, :pace" +
             ")";
         jdbcBatchItemWriter.setSql(sql);
         return jdbcBatchItemWriter;

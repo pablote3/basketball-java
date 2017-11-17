@@ -194,14 +194,18 @@ public class StandingConfig {
                 "standingDate, teamAbbr, rank, ordinalRank, gamesWon, gamesLost, streak, streakType, streakTotal, gamesBack, pointsFor, " +
                 "pointsAgainst, homeWins, homeLosses, awayWins, awayLosses, conferenceWins, conferenceLosses, lastFive, lastTen, gamesPlayed, " +
                 "pointsScoredPerGame, pointsAllowedPerGame, pointDifferentialPerGame, opptGamesPlayed, opptGamesWon, opptOpptGamesPlayed, " +
-                "opptOpptGamesWon, strengthOfSchedule, relativePercentageIndex, marginOfVictory, simpleRatingSystem, projectedWinningPct" +
+                "opptOpptGamesWon, strengthOfSchedule, relativePercentageIndex, marginOfVictory, simpleRatingSystem, projectedWinningPct," +
+                "pythagoreanWinningPct_13_91, pythagoreanWins_13_91, pythagoreanLosses_13_91, pythagoreanWinningPct_16_5, " +
+                "pythagoreanWins_16_5, pythagoreanLosses_16_5" +
             ") " +
             "VALUES " +
             "(" +
                 ":standingDate, :teamAbbr, :rank, :ordinalRank, :gamesWon, :gamesLost, :streak, :streakType, :streakTotal, :gamesBack, :pointsFor, " +
                 ":pointsAgainst, :homeWins, :homeLosses, :awayWins, :awayLosses, :conferenceWins, :conferenceLosses, :lastFive, :lastTen, :gamesPlayed, " +
                 ":pointsScoredPerGame, :pointsAllowedPerGame, :pointDifferentialPerGame, :opptGamesPlayed, :opptGamesWon, :opptOpptGamesPlayed, " +
-                ":opptOpptGamesWon, :strengthOfSchedule, :relativePercentageIndex, :marginOfVictory, :simpleRatingSystem, :projectedWinningPct" +
+                ":opptOpptGamesWon, :strengthOfSchedule, :relativePercentageIndex, :marginOfVictory, :simpleRatingSystem, :projectedWinningPct, " +
+                ":pythagoreanWinningPct_13_91, :pythagoreanWins_13_91, :pythagoreanLosses_13_91, :pythagoreanWinningPct_16_5," +
+                ":pythagoreanWins_16_5, :pythagoreanLosses_16_5" +
             ")";
         jdbcBatchItemWriter.setSql(sql);
         return jdbcBatchItemWriter;
