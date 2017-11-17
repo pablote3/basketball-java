@@ -1,6 +1,7 @@
 package com.rossotti.basketball.model;
 
 import com.rossotti.basketball.calc.BoxScoreCalculations;
+import com.rossotti.basketball.calc.CommonCalculations;
 import com.rossotti.basketball.util.DateTimeConverter;
 
 import java.math.BigDecimal;
@@ -135,12 +136,6 @@ public class BoxScore {
 
     private Float possessions;
     private Float pace;
-    private Float pythagoreanWinningPct_13_91;
-    private Float pythagoreanWins_13_91;
-    private Float pythagoreanLosses_13_91;
-    private Float pythagoreanWinningPct_16_5;
-    private Float pythagoreanWins_16_5;
-    private Float pythagoreanLosses_16_5;
 
     public String getGameDateTime() {
         return gameDateTime;
@@ -1014,48 +1009,6 @@ public class BoxScore {
         this.pace = pace;
     }
 
-    public Float getPythagoreanWinningPct_13_91() {
-        return pythagoreanWinningPct_13_91;
-    }
-    public void setPythagoreanWinningPct_13_91(Float pythagoreanWinningPct_13_91) {
-        this.pythagoreanWinningPct_13_91 = pythagoreanWinningPct_13_91;
-    }
-
-    public Float getPythagoreanWins_13_91() {
-        return pythagoreanWins_13_91;
-    }
-    public void setPythagoreanWins_13_91(Float pythagoreanWins_13_91) {
-        this.pythagoreanWins_13_91 = pythagoreanWins_13_91;
-    }
-
-    public Float getPythagoreanLosses_13_91() {
-        return pythagoreanLosses_13_91;
-    }
-    public void setPythagoreanLosses_13_91(Float pythagoreanLosses_13_91) {
-        this.pythagoreanLosses_13_91 = pythagoreanLosses_13_91;
-    }
-
-    public Float getPythagoreanWinningPct_16_5() {
-        return pythagoreanWinningPct_16_5;
-    }
-    public void setPythagoreanWinningPct_16_5(Float pythagoreanWinningPct_16_5) {
-        this.pythagoreanWinningPct_16_5 = pythagoreanWinningPct_16_5;
-    }
-
-    public Float getPythagoreanWins_16_5() {
-        return pythagoreanWins_16_5;
-    }
-    public void setPythagoreanWins_16_5(Float pythagoreanWins_16_5) {
-        this.pythagoreanWins_16_5 = pythagoreanWins_16_5;
-    }
-
-    public Float getPythagoreanLosses_16_5() {
-        return pythagoreanLosses_16_5;
-    }
-    public void setPythagoreanLosses_16_5(Float pythagoreanLosses_16_5) {
-        this.pythagoreanLosses_16_5 = pythagoreanLosses_16_5;
-    }
-
     private Short calculateTeamTwoPointMade() {
         return BoxScoreCalculations.calculateTwoPointMade(
             this.getTeamFieldGoalMade(), this.getTeamThreePointMade()
@@ -1075,41 +1028,41 @@ public class BoxScore {
         Short made = BoxScoreCalculations.calculateTwoPointMade(
             this.getTeamFieldGoalMade(), this.getTeamThreePointMade()
         );
-        return BoxScoreCalculations.calculatePercent(made, attempt);
+        return CommonCalculations.calculatePercent(made, attempt);
     }
 
     private BigDecimal calculateTeamTwoPointRate() {
-        return BoxScoreCalculations.calculatePercent (
+        return CommonCalculations.calculatePercent (
             this.getTeamTwoPointAttempts(), this.getTeamFieldGoalAttempts()
         );
     }
 
     private BigDecimal calculateTeamThreePointPct() {
-        return BoxScoreCalculations.calculatePercent(
+        return CommonCalculations.calculatePercent(
             this.getTeamThreePointMade(), this.getTeamThreePointAttempts()
         );
     }
 
     private BigDecimal calculateTeamThreePointRate() {
-        return BoxScoreCalculations.calculatePercent(
+        return CommonCalculations.calculatePercent(
             this.getTeamThreePointAttempts(), this.getTeamFieldGoalAttempts()
         );
     }
 
     private BigDecimal calculateTeamFieldGoalPct() {
-        return BoxScoreCalculations.calculatePercent(
+        return CommonCalculations.calculatePercent(
             this.getTeamFieldGoalMade(), this.getTeamFieldGoalAttempts()
         );
     }
 
     private BigDecimal calculateTeamFreeThrowPct() {
-        return BoxScoreCalculations.calculatePercent(
+        return CommonCalculations.calculatePercent(
             this.getTeamFreeThrowMade(), this.getTeamFreeThrowAttempts()
         );
     }
 
     private BigDecimal calculateTeamFreeThrowRate() {
-        return BoxScoreCalculations.calculatePercent(
+        return CommonCalculations.calculatePercent(
             this.getTeamFreeThrowAttempts(), this.getTeamFieldGoalAttempts()
         );
     }
@@ -1269,42 +1222,42 @@ public class BoxScore {
         Short made = BoxScoreCalculations.calculateTwoPointMade(
             this.getOpptFieldGoalMade(), this.getOpptThreePointMade()
         );
-        return BoxScoreCalculations.calculatePercent(
+        return CommonCalculations.calculatePercent(
              made, attempt
         );
     }
 
     private BigDecimal calculateOpptTwoPointRate() {
-        return BoxScoreCalculations.calculatePercent(
+        return CommonCalculations.calculatePercent(
             this.getOpptTwoPointAttempts(), this.getOpptFieldGoalAttempts()
         );
     }
 
     private BigDecimal calculateOpptThreePointPct() {
-        return BoxScoreCalculations.calculatePercent(
+        return CommonCalculations.calculatePercent(
             this.getOpptThreePointMade(), this.getOpptThreePointAttempts()
         );
     }
     private BigDecimal calculateOpptThreePointRate() {
-        return BoxScoreCalculations.calculatePercent(
+        return CommonCalculations.calculatePercent(
             this.getOpptThreePointAttempts(), this.getOpptFieldGoalAttempts()
         );
     }
 
     private BigDecimal calculateOpptFieldGoalPct() {
-        return BoxScoreCalculations.calculatePercent(
+        return CommonCalculations.calculatePercent(
             this.getOpptFieldGoalMade(), this.getOpptFieldGoalAttempts()
         );
     }
 
     private BigDecimal calculateOpptFreeThrowPct() {
-        return BoxScoreCalculations.calculatePercent(
+        return CommonCalculations.calculatePercent(
             this.getOpptFreeThrowMade(), this.getOpptFreeThrowAttempts()
         );
     }
 
     private BigDecimal calculateOpptFreeThrowRate() {
-        return BoxScoreCalculations.calculatePercent(
+        return CommonCalculations.calculatePercent(
             this.getOpptFreeThrowAttempts(), this.getOpptFieldGoalAttempts()
         );
     }
@@ -1460,42 +1413,6 @@ public class BoxScore {
         );
     }
 
-    private BigDecimal calculatePythagoreanWinningPct_13_91() {
-        return BoxScoreCalculations.calculatePythagoreanWinningPct_13_91(
-            this.getTeamPoints(), this.getOpptPoints()
-        );
-    }
-
-    private BigDecimal calculatePythagoreanWins_13_91() {
-        return BoxScoreCalculations.calculatePythagoreanWins_13_91(
-            this.getTeamPoints(), this.getOpptPoints()
-        );
-    }
-
-    private BigDecimal calculatePythagoreanLosses_13_91() {
-        return BoxScoreCalculations.calculatePythagoreanLosses_13_91(
-            this.getTeamPoints(), this.getOpptPoints()
-        );
-    }
-
-    private BigDecimal calculatePythagoreanWinningPct_16_5() {
-        return BoxScoreCalculations.calculatePythagoreanWinningPct_16_5(
-            this.getTeamPoints(), this.getOpptPoints()
-        );
-    }
-
-    private BigDecimal calculatePythagoreanWins_16_5() {
-        return BoxScoreCalculations.calculatePythagoreanWins_16_5(
-            this.getTeamPoints(), this.getOpptPoints()
-        );
-    }
-
-    private BigDecimal calculatePythagoreanLosses_16_5() {
-        return BoxScoreCalculations.calculatePythagoreanLosses_16_5(
-            this.getTeamPoints(), this.getOpptPoints()
-        );
-    }
-
     public static void process(BoxScore boxScore) {
         boxScore.setGameDate(DateTimeConverter.getStringDate(DateTimeConverter.getLocalDateTime(boxScore.getGameDateTime())));
         boxScore.setGameTime(DateTimeConverter.getStringTime(DateTimeConverter.getLocalDateTime(boxScore.getGameDateTime())));
@@ -1566,11 +1483,5 @@ public class BoxScore {
 
         boxScore.setPossessions(boxScore.calculatePossessions().floatValue());
         boxScore.setPace(boxScore.calculatePace().floatValue());
-        boxScore.setPythagoreanWinningPct_13_91(boxScore.calculatePythagoreanWinningPct_13_91().floatValue());
-        boxScore.setPythagoreanWins_13_91(boxScore.calculatePythagoreanWins_13_91().floatValue());
-        boxScore.setPythagoreanLosses_13_91(boxScore.calculatePythagoreanLosses_13_91().floatValue());
-        boxScore.setPythagoreanWinningPct_16_5(boxScore.calculatePythagoreanWinningPct_16_5().floatValue());
-        boxScore.setPythagoreanWins_16_5(boxScore.calculatePythagoreanWins_16_5().floatValue());
-        boxScore.setPythagoreanLosses_16_5(boxScore.calculatePythagoreanLosses_16_5().floatValue());
     }
 }

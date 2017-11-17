@@ -21,6 +21,12 @@ public class StandingTests {
         Assert.assertEquals(0, Float.compare(standing.getMarginOfVictory(), 10.5f));
         Assert.assertEquals(0, Float.compare(standing.getSimpleRatingSystem(), 10.1133f));
         Assert.assertEquals(0, Float.compare(standing.getProjectedWinningPct(),0.8457f));
+        Assert.assertEquals(0, Float.compare(standing.getPythagoreanWinningPct_13_91(), 0.8072f));
+        Assert.assertEquals(0, Float.compare(standing.getPythagoreanWins_13_91(), 66.1904f));
+        Assert.assertEquals(0, Float.compare(standing.getPythagoreanLosses_13_91(), 15.8096f));
+        Assert.assertEquals(0, Float.compare(standing.getPythagoreanWinningPct_16_5(), 0.8454f));
+        Assert.assertEquals(0, Float.compare(standing.getPythagoreanWins_16_5(), 69.3228f));
+        Assert.assertEquals(0, Float.compare(standing.getPythagoreanLosses_16_5(), 12.6772f));
     }
 
     private Standing createMockStanding() {

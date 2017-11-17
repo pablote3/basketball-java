@@ -17,6 +17,12 @@ public class StandingProcessor implements ItemProcessor<Standing, Standing> {
         standing.setMarginOfVictory(calculateMarginOfVictory().floatValue());
         standing.setSimpleRatingSystem(calculateSimpleRatingSystem().floatValue());
         standing.setProjectedWinningPct(calculateProjectedWinningPercentage().floatValue());
+        standing.setPythagoreanWinningPct_13_91(calculatePythagoreanWinningPct_13_91().floatValue());
+        standing.setPythagoreanWins_13_91(calculatePythagoreanWins_13_91().floatValue());
+        standing.setPythagoreanLosses_13_91(calculatePythagoreanLosses_13_91().floatValue());
+        standing.setPythagoreanWinningPct_16_5(calculatePythagoreanWinningPct_16_5().floatValue());
+        standing.setPythagoreanWins_16_5(calculatePythagoreanWins_16_5().floatValue());
+        standing.setPythagoreanLosses_16_5(calculatePythagoreanLosses_16_5().floatValue());
         return standing;
     }
 
@@ -48,6 +54,43 @@ public class StandingProcessor implements ItemProcessor<Standing, Standing> {
     private BigDecimal calculateProjectedWinningPercentage() {
         return StandingCalculations.calculateProjectedWinningPct(
             standing.getPointsFor(), standing.getPointsAgainst(), standing.getGamesPlayed()
+        );
+    }
+
+
+    private BigDecimal calculatePythagoreanWinningPct_13_91() {
+        return StandingCalculations.calculatePythagoreanWinningPct_13_91(
+            standing.getPointsFor(), standing.getPointsAgainst()
+        );
+    }
+
+    private BigDecimal calculatePythagoreanWins_13_91() {
+        return StandingCalculations.calculatePythagoreanWins_13_91(
+            standing.getPointsFor(), standing.getPointsAgainst()
+        );
+    }
+
+    private BigDecimal calculatePythagoreanLosses_13_91() {
+        return StandingCalculations.calculatePythagoreanLosses_13_91(
+            standing.getPointsFor(), standing.getPointsAgainst()
+        );
+    }
+
+    private BigDecimal calculatePythagoreanWinningPct_16_5() {
+        return StandingCalculations.calculatePythagoreanWinningPct_16_5(
+            standing.getPointsFor(), standing.getPointsAgainst()
+        );
+    }
+
+    private BigDecimal calculatePythagoreanWins_16_5() {
+        return StandingCalculations.calculatePythagoreanWins_16_5(
+            standing.getPointsFor(), standing.getPointsAgainst()
+        );
+    }
+
+    private BigDecimal calculatePythagoreanLosses_16_5() {
+        return StandingCalculations.calculatePythagoreanLosses_16_5(
+            standing.getPointsFor(), standing.getPointsAgainst()
         );
     }
 }

@@ -136,8 +136,7 @@ public class OfficialBoxScoreConfig {
                     "opptRslt,opptMin,opptDayOff,opptPTS,opptAST,opptTO,opptSTL,opptBLK,opptPF,opptFGA,opptFGM,opptFG%,oppt2PA,oppt2PM,oppt2P%," +
                     "oppt3PA,oppt3PM,oppt3P%,opptFTA,opptFTM,opptFT%,opptORB,opptDRB,opptTRB,opptPTS1,opptPTS2,opptPTS3,opptPTS4,opptPTS5," +
                     "opptPTS6,opptPTS7,opptPTS8,opptTREB%,opptASST%,opptTS%,opptEFG%,opptOREB%,opptDREB%,opptTO%,opptSTL%,opptBLK%,opptBLKR," +
-                    "opptPPS,opptFIC,opptFIC40,opptOrtg,opptDrtg,opptEDiff,opptPlay%,opptAR,opptAST/TO,opptSTL/TO,poss,pace,pyth%13.91," +
-                    "wpyth13.91,lpyth13.91,pyth%16.5,wpyth16.5,lpyth16.5";
+                    "opptPPS,opptFIC,opptFIC40,opptOrtg,opptDrtg,opptEDiff,opptPlay%,opptAR,opptAST/TO,opptSTL/TO,poss,pace";
             StringHeaderWriter headerWriter = new StringHeaderWriter(exportHeaderWriter);
             flatFileItemWriter.setHeaderCallback(headerWriter);
 
@@ -163,8 +162,7 @@ public class OfficialBoxScoreConfig {
                 "opptAssistedFieldGoalPct", "opptTrueShootingPct", "opptEffectiveFieldGoalPct", "opptOffensiveReboundPct", "opptDefensiveReboundPct", "opptTurnoverPct",
                 "opptStealPct", "opptBlockPct", "opptBlockRate", "opptPointsPerShot", "opptFloorImpactCounter", "opptFloorImpactCounterPer40", "opptOffensiveRating",
                 "opptDefensiveRating", "opptEfficiencyDifferential", "opptPlayPct", "opptAssistRate", "opptAssistToTurnoverRatio", "opptStealToTurnoverRatio",
-                "possessions", "pace", "pythagoreanWinningPct_13_91", "pythagoreanWins_13_91", "pythagoreanLosses_13_91", "pythagoreanWinningPct_16_5",
-                "pythagoreanWins_16_5", "pythagoreanLosses_16_5"
+                "possessions", "pace"
             };
             fieldExtractor.setNames(fields);
             DelimitedLineAggregator<OfficialBoxScore> lineAggregator = new DelimitedLineAggregator<>();

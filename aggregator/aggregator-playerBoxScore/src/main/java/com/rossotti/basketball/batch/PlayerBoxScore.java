@@ -1,6 +1,7 @@
 package com.rossotti.basketball.batch;
 
 import com.rossotti.basketball.calc.BoxScoreCalculations;
+import com.rossotti.basketball.calc.CommonCalculations;
 
 import java.math.BigDecimal;
 
@@ -453,23 +454,23 @@ public class PlayerBoxScore {
         Short made = BoxScoreCalculations.calculateTwoPointMade(
             this.getFieldGoalMade(), this.getThreePointMade()
         );
-        return BoxScoreCalculations.calculatePercent(made, attempt);
+        return CommonCalculations.calculatePercent(made, attempt);
     }
 
     public BigDecimal calculateThreePointPct() {
-        return BoxScoreCalculations.calculatePercent(
+        return CommonCalculations.calculatePercent(
             this.getThreePointMade(), this.getThreePointAttempts()
         );
     }
 
     public BigDecimal calculateFieldGoalPct() {
-        return BoxScoreCalculations.calculatePercent(
+        return CommonCalculations.calculatePercent(
             this.getFieldGoalMade(), this.getFieldGoalAttempts()
         );
     }
 
     public BigDecimal calculateFreeThrowPct() {
-        return BoxScoreCalculations.calculatePercent(
+        return CommonCalculations.calculatePercent(
             this.getFreeThrowMade(), this.getFreeThrowAttempts()
         );
     }

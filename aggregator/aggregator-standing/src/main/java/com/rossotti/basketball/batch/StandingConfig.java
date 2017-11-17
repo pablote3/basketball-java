@@ -155,7 +155,8 @@ public class StandingConfig {
         String path = propertyService.getProperty_Path("writer.extract");
         if (path != null) {
             String exportHeaderWriter = "stDate,teamAbbr,rank,rankOrd,gameWon,gameLost,stk,stkType,stkTot,gameBack,ptsFor,ptsAgnst,homeWin,homeLoss,awayWin,awayLoss,confWin,confLoss," +
-                                        "lastFive,lastTen,gamePlay,ptsScore,ptsAllow,ptsDiff,opptGmPlay,opptGmWon,opptOpptGmPlay,opptOpptGmWon,sos,rel%Indx,mov,srs,pw%";
+                                        "lastFive,lastTen,gamePlay,ptsScore,ptsAllow,ptsDiff,opptGmPlay,opptGmWon,opptOpptGmPlay,opptOpptGmWon,sos,rel%Indx,mov,srs,pw%," +
+                                        "pyth%13.91,wpyth13.91,lpyth13.91,pyth%16.5,wpyth16.5,lpyth16.5";
             StringHeaderWriter headerWriter = new StringHeaderWriter(exportHeaderWriter);
             flatFileItemWriter.setHeaderCallback(headerWriter);
 
@@ -167,7 +168,9 @@ public class StandingConfig {
                 "standingDate", "teamAbbr", "rank", "ordinalRank", "gamesWon", "gamesLost", "streak", "streakType", "streakTotal", "gamesBack", "pointsFor",
                 "pointsAgainst", "homeWins", "homeLosses", "awayWins", "awayLosses", "conferenceWins", "conferenceLosses", "lastFive", "lastTen", "gamesPlayed",
                 "pointsScoredPerGame", "pointsAllowedPerGame", "pointDifferentialPerGame", "opptGamesPlayed", "opptGamesWon", "opptOpptGamesPlayed", "opptOpptGamesWon",
-                "strengthOfSchedule", "relativePercentageIndex", "marginOfVictory", "simpleRatingSystem", "projectedWinningPct"
+                "strengthOfSchedule", "relativePercentageIndex", "marginOfVictory", "simpleRatingSystem", "projectedWinningPct", "pythagoreanWinningPct_13_91",
+                "pythagoreanWins_13_91", "pythagoreanLosses_13_91", "pythagoreanWinningPct_16_5", "pythagoreanWins_16_5", "pythagoreanLosses_16_5"
+
             };
             fieldExtractor.setNames(fields);
             DelimitedLineAggregator<Standing> lineAggregator = new DelimitedLineAggregator<>();

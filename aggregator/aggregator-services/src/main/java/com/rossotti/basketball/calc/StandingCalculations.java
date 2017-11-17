@@ -62,4 +62,40 @@ public class StandingCalculations {
         return top
             .divide(new BigDecimal(82), 4, RoundingMode.HALF_UP);
     }
+
+    public static BigDecimal calculatePythagoreanWinningPct_13_91(Short teamPoints, Short opptPoints) {
+        BigDecimal teamPoints_13_91 = new BigDecimal(Math.pow(new Double(teamPoints), 13.91));
+        BigDecimal opptPoints_13_91 = new BigDecimal(Math.pow(new Double(opptPoints), 13.91));
+        BigDecimal bottom = teamPoints_13_91
+                .add(opptPoints_13_91);
+        return CommonCalculations.calculatePercent(teamPoints_13_91, bottom);
+    }
+
+    public static BigDecimal calculatePythagoreanWins_13_91(Short teamPoints, Short opptPoints) {
+        return calculatePythagoreanWinningPct_13_91(teamPoints, opptPoints)
+                .multiply(new BigDecimal(82));
+    }
+
+    public static BigDecimal calculatePythagoreanLosses_13_91(Short teamPoints, Short opptPoints) {
+        return new BigDecimal(82)
+                .subtract(calculatePythagoreanWins_13_91(teamPoints, opptPoints));
+    }
+
+    public static BigDecimal calculatePythagoreanWinningPct_16_5(Short teamPoints, Short opptPoints) {
+        BigDecimal teamPoints_16_5 = new BigDecimal(Math.pow(new Double(teamPoints), 16.5));
+        BigDecimal opptPoints_16_5 = new BigDecimal(Math.pow(new Double(opptPoints), 16.5));
+        BigDecimal bottom = teamPoints_16_5
+                .add(opptPoints_16_5);
+        return CommonCalculations.calculatePercent(teamPoints_16_5, bottom);
+    }
+
+    public static BigDecimal calculatePythagoreanWins_16_5(Short teamPoints, Short opptPoints) {
+        return calculatePythagoreanWinningPct_16_5(teamPoints, opptPoints)
+                .multiply(new BigDecimal(82));
+    }
+
+    public static BigDecimal calculatePythagoreanLosses_16_5(Short teamPoints, Short opptPoints) {
+        return new BigDecimal(82)
+                .subtract(calculatePythagoreanWins_16_5(teamPoints, opptPoints));
+    }
 }

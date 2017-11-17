@@ -82,12 +82,6 @@ public class OfficialBoxScoreTests {
 
         Assert.assertEquals(0, Float.compare(officialBoxScore.getPossessions(), 97.342f));
         Assert.assertEquals(0, Float.compare(officialBoxScore.getPace(), 97.342f));
-        Assert.assertEquals(0, Float.compare(officialBoxScore.getPythagoreanWinningPct_13_91(), 0.4309f));
-        Assert.assertEquals(0, Float.compare(officialBoxScore.getPythagoreanWins_13_91(), 35.3338f));
-        Assert.assertEquals(0, Float.compare(officialBoxScore.getPythagoreanLosses_13_91(), 46.6662f));
-        Assert.assertEquals(0, Float.compare(officialBoxScore.getPythagoreanWinningPct_16_5(), 0.4182f));
-        Assert.assertEquals(0, Float.compare(officialBoxScore.getPythagoreanWins_16_5(), 34.2924f));
-        Assert.assertEquals(0, Float.compare(officialBoxScore.getPythagoreanLosses_16_5(), 47.7076f));
     }
 
     private OfficialBoxScore createMockOfficialBoxScore() {
