@@ -5,7 +5,7 @@ import java.math.RoundingMode;
 
 public class CommonCalculations {
 
-    static public BigDecimal calculatePercent(BigDecimal top, BigDecimal bottom) {
+    static BigDecimal calculatePercent(BigDecimal top, BigDecimal bottom) {
         if (top.compareTo(BigDecimal.ZERO) == 0 && bottom.compareTo(BigDecimal.ZERO) == 0) {
             return BigDecimal.ZERO;
         }
