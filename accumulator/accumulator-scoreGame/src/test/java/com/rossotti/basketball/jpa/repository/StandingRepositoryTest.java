@@ -28,7 +28,7 @@ public class StandingRepositoryTest {
 
 	@Test
 	public void getById() {
-		Standing standing = standingRepository.findOne(1L);
+		Standing standing = standingRepository.findById(1L);
 		Assert.assertEquals("1st", standing.getOrdinalRank());
 		Assert.assertEquals("Chicago Zephyr\'s", standing.getTeam().getFullName());
 	}
@@ -112,14 +112,14 @@ public class StandingRepositoryTest {
 
 	@Test
 	public void delete_Deleted() {
-		standingRepository.delete(5L);
-		Standing standing = standingRepository.findOne(5L);
+		standingRepository.deleteById(5L);
+		Standing standing = standingRepository.findById(5L);
 		Assert.assertNull(standing);
 	}
 
 	@Test(expected = EmptyResultDataAccessException.class)
 	public void delete_NotFound() {
-		standingRepository.delete(101L);
+		standingRepository.deleteById(101L);
 	}
 
 	private Standing createMockStanding(Long teamId, LocalDate asOfDate, String ordinalRank) {

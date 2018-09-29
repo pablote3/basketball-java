@@ -47,7 +47,7 @@ public class OfficialJpaServiceImpl implements OfficialJpaService {
 
 	@Override
 	public Official getById(Long id) {
-		return officialRepository.findOne(id);
+		return officialRepository.findById(id);
 	}
 
 	@Override
@@ -82,7 +82,7 @@ public class OfficialJpaServiceImpl implements OfficialJpaService {
 	public Official delete(Long id) {
 		Official findOfficial = getById(id);
 		if (findOfficial != null && findOfficial.isFound()) {
-			officialRepository.delete(findOfficial.getId());
+			officialRepository.deleteById(findOfficial.getId());
 			findOfficial.setStatusCode(StatusCodeDAO.Deleted);
 			return findOfficial;
 		}

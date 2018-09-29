@@ -47,7 +47,7 @@ public class PlayerJpaServiceImpl implements PlayerJpaService {
 
 	@Override
 	public Player getById(Long id) {
-		return playerRepository.findOne(id);
+		return playerRepository.findById(id);
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class PlayerJpaServiceImpl implements PlayerJpaService {
 	public Player delete(Long id) {
 		Player findPlayer = getById(id);
 		if (findPlayer != null && findPlayer.isFound()) {
-			playerRepository.delete(findPlayer.getId());
+			playerRepository.deleteById(findPlayer.getId());
 			findPlayer.setStatusCode(StatusCodeDAO.Deleted);
 			return findPlayer;
 		}

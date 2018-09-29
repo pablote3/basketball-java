@@ -66,7 +66,7 @@ public class GameJpaServiceImpl implements GameJpaService {
 
 	@Override
 	public Game getById(Long id) {
-		return gameRepository.findOne(id);
+		return gameRepository.findById(id);
 	}
 
 	@Override
@@ -184,7 +184,7 @@ public class GameJpaServiceImpl implements GameJpaService {
 	public Game delete(Long id) {
 		Game findGame = getById(id);
 		if (findGame != null && findGame.isFound()) {
-			gameRepository.delete(findGame.getId());
+			gameRepository.deleteById(findGame.getId());
 			findGame.setStatusCode(StatusCodeDAO.Deleted);
 			return findGame;
 		}

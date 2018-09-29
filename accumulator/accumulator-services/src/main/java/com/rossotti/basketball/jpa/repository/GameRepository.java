@@ -12,11 +12,11 @@ public interface GameRepository extends Repository<Game, Long> {
 
 	List<Game> findAll();
 
-	Game findOne(Long id);
+	Game findById(Long id);
 
 	void save(Game player);
 
-	void delete(Long id);
+	void deleteById(Long id);
 
 	String findByTeamKeyAndFromDateAndToDate =
 			"select g from Game g " +

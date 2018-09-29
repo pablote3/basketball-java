@@ -30,7 +30,7 @@ public class GameRepositoryTest {
 
 	@Test
 	public void getById() {
-		Game game = gameRepository.findOne(5L);
+		Game game = gameRepository.findById(5L);
 		Assert.assertEquals(Game.GameStatus.Postponed, game.getStatus());
 		Assert.assertEquals("Baltimore Bullets", game.getBoxScoreHome().getTeam().getFullName());
 	}
@@ -170,14 +170,14 @@ public class GameRepositoryTest {
 
 	@Test
 	public void delete_Deleted() {
-		gameRepository.delete(11L);
-		Game standing = gameRepository.findOne(11L);
+		gameRepository.deleteById(11L);
+		Game standing = gameRepository.findById(11L);
 		Assert.assertNull(standing);
 	}
 
 	@Test(expected = EmptyResultDataAccessException.class)
 	public void delete_NotFound() {
-		gameRepository.delete(101L);
+		gameRepository.deleteById(101L);
 	}
 
 	private Game createMockGame(Long id, LocalDateTime gameDateTime, Long boxScoreIdHome, Long teamIdHome, String teamKeyHome, Long boxScoreIdAway, Long teamIdAway, String teamKeyAway, Game.GameStatus status) {

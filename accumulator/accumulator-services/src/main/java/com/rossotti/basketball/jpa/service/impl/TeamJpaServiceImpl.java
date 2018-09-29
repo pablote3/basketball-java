@@ -64,7 +64,7 @@ public class TeamJpaServiceImpl implements TeamJpaService {
 
 	@Override
 	public Team getById(Long id) {
-		return teamRepository.findOne(id);
+		return teamRepository.findById(id);
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public class TeamJpaServiceImpl implements TeamJpaService {
 	public Team delete(Long id) {
 		Team findTeam = getById(id);
 		if (findTeam != null && findTeam.isFound()) {
-			teamRepository.delete(findTeam.getId());
+			teamRepository.deleteById(findTeam.getId());
 			findTeam.setStatusCode(StatusCodeDAO.Deleted);
 			return findTeam;
 		}

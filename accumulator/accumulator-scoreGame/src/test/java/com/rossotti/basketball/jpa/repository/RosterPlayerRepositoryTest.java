@@ -29,7 +29,7 @@ public class RosterPlayerRepositoryTest {
 
 	@Test
 	public void getById() {
-		RosterPlayer rosterPlayer = rosterPlayerRepository.findOne(1L);
+		RosterPlayer rosterPlayer = rosterPlayerRepository.findById(1L);
 		Assert.assertEquals("21", rosterPlayer.getNumber());
 		Assert.assertEquals("chicago-zephyr's", rosterPlayer.getTeam().getTeamKey());
 		Assert.assertEquals("Luke", rosterPlayer.getPlayer().getFirstName());
@@ -192,14 +192,14 @@ public class RosterPlayerRepositoryTest {
 
 	@Test
 	public void delete_Deleted() {
-		rosterPlayerRepository.delete(22L);
-		RosterPlayer findRosterPlayer = rosterPlayerRepository.findOne(22L);
+		rosterPlayerRepository.deleteById(22L);
+		RosterPlayer findRosterPlayer = rosterPlayerRepository.findById(22L);
 		Assert.assertNull(findRosterPlayer);
 	}
 
 	@Test(expected = EmptyResultDataAccessException.class)
 	public void delete_NotFound() {
-		rosterPlayerRepository.delete(101L);
+		rosterPlayerRepository.deleteById(101L);
 	}
 
 	private RosterPlayer createMockRosterPlayer(Long playerId, Long teamId, LocalDate fromDate, LocalDate toDate, String number) {

@@ -64,7 +64,7 @@ public class RosterPlayerJpaServiceImpl implements RosterPlayerJpaService {
 
 	@Override
 	public RosterPlayer getById(Long id) {
-		return rosterPlayerRepository.findOne(id);
+		return rosterPlayerRepository.findById(id);
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public class RosterPlayerJpaServiceImpl implements RosterPlayerJpaService {
 	public RosterPlayer delete(Long id) {
 		RosterPlayer findRosterPlayer = getById(id);
 		if (findRosterPlayer != null && findRosterPlayer.isFound()) {
-			rosterPlayerRepository.delete(findRosterPlayer.getId());
+			rosterPlayerRepository.deleteById(findRosterPlayer.getId());
 			findRosterPlayer.setStatusCode(StatusCodeDAO.Deleted);
 			return findRosterPlayer;
 		}

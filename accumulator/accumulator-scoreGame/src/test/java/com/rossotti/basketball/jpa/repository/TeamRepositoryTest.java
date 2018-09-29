@@ -29,7 +29,7 @@ public class TeamRepositoryTest {
 
 	@Test
 	public void getById() {
-		Team team = teamRepository.findOne(1L);
+		Team team = teamRepository.findById(1L);
 		Assert.assertEquals("Chicago Zephyr's", team.getFullName());
 		Assert.assertTrue(team.getStandings().size() >= 1);
 	}
@@ -155,14 +155,14 @@ public class TeamRepositoryTest {
 
 	@Test
 	public void delete_Deleted() {
-		teamRepository.delete(10L);
-		Team findTeam = teamRepository.findOne(10L);
+		teamRepository.deleteById(10L);
+		Team findTeam = teamRepository.findById(10L);
 		Assert.assertNull(findTeam);
 	}
 
 	@Test(expected = EmptyResultDataAccessException.class)
 	public void delete_NotFound() {
-		teamRepository.delete(101L);
+		teamRepository.deleteById(101L);
 	}
 
 	private Team createMockTeam(String key, LocalDate fromDate, LocalDate toDate, String fullName) {

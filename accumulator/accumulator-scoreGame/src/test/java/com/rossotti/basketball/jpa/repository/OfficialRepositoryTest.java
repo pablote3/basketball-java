@@ -27,7 +27,7 @@ public class OfficialRepositoryTest {
 
 	@Test
 	public void getById() {
-		Official official = officialRepository.findOne(1L);
+		Official official = officialRepository.findById(1L);
 		Assert.assertEquals("LateCa'll", official.getLastName());
 	}
 
@@ -116,14 +116,14 @@ public class OfficialRepositoryTest {
 
 	@Test
 	public void delete_Deleted() {
-		officialRepository.delete(20L);
-		Official findOfficial = officialRepository.findOne(20L);
+		officialRepository.deleteById(20L);
+		Official findOfficial = officialRepository.findById(20L);
 		Assert.assertNull(findOfficial);
 	}
 
 	@Test(expected = EmptyResultDataAccessException.class)
 	public void delete_NotFound() {
-		officialRepository.delete(101L);
+		officialRepository.deleteById(101L);
 	}
 
 	private Official createMockOfficial(String lastName, String firstName, LocalDate fromDate, LocalDate toDate, String number) {

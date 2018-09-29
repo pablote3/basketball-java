@@ -52,7 +52,7 @@ public class StandingJpaServiceImpl implements StandingJpaService {
 
 	@Override
 	public Standing getById(Long id) {
-		return standingRepository.findOne(id);
+		return standingRepository.findById(id);
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public class StandingJpaServiceImpl implements StandingJpaService {
 	public Standing delete(Long id) {
 		Standing findStanding = getById(id);
 		if (findStanding != null && findStanding.isFound()) {
-			standingRepository.delete(findStanding.getId());
+			standingRepository.deleteById(findStanding.getId());
 			findStanding.setStatusCode(StatusCodeDAO.Deleted);
 			return findStanding;
 		}

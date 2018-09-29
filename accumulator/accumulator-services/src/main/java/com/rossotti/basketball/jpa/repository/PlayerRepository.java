@@ -10,11 +10,11 @@ public interface PlayerRepository extends Repository<Player, Long> {
 
 	List<Player> findAll();
 
-	Player findOne(Long id);
+	Player findById(Long id);
 
 	void save(Player player);
 
-	void delete(Long id);
+	void deleteById(Long id);
 
 	List<Player> findByLastNameAndFirstName(String lastName, String firstName);
 

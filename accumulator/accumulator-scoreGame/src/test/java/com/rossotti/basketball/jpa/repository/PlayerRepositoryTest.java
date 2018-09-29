@@ -27,7 +27,7 @@ public class PlayerRepositoryTest {
 
 	@Test
 	public void getById() {
-		Player player = playerRepository.findOne(1L);
+		Player player = playerRepository.findById(1L);
 		Assert.assertEquals("Puzdrakiew'icz", player.getLastName());
 		Assert.assertEquals(3, player.getRosterPlayers().size());
 	}
@@ -111,14 +111,14 @@ public class PlayerRepositoryTest {
 
 	@Test
 	public void delete_Deleted() {
-		playerRepository.delete(7L);
-		Player findPlayer = playerRepository.findOne(7L);
+		playerRepository.deleteById(7L);
+		Player findPlayer = playerRepository.findById(7L);
 		Assert.assertNull(findPlayer);
 	}
 
 	@Test(expected = EmptyResultDataAccessException.class)
 	public void delete_NotFound() {
-		playerRepository.delete(101L);
+		playerRepository.deleteById(101L);
 	}
 
 	private Player createMockPlayer(String lastName, String firstName, LocalDate birthdate, String displayName) {
