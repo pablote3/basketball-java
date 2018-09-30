@@ -7,7 +7,7 @@ import com.rossotti.basketball.jpa.model.Game;
 import com.rossotti.basketball.jpa.model.GameOfficial;
 import com.rossotti.basketball.jpa.repository.GameRepository;
 import com.rossotti.basketball.jpa.service.GameJpaService;
-import com.rossotti.basketball.util.function.DateTimeConverter;
+import com.rossotti.basketball.util.DateTimeConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

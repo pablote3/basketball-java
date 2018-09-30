@@ -5,10 +5,10 @@ import com.rossotti.basketball.client.dto.GameDTO;
 import com.rossotti.basketball.client.dto.RosterDTO;
 import com.rossotti.basketball.client.dto.StandingsDTO;
 import com.rossotti.basketball.client.dto.StatusCodeDTO.StatusCode;
-import com.rossotti.basketball.util.function.DateTimeConverter;
-import com.rossotti.basketball.util.service.FileService;
+import com.rossotti.basketball.util.DateTimeConverter;
+import com.rossotti.basketball.util.FileService;
 import com.rossotti.basketball.util.service.PropertyService;
-import com.rossotti.basketball.util.service.exception.FileException;
+import com.rossotti.basketball.util.FileServiceException;
 import com.rossotti.basketball.util.service.exception.PropertyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +54,7 @@ public class RestStatsService {
 			}
 			gameDTO.setStatusCode(statusCode);
 		}
-		catch (FileException fe) {
+		catch (FileServiceException fe) {
 			logger.info("File exception = " + fe);
 			gameDTO.setStatusCode(StatusCode.ServerException);
 		}
@@ -86,7 +86,7 @@ public class RestStatsService {
 			}
 			standingsDTO.setStatusCode(statusCode);
 		}
-		catch (FileException fe) {
+		catch (FileServiceException fe) {
 			logger.info("File exception = " + fe);
 			standingsDTO.setStatusCode(StatusCode.ServerException);
 		}
@@ -118,7 +118,7 @@ public class RestStatsService {
 			}
 			rosterDTO.setStatusCode(statusCode);
 		}
-		catch (FileException fe) {
+		catch (FileServiceException fe) {
 			logger.info("File exception = " + fe);
 			rosterDTO.setStatusCode(StatusCode.ServerException);
 		}

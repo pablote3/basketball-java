@@ -1,6 +1,5 @@
-package com.rossotti.basketball.util.service;
+package com.rossotti.basketball.util;
 
-import com.rossotti.basketball.util.service.exception.FileException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -19,10 +18,10 @@ public class FileService {
 			return true;
 		}
 		catch (FileNotFoundException fnf) {
-			throw new FileException("FileNotFoundException");
+			throw new FileServiceException("FileNotFoundException");
 		}
 		catch (IOException ioe) {
-			throw new FileException("IOException");
+			throw new FileServiceException("IOException");
 		}
 	}
 

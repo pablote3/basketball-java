@@ -4,7 +4,7 @@ import com.rossotti.basketball.client.dto.GameDTO;
 import com.rossotti.basketball.client.dto.RosterDTO;
 import com.rossotti.basketball.client.dto.StandingsDTO;
 import com.rossotti.basketball.client.dto.StatusCodeDTO.StatusCode;
-import com.rossotti.basketball.util.function.ThreadSleep;
+import com.rossotti.basketball.util.ThreadSleep;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;

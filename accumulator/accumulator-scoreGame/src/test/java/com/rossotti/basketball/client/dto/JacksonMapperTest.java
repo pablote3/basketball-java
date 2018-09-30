@@ -1,7 +1,7 @@
 package com.rossotti.basketball.client.dto;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rossotti.basketball.util.function.DateTimeConverter;
+import com.rossotti.basketball.util.DateTimeConverter;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;

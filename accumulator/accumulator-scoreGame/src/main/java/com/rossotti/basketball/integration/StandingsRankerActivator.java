@@ -3,7 +3,7 @@ package com.rossotti.basketball.integration;
 import com.rossotti.basketball.business.model.StandingsBusiness;
 import com.rossotti.basketball.business.service.StandingBusService;
 import com.rossotti.basketball.jpa.model.Game;
-import com.rossotti.basketball.util.function.DateTimeConverter;
+import com.rossotti.basketball.util.DateTimeConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

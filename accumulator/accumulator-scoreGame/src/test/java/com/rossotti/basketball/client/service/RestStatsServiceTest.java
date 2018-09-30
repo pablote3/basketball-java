@@ -3,10 +3,10 @@ package com.rossotti.basketball.client.service;
 import com.rossotti.basketball.client.dto.GameDTO;
 import com.rossotti.basketball.client.dto.RosterDTO;
 import com.rossotti.basketball.client.dto.StandingsDTO;
-import com.rossotti.basketball.util.function.StreamConverter;
-import com.rossotti.basketball.util.service.FileService;
+import com.rossotti.basketball.util.StreamConverter;
+import com.rossotti.basketball.util.FileService;
 import com.rossotti.basketball.util.service.PropertyService;
-import com.rossotti.basketball.util.service.exception.FileException;
+import com.rossotti.basketball.util.FileServiceException;
 import com.rossotti.basketball.util.service.exception.PropertyException;
 import org.junit.Assert;
 import org.junit.Test;
@@ -117,7 +117,7 @@ public class RestStatsServiceTest {
 		when(propertyService.getProperty_Path(anyString()))
 			.thenReturn("//");
 		when(fileService.fileStreamWriter(anyString(), any(byte[].class)))
-			.thenThrow(new FileException("IO Exception"));
+			.thenThrow(new FileServiceException("IO Exception"));
 		GameDTO game = restStatsService.retrieveBoxScore("20160311-houston-rockets-at-boston-celtics", true);
 		Assert.assertTrue(game.isServerException());
 	}
@@ -215,7 +215,7 @@ public class RestStatsServiceTest {
 		when(propertyService.getProperty_Path(anyString()))
 			.thenReturn("//");
 		when(fileService.fileStreamWriter(anyString(), any(byte[].class)))
-			.thenThrow(new FileException("IO Exception"));
+			.thenThrow(new FileServiceException("IO Exception"));
 		RosterDTO roster = restStatsService.retrieveRoster("houston-rockets", true, LocalDate.of(2016, 3, 11));
 		Assert.assertTrue(roster.isServerException());
 	}
@@ -313,7 +313,7 @@ public class RestStatsServiceTest {
 		when(propertyService.getProperty_Path(anyString()))
 			.thenReturn("//");
 		when(fileService.fileStreamWriter(anyString(), any(byte[].class)))
-			.thenThrow(new FileException("IO Exception"));
+			.thenThrow(new FileServiceException("IO Exception"));
 		StandingsDTO standings = restStatsService.retrieveStandings("20160311", true);
 		Assert.assertTrue(standings.isServerException());
 	}

@@ -1,6 +1,5 @@
 package com.rossotti.basketball.util;
 
-import com.rossotti.basketball.util.function.DateTimeConverter;
 import org.junit.Assert;
 import org.junit.Test;
 
