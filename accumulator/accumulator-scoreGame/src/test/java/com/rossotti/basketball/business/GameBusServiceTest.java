@@ -25,7 +25,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import java.io.IOException;
@@ -34,7 +34,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Matchers.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @SuppressWarnings("CanBeFinal")
@@ -128,7 +130,7 @@ public class GameBusServiceTest {
 			.thenReturn(ClientSource.File);
 		when(fileStatsService.retrieveBoxScore(anyString()))
 			.thenReturn(createMockGameDTO_Found());
-		when(rosterPlayerAppService.getBoxScorePlayers(anyObject(), anyObject(), anyObject(), anyString()))
+		when(rosterPlayerAppService.getBoxScorePlayers(any(), any(), any(), anyString()))
 			.thenThrow(new NoSuchEntityException(RosterPlayer.class));
 		GameBusiness game = gameBusService.scoreGame(createMockGame_Scheduled());
 		Assert.assertTrue(game.isRosterUpdate());
@@ -140,9 +142,9 @@ public class GameBusServiceTest {
 			.thenReturn(ClientSource.File);
 		when(fileStatsService.retrieveBoxScore(anyString()))
 			.thenReturn(createMockGameDTO_Found());
-		when(rosterPlayerAppService.getBoxScorePlayers(anyObject(), anyObject(), anyObject(), anyString()))
+		when(rosterPlayerAppService.getBoxScorePlayers(any(), any(), any(), anyString()))
 			.thenReturn(createMockBoxScorePlayers_Found());
-		when(officialAppService.getGameOfficials(anyObject(), anyObject(), anyObject()))
+		when(officialAppService.getGameOfficials(any(), any(), any()))
 			.thenThrow(new NoSuchEntityException(Official.class));
 		GameBusiness game = gameBusService.scoreGame(createMockGame_Scheduled());
 		Assert.assertTrue(game.isOfficialError());
@@ -154,11 +156,11 @@ public class GameBusServiceTest {
 			.thenReturn(ClientSource.File);
 		when(fileStatsService.retrieveBoxScore(anyString()))
 			.thenReturn(createMockGameDTO_Found());
-		when(rosterPlayerAppService.getBoxScorePlayers(anyObject(), anyObject(), anyObject(), anyString()))
+		when(rosterPlayerAppService.getBoxScorePlayers(any(), any(), any(), anyString()))
 			.thenReturn(createMockBoxScorePlayers_Found());
-		when(officialAppService.getGameOfficials(anyObject(), anyObject(), anyObject()))
+		when(officialAppService.getGameOfficials(any(), any(), any()))
 			.thenReturn(createMockGameOfficials_Found());
-		when(teamAppService.findTeamByTeamKey(anyString(), anyObject()))
+		when(teamAppService.findTeamByTeamKey(anyString(), any()))
 			.thenThrow(new NoSuchEntityException(Team.class));
 		GameBusiness game = gameBusService.scoreGame(createMockGame_Scheduled());
 		Assert.assertTrue(game.isTeamError());
@@ -172,13 +174,13 @@ public class GameBusServiceTest {
 				.thenReturn(ClientSource.Api);
 		when(restStatsService.retrieveBoxScore(anyString(), anyBoolean()))
 			.thenReturn(createMockGameDTO_Found());
-		when(rosterPlayerAppService.getBoxScorePlayers(anyObject(), anyObject(), anyObject(), anyString()))
+		when(rosterPlayerAppService.getBoxScorePlayers(any(), any(), any(), anyString()))
 			.thenReturn(createMockBoxScorePlayers_Found());
-		when(officialAppService.getGameOfficials(anyObject(), anyObject(), anyObject()))
+		when(officialAppService.getGameOfficials(any(), any(), any()))
 			.thenReturn(createMockGameOfficials_Found());
-		when(teamAppService.findTeamByTeamKey(anyString(), anyObject()))
+		when(teamAppService.findTeamByTeamKey(anyString(), any()))
 			.thenReturn(createMockTeam_Found());
-		when(gameAppService.updateGame(anyObject()))
+		when(gameAppService.updateGame(any()))
 			.thenReturn(createMockGame_StatusCode(StatusCodeDAO.Updated));
 		GameBusiness game = gameBusService.scoreGame(createMockGame_Scheduled());
 		Assert.assertTrue(game.isCompleted());

@@ -34,7 +34,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.mockito.Matchers.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
@@ -131,7 +133,7 @@ public class StandingsBusServiceTest {
 			.thenReturn(ClientSource.File);
 		when(fileStatsService.retrieveStandings(anyString()))
 			.thenReturn(createMockStandingsDTO_StatusCode(StatusCode.Found));
-		when(standingAppService.getStandings(anyObject()))
+		when(standingAppService.getStandings(any()))
 			.thenThrow(new NoSuchEntityException(Team.class));
 		StandingsBusiness standings = standingsBusinessService.rankStandings("2014-10-28");
 		Assert.assertTrue(standings.isClientError());
@@ -143,15 +145,15 @@ public class StandingsBusServiceTest {
 			.thenReturn(ClientSource.File);
 		when(fileStatsService.retrieveStandings(anyString()))
 			.thenReturn(createStandingsDTO_Found());
-		when(standingAppService.getStandings(anyObject()))
+		when(standingAppService.getStandings(any()))
 			.thenReturn(createMockStandings());
-		when(standingAppService.buildStandingsMap(anyObject(), anyObject()))
+		when(standingAppService.buildStandingsMap(any(), any()))
 			.thenReturn(createMockStandingsMap());
-		when(standingAppService.buildHeadToHeadMap(anyString(), anyObject(), anyObject()))
+		when(standingAppService.buildHeadToHeadMap(anyString(), any(), any()))
 			.thenReturn(createMockHeadToHeadMap());
-		when(standingAppService.calculateStrengthOfSchedule(anyString(), anyObject(), anyObject(), anyObject()))
+		when(standingAppService.calculateStrengthOfSchedule(anyString(), any(), any(), any()))
 			.thenReturn(new StandingRecord(5, 10, 20, 40));
-		when(standingAppService.createStanding(anyObject()))
+		when(standingAppService.createStanding(any()))
 			.thenReturn(createMockStanding_StatusCode(StatusCodeDAO.Found));
 		StandingsBusiness standings = standingsBusinessService.rankStandings("2014-10-28");
 		Assert.assertTrue(standings.isServerError());
@@ -163,15 +165,15 @@ public class StandingsBusServiceTest {
 			.thenReturn(ClientSource.File);
 		when(fileStatsService.retrieveStandings(anyString()))
 			.thenReturn(createStandingsDTO_Found());
-		when(standingAppService.getStandings(anyObject()))
+		when(standingAppService.getStandings(any()))
 			.thenReturn(createMockStandings());
-		when(standingAppService.buildStandingsMap(anyObject(), anyObject()))
+		when(standingAppService.buildStandingsMap(any(), any()))
 			.thenReturn(createMockStandingsMap());
-		when(standingAppService.buildHeadToHeadMap(anyString(), anyObject(), anyObject()))
+		when(standingAppService.buildHeadToHeadMap(anyString(), any(), any()))
 			.thenReturn(createMockHeadToHeadMap());
-		when(standingAppService.calculateStrengthOfSchedule(anyString(), anyObject(), anyObject(), anyObject()))
+		when(standingAppService.calculateStrengthOfSchedule(anyString(), any(), any(), any()))
 			.thenReturn(new StandingRecord(5, 10, 20, 40));
-		when(standingAppService.createStanding(anyObject()))
+		when(standingAppService.createStanding(any()))
 			.thenReturn(createMockStanding_StatusCode(StatusCodeDAO.Created));
 		StandingsBusiness standings = standingsBusinessService.rankStandings("2014-10-28");
 		Assert.assertTrue(standings.isCompleted());

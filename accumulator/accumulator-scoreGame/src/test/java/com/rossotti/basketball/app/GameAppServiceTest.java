@@ -21,8 +21,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.Matchers.anyObject;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
@@ -36,7 +36,7 @@ public class GameAppServiceTest {
 
 	@Test
 	public void findByAsOfDate_notFound() {
-		when(gameJpaService.findByAsOfDate(anyObject()))
+		when(gameJpaService.findByAsOfDate(any()))
 			.thenReturn(new ArrayList<>());
 		List<Game> games = gameAppService.findByAsOfDate(LocalDate.of(1995, 11, 26));
 		Assert.assertEquals(0, games.size());
@@ -44,7 +44,7 @@ public class GameAppServiceTest {
 
 	@Test
 	public void findByAsOfDate_found() {
-		when(gameJpaService.findByAsOfDate(anyObject()))
+		when(gameJpaService.findByAsOfDate(any()))
 			.thenReturn(createMockGames());
 		List<Game> games = gameAppService.findByAsOfDate(LocalDate.of(1995, 11, 26));
 		Assert.assertEquals(2, games.size());
@@ -52,7 +52,7 @@ public class GameAppServiceTest {
 
 	@Test
 	public void findByTeamKeyAsOfDate_notFound() {
-		when(gameJpaService.findByTeamKeyAndAsOfDate(anyString(), anyObject()))
+		when(gameJpaService.findByTeamKeyAndAsOfDate(anyString(), any()))
 			.thenReturn(null);
 		Game game = gameAppService.findByTeamKeyAsOfDate("sacramento-hornets", LocalDate.of(1995, 11, 26));
 		Assert.assertNull(game);
@@ -60,7 +60,7 @@ public class GameAppServiceTest {
 
 	@Test
 	public void findByTeamKeyAsOfDate_found() {
-		when(gameJpaService.findByTeamKeyAndAsOfDate(anyString(), anyObject()))
+		when(gameJpaService.findByTeamKeyAndAsOfDate(anyString(), any()))
 			.thenReturn(createMockGame_Scheduled());
 		Game game = gameAppService.findByTeamKeyAsOfDate("sacramento-hornets", LocalDate.of(1995, 11, 26));
 		Assert.assertEquals(LocalDateTime.of(2015, 11, 26, 10, 0), game.getGameDateTime());
@@ -68,7 +68,7 @@ public class GameAppServiceTest {
 
 	@Test
 	public void findPreviousByTeamKeyAsOfDate_notFound() {
-		when(gameJpaService.findPreviousByTeamKeyAsOfDate(anyString(), anyObject()))
+		when(gameJpaService.findPreviousByTeamKeyAsOfDate(anyString(), any()))
 			.thenReturn(null);
 		LocalDateTime previousGameDate = gameAppService.findPreviousByTeamKeyAsOfDate("sacramento-hornets", LocalDate.of(1995, 11, 26));
 		Assert.assertNull(previousGameDate);
@@ -76,7 +76,7 @@ public class GameAppServiceTest {
 
 	@Test
 	public void findPreviousByTeamKeyAsOfDate_found() {
-		when(gameJpaService.findPreviousByTeamKeyAsOfDate(anyString(), anyObject()))
+		when(gameJpaService.findPreviousByTeamKeyAsOfDate(anyString(), any()))
 			.thenReturn(LocalDateTime.of(2015, 11, 26, 10, 0));
 		LocalDateTime previousGameDate = gameAppService.findPreviousByTeamKeyAsOfDate("sacramento-hornets", LocalDate.of(1995, 11, 26));
 		Assert.assertEquals(LocalDateTime.of(2015, 11, 26, 10, 0), previousGameDate);
@@ -84,7 +84,7 @@ public class GameAppServiceTest {
 
 	@Test
 	public void findByDateTeamSeason_notFound() {
-		when(gameJpaService.findByTeamKeyAndAsOfDateSeason(anyString(), anyObject()))
+		when(gameJpaService.findByTeamKeyAndAsOfDateSeason(anyString(), any()))
 			.thenReturn(new ArrayList<>());
 		List<Game> games = gameAppService.findByTeamKeyAsOfDateSeason("sacramento-hornets", LocalDate.of(1995, 11, 26));
 		Assert.assertEquals(0, games.size());
@@ -92,7 +92,7 @@ public class GameAppServiceTest {
 
 	@Test
 	public void findByDateTeamSeason_found() {
-		when(gameJpaService.findByTeamKeyAndAsOfDateSeason(anyString(), anyObject()))
+		when(gameJpaService.findByTeamKeyAndAsOfDateSeason(anyString(), any()))
 			.thenReturn(createMockGames());
 		List<Game> games = gameAppService.findByTeamKeyAsOfDateSeason("sacramento-hornets", LocalDate.of(1995, 11, 26));
 		Assert.assertEquals(2, games.size());
@@ -100,7 +100,7 @@ public class GameAppServiceTest {
 
 	@Test
 	public void updateGame_notFound() {
-		when(gameJpaService.update(anyObject()))
+		when(gameJpaService.update(any()))
 			.thenReturn(createMockGame_StatusCode(StatusCodeDAO.NotFound));
 		Game game = gameAppService.updateGame(createMockGame_Scheduled());
 		Assert.assertTrue(game.isNotFound());
@@ -108,7 +108,7 @@ public class GameAppServiceTest {
 
 	@Test
 	public void updateGame_updated() {
-		when(gameJpaService.update(anyObject()))
+		when(gameJpaService.update(any()))
 			.thenReturn(createMockGame_StatusCode(StatusCodeDAO.Updated));
 		Game game = gameAppService.updateGame(createMockGame_Scheduled());
 		Assert.assertTrue(game.isUpdated());
@@ -116,7 +116,7 @@ public class GameAppServiceTest {
 
 	@Test
 	public void createGame_found() {
-		when(gameJpaService.create(anyObject()))
+		when(gameJpaService.create(any()))
 			.thenReturn(createMockGame_StatusCode(StatusCodeDAO.Found));
 		Game game = gameAppService.createGame(createMockGame_Scheduled());
 		Assert.assertTrue(game.isFound());
@@ -124,7 +124,7 @@ public class GameAppServiceTest {
 
 	@Test
 	public void createGame_created() {
-		when(gameJpaService.create(anyObject()))
+		when(gameJpaService.create(any()))
 			.thenReturn(createMockGame_StatusCode(StatusCodeDAO.Created));
 		Game game = gameAppService.createGame(createMockGame_Scheduled());
 		Assert.assertTrue(game.isCreated());

@@ -15,8 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 
-import static org.mockito.Matchers.anyObject;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
@@ -30,7 +30,7 @@ public class TeamAppServiceTest {
 
 	@Test(expected=NoSuchEntityException.class)
 	public void findTeamByTeamKey_notFound() {
-		when(teamJpaService.findByTeamKeyAndAsOfDate(anyString(), anyObject()))
+		when(teamJpaService.findByTeamKeyAndAsOfDate(anyString(), any()))
 			.thenReturn(createMockTeam("new-orleans-hornets", "Hornets", StatusCodeDAO.NotFound));
 		Team team = teamAppService.findTeamByTeamKey("new-orleans-hornets", LocalDate.of(2015, 11, 26));
 		Assert.assertTrue(team.isNotFound());
@@ -38,7 +38,7 @@ public class TeamAppServiceTest {
 
 	@Test
 	public void findTeamByTeamKey_found() {
-		when(teamJpaService.findByTeamKeyAndAsOfDate(anyString(), anyObject()))
+		when(teamJpaService.findByTeamKeyAndAsOfDate(anyString(), any()))
 			.thenReturn(createMockTeam("denver-nuggets", "Nuggets", StatusCodeDAO.Found));
 		Team team = teamAppService.findTeamByTeamKey("denver-nuggets", LocalDate.of(2015, 11, 26));
 		Assert.assertEquals("denver-nuggets", team.getTeamKey());
@@ -47,7 +47,7 @@ public class TeamAppServiceTest {
 
 	@Test(expected=NoSuchEntityException.class)
 	public void findTeamByLastName_notFound() {
-		when(teamJpaService.findByLastNameAndAsOfDate(anyString(), anyObject()))
+		when(teamJpaService.findByLastNameAndAsOfDate(anyString(), any()))
 			.thenReturn(createMockTeam("new-orleans-hornets", "Hornets", StatusCodeDAO.NotFound));
 		Team team = teamAppService.findTeamByLastName("Hornets", LocalDate.of(2015, 11, 26));
 		Assert.assertTrue(team.isNotFound());
@@ -55,7 +55,7 @@ public class TeamAppServiceTest {
 
 	@Test
 	public void findTeamByLastName_found() {
-		when(teamJpaService.findByLastNameAndAsOfDate(anyString(), anyObject()))
+		when(teamJpaService.findByLastNameAndAsOfDate(anyString(), any()))
 			.thenReturn(createMockTeam("denver-nuggets", "Nuggets", StatusCodeDAO.Found));
 		Team team = teamAppService.findTeamByLastName("Hornets", LocalDate.of(2015, 11, 26));
 		Assert.assertEquals("Nuggets", team.getLastName());

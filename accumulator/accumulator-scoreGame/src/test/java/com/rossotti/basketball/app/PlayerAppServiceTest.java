@@ -15,8 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 
-import static org.mockito.Matchers.anyObject;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
@@ -30,7 +30,7 @@ public class PlayerAppServiceTest {
 
 	@Test
 	public void findByPlayerNameBirthdate_notFound() {
-		when(playerJpaService.findByLastNameAndFirstNameAndBirthdate(anyString(), anyString(), anyObject()))
+		when(playerJpaService.findByLastNameAndFirstNameAndBirthdate(anyString(), anyString(), any()))
 			.thenReturn(createMockPlayer("Simmons", "Richard", StatusCodeDAO.NotFound));
 		Player player = playerAppService.findByPlayerNameBirthdate("Simmons", "Richard", LocalDate.of(1995, 11, 26));
 		Assert.assertTrue(player.isNotFound());
@@ -38,7 +38,7 @@ public class PlayerAppServiceTest {
 
 	@Test
 	public void findByPlayerNameBirthdate_found() {
-		when(playerJpaService.findByLastNameAndFirstNameAndBirthdate(anyString(), anyString(), anyObject()))
+		when(playerJpaService.findByLastNameAndFirstNameAndBirthdate(anyString(), anyString(), any()))
 			.thenReturn(createMockPlayer("Adams", "Samuel", StatusCodeDAO.Found));
 		Player player = playerAppService.findByPlayerNameBirthdate("Adams", "Samuel", LocalDate.of(1995, 11, 26));
 		Assert.assertEquals("Samuel", player.getFirstName());
@@ -47,7 +47,7 @@ public class PlayerAppServiceTest {
 
 	@Test(expected=DuplicateEntityException.class)
 	public void createPlayer_alreadyExists() {
-		when(playerJpaService.create(anyObject()))
+		when(playerJpaService.create(any()))
 			.thenThrow(new DuplicateEntityException(Player.class));
 		Player player = playerAppService.createPlayer(createMockPlayer("Smith", "Emmitt", StatusCodeDAO.Found));
 		Assert.assertTrue(player.isNotFound());
@@ -55,7 +55,7 @@ public class PlayerAppServiceTest {
 
 	@Test
 	public void createPlayer_created() {
-		when(playerJpaService.create(anyObject()))
+		when(playerJpaService.create(any()))
 			.thenReturn(createMockPlayer("Payton", "Walter", StatusCodeDAO.Created));
 		Player player = playerAppService.createPlayer(createMockPlayer("Payton", "Walter", StatusCodeDAO.Created));
 		Assert.assertEquals("Walter", player.getFirstName());

@@ -19,8 +19,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.mockito.Matchers.anyObject;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
@@ -34,15 +34,15 @@ public class OfficialAppServiceTest {
 
 	@Test(expected=NoSuchEntityException.class)
 	public void getGameOfficials_notFound() {
-		when(officialJpaService.findByLastNameAndFirstNameAndAsOfDate(anyString(), anyString(), anyObject()))
+		when(officialJpaService.findByLastNameAndFirstNameAndAsOfDate(anyString(), anyString(), any()))
 			.thenReturn(createMockOfficial("", "", StatusCodeDAO.NotFound));
 		List<GameOfficial> officials = officialAppService.getGameOfficials(createMockOfficialDTOs(), createMockGame(), LocalDate.of(1995, 11, 26));
-		Assert.assertTrue(officials.size() == 0);
+		Assert.assertEquals(0, officials.size());
 	}
 
 	@Test
 	public void getGameOfficials_found() {
-		when(officialJpaService.findByLastNameAndFirstNameAndAsOfDate(anyString(), anyString(), anyObject()))
+		when(officialJpaService.findByLastNameAndFirstNameAndAsOfDate(anyString(), anyString(), any()))
 			.thenReturn(createMockOfficial("Adams", "Samuel", StatusCodeDAO.Found))
 			.thenReturn(createMockOfficial("Coors", "Adolph", StatusCodeDAO.Found));
 		List<GameOfficial> officials = officialAppService.getGameOfficials(createMockOfficialDTOs(), createMockGame(), LocalDate.of(1995, 11, 26));

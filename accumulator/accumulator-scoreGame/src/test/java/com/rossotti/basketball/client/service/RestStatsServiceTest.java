@@ -13,14 +13,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -40,7 +40,7 @@ public class RestStatsServiceTest {
 
 	@Test
 	public void retrieveBoxScore_PropertyException_PropertyService() {
-		when(propertyService.getProperty_Http(anyString()))
+		when(propertyService.getProperty_Http(any()))
 			.thenThrow(new PropertyException("propertyName"));
 		GameDTO game = restStatsService.retrieveBoxScore("20160311-houston-rockets-at-boston-celtics", false);
 		Assert.assertTrue(game.isServerException());

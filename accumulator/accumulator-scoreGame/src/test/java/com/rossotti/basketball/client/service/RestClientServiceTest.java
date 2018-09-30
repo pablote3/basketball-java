@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.IOException;
 import java.time.LocalDate;
 
 @SuppressWarnings("SpringJavaAutowiredMembersInspection")
@@ -56,7 +55,7 @@ public class RestClientServiceTest {
 
 	@Ignore
 	@Test
-	public void retrieveRoster_401() throws IOException {
+	public void retrieveRoster_401() {
 		String accessToken = "badToken";
 		String userAgent = "validUserAgent";
 		String rosterUrl = "https://erikberg.com/nba/roster/toronto-raptors.json";
@@ -66,7 +65,7 @@ public class RestClientServiceTest {
 
 	@Ignore
 	@Test
-	public void retrieveRoster_404() throws IOException {
+	public void retrieveRoster_404() {
 		String accessToken = "validAccessToken";
 		String userAgent = "validUserAgent";
 		String badUrl = "https://erikberg.com/nba/roster/toronto-raps.json";
@@ -76,7 +75,7 @@ public class RestClientServiceTest {
 
 	@Ignore
 	@Test
-	public void retrieveRoster_403() throws IOException {
+	public void retrieveRoster_403() {
 		//could cause ban of IP
 		String accessToken = "validAccessToken";
 		String userAgent = "badUserAgent";
@@ -87,7 +86,7 @@ public class RestClientServiceTest {
 
 	@Ignore
 	@Test
-	public void retrieveRoster_429() throws IOException {
+	public void retrieveRoster_429() {
 		//sending more than 6 requests in a minute is counted against account
 		String accessToken = "validAccessToken";
 		String userAgent = "validUserAgent";
