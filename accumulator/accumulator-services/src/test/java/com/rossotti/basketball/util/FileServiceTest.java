@@ -19,7 +19,7 @@ public class FileServiceTest {
 	@Autowired
 	private FileService fileService;
 
-	@Ignore
+//	@Ignore
 	@Test
 	public void writeFile_UTF8_Valid() {
 		String input = "Test Valančiūnas";
@@ -30,7 +30,7 @@ public class FileServiceTest {
 		fileService.fileDelete(fileName);
 	}
 
-	@Ignore
+//	@Ignore
 	@Test
 	public void writeFile_RosterJson_Valid() {
 		InputStream baseJson = this.getClass().getClassLoader().getResourceAsStream("mockClient/rosterClient.json");
