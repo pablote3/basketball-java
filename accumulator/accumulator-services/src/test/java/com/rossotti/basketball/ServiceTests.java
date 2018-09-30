@@ -6,8 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ScoreGame.class)
-public class ScoreGameTests {
+@SpringBootTest(classes = ServiceTests.class)
+public class ServiceTests {
 
 	@Test
 	public void contextLoads() {
