@@ -143,16 +143,6 @@ public class StandingAppServiceTest {
 		Assert.assertEquals(0, standings.size());
 	}
 
-//	@Test
-//	public void deleteStandings_deleted() {
-//		when(standingJpaService.findByAsOfDate(any()))
-//			.thenReturn(createMockStandings());
-//		when(standingJpaService.delete(anyLong()))
-//			.thenReturn(createMockStanding("toronto-raptors", (short)4, (short)5, 18, 27, StatusCodeDAO.Deleted));
-//		List<Standing> standings = standingAppService.deleteStandings(LocalDate.of(2012, 6, 12));
-//		Assert.assertTrue(standings.get(0).isDeleted());
-//	}
-
 	@Test
 	public void buildStandingsMap_noEntries() {
 		when(gameJpaService.findByTeamKeyAndAsOfDateSeason(anyString(), any()))
@@ -263,6 +253,12 @@ public class StandingAppServiceTest {
 			createMockStanding("detroit-pistons", (short)1, (short)3, 3, 4, StatusCodeDAO.Found),
 			createMockStanding("phoenix-suns", (short)1, (short)2, 3, 4, StatusCodeDAO.Found),
 			createMockStanding("miami-heat", (short)2, (short)3, 3, 6, StatusCodeDAO.Found)
+		);
+	}
+
+	private List<Standing> createMockStandingList(String teamKey, Short gamesWon, Short gamesPlayed, Integer opptGamesWon, Integer opptGamesPlayed, StatusCodeDAO statusCode) {
+		return Arrays.asList(
+			createMockStanding(teamKey, gamesWon, gamesPlayed, opptGamesWon, opptGamesPlayed, statusCode)
 		);
 	}
 
