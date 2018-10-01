@@ -39,7 +39,7 @@ public class RestStatsServiceTest {
 	private RestStatsService restStatsService;
 
 	@Test
-	public void retrieveBoxScore_PropertyException_PropertyService() {
+	public void retrieveBoxScore_PropertyException() {
 		when(env.getProperty(anyString()))
 			.thenThrow(new IllegalStateException("property exception"));
 		GameDTO game = restStatsService.retrieveBoxScore("20160311-houston-rockets-at-boston-celtics", false);
@@ -47,7 +47,7 @@ public class RestStatsServiceTest {
 	}
 
 	@Test
-	public void retrieveBoxScore_PropertyException_ClientService() {
+	public void retrieveBoxScore_PropertyException_BoxScore() {
 		when(env.getProperty(anyString()))
 			.thenReturn("https://");
 		when(restClientService.getJson(anyString()))
@@ -137,7 +137,7 @@ public class RestStatsServiceTest {
 	}
 
 	@Test
-	public void retrieveRoster_PropertyException_PropertyService() {
+	public void retrieveRoster_PropertyException_Roster() {
         when(env.getProperty(anyString()))
             .thenThrow(new IllegalStateException("property exception"));
 		RosterDTO roster = restStatsService.retrieveRoster("houston-rockets", false, LocalDate.of(2016, 3, 11));
@@ -235,7 +235,7 @@ public class RestStatsServiceTest {
 	}
 
 	@Test
-	public void retrieveStandings_PropertyException_PropertyService() {
+	public void retrieveStandings_PropertyException_Standings() {
         when(env.getProperty(anyString()))
             .thenThrow(new IllegalStateException("property exception"));
 		StandingsDTO standings = restStatsService.retrieveStandings("20160311", false);

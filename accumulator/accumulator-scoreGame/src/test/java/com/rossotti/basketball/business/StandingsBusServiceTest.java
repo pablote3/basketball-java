@@ -14,9 +14,6 @@ import com.rossotti.basketball.jpa.exception.NoSuchEntityException;
 import com.rossotti.basketball.jpa.model.AbstractDomainClass.StatusCodeDAO;
 import com.rossotti.basketball.jpa.model.Standing;
 import com.rossotti.basketball.jpa.model.Team;
-import com.rossotti.basketball.util.service.PropertyService;
-import com.rossotti.basketball.util.service.PropertyService.ClientSource;
-import com.rossotti.basketball.util.service.exception.PropertyException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,7 +54,7 @@ public class StandingsBusServiceTest {
 	private final ObjectMapper objectMapper = Jackson2ObjectMapperBuilder.json().build();
 
 	@Test
-	public void propertyService_propertyException() {
+	public void propertyException() {
 		when(env.getProperty(anyString()))
 			.thenThrow(new IllegalStateException("property exception"));
 		StandingsBusiness standings = standingsBusinessService.rankStandings("2014-10-28");
