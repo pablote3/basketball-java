@@ -15,20 +15,18 @@ import com.rossotti.basketball.jpa.model.Team;
 import com.rossotti.basketball.util.DateTimeConverter;
 import com.rossotti.basketball.util.FormatString;
 import com.rossotti.basketball.util.ThreadSleep;
-import com.rossotti.basketball.util.service.PropertyService;
 import com.rossotti.basketball.util.service.PropertyService.ClientSource;
-import com.rossotti.basketball.util.service.exception.PropertyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
 public class RosterPlayerBusService {
-	private final PropertyService propertyService;
+	private final Environment env;
 
 	private final RestStatsService restStatsService;
 
@@ -41,8 +39,8 @@ public class RosterPlayerBusService {
 	private final Logger logger = LoggerFactory.getLogger(RosterPlayerBusService.class);
 
 	@Autowired
-	public RosterPlayerBusService(RosterPlayerAppService rosterPlayerAppService, PropertyService propertyService, FileStatsService fileStatsService, RestStatsService restStatsService, PlayerAppService playerAppService) {
-		this.propertyService = propertyService;
+	public RosterPlayerBusService(Environment env, FileStatsService fileStatsService, RosterPlayerAppService rosterPlayerAppService, RestStatsService restStatsService, PlayerAppService playerAppService) {
+		this.env = env;
 		this.fileStatsService = fileStatsService;
 		this.restStatsService = restStatsService;
 		this.playerAppService = playerAppService;
@@ -55,16 +53,16 @@ public class RosterPlayerBusService {
 			RosterDTO rosterDTO;
 			LocalDate fromDate = DateTimeConverter.getLocalDate(asOfDateString);
 			LocalDate toDate = DateTimeConverter.getLocalDateSeasonMax(fromDate);
-			PropertyService.ClientSource clientSource = propertyService.getProperty_ClientSource("accumulator.source.roster");
+			ClientSource clientSource = ClientSource.valueOf(env.getProperty("accumulator.source.roster"));
 			if (clientSource == ClientSource.File) {
 				rosterDTO = fileStatsService.retrieveRoster(teamKey, fromDate);
 			}
 			else if (clientSource == ClientSource.Api) {
-				ThreadSleep.sleep(propertyService.getProperty_Int("sleep.duration"));
+				ThreadSleep.sleep(Integer.valueOf(env.getProperty("sleep.duration")));
 				rosterDTO = restStatsService.retrieveRoster(teamKey, true, fromDate);
 			}
 			else {
-				throw new PropertyException("Unknown");
+				throw new IllegalStateException("property exception");
 			}
 
 			if (rosterDTO.isFound()) {
@@ -176,7 +174,7 @@ public class RosterPlayerBusService {
 			}
 			rosterPlayerBusiness.setStatusCode(StatusCode.ClientError);
 		}
-		catch (PropertyException pe) {
+		catch (IllegalStateException pe) {
 			logger.info("Property exception = " + pe);
 			rosterPlayerBusiness.setStatusCode(StatusCode.ServerError);
 		}

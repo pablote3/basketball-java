@@ -15,20 +15,18 @@ import com.rossotti.basketball.jpa.model.BoxScore.Result;
 import com.rossotti.basketball.jpa.model.Game.GameStatus;
 import com.rossotti.basketball.util.DateTimeConverter;
 import com.rossotti.basketball.util.ThreadSleep;
-import com.rossotti.basketball.util.service.PropertyService;
 import com.rossotti.basketball.util.service.PropertyService.ClientSource;
-import com.rossotti.basketball.util.service.exception.PropertyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Service
 public class GameBusService {
-	private final PropertyService propertyService;
+	private final Environment env;
 
 	private final RestStatsService restStatsService;
 
@@ -45,14 +43,14 @@ public class GameBusService {
 	private final Logger logger = LoggerFactory.getLogger(GameBusService.class);
 
 	@Autowired
-	public GameBusService(OfficialAppService officialAppService, RestStatsService restStatsService, TeamAppService teamAppService, RosterPlayerAppService rosterPlayerAppService, GameAppService gameAppService, PropertyService propertyService, FileStatsService fileStatsService) {
+	public GameBusService(Environment env, FileStatsService fileStatsService, OfficialAppService officialAppService, RestStatsService restStatsService, TeamAppService teamAppService, RosterPlayerAppService rosterPlayerAppService, GameAppService gameAppService) {
+		this.env = env;
+		this.fileStatsService = fileStatsService;
 		this.officialAppService = officialAppService;
 		this.restStatsService = restStatsService;
 		this.teamAppService = teamAppService;
 		this.rosterPlayerAppService = rosterPlayerAppService;
 		this.gameAppService = gameAppService;
-		this.propertyService = propertyService;
-		this.fileStatsService = fileStatsService;
 	}
 
 	private GameBusiness scoreGame(Game game, String previousUpdateTeam) {
@@ -70,18 +68,17 @@ public class GameBusService {
 			if (game.isScheduled()) {
 				logger.debug("Scheduled game ready to be scored: " + event);
 
-				GameDTO gameDTO = null;
-				ClientSource clientSource = propertyService.getProperty_ClientSource("accumulator.source.boxScore");
+				GameDTO gameDTO;
+				ClientSource clientSource = ClientSource.valueOf(env.getProperty("accumulator.source.boxScore"));
 				if (clientSource == ClientSource.File) {
 					gameDTO = fileStatsService.retrieveBoxScore(event);
 				}
 				else if (clientSource == ClientSource.Api) {
-					ThreadSleep.sleep(propertyService.getProperty_Int("sleep.duration"));
+					ThreadSleep.sleep(Integer.valueOf(env.getProperty("sleep.duration")));
 					gameDTO = restStatsService.retrieveBoxScore(event, false);
 				}
 				else {
-					logger.info("Unknown property");
-					gameBusiness.setStatusCode(StatusCode.ClientError);
+                    throw new IllegalStateException("property exception");
 				}
 
 				if (gameDTO == null || gameDTO.isNotFound()) {
@@ -155,7 +152,7 @@ public class GameBusService {
 				}
 			}
 		}
-		catch (PropertyException pe) {
+		catch (IllegalStateException pe) {
 			logger.info("Property exception = " + pe);
 			gameBusiness.setStatusCode(StatusCode.ServerError);
 		}

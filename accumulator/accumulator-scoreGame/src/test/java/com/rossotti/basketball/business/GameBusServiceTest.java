@@ -17,15 +17,13 @@ import com.rossotti.basketball.jpa.model.AbstractDomainClass.StatusCodeDAO;
 import com.rossotti.basketball.jpa.model.*;
 import com.rossotti.basketball.jpa.model.BoxScore.Location;
 import com.rossotti.basketball.jpa.model.Game.GameStatus;
-import com.rossotti.basketball.util.service.PropertyService;
-import com.rossotti.basketball.util.service.PropertyService.ClientSource;
-import com.rossotti.basketball.util.service.exception.PropertyException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.core.env.Environment;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
 import java.io.IOException;
@@ -39,11 +37,10 @@ import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-@SuppressWarnings("CanBeFinal")
 @RunWith(MockitoJUnitRunner.class)
 public class GameBusServiceTest {
 	@Mock
-	private PropertyService propertyService;
+	private Environment env;
 
 	@Mock
 	private FileStatsService fileStatsService;
@@ -69,25 +66,25 @@ public class GameBusServiceTest {
 	private ObjectMapper objectMapper = Jackson2ObjectMapperBuilder.json().build();
 
 	@Test
-	public void propertyService_propertyException() {
-		when(propertyService.getProperty_ClientSource(anyString()))
-			.thenThrow(new PropertyException("propertyName"));
+	public void propertyException() {
+		when(env.getProperty(anyString()))
+			.thenThrow(new IllegalStateException("property exception"));
 		GameBusiness game = gameBusService.scoreGame(createMockGame_Scheduled());
 		Assert.assertTrue(game.isServerError());
 	}
 
 	@Test
-	public void propertyService_propertyNull() {
-		when(propertyService.getProperty_ClientSource(anyString()))
+	public void propertyNull() {
+		when(env.getProperty(anyString()))
 			.thenReturn(null);
 		GameBusiness game = gameBusService.scoreGame(createMockGame_Scheduled());
-		Assert.assertTrue(game.isClientError());
+		Assert.assertTrue(game.isServerError());
 	}
 
 	@Test
 	public void fileClientService_gameNotFound() {
-		when(propertyService.getProperty_ClientSource(anyString()))
-			.thenReturn(ClientSource.File);
+		when(env.getProperty(anyString()))
+			.thenReturn("File");
 		when(fileStatsService.retrieveBoxScore(anyString()))
 			.thenReturn(createMockGameDTO_StatusCode(StatusCode.NotFound));
 		GameBusiness game = gameBusService.scoreGame(createMockGame_Scheduled());
@@ -96,8 +93,8 @@ public class GameBusServiceTest {
 
 	@Test
 	public void fileClientService_clientException() {
-		when(propertyService.getProperty_ClientSource(anyString()))
-			.thenReturn(ClientSource.File);
+		when(env.getProperty(anyString()))
+			.thenReturn("File");
 		when(fileStatsService.retrieveBoxScore(anyString()))
 			.thenReturn(createMockGameDTO_StatusCode(StatusCode.ClientException));
 		GameBusiness game = gameBusService.scoreGame(createMockGame_Scheduled());
@@ -106,8 +103,10 @@ public class GameBusServiceTest {
 
 	@Test
 	public void restClientService_gameNotFound() {
-		when(propertyService.getProperty_ClientSource(anyString()))
-			.thenReturn(ClientSource.Api);
+		when(env.getProperty("accumulator.source.boxScore"))
+			.thenReturn("Api");
+		when(env.getProperty("sleep.duration"))
+			.thenReturn("0");
 		when(restStatsService.retrieveBoxScore(anyString(), anyBoolean()))
 			.thenReturn(createMockGameDTO_StatusCode(StatusCode.NotFound));
 		GameBusiness game = gameBusService.scoreGame(createMockGame_Scheduled());
@@ -116,8 +115,10 @@ public class GameBusServiceTest {
 
 	@Test
 	public void restClientService_clientException() {
-		when(propertyService.getProperty_ClientSource(anyString()))
-			.thenReturn(ClientSource.Api);
+		when(env.getProperty("accumulator.source.boxScore"))
+			.thenReturn("Api");
+		when(env.getProperty("sleep.duration"))
+			.thenReturn("0");
 		when(restStatsService.retrieveBoxScore(anyString(), anyBoolean()))
 			.thenReturn(createMockGameDTO_StatusCode(StatusCode.ClientException));
 		GameBusiness game = gameBusService.scoreGame(createMockGame_Scheduled());
@@ -126,9 +127,11 @@ public class GameBusServiceTest {
 
 	@Test
 	public void rosterPlayerService_getBoxScorePlayers_appRosterUpdate() {
-		when(propertyService.getProperty_ClientSource(anyString()))
-			.thenReturn(ClientSource.File);
-		when(fileStatsService.retrieveBoxScore(anyString()))
+		when(env.getProperty("accumulator.source.boxScore"))
+			.thenReturn("Api");
+		when(env.getProperty("sleep.duration"))
+			.thenReturn("0");
+		when(restStatsService.retrieveBoxScore(anyString(), anyBoolean()))
 			.thenReturn(createMockGameDTO_Found());
 		when(rosterPlayerAppService.getBoxScorePlayers(any(), any(), any(), anyString()))
 			.thenThrow(new NoSuchEntityException(RosterPlayer.class));
@@ -138,9 +141,11 @@ public class GameBusServiceTest {
 
 	@Test
 	public void officialService_getGameOfficials_appOfficialError() {
-		when(propertyService.getProperty_ClientSource(anyString()))
-			.thenReturn(ClientSource.File);
-		when(fileStatsService.retrieveBoxScore(anyString()))
+		when(env.getProperty("accumulator.source.boxScore"))
+			.thenReturn("Api");
+		when(env.getProperty("sleep.duration"))
+			.thenReturn("0");
+		when(restStatsService.retrieveBoxScore(anyString(), anyBoolean()))
 			.thenReturn(createMockGameDTO_Found());
 		when(rosterPlayerAppService.getBoxScorePlayers(any(), any(), any(), anyString()))
 			.thenReturn(createMockBoxScorePlayers_Found());
@@ -152,9 +157,11 @@ public class GameBusServiceTest {
 
 	@Test
 	public void teamService_findTeam_appTeamError() {
-		when(propertyService.getProperty_ClientSource(anyString()))
-			.thenReturn(ClientSource.File);
-		when(fileStatsService.retrieveBoxScore(anyString()))
+		when(env.getProperty("accumulator.source.boxScore"))
+			.thenReturn("Api");
+		when(env.getProperty("sleep.duration"))
+			.thenReturn("0");
+		when(restStatsService.retrieveBoxScore(anyString(), anyBoolean()))
 			.thenReturn(createMockGameDTO_Found());
 		when(rosterPlayerAppService.getBoxScorePlayers(any(), any(), any(), anyString()))
 			.thenReturn(createMockBoxScorePlayers_Found());
@@ -168,10 +175,10 @@ public class GameBusServiceTest {
 
 	@Test
 	public void gameService_updateGame_complete() {
-		when(propertyService.getProperty_ClientSource(anyString()))
-			.thenReturn(ClientSource.Api);
-		when(propertyService.getProperty_ClientSource(anyString()))
-				.thenReturn(ClientSource.Api);
+		when(env.getProperty("accumulator.source.boxScore"))
+			.thenReturn("Api");
+		when(env.getProperty("sleep.duration"))
+			.thenReturn("0");
 		when(restStatsService.retrieveBoxScore(anyString(), anyBoolean()))
 			.thenReturn(createMockGameDTO_Found());
 		when(rosterPlayerAppService.getBoxScorePlayers(any(), any(), any(), anyString()))
@@ -181,7 +188,7 @@ public class GameBusServiceTest {
 		when(teamAppService.findTeamByTeamKey(anyString(), any()))
 			.thenReturn(createMockTeam_Found());
 		when(gameAppService.updateGame(any()))
-			.thenReturn(createMockGame_StatusCode(StatusCodeDAO.Updated));
+			.thenReturn(createMockGame_Updated());
 		GameBusiness game = gameBusService.scoreGame(createMockGame_Scheduled());
 		Assert.assertTrue(game.isCompleted());
 	}
@@ -205,10 +212,10 @@ public class GameBusServiceTest {
 		return new GameBusiness(game, StatusCodeBusiness.StatusCode.Initial);
 	}
 
-	private Game createMockGame_StatusCode(StatusCodeDAO status) {
+	private Game createMockGame_Updated() {
 		Game game = new Game();
 		game.setGameDateTime(LocalDateTime.of(2015, 11, 24, 10, 0));
-		game.setStatusCode(status);
+		game.setStatusCode(StatusCodeDAO.Updated);
 		return game;
 	}
 

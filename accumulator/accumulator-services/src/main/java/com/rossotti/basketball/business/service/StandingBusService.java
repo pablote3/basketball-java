@@ -12,14 +12,12 @@ import com.rossotti.basketball.jpa.model.Standing;
 import com.rossotti.basketball.jpa.model.Team;
 import com.rossotti.basketball.util.DateTimeConverter;
 import com.rossotti.basketball.util.ThreadSleep;
-import com.rossotti.basketball.util.service.PropertyService;
 import com.rossotti.basketball.util.service.PropertyService.ClientSource;
-import com.rossotti.basketball.util.service.exception.PropertyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
@@ -28,7 +26,7 @@ import java.util.Map;
 
 @Service
 public class StandingBusService {
-	private final PropertyService propertyService;
+	private final Environment env;
 
 	private final RestStatsService restStatsService;
 
@@ -39,10 +37,10 @@ public class StandingBusService {
 	private final Logger logger = LoggerFactory.getLogger(StandingBusService.class);
 
 	@Autowired
-	public StandingBusService(FileStatsService fileStatsService, RestStatsService restStatsService, PropertyService propertyService, StandingAppService standingAppService) {
+	public StandingBusService(Environment env, FileStatsService fileStatsService, RestStatsService restStatsService, StandingAppService standingAppService) {
+		this.env = env;
 		this.fileStatsService = fileStatsService;
 		this.restStatsService = restStatsService;
-		this.propertyService = propertyService;
 		this.standingAppService = standingAppService;
 	}
 
@@ -50,18 +48,18 @@ public class StandingBusService {
 		StandingsBusiness standingsBusiness = new StandingsBusiness();
 		try {
 			StandingsDTO standingsDTO;
-			ClientSource clientSource = propertyService.getProperty_ClientSource("accumulator.source.standings");
+			ClientSource clientSource = ClientSource.valueOf(env.getProperty("accumulator.source.standings"));
 			LocalDate asOfDate = DateTimeConverter.getLocalDate(asOfDateString);
 			String event = DateTimeConverter.getStringDateNaked(asOfDate);
 			if (clientSource == ClientSource.File) {
 				standingsDTO = fileStatsService.retrieveStandings(event);
 			}
 			else if (clientSource == ClientSource.Api) {
-				ThreadSleep.sleep(propertyService.getProperty_Int("sleep.duration"));
+				ThreadSleep.sleep(Integer.valueOf(env.getProperty("sleep.duration")));
 				standingsDTO = restStatsService.retrieveStandings(event, false);
 			}
 			else {
-				throw new PropertyException("Unknown");
+				throw new IllegalStateException("property exception");
 			}
 
 			if (standingsDTO.isFound()) {
@@ -120,7 +118,7 @@ public class StandingBusService {
 			}
 			standingsBusiness.setStatusCode(StatusCode.ClientError);
 		}
-		catch (PropertyException pe) {
+		catch (IllegalStateException pe) {
 			logger.info("Property exception = " + pe);
 			standingsBusiness.setStatusCode(StatusCode.ServerError);
 		}

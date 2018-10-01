@@ -22,10 +22,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.core.env.Environment;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
-import org.springframework.test.context.junit4.SpringRunner;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
@@ -33,17 +32,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+@RunWith(MockitoJUnitRunner.class)
 public class StandingsBusServiceTest {
 	@Mock
-	private PropertyService propertyService;
+	private Environment env;
 
 	@Mock
 	private FileStatsService fileStatsService;
@@ -61,16 +58,16 @@ public class StandingsBusServiceTest {
 
 	@Test
 	public void propertyService_propertyException() {
-		when(propertyService.getProperty_ClientSource(anyString()))
-			.thenThrow(new PropertyException("propertyName"));
+		when(env.getProperty(anyString()))
+			.thenThrow(new IllegalStateException("property exception"));
 		StandingsBusiness standings = standingsBusinessService.rankStandings("2014-10-28");
 		Assert.assertTrue(standings.isServerError());
 	}
 
 	@Test
 	public void fileClientService_standingsNotFound() {
-		when(propertyService.getProperty_ClientSource(anyString()))
-			.thenReturn(ClientSource.File);
+		when(env.getProperty(anyString()))
+			.thenReturn("File");
 		when(fileStatsService.retrieveStandings(anyString()))
 			.thenReturn(createMockStandingsDTO_StatusCode(StatusCode.NotFound));
 		StandingsBusiness standings = standingsBusinessService.rankStandings("2014-10-28");
@@ -79,8 +76,8 @@ public class StandingsBusServiceTest {
 
 	@Test
 	public void fileClientService_clientException() {
-		when(propertyService.getProperty_ClientSource(anyString()))
-			.thenReturn(ClientSource.File);
+		when(env.getProperty(anyString()))
+			.thenReturn("File");
 		when(fileStatsService.retrieveStandings(anyString()))
 			.thenReturn(createMockStandingsDTO_StatusCode(StatusCode.ClientException));
 		StandingsBusiness standings = standingsBusinessService.rankStandings("2014-10-28");
@@ -89,8 +86,8 @@ public class StandingsBusServiceTest {
 
 	@Test
 	public void fileClientService_emptyList() {
-		when(propertyService.getProperty_ClientSource(anyString()))
-			.thenReturn(ClientSource.File);
+		when(env.getProperty(anyString()))
+			.thenReturn("File");
 		when(fileStatsService.retrieveStandings(anyString()))
 			.thenReturn(createMockStandingsDTO_StatusCode(StatusCode.Found));
 		StandingsBusiness standings = standingsBusinessService.rankStandings("2014-10-28");
@@ -99,8 +96,10 @@ public class StandingsBusServiceTest {
 
 	@Test
 	public void restClientService_standingsNotFound() {
-		when(propertyService.getProperty_ClientSource(anyString()))
-			.thenReturn(ClientSource.Api);
+		when(env.getProperty("accumulator.source.standings"))
+			.thenReturn("Api");
+		when(env.getProperty("sleep.duration"))
+			.thenReturn("0");
 		when(restStatsService.retrieveStandings(anyString(), anyBoolean()))
 			.thenReturn(createMockStandingsDTO_StatusCode(StatusCode.NotFound));
 		StandingsBusiness standings = standingsBusinessService.rankStandings("2014-10-28");
@@ -109,8 +108,10 @@ public class StandingsBusServiceTest {
 
 	@Test
 	public void restClientService_clientException() {
-		when(propertyService.getProperty_ClientSource(anyString()))
-			.thenReturn(ClientSource.Api);
+		when(env.getProperty("accumulator.source.standings"))
+			.thenReturn("Api");
+		when(env.getProperty("sleep.duration"))
+			.thenReturn("0");
 		when(restStatsService.retrieveStandings(anyString(), anyBoolean()))
 			.thenReturn(createMockStandingsDTO_StatusCode(StatusCode.ClientException));
 		StandingsBusiness standings = standingsBusinessService.rankStandings("2014-10-28");
@@ -119,8 +120,10 @@ public class StandingsBusServiceTest {
 
 	@Test
 	public void restClientService_emptyList() {
-		when(propertyService.getProperty_ClientSource(anyString()))
-			.thenReturn(ClientSource.Api);
+		when(env.getProperty("accumulator.source.standings"))
+			.thenReturn("Api");
+		when(env.getProperty("sleep.duration"))
+			.thenReturn("0");
 		when(restStatsService.retrieveStandings(anyString(), anyBoolean()))
 			.thenReturn(createMockStandingsDTO_StatusCode(StatusCode.Found));
 		StandingsBusiness standings = standingsBusinessService.rankStandings("2014-10-28");
@@ -129,10 +132,12 @@ public class StandingsBusServiceTest {
 
 	@Test
 	public void standingsService_noSuchEntity_team() {
-		when(propertyService.getProperty_ClientSource(anyString()))
-			.thenReturn(ClientSource.File);
-		when(fileStatsService.retrieveStandings(anyString()))
-			.thenReturn(createMockStandingsDTO_StatusCode(StatusCode.Found));
+		when(env.getProperty("accumulator.source.standings"))
+			.thenReturn("Api");
+		when(env.getProperty("sleep.duration"))
+			.thenReturn("0");
+		when(restStatsService.retrieveStandings(anyString(), anyBoolean()))
+			.thenReturn(createStandingsDTO_Found());
 		when(standingAppService.getStandings(any()))
 			.thenThrow(new NoSuchEntityException(Team.class));
 		StandingsBusiness standings = standingsBusinessService.rankStandings("2014-10-28");
@@ -141,9 +146,11 @@ public class StandingsBusServiceTest {
 
 	@Test
 	public void standingsService_createStanding_exists() {
-		when(propertyService.getProperty_ClientSource(anyString()))
-			.thenReturn(ClientSource.File);
-		when(fileStatsService.retrieveStandings(anyString()))
+		when(env.getProperty("accumulator.source.standings"))
+			.thenReturn("Api");
+		when(env.getProperty("sleep.duration"))
+			.thenReturn("0");
+		when(restStatsService.retrieveStandings(anyString(), anyBoolean()))
 			.thenReturn(createStandingsDTO_Found());
 		when(standingAppService.getStandings(any()))
 			.thenReturn(createMockStandings());
@@ -161,9 +168,11 @@ public class StandingsBusServiceTest {
 
 	@Test
 	public void standingsService_createStanding_created() {
-		when(propertyService.getProperty_ClientSource(anyString()))
-			.thenReturn(ClientSource.File);
-		when(fileStatsService.retrieveStandings(anyString()))
+		when(env.getProperty("accumulator.source.standings"))
+			.thenReturn("Api");
+		when(env.getProperty("sleep.duration"))
+			.thenReturn("0");
+		when(restStatsService.retrieveStandings(anyString(), anyBoolean()))
 			.thenReturn(createStandingsDTO_Found());
 		when(standingAppService.getStandings(any()))
 			.thenReturn(createMockStandings());
