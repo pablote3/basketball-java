@@ -5,7 +5,6 @@ import com.rossotti.basketball.client.dto.RosterDTO;
 import com.rossotti.basketball.client.dto.StandingsDTO;
 import com.rossotti.basketball.util.StreamConverter;
 import com.rossotti.basketball.util.FileService;
-import com.rossotti.basketball.util.service.PropertyService;
 import com.rossotti.basketball.util.FileServiceException;
 import com.rossotti.basketball.util.service.exception.PropertyException;
 import org.junit.Assert;
@@ -14,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -25,9 +25,8 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class RestStatsServiceTest {
-
 	@Mock
-	private PropertyService propertyService;
+	private Environment env;
 
 	@Mock
 	private RestClientService restClientService;
@@ -40,25 +39,25 @@ public class RestStatsServiceTest {
 
 	@Test
 	public void retrieveBoxScore_PropertyException_PropertyService() {
-		when(propertyService.getProperty_Http(any()))
-			.thenThrow(new PropertyException("propertyName"));
+		when(env.getProperty(anyString()))
+			.thenThrow(new IllegalStateException("property exception"));
 		GameDTO game = restStatsService.retrieveBoxScore("20160311-houston-rockets-at-boston-celtics", false);
 		Assert.assertTrue(game.isServerException());
 	}
 
 	@Test
 	public void retrieveBoxScore_PropertyException_ClientService() {
-		when(propertyService.getProperty_Http(anyString()))
+		when(env.getProperty(anyString()))
 			.thenReturn("https://");
 		when(restClientService.getJson(anyString()))
-			.thenThrow(new PropertyException("propertyName"));
+			.thenThrow(new IllegalStateException("property exception"));
 		GameDTO game = restStatsService.retrieveBoxScore("20160311-houston-rockets-at-boston-celtics", false);
 		Assert.assertTrue(game.isServerException());
 	}
 
 	@Test
 	public void retrieveBoxScore_NotFound() {
-		when(propertyService.getProperty_Http(anyString()))
+		when(env.getProperty(anyString()))
 			.thenReturn("https://");
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -68,7 +67,7 @@ public class RestStatsServiceTest {
 
 	@Test
 	public void retrieveBoxScore_Unauthorized() {
-		when(propertyService.getProperty_Http(anyString()))
+		when(env.getProperty(anyString()))
 			.thenReturn("https://");
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(HttpStatus.UNAUTHORIZED));
@@ -78,7 +77,7 @@ public class RestStatsServiceTest {
 
 	@Test
 	public void retrieveBoxScore_IOException() {
-		when(propertyService.getProperty_Http(anyString()))
+		when(env.getProperty(anyString()))
 			.thenReturn("https://");
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>("test".getBytes(), HttpStatus.OK));
@@ -88,7 +87,7 @@ public class RestStatsServiceTest {
 
 	@Test
 	public void retrieveBoxScore_Found_NoPersist() {
-		when(propertyService.getProperty_Http(anyString()))
+		when(env.getProperty(anyString()))
 			.thenReturn("https://");
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(StreamConverter.getBytes(getClass().getClassLoader().getResourceAsStream("mockClient/gameClient.json")), HttpStatus.OK));
@@ -98,23 +97,23 @@ public class RestStatsServiceTest {
 
 	@Test
 	public void retrieveBoxScore_PropertyException_Persist() {
-		when(propertyService.getProperty_Http(anyString()))
+		when(env.getProperty("xmlstats.urlBoxScore"))
 			.thenReturn("https://");
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(StreamConverter.getBytes(getClass().getClassLoader().getResourceAsStream("mockClient/gameClient.json")), HttpStatus.OK));
-		when(propertyService.getProperty_Path(anyString()))
-			.thenThrow(new PropertyException("propertyName"));
+		when(env.getProperty("xmlstats.fileBoxScore"))
+			.thenThrow(new IllegalStateException("property exception"));
 		GameDTO game = restStatsService.retrieveBoxScore("20160311-houston-rockets-at-boston-celtics", true);
 		Assert.assertTrue(game.isServerException());
 	}
 
 	@Test
 	public void retrieveBoxScore_FileException_Persist() {
-		when(propertyService.getProperty_Http(anyString()))
+		when(env.getProperty("xmlstats.urlBoxScore"))
 			.thenReturn("https://");
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(StreamConverter.getBytes(getClass().getClassLoader().getResourceAsStream("mockClient/gameClient.json")), HttpStatus.OK));
-		when(propertyService.getProperty_Path(anyString()))
+		when(env.getProperty("xmlstats.fileBoxScore"))
 			.thenReturn("//");
 		when(fileService.fileStreamWriter(anyString(), any(byte[].class)))
 			.thenThrow(new FileServiceException("IO Exception"));
@@ -124,11 +123,11 @@ public class RestStatsServiceTest {
 
 	@Test
 	public void retrieveBoxScore_Found_Persist() {
-		when(propertyService.getProperty_Http(anyString()))
+		when(env.getProperty("xmlstats.urlBoxScore"))
 			.thenReturn("https://");
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(StreamConverter.getBytes(getClass().getClassLoader().getResourceAsStream("mockClient/gameClient.json")), HttpStatus.OK));
-		when(propertyService.getProperty_Path(anyString()))
+		when(env.getProperty("xmlstats.fileBoxScore"))
 			.thenReturn("//");
 		when(fileService.fileStreamWriter(anyString(), any(byte[].class)))
 			.thenReturn(true);
@@ -138,25 +137,25 @@ public class RestStatsServiceTest {
 
 	@Test
 	public void retrieveRoster_PropertyException_PropertyService() {
-		when(propertyService.getProperty_Http(anyString()))
-			.thenThrow(new PropertyException("propertyName"));
+        when(env.getProperty(anyString()))
+            .thenThrow(new IllegalStateException("property exception"));
 		RosterDTO roster = restStatsService.retrieveRoster("houston-rockets", false, LocalDate.of(2016, 3, 11));
 		Assert.assertTrue(roster.isServerException());
 	}
 
 	@Test
 	public void retrieveRoster_PropertyException_ClientService() {
-		when(propertyService.getProperty_Http(anyString()))
-			.thenReturn("https://");
+        when(env.getProperty(anyString()))
+            .thenReturn("https://");
 		when(restClientService.getJson(anyString()))
-			.thenThrow(new PropertyException("propertyName"));
+            .thenThrow(new IllegalStateException("property exception"));
 		RosterDTO roster = restStatsService.retrieveRoster("houston-rockets", false, LocalDate.of(2016, 3, 11));
 		Assert.assertTrue(roster.isServerException());
 	}
 
 	@Test
 	public void retrieveRoster_NotFound() {
-		when(propertyService.getProperty_Http(anyString()))
+        when(env.getProperty(anyString()))
 			.thenReturn("https://");
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -166,7 +165,7 @@ public class RestStatsServiceTest {
 
 	@Test
 	public void retrieveRoster_Unauthorized() {
-		when(propertyService.getProperty_Http(anyString()))
+        when(env.getProperty(anyString()))
 			.thenReturn("https://");
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(HttpStatus.UNAUTHORIZED));
@@ -176,7 +175,7 @@ public class RestStatsServiceTest {
 
 	@Test
 	public void retrieveRoster_IOException() {
-		when(propertyService.getProperty_Http(anyString()))
+        when(env.getProperty(anyString()))
 			.thenReturn("https://");
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>("test".getBytes(), HttpStatus.OK));
@@ -186,7 +185,7 @@ public class RestStatsServiceTest {
 
 	@Test
 	public void retrieveRoster_Found_NoPersist() {
-		when(propertyService.getProperty_Http(anyString()))
+        when(env.getProperty(anyString()))
 			.thenReturn("https://");
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(StreamConverter.getBytes(getClass().getClassLoader().getResourceAsStream("mockClient/rosterClient.json")), HttpStatus.OK));
@@ -196,23 +195,23 @@ public class RestStatsServiceTest {
 
 	@Test
 	public void retrieveRoster_PropertyException_Persist() {
-		when(propertyService.getProperty_Http(anyString()))
+        when(env.getProperty("xmlstats.urlRoster"))
 			.thenReturn("https://");
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(StreamConverter.getBytes(getClass().getClassLoader().getResourceAsStream("mockClient/rosterClient.json")), HttpStatus.OK));
-		when(propertyService.getProperty_Path(anyString()))
-			.thenThrow(new PropertyException("propertyName"));
+        when(env.getProperty("xmlstats.fileRoster"))
+            .thenThrow(new IllegalStateException("property exception"));
 		RosterDTO roster = restStatsService.retrieveRoster("houston-rockets", true, LocalDate.of(2016, 3, 11));
 		Assert.assertTrue(roster.isServerException());
 	}
 
 	@Test
 	public void retrieveRoster_FileException_Persist() {
-		when(propertyService.getProperty_Http(anyString()))
+        when(env.getProperty("xmlstats.urlRoster"))
 			.thenReturn("https://");
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(StreamConverter.getBytes(getClass().getClassLoader().getResourceAsStream("mockClient/rosterClient.json")), HttpStatus.OK));
-		when(propertyService.getProperty_Path(anyString()))
+        when(env.getProperty("xmlstats.fileRoster"))
 			.thenReturn("//");
 		when(fileService.fileStreamWriter(anyString(), any(byte[].class)))
 			.thenThrow(new FileServiceException("IO Exception"));
@@ -222,11 +221,11 @@ public class RestStatsServiceTest {
 
 	@Test
 	public void retrieveRoster_Found_Persist() {
-		when(propertyService.getProperty_Http(anyString()))
+        when(env.getProperty("xmlstats.urlRoster"))
 			.thenReturn("https://");
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(StreamConverter.getBytes(getClass().getClassLoader().getResourceAsStream("mockClient/rosterClient.json")), HttpStatus.OK));
-		when(propertyService.getProperty_Path(anyString()))
+        when(env.getProperty("xmlstats.fileRoster"))
 			.thenReturn("//");
 		when(fileService.fileStreamWriter(anyString(), any(byte[].class)))
 			.thenReturn(true);
@@ -236,25 +235,25 @@ public class RestStatsServiceTest {
 
 	@Test
 	public void retrieveStandings_PropertyException_PropertyService() {
-		when(propertyService.getProperty_Http(anyString()))
-			.thenThrow(new PropertyException("propertyName"));
+        when(env.getProperty(anyString()))
+            .thenThrow(new IllegalStateException("property exception"));
 		StandingsDTO standings = restStatsService.retrieveStandings("20160311", false);
 		Assert.assertTrue(standings.isServerException());
 	}
 
 	@Test
 	public void retrieveStandings_PropertyException_ClientService() {
-		when(propertyService.getProperty_Http(anyString()))
+        when(env.getProperty(anyString()))
 			.thenReturn("https://");
 		when(restClientService.getJson(anyString()))
-			.thenThrow(new PropertyException("propertyName"));
+            .thenThrow(new IllegalStateException("property exception"));
 		StandingsDTO standings = restStatsService.retrieveStandings("20160311", false);
 		Assert.assertTrue(standings.isServerException());
 	}
 
 	@Test
 	public void retrieveStandings_NotFound() {
-		when(propertyService.getProperty_Http(anyString()))
+        when(env.getProperty(anyString()))
 			.thenReturn("https://");
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -264,8 +263,8 @@ public class RestStatsServiceTest {
 
 	@Test
 	public void retrieveStandings_Unauthorized() {
-		when(propertyService.getProperty_Http(anyString()))
-			.thenReturn("https://");
+        when(env.getProperty(anyString()))
+            .thenReturn("https://");
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(HttpStatus.UNAUTHORIZED));
 		StandingsDTO standings = restStatsService.retrieveStandings("20160311", false);
@@ -274,7 +273,7 @@ public class RestStatsServiceTest {
 
 	@Test
 	public void retrieveStandings_IOException() {
-		when(propertyService.getProperty_Http(anyString()))
+        when(env.getProperty(anyString()))
 			.thenReturn("https://");
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>("test".getBytes(), HttpStatus.OK));
@@ -284,7 +283,7 @@ public class RestStatsServiceTest {
 
 	@Test
 	public void retrieveStandings_Found_NoPersist() {
-		when(propertyService.getProperty_Http(anyString()))
+        when(env.getProperty(anyString()))
 			.thenReturn("https://");
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(StreamConverter.getBytes(getClass().getClassLoader().getResourceAsStream("mockClient/standingsClient.json")), HttpStatus.OK));
@@ -294,23 +293,23 @@ public class RestStatsServiceTest {
 
 	@Test
 	public void retrieveStandings_PropertyException_Persist() {
-		when(propertyService.getProperty_Http(anyString()))
+        when(env.getProperty("xmlstats.urlStandings"))
 			.thenReturn("https://");
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(StreamConverter.getBytes(getClass().getClassLoader().getResourceAsStream("mockClient/standingsClient.json")), HttpStatus.OK));
-		when(propertyService.getProperty_Path(anyString()))
-			.thenThrow(new PropertyException("propertyName"));
+        when(env.getProperty("xmlstats.fileStandings"))
+            .thenThrow(new IllegalStateException("property exception"));
 		StandingsDTO standings = restStatsService.retrieveStandings("20160311", true);
 		Assert.assertTrue(standings.isServerException());
 	}
 
 	@Test
 	public void retrieveStandings_FileException_Persist() {
-		when(propertyService.getProperty_Http(anyString()))
+        when(env.getProperty("xmlstats.urlStandings"))
 			.thenReturn("https://");
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(StreamConverter.getBytes(getClass().getClassLoader().getResourceAsStream("mockClient/standingsClient.json")), HttpStatus.OK));
-		when(propertyService.getProperty_Path(anyString()))
+        when(env.getProperty("xmlstats.fileStandings"))
 			.thenReturn("//");
 		when(fileService.fileStreamWriter(anyString(), any(byte[].class)))
 			.thenThrow(new FileServiceException("IO Exception"));
@@ -320,11 +319,11 @@ public class RestStatsServiceTest {
 
 	@Test
 	public void retrieveStandings_Found_Persist() {
-		when(propertyService.getProperty_Http(anyString()))
+        when(env.getProperty("xmlstats.urlStandings"))
 			.thenReturn("https://");
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(StreamConverter.getBytes(getClass().getClassLoader().getResourceAsStream("mockClient/standingsClient.json")), HttpStatus.OK));
-		when(propertyService.getProperty_Path(anyString()))
+        when(env.getProperty("xmlstats.fileStandings"))
 			.thenReturn("//");
 		when(fileService.fileStreamWriter(anyString(), any(byte[].class)))
 			.thenReturn(true);
