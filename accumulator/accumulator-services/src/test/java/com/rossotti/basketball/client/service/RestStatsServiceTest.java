@@ -3,16 +3,16 @@ package com.rossotti.basketball.client.service;
 import com.rossotti.basketball.client.dto.GameDTO;
 import com.rossotti.basketball.client.dto.RosterDTO;
 import com.rossotti.basketball.client.dto.StandingsDTO;
-import com.rossotti.basketball.util.StreamConverter;
 import com.rossotti.basketball.util.FileService;
 import com.rossotti.basketball.util.FileServiceException;
-import com.rossotti.basketball.util.service.exception.PropertyException;
+import com.rossotti.basketball.util.StreamConverter;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +24,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
+@SpringBootTest(classes = com.rossotti.basketball.config.ServiceConfig.class)
 public class RestStatsServiceTest {
 	@Mock
 	private Environment env;
