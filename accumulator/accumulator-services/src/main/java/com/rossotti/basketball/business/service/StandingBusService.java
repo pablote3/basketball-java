@@ -2,6 +2,7 @@ package com.rossotti.basketball.business.service;
 
 import com.rossotti.basketball.app.model.StandingRecord;
 import com.rossotti.basketball.app.service.StandingAppService;
+import com.rossotti.basketball.business.model.ClientSourceBusiness.ClientSource;
 import com.rossotti.basketball.business.model.StandingsBusiness;
 import com.rossotti.basketball.business.model.StatusCodeBusiness.StatusCode;
 import com.rossotti.basketball.client.dto.StandingsDTO;
@@ -12,7 +13,6 @@ import com.rossotti.basketball.jpa.model.Standing;
 import com.rossotti.basketball.jpa.model.Team;
 import com.rossotti.basketball.util.DateTimeConverter;
 import com.rossotti.basketball.util.ThreadSleep;
-import com.rossotti.basketball.util.service.PropertyService.ClientSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
