@@ -5,12 +5,10 @@ import com.rossotti.basketball.app.service.TeamAppService;
 import com.rossotti.basketball.jpa.model.BoxScore;
 import com.rossotti.basketball.jpa.model.Game;
 import com.rossotti.basketball.jpa.model.Team;
-import com.rossotti.basketball.util.service.PropertyService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.env.Environment;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,16 +19,13 @@ import java.util.StringTokenizer;
 
 @SpringBootApplication
 public class LoadSchedule {
-	private final Logger logger = LoggerFactory.getLogger(LoadSchedule.class);
-
 	public static void main(String[] args) {
 		ConfigurableApplicationContext ctx = SpringApplication.run(LoadSchedule.class, args);
+		TeamAppService teamService = ctx.getBean(TeamAppService.class);
+		GameAppService gameService = ctx.getBean(GameAppService.class);
+		Environment env = ctx.getBean(Environment.class);
 
-		TeamAppService teamService = (TeamAppService) ctx.getBean(TeamAppService.class);
-		GameAppService gameService = (GameAppService) ctx.getBean(GameAppService.class);
-		PropertyService propertyService = (PropertyService) ctx.getBean(PropertyService.class);
-
-		Path path =  Paths.get(propertyService.getProperty_Path("loader.fileSchedule")).resolve(System.getProperty("fileName"));
+		Path path =  Paths.get(env.getProperty("loader.fileSchedule")).resolve(System.getProperty("fileName"));
 		File file = path.toFile();
 
 		BufferedReader bufRdr = null;
