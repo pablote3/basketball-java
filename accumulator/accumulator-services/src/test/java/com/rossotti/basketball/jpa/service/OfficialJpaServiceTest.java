@@ -14,7 +14,7 @@ import java.util.List;
 
 @SuppressWarnings("SpringJavaAutowiredMembersInspection")
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = com.rossotti.basketball.config.ServiceConfig.class)
 public class OfficialJpaServiceTest {
 
 	private OfficialJpaService officialJpaService;
