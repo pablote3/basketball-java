@@ -86,7 +86,7 @@ public class StandingJpaServiceTest {
 		Standing createStanding = standingJpaService.create(createMockStanding(21L, "utah-jazz", LocalDate.of(2012, 7, 1), "10th"));
 		Standing findStanding = standingJpaService.findByTeamKeyAndAsOfDate("utah-jazz", LocalDate.of(2012, 7, 1));
 		Assert.assertTrue(createStanding.isCreated());
-		Assert.assertTrue(findStanding.getConferenceWins().equals((short)7));
+		Assert.assertEquals((short)7, (short)findStanding.getConferenceWins());
 	}
 
 	@Test

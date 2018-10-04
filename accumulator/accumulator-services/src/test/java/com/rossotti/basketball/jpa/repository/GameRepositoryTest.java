@@ -47,11 +47,11 @@ public class GameRepositoryTest {
 		Assert.assertEquals("Harlem Globetrotter's", game.getBoxScoreAway().getTeam().getFullName());
 		Assert.assertEquals(3, game.getGameOfficials().size());
 		Assert.assertEquals("QuestionableCall", game.getGameOfficials().get(2).getOfficial().getLastName());
-		Assert.assertTrue(game.getBoxScoreAway().getBoxScoreStats().getPoints().equals((short)98));
+        Assert.assertEquals((short)98, (short) game.getBoxScoreAway().getBoxScoreStats().getPoints());
 		Assert.assertEquals(1, game.getBoxScoreHome().getBoxScorePlayers().size());
 		Assert.assertEquals(Position.SG, game.getBoxScoreHome().getBoxScorePlayers().get(0).getRosterPlayer().getPosition());
 		Assert.assertEquals(2, game.getBoxScoreAway().getBoxScorePlayers().size());
-		Assert.assertTrue(game.getBoxScoreAway().getBoxScorePlayers().get(1).getBoxScoreStats().getPoints().equals((short)5));
+		Assert.assertEquals((short)5, (short)game.getBoxScoreAway().getBoxScorePlayers().get(1).getBoxScoreStats().getPoints());
 	}
 
 	@Test
@@ -155,11 +155,11 @@ public class GameRepositoryTest {
 		Assert.assertEquals("MissedCa'll", findGame.getGameOfficials().get(1).getOfficial().getLastName());
 		Assert.assertEquals(2, findGame.getBoxScores().size());
 		Assert.assertEquals("Baltimore Bullets", findGame.getBoxScoreAway().getTeam().getFullName());
-		Assert.assertTrue(findGame.getBoxScoreAway().getBoxScoreStats().getFreeThrowMade().equals((short)18));
+		Assert.assertEquals((short)18, (short)findGame.getBoxScoreAway().getBoxScoreStats().getFreeThrowMade());
 		Assert.assertEquals(1, findGame.getBoxScoreAway().getBoxScorePlayers().size());
-		Assert.assertTrue(findGame.getBoxScoreAway().getBoxScorePlayers().get(0).getBoxScoreStats().getFreeThrowMade().equals((short)2));
+		Assert.assertEquals((short)2, (short)findGame.getBoxScoreAway().getBoxScorePlayers().get(0).getBoxScoreStats().getFreeThrowMade());
 		Assert.assertEquals(2, findGame.getBoxScoreHome().getBoxScorePlayers().size());
-		Assert.assertTrue(findGame.getBoxScoreHome().getBoxScorePlayers().get(0).getBoxScoreStats().getFreeThrowMade().equals((short)4));
+		Assert.assertEquals((short)4, (short)findGame.getBoxScoreHome().getBoxScorePlayers().get(0).getBoxScoreStats().getFreeThrowMade());
 	}
 
 	@Test(expected=DataIntegrityViolationException.class)
