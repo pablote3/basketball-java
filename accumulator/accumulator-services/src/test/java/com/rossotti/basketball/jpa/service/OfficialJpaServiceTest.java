@@ -31,7 +31,7 @@ public class OfficialJpaServiceTest {
 
 	@Test
 	public void listAll() {
-		List<Official> officials = (List<Official>) officialJpaService.listAll();
+		@SuppressWarnings("unchecked") List<Official> officials = (List<Official>) officialJpaService.listAll();
 		Assert.assertTrue(officials.size() >= 11);
 	}
 
