@@ -24,7 +24,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = com.rossotti.basketball.config.ServiceConfig.class)
 public class OfficialAppServiceTest {
 	@Mock
 	private OfficialJpaService officialJpaService;

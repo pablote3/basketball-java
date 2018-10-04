@@ -28,12 +28,11 @@ import java.time.ZonedDateTime;
 import java.util.*;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = com.rossotti.basketball.config.ServiceConfig.class)
 public class StandingAppServiceTest {
 	@Mock
 	private StandingJpaService standingJpaService;
@@ -253,12 +252,6 @@ public class StandingAppServiceTest {
 			createMockStanding("detroit-pistons", (short)1, (short)3, 3, 4, StatusCodeDAO.Found),
 			createMockStanding("phoenix-suns", (short)1, (short)2, 3, 4, StatusCodeDAO.Found),
 			createMockStanding("miami-heat", (short)2, (short)3, 3, 6, StatusCodeDAO.Found)
-		);
-	}
-
-	private List<Standing> createMockStandingList(String teamKey, Short gamesWon, Short gamesPlayed, Integer opptGamesWon, Integer opptGamesPlayed, StatusCodeDAO statusCode) {
-		return Arrays.asList(
-			createMockStanding(teamKey, gamesWon, gamesPlayed, opptGamesWon, opptGamesPlayed, statusCode)
 		);
 	}
 
