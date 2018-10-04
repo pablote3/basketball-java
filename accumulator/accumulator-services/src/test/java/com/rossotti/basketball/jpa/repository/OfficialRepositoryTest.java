@@ -125,7 +125,7 @@ public class OfficialRepositoryTest {
 		officialRepository.deleteById(101L);
 	}
 
-	private Official createMockOfficial(String lastName, String firstName, LocalDate fromDate, LocalDate toDate, String number) {
+	public static Official createMockOfficial(String lastName, String firstName, LocalDate fromDate, LocalDate toDate, String number) {
 		Official official = new Official();
 		official.setLastName(lastName);
 		official.setFirstName(firstName);

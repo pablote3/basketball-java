@@ -1,6 +1,7 @@
 package com.rossotti.basketball.jpa.service;
 
 import com.rossotti.basketball.jpa.model.Official;
+import com.rossotti.basketball.jpa.repository.OfficialRepositoryTest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -87,7 +88,7 @@ public class OfficialJpaServiceTest {
 
 	@Test
 	public void create_Created_AsOfDate() {
-		Official createOfficial = officialJpaService.create(createMockOfficial("BadCall", "Melvin", LocalDate.of(2006, 7, 6), LocalDate.of(9999, 12, 31), "996"));
+		Official createOfficial = officialJpaService.create(OfficialRepositoryTest.createMockOfficial("BadCall", "Melvin", LocalDate.of(2006, 7, 6), LocalDate.of(9999, 12, 31), "996"));
 		Official findOfficial = officialJpaService.findByLastNameAndFirstNameAndAsOfDate("BadCall", "Melvin", LocalDate.of(2006, 7, 6));
 		Assert.assertTrue(createOfficial.isCreated());
 		Assert.assertEquals("996", findOfficial.getNumber());
@@ -95,7 +96,7 @@ public class OfficialJpaServiceTest {
 
 	@Test
 	public void create_Created_DateRange() {
-		Official createOfficial = officialJpaService.create(createMockOfficial("BadCall", "Melvon", LocalDate.of(2006, 7, 6), LocalDate.of(2006, 7, 10), "995"));
+		Official createOfficial = officialJpaService.create(OfficialRepositoryTest.createMockOfficial("BadCall", "Melvon", LocalDate.of(2006, 7, 6), LocalDate.of(2006, 7, 10), "995"));
 		Official findOfficial = officialJpaService.findByLastNameAndFirstNameAndAsOfDate("BadCall", "Melvon", LocalDate.of(2006, 7, 7));
 		Assert.assertTrue(createOfficial.isCreated());
 		Assert.assertEquals("995", findOfficial.getNumber());
@@ -103,18 +104,18 @@ public class OfficialJpaServiceTest {
 
 	@Test
 	public void create_OverlappingDates() {
-		Official createOfficial = officialJpaService.create(createMockOfficial("QuestionableCall", "Hefe", LocalDate.of(2005, 7, 1), LocalDate.of(2006, 6, 20), "18"));
+		Official createOfficial = officialJpaService.create(OfficialRepositoryTest.createMockOfficial("QuestionableCall", "Hefe", LocalDate.of(2005, 7, 1), LocalDate.of(2006, 6, 20), "18"));
 		Assert.assertTrue(createOfficial.isFound());
 	}
 
 	@Test(expected=DataIntegrityViolationException.class)
 	public void create_MissingRequiredData() {
-		officialJpaService.create(createMockOfficial("BadCaller", "Melvyn", LocalDate.of(2006, 7, 6), LocalDate.of(2006, 7, 10), null));
+		officialJpaService.create(OfficialRepositoryTest.createMockOfficial("BadCaller", "Melvyn", LocalDate.of(2006, 7, 6), LocalDate.of(2006, 7, 10), null));
 	}
 
 	@Test
 	public void update_Updated() {
-		Official updateOfficial = officialJpaService.update(createMockOfficial("Forte", "Brian", LocalDate.of(2010, 4, 25), LocalDate.of(2012, 12, 31), "19"));
+		Official updateOfficial = officialJpaService.update(OfficialRepositoryTest.createMockOfficial("Forte", "Brian", LocalDate.of(2010, 4, 25), LocalDate.of(2012, 12, 31), "19"));
 		Official official = officialJpaService.findByLastNameAndFirstNameAndAsOfDate("Forte", "Brian", LocalDate.of(2010, 4, 25));
 		Assert.assertEquals("19", official.getNumber());
 		Assert.assertEquals(LocalDate.of(2012, 12, 31), official.getToDate());
@@ -123,13 +124,13 @@ public class OfficialJpaServiceTest {
 
 	@Test
 	public void update_NotFound() {
-		Official updateOfficial = officialJpaService.update(createMockOfficial("Forte", "Brian", LocalDate.of(2009, 4, 25), LocalDate.of(2009, 12, 31), "19"));
+		Official updateOfficial = officialJpaService.update(OfficialRepositoryTest.createMockOfficial("Forte", "Brian", LocalDate.of(2009, 4, 25), LocalDate.of(2009, 12, 31), "19"));
 		Assert.assertTrue(updateOfficial.isNotFound());
 	}
 
 	@Test(expected=DataIntegrityViolationException.class)
 	public void update_MissingRequiredData() {
-		officialJpaService.update(createMockOfficial("Forte", "Brian", LocalDate.of(2010, 4, 25), LocalDate.of(2012, 12, 31), null));
+		officialJpaService.update(OfficialRepositoryTest.createMockOfficial("Forte", "Brian", LocalDate.of(2010, 4, 25), LocalDate.of(2012, 12, 31), null));
 	}
 
 	@Test
@@ -144,15 +145,5 @@ public class OfficialJpaServiceTest {
 	public void delete_NotFound() {
 		Official deleteOfficial = officialJpaService.delete(101L);
 		Assert.assertTrue(deleteOfficial.isNotFound());
-	}
-
-	private Official createMockOfficial(String lastName, String firstName, LocalDate fromDate, LocalDate toDate, String number) {
-		Official official = new Official();
-		official.setLastName(lastName);
-		official.setFirstName(firstName);
-		official.setFromDate(fromDate);
-		official.setToDate(toDate);
-		official.setNumber(number);
-		return official;
 	}
 }

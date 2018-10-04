@@ -1,6 +1,7 @@
 package com.rossotti.basketball.jpa.service;
 
 import com.rossotti.basketball.jpa.model.*;
+import com.rossotti.basketball.jpa.repository.GameRepositoryTest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -233,16 +234,8 @@ public class GameJpaServiceTest {
 	private GameOfficial createMockGameOfficial(Game game, Long officialId, String lastName, String firstName) {
 		GameOfficial gameOfficial = new GameOfficial();
 		gameOfficial.setGame(game);
-		gameOfficial.setOfficial(getMockOfficial(officialId, lastName, firstName));
+		gameOfficial.setOfficial(GameRepositoryTest.getMockOfficial(officialId, lastName, firstName));
 		return gameOfficial;
-	}
-
-	private Official getMockOfficial(Long officialId, String lastName, String firstName) {
-		Official official = new Official();
-		official.setId(officialId);
-		official.setLastName(lastName);
-		official.setFirstName(firstName);
-		return official;
 	}
 
 	private void updateMockBoxScoreHome(BoxScore homeBoxScore) {
@@ -322,19 +315,11 @@ public class GameJpaServiceTest {
 	private RosterPlayer getMockRosterPlayer(Long rosterPlayerId, String lastName, String firstName, LocalDate birthdate, LocalDate fromDate, LocalDate toDate) {
 		RosterPlayer rosterPlayer = new RosterPlayer();
 		rosterPlayer.setId(rosterPlayerId);
-		rosterPlayer.setPlayer(getMockPlayer(lastName, firstName, birthdate));
+		rosterPlayer.setPlayer(GameRepositoryTest.getMockPlayer(lastName, firstName, birthdate));
 		rosterPlayer.setFromDate(fromDate);
 		rosterPlayer.setToDate(toDate);
 		rosterPlayer.setPosition(RosterPlayer.Position.C);
 		rosterPlayer.setNumber("99");
 		return rosterPlayer;
-	}
-
-	private Player getMockPlayer(String lastName, String firstName, LocalDate birthdate) {
-		Player player = new Player();
-		player.setLastName(lastName);
-		player.setFirstName(firstName);
-		player.setBirthdate(birthdate);
-		return player;
 	}
 }

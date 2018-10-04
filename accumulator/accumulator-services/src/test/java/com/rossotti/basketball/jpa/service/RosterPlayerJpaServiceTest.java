@@ -166,7 +166,7 @@ public class RosterPlayerJpaServiceTest {
 
 	@Test
 	public void create_Created() {
-		RosterPlayer createRosterPlayer = rosterPlayerJpaService.create(createMockRosterPlayer(2L, 2L, "Puzdrakiewicz", "Thad", LocalDate.of(1966, 6, 2), LocalDate.of(2010, 1, 22), LocalDate.of(2010, 1, 28), "33"));
+		RosterPlayer createRosterPlayer = rosterPlayerJpaService.create(createMockRosterPlayer(2L, 2L, "Puzdrakiewicz", LocalDate.of(1966, 6, 2), LocalDate.of(2010, 1, 22), LocalDate.of(2010, 1, 28), "33"));
 		RosterPlayer findRosterPlayer = rosterPlayerJpaService.findByLastNameAndFirstNameAndBirthdateAndAsOfDate("Puzdrakiewicz", "Thad", LocalDate.of(1966, 6, 2), LocalDate.of(2010, 1, 28));
 		Assert.assertTrue(createRosterPlayer.isCreated());
 		Assert.assertEquals("33", findRosterPlayer.getNumber());
@@ -174,18 +174,18 @@ public class RosterPlayerJpaServiceTest {
 
 	@Test
 	public void create_Existing() {
-		RosterPlayer createRosterPlayer = rosterPlayerJpaService.create(createMockRosterPlayer(2L, 2L, "Puzdrakiewicz", "Thad", LocalDate.of(1966, 6, 2), LocalDate.of(2010, 1, 1), LocalDate.of(2010, 1, 5), "33"));
+		RosterPlayer createRosterPlayer = rosterPlayerJpaService.create(createMockRosterPlayer(2L, 2L, "Puzdrakiewicz", LocalDate.of(1966, 6, 2), LocalDate.of(2010, 1, 1), LocalDate.of(2010, 1, 5), "33"));
 		Assert.assertTrue(createRosterPlayer.isFound());
 	}
 
 	@Test(expected=DataIntegrityViolationException.class)
 	public void create_MissingRequiredData() {
-		rosterPlayerJpaService.create(createMockRosterPlayer(2L, 2L, "Puzdrakiewicz", "Thad", LocalDate.of(1966, 6, 2), LocalDate.of(2010, 2, 1), LocalDate.of(2010, 2, 5), null));
+		rosterPlayerJpaService.create(createMockRosterPlayer(2L, 2L, "Puzdrakiewicz", LocalDate.of(1966, 6, 2), LocalDate.of(2010, 2, 1), LocalDate.of(2010, 2, 5), null));
 	}
 
 	@Test
 	public void update_Updated() {
-		RosterPlayer updateRosterPlayer = rosterPlayerJpaService.update(createMockRosterPlayer(3L, 5L, "Puzdrakiewicz", "Thad", LocalDate.of(2000, 3, 13), LocalDate.of(2009, 10, 30), LocalDate.of(9999, 12, 31), "25"));
+		RosterPlayer updateRosterPlayer = rosterPlayerJpaService.update(createMockRosterPlayer(3L, 5L, "Puzdrakiewicz", LocalDate.of(2000, 3, 13), LocalDate.of(2009, 10, 30), LocalDate.of(9999, 12, 31), "25"));
 		RosterPlayer rosterPlayer = rosterPlayerJpaService.findByLastNameAndFirstNameAndBirthdateAndAsOfDate("Puzdrakiewicz", "Thad", LocalDate.of(2000, 3, 13), LocalDate.of(9999, 12, 31));
 		Assert.assertEquals("25", rosterPlayer.getNumber());
 		Assert.assertTrue(updateRosterPlayer.isUpdated());
@@ -193,13 +193,13 @@ public class RosterPlayerJpaServiceTest {
 
 	@Test
 	public void update_NotFound() {
-		RosterPlayer rosterPlayer = rosterPlayerJpaService.update(createMockRosterPlayer(3L, 5L, "Puzdrakiewiczy", "Thad", LocalDate.of(2000, 3, 13), LocalDate.of(2009, 10, 30), LocalDate.of(9999, 12, 31), "25"));
+		RosterPlayer rosterPlayer = rosterPlayerJpaService.update(createMockRosterPlayer(3L, 5L, "Puzdrakiewiczy", LocalDate.of(2000, 3, 13), LocalDate.of(2009, 10, 30), LocalDate.of(9999, 12, 31), "25"));
 		Assert.assertTrue(rosterPlayer.isNotFound());
 	}
 
 	@Test(expected=DataIntegrityViolationException.class)
 	public void update_MissingRequiredData() {
-		rosterPlayerJpaService.update(createMockRosterPlayer(3L, 5L, "Puzdrakiewicz", "Thad", LocalDate.of(2000, 3, 13), LocalDate.of(2009, 10, 30), LocalDate.of(9999, 12, 31), null));
+		rosterPlayerJpaService.update(createMockRosterPlayer(3L, 5L, "Puzdrakiewicz", LocalDate.of(2000, 3, 13), LocalDate.of(2009, 10, 30), LocalDate.of(9999, 12, 31), null));
 	}
 
 	@Test
@@ -216,9 +216,9 @@ public class RosterPlayerJpaServiceTest {
 		Assert.assertTrue(deletePlayer.isNotFound());
 	}
 
-	private RosterPlayer createMockRosterPlayer(Long playerId, Long teamId, String lastName, String firstName, LocalDate birthdate, LocalDate fromDate, LocalDate toDate, String number) {
+	private RosterPlayer createMockRosterPlayer(Long playerId, Long teamId, String lastName, LocalDate birthdate, LocalDate fromDate, LocalDate toDate, String number) {
 		RosterPlayer rosterPlayer = new RosterPlayer();
-		rosterPlayer.setPlayer(getMockPlayer(playerId, lastName, firstName, birthdate));
+		rosterPlayer.setPlayer(getMockPlayer(playerId, lastName, birthdate));
 		rosterPlayer.setTeam(getMockTeam(teamId));
 		rosterPlayer.setFromDate(fromDate);
 		rosterPlayer.setToDate(toDate);
@@ -227,11 +227,11 @@ public class RosterPlayerJpaServiceTest {
 		return rosterPlayer;
 	}
 
-	private Player getMockPlayer(Long playerId, String lastName, String firstName, LocalDate birthdate) {
+	private Player getMockPlayer(Long playerId, String lastName, LocalDate birthdate) {
 		Player player = new Player();
 		player.setId(playerId);
 		player.setLastName(lastName);
-		player.setFirstName(firstName);
+		player.setFirstName("Thad");
 		player.setBirthdate(birthdate);
 		return player;
 	}

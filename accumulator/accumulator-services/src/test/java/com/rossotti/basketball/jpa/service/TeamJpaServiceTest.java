@@ -1,8 +1,7 @@
 package com.rossotti.basketball.jpa.service;
 
 import com.rossotti.basketball.jpa.model.Team;
-import com.rossotti.basketball.jpa.model.Team.Conference;
-import com.rossotti.basketball.jpa.model.Team.Division;
+import com.rossotti.basketball.jpa.repository.TeamRepositoryTest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -133,7 +132,7 @@ public class TeamJpaServiceTest {
 
 	@Test
 	public void create_Created_AsOfDate() {
-		Team createTeam = teamJpaService.create(createMockTeam("sacramento-hornets", LocalDate.of(2012, 7, 1), LocalDate.of(9999, 12, 31), "Sacramento Hornets"));
+		Team createTeam = teamJpaService.create(TeamRepositoryTest.createMockTeam("sacramento-hornets", LocalDate.of(2012, 7, 1), LocalDate.of(9999, 12, 31), "Sacramento Hornets"));
 		Team findTeam = teamJpaService.findByTeamKeyAndAsOfDate("sacramento-hornets", LocalDate.of(2012, 7, 1));
 		Assert.assertTrue(createTeam.isCreated());
 		Assert.assertEquals("Sacramento Hornets", findTeam.getFullName());
@@ -141,7 +140,7 @@ public class TeamJpaServiceTest {
 
 	@Test
 	public void create_Created_DateRange() {
-		Team createTeam = teamJpaService.create(createMockTeam("sacramento-rivercats", LocalDate.of(2006, 7, 1), LocalDate.of(2012, 7, 2), "Sacramento Rivercats"));
+		Team createTeam = teamJpaService.create(TeamRepositoryTest.createMockTeam("sacramento-rivercats", LocalDate.of(2006, 7, 1), LocalDate.of(2012, 7, 2), "Sacramento Rivercats"));
 		Team findTeam = teamJpaService.findByTeamKeyAndAsOfDate("sacramento-rivercats", LocalDate.of(2006, 7, 1));
 		Assert.assertTrue(createTeam.isCreated());
 		Assert.assertEquals("Sacramento Rivercats", findTeam.getFullName());
@@ -149,18 +148,18 @@ public class TeamJpaServiceTest {
 
 	@Test
 	public void create_OverlappingDates() {
-		Team createTeam = teamJpaService.create(createMockTeam("cleveland-rebels", LocalDate.of(2010, 7, 1), LocalDate.of(2010, 7, 1), "Cleveland Rebels"));
+		Team createTeam = teamJpaService.create(TeamRepositoryTest.createMockTeam("cleveland-rebels", LocalDate.of(2010, 7, 1), LocalDate.of(2010, 7, 1), "Cleveland Rebels"));
 		Assert.assertTrue(createTeam.isFound());
 	}
 
 	@Test(expected=DataIntegrityViolationException.class)
 	public void create_MissingRequiredData() {
-		teamJpaService.create(createMockTeam("chavo-del-ocho", LocalDate.of(2010, 7, 1), LocalDate.of(2010, 7, 1), null));
+		teamJpaService.create(TeamRepositoryTest.createMockTeam("chavo-del-ocho", LocalDate.of(2010, 7, 1), LocalDate.of(2010, 7, 1), null));
 	}
 
 	@Test
 	public void update_Updated() {
-		Team updateTeam = teamJpaService.update(createMockTeam("st-louis-bomber's", LocalDate.of(2009, 7, 1), LocalDate.of(9999, 12, 31), "St. Louis Bombier's"));
+		Team updateTeam = teamJpaService.update(TeamRepositoryTest.createMockTeam("st-louis-bomber's", LocalDate.of(2009, 7, 1), LocalDate.of(9999, 12, 31), "St. Louis Bombier's"));
 		Team team = teamJpaService.findByTeamKeyAndAsOfDate("st-louis-bomber's", LocalDate.of(9999, 12, 31));
 		Assert.assertEquals("St. Louis Bombier's", team.getFullName());
 		Assert.assertTrue(updateTeam.isUpdated());
@@ -168,13 +167,13 @@ public class TeamJpaServiceTest {
 
 	@Test
 	public void update_NotFound() {
-		Team team = teamJpaService.update(createMockTeam("st-louis-bomb's", LocalDate.of(2009, 7, 1), LocalDate.of(2010, 7, 1), "St. Louis Bombier's"));
+		Team team = teamJpaService.update(TeamRepositoryTest.createMockTeam("st-louis-bomb's", LocalDate.of(2009, 7, 1), LocalDate.of(2010, 7, 1), "St. Louis Bombier's"));
 		Assert.assertTrue(team.isNotFound());
 	}
 
 	@Test(expected=DataIntegrityViolationException.class)
 	public void update_MissingRequiredData() {
-		teamJpaService.update(createMockTeam("st-louis-bomber's", LocalDate.of(2009, 7, 1), LocalDate.of(2010, 6, 30), null));
+		teamJpaService.update(TeamRepositoryTest.createMockTeam("st-louis-bomber's", LocalDate.of(2009, 7, 1), LocalDate.of(2010, 6, 30), null));
 	}
 
 	@Test
@@ -189,22 +188,5 @@ public class TeamJpaServiceTest {
 	public void delete_NotFound() {
 		Team deleteTeam = teamJpaService.delete(101L);
 		Assert.assertTrue(deleteTeam.isNotFound());
-	}
-
-	private Team createMockTeam(String key, LocalDate fromDate, LocalDate toDate, String fullName) {
-		Team team = new Team();
-		team.setTeamKey(key);
-		team.setFromDate(fromDate);
-		team.setToDate(toDate);
-		team.setAbbr("SEA");
-		team.setFirstName("Seattle");
-		team.setLastName("Supersonics");
-		team.setConference(Conference.West);
-		team.setDivision(Division.Pacific);
-		team.setSiteName("Key Arena");
-		team.setCity("Seattle");
-		team.setState("WA");
-		team.setFullName(fullName);
-		return team;
 	}
 }

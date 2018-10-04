@@ -1,6 +1,7 @@
 package com.rossotti.basketball.jpa.service;
 
 import com.rossotti.basketball.jpa.model.Player;
+import com.rossotti.basketball.jpa.repository.PlayerRepositoryTest;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -89,7 +90,7 @@ public class PlayerJpaServiceTest {
 
 	@Test
 	public void create_Created() {
-		Player createPlayer = playerJpaService.create(createMockPlayer("Puzdrakiewicz", "Fred", LocalDate.of(1968, 11, 9), "Fred Puzdrakiewicz"));
+		Player createPlayer = playerJpaService.create(PlayerRepositoryTest.createMockPlayer("Puzdrakiewicz", "Fred", LocalDate.of(1968, 11, 9), "Fred Puzdrakiewicz"));
 		Player findPlayer = playerJpaService.findByLastNameAndFirstNameAndBirthdate("Puzdrakiewicz", "Fred", LocalDate.of(1968, 11, 9));
 		Assert.assertTrue(createPlayer.isCreated());
 		Assert.assertEquals("Fred Puzdrakiewicz", findPlayer.getDisplayName());
@@ -97,18 +98,18 @@ public class PlayerJpaServiceTest {
 
 	@Test
 	public void create_Existing() {
-		Player createPlayer = playerJpaService.create(createMockPlayer("Puzdrakiewicz", "Michelle", LocalDate.of(1969, 9, 8), "Michelle Puzdrakiewicz"));
+		Player createPlayer = playerJpaService.create(PlayerRepositoryTest.createMockPlayer("Puzdrakiewicz", "Michelle", LocalDate.of(1969, 9, 8), "Michelle Puzdrakiewicz"));
 		Assert.assertTrue(createPlayer.isFound());
 	}
 
 	@Test(expected=DataIntegrityViolationException.class)
 	public void create_MissingRequiredData() {
-		Player createPlayer = playerJpaService.create(createMockPlayer("Puzdrakiewicz", "Fred", LocalDate.of(1969, 11, 9), null));
+		playerJpaService.create(PlayerRepositoryTest.createMockPlayer("Puzdrakiewicz", "Fred", LocalDate.of(1969, 11, 9), null));
 	}
 
 	@Test
 	public void update_Updated() {
-		Player updatePlayer = playerJpaService.update(createMockPlayer("Puzdrakiewicz", "Thad", LocalDate.of(2000, 3, 13), "Thad Puzdrakiewicz2"));
+		Player updatePlayer = playerJpaService.update(PlayerRepositoryTest.createMockPlayer("Puzdrakiewicz", "Thad", LocalDate.of(2000, 3, 13), "Thad Puzdrakiewicz2"));
 		Player player = playerJpaService.findByLastNameAndFirstNameAndBirthdate("Puzdrakiewicz", "Thad", LocalDate.of(2000, 3, 13));
 		Assert.assertEquals("Thad Puzdrakiewicz2", player.getDisplayName());
 		Assert.assertTrue(updatePlayer.isUpdated());
@@ -116,13 +117,13 @@ public class PlayerJpaServiceTest {
 
 	@Test
 	public void update_NotFound() {
-		Player player = playerJpaService.update(createMockPlayer("Puzdrakiewicz", "Thad", LocalDate.of(2000, 3, 14), "Thad Puzdrakiewicz"));
+		Player player = playerJpaService.update(PlayerRepositoryTest.createMockPlayer("Puzdrakiewicz", "Thad", LocalDate.of(2000, 3, 14), "Thad Puzdrakiewicz"));
 		Assert.assertTrue(player.isNotFound());
 	}
 
 	@Test(expected=DataIntegrityViolationException.class)
 	public void update_MissingRequiredData() {
-		Player player = playerJpaService.update(createMockPlayer("Puzdrakiewicz", "Thad", LocalDate.of(2000, 3, 13), null));
+		playerJpaService.update(PlayerRepositoryTest.createMockPlayer("Puzdrakiewicz", "Thad", LocalDate.of(2000, 3, 13), null));
 	}
 
 	@Test
@@ -137,17 +138,5 @@ public class PlayerJpaServiceTest {
 	public void delete_NotFound() {
 		Player deletePlayer = playerJpaService.delete(101L);
 		Assert.assertTrue(deletePlayer.isNotFound());
-	}
-
-	private Player createMockPlayer(String lastName, String firstName, LocalDate birthdate, String displayName) {
-		Player player = new Player();
-		player.setLastName(lastName);
-		player.setFirstName(firstName);
-		player.setBirthdate(birthdate);
-		player.setDisplayName(displayName);
-		player.setHeight((short)79);
-		player.setWeight((short)195);
-		player.setBirthplace("Monroe, Louisiana, USA");
-		return player;
 	}
 }

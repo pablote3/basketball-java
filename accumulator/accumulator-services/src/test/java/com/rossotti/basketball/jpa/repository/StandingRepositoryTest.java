@@ -99,14 +99,14 @@ public class StandingRepositoryTest {
 
 	@Test
 	public void update_Updated() {
-		standingRepository.save(updateMockStanding(4L, 4L, LocalDate.of(2015, 10, 31), "10th"));
+		standingRepository.save(updateMockStanding(LocalDate.of(2015, 10, 31), "10th"));
 		Standing standing = standingRepository.findByTeamKeyAndStandingDate("salinas-cowboys", LocalDate.of(2015, 10, 31));
 		Assert.assertEquals("10th", standing.getOrdinalRank());
 	}
 
 	@Test(expected=DataIntegrityViolationException.class)
 	public void update_MissingRequiredData() {
-		standingRepository.save(updateMockStanding(4L, 4L, LocalDate.of(2015, 10, 31), null));
+		standingRepository.save(updateMockStanding(LocalDate.of(2015, 10, 31), null));
 	}
 
 	@Test
@@ -162,9 +162,9 @@ public class StandingRepositoryTest {
 		return team;
 	}
 
-	private Standing updateMockStanding(Long id, Long teamId, LocalDate asOfDate, String ordinalRank) {
-		Standing standing = createMockStanding(teamId, asOfDate, ordinalRank);
-		standing.setId(id);
+	private Standing updateMockStanding(LocalDate asOfDate, String ordinalRank) {
+		Standing standing = createMockStanding(4L, asOfDate, ordinalRank);
+		standing.setId(4L);
 		return standing;
 	}
 }

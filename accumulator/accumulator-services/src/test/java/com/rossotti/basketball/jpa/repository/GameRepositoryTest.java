@@ -223,7 +223,7 @@ public class GameRepositoryTest {
 		return gameOfficial;
 	}
 
-	private Official getMockOfficial(Long officialId, String lastName, String firstName) {
+	public static Official getMockOfficial(Long officialId, String lastName, String firstName) {
 		Official official = new Official();
 		official.setId(officialId);
 		official.setLastName(lastName);
@@ -282,7 +282,7 @@ public class GameRepositoryTest {
 		BoxScorePlayer homeBoxScorePlayer = new BoxScorePlayer();
 		homeBoxScorePlayer.setBoxScoreStats(new BoxScoreStats());
 		homeBoxScorePlayer.setBoxScore(boxScore);
-		homeBoxScorePlayer.setRosterPlayer(getMockRosterPlayer(2L, "Puzdrakiewicz", "Luke", LocalDate.of(2002, 2, 20), LocalDate.of(2009, 11, 30), LocalDate.of(9999, 12, 31)));
+		homeBoxScorePlayer.setRosterPlayer(getMockRosterPlayer(2L, "Luke", LocalDate.of(2002, 2, 20), LocalDate.of(2009, 11, 30), LocalDate.of(9999, 12, 31)));
 		homeBoxScorePlayer.setPosition(Position.F);
 		homeBoxScorePlayer.getBoxScoreStats().setFreeThrowMade((short)4);
 		return homeBoxScorePlayer;
@@ -292,7 +292,7 @@ public class GameRepositoryTest {
 		BoxScorePlayer homeBoxScorePlayer = new BoxScorePlayer();
 		homeBoxScorePlayer.setBoxScoreStats(new BoxScoreStats());
 		homeBoxScorePlayer.setBoxScore(boxScore);
-		homeBoxScorePlayer.setRosterPlayer(getMockRosterPlayer(3L, "Puzdrakiewicz", "Thad", LocalDate.of(1966, 6, 2), LocalDate.of(2009, 10, 30), LocalDate.of(2009, 11, 4)));
+		homeBoxScorePlayer.setRosterPlayer(getMockRosterPlayer(3L, "Thad", LocalDate.of(1966, 6, 2), LocalDate.of(2009, 10, 30), LocalDate.of(2009, 11, 4)));
 		homeBoxScorePlayer.setPosition(Position.C);
 		homeBoxScorePlayer.getBoxScoreStats().setFreeThrowMade((short)0);
 		return homeBoxScorePlayer;
@@ -302,16 +302,16 @@ public class GameRepositoryTest {
 		BoxScorePlayer awayBoxScorePlayer = new BoxScorePlayer();
 		awayBoxScorePlayer.setBoxScoreStats(new BoxScoreStats());
 		awayBoxScorePlayer.setBoxScore(boxScore);
-		awayBoxScorePlayer.setRosterPlayer(getMockRosterPlayer(5L, "Puzdrakiewicz", "Junior", LocalDate.of(1966, 6, 10), LocalDate.of(2009, 10, 30), LocalDate.of(9999, 12, 31)));
+		awayBoxScorePlayer.setRosterPlayer(getMockRosterPlayer(5L, "Junior", LocalDate.of(1966, 6, 10), LocalDate.of(2009, 10, 30), LocalDate.of(9999, 12, 31)));
 		awayBoxScorePlayer.setPosition(Position.SG);
 		awayBoxScorePlayer.getBoxScoreStats().setFreeThrowMade((short)2);
 		return awayBoxScorePlayer;
 	}
 
-	private RosterPlayer getMockRosterPlayer(Long rosterPlayerId, String lastName, String firstName, LocalDate birthdate, LocalDate fromDate, LocalDate toDate) {
+	private RosterPlayer getMockRosterPlayer(Long rosterPlayerId, String firstName, LocalDate birthdate, LocalDate fromDate, LocalDate toDate) {
 		RosterPlayer rosterPlayer = new RosterPlayer();
 		rosterPlayer.setId(rosterPlayerId);
-		rosterPlayer.setPlayer(getMockPlayer(lastName, firstName, birthdate));
+		rosterPlayer.setPlayer(getMockPlayer("Puzdrakiewicz", firstName, birthdate));
 		rosterPlayer.setFromDate(fromDate);
 		rosterPlayer.setToDate(toDate);
 		rosterPlayer.setPosition(Position.C);
@@ -319,7 +319,7 @@ public class GameRepositoryTest {
 		return rosterPlayer;
 	}
 
-	private Player getMockPlayer(String lastName, String firstName, LocalDate birthdate) {
+	public static Player getMockPlayer(String lastName, String firstName, LocalDate birthdate) {
 		Player player = new Player();
 		player.setLastName(lastName);
 		player.setFirstName(firstName);

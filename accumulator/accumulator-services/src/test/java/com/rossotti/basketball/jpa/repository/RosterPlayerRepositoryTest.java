@@ -179,14 +179,14 @@ public class RosterPlayerRepositoryTest {
 
 	@Test
 	public void update_Updated() {
-		rosterPlayerRepository.save(updateMockRosterPlayer(10L, 10L, 9L, LocalDate.of(2015, 11, 15), LocalDate.of(9999, 12, 31),"51"));
+		rosterPlayerRepository.save(updateMockRosterPlayer(LocalDate.of(2015, 11, 15), LocalDate.of(9999, 12, 31),"51"));
 		RosterPlayer rosterPlayer = rosterPlayerRepository.findByLastNameAndFirstNameAndBirthdateAndAsOfDate("Drummond", "Andre", LocalDate.of(1990, 3, 4), LocalDate.of(2015, 11, 15));
 		Assert.assertEquals("51", rosterPlayer.getNumber());
 	}
 
 	@Test(expected=DataIntegrityViolationException.class)
 	public void update_MissingRequiredData() {
-		rosterPlayerRepository.save(updateMockRosterPlayer(10L, 10L, 9L, LocalDate.of(2015, 11, 15), LocalDate.of(9999, 12, 31),null));
+		rosterPlayerRepository.save(updateMockRosterPlayer(LocalDate.of(2015, 11, 15), LocalDate.of(9999, 12, 31),null));
 	}
 
 	@Test
@@ -212,9 +212,9 @@ public class RosterPlayerRepositoryTest {
 		return rosterPlayer;
 	}
 
-	private RosterPlayer updateMockRosterPlayer(Long id, Long playerId, Long teamId, LocalDate fromDate, LocalDate toDate, String number) {
-		RosterPlayer rosterPlayer = createMockRosterPlayer(playerId, teamId, fromDate, toDate, number);
-		rosterPlayer.setId(id);
+	private RosterPlayer updateMockRosterPlayer(LocalDate fromDate, LocalDate toDate, String number) {
+		RosterPlayer rosterPlayer = createMockRosterPlayer(10L, 9L, fromDate, toDate, number);
+		rosterPlayer.setId(10L);
 		return rosterPlayer;
 	}
 

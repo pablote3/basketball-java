@@ -164,7 +164,7 @@ public class TeamRepositoryTest {
 		teamRepository.deleteById(101L);
 	}
 
-	private Team createMockTeam(String key, LocalDate fromDate, LocalDate toDate, String fullName) {
+	public static Team createMockTeam(String key, LocalDate fromDate, LocalDate toDate, String fullName) {
 		Team team = new Team();
 		team.setTeamKey(key);
 		team.setFromDate(fromDate);

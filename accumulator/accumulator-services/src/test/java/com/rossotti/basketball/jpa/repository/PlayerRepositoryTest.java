@@ -98,14 +98,14 @@ public class PlayerRepositoryTest {
 
 	@Test
 	public void update_Updated() {
-		playerRepository.save(updateMockPlayer(2L, "Puzdrakiewicz", "Thad", LocalDate.of(1966, 6, 2), "Thady Puzdrakiewicz"));
+		playerRepository.save(updateMockPlayer("Thady Puzdrakiewicz"));
 		Player player = playerRepository.findByLastNameAndFirstNameAndBirthdate("Puzdrakiewicz", "Thad", LocalDate.of(1966, 6, 2));
 		Assert.assertEquals("Thady Puzdrakiewicz", player.getDisplayName());
 	}
 
 	@Test(expected=DataIntegrityViolationException.class)
 	public void update_MissingRequiredData() {
-		playerRepository.save(updateMockPlayer(2L, "Puzdrakiewicz", "Thad", LocalDate.of(1966, 6, 2), null));
+		playerRepository.save(updateMockPlayer(null));
 	}
 
 	@Test
@@ -120,7 +120,7 @@ public class PlayerRepositoryTest {
 		playerRepository.deleteById(101L);
 	}
 
-	private Player createMockPlayer(String lastName, String firstName, LocalDate birthdate, String displayName) {
+	public static Player createMockPlayer(String lastName, String firstName, LocalDate birthdate, String displayName) {
 		Player player = new Player();
 		player.setLastName(lastName);
 		player.setFirstName(firstName);
@@ -132,9 +132,9 @@ public class PlayerRepositoryTest {
 		return player;
 	}
 
-	private Player updateMockPlayer(Long id, String lastName, String firstName, LocalDate birthdate, String displayName) {
-		Player player = createMockPlayer(lastName, firstName, birthdate, displayName);
-		player.setId(id);
+	private Player updateMockPlayer(String displayName) {
+		Player player = createMockPlayer("Puzdrakiewicz", "Thad", LocalDate.of(1966, 6, 2), displayName);
+		player.setId(2L);
 		return player;
 	}
 }
