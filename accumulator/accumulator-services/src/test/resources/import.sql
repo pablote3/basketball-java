@@ -136,26 +136,9 @@ insert into game VALUES(17, '2016-10-30 21:00:00.0', 'Regular', 'Scheduled');
 insert into boxScore (id, gameId, teamId, location) VALUES(33, 17, 6, 'Home');
 insert into boxScore (id, gameId, teamId, location) VALUES(34, 17, 9, 'Away');
 
-insert into standing (id, teamId, standingDate, rank, ordinalRank, gamesWon, gamesLost, streak, streakType, streakTotal, gamesBack, pointsFor, pointsAgainst, homeWins, homeLosses,
-awayWins, awayLosses, conferenceWins, conferenceLosses, lastFive, lastTen, gamesPlayed, pointsScoredPerGame, PointsAllowedPerGame, WinPercentage, PointDifferential, pointDifferentialPerGame)
-VALUES(1, 1, '2015-10-30', 1, '1st', 1, 0, 1, 'win', 1, 0, 114, 98, 1, 0, 0, 0, 0, 0, '1-0', '1-0', 1, 114, 98, 1.00, 16, 16);
-
-insert into standing (id, teamId, standingDate, rank, ordinalRank, gamesWon, gamesLost, streak, streakType, streakTotal, gamesBack, pointsFor, pointsAgainst, homeWins, homeLosses,
-awayWins, awayLosses, conferenceWins, conferenceLosses, lastFive, lastTen, gamesPlayed, pointsScoredPerGame, PointsAllowedPerGame, WinPercentage, PointDifferential, pointDifferentialPerGame)
-VALUES(2, 3, '2015-10-30', 3, '3rd', 1, 0, 1, 'win', 1, 0, 114, 98, 1, 0, 0, 0, 0, 0, '1-0', '1-0', 1, 114, 98, 1.00, 16, 16);
-
-insert into standing (id, teamId, standingDate, rank, ordinalRank, gamesWon, gamesLost, streak, streakType, streakTotal, gamesBack, pointsFor, pointsAgainst, homeWins, homeLosses,
-awayWins, awayLosses, conferenceWins, conferenceLosses, lastFive, lastTen, gamesPlayed, pointsScoredPerGame, PointsAllowedPerGame, WinPercentage, PointDifferential, pointDifferentialPerGame)
-VALUES(3, 3, '2015-10-31', 5, '5th', 1, 0, 1, 'win', 1, 0, 114, 98, 1, 0, 0, 0, 0, 0, '1-0', '1-0', 1, 114, 98, 1.00, 16, 16);
-
-insert into standing (id, teamId, standingDate, rank, ordinalRank, gamesWon, gamesLost, streak, streakType, streakTotal, gamesBack, pointsFor, pointsAgainst, homeWins, homeLosses,
-awayWins, awayLosses, conferenceWins, conferenceLosses, lastFive, lastTen, gamesPlayed, pointsScoredPerGame, PointsAllowedPerGame, WinPercentage, PointDifferential, pointDifferentialPerGame)
-VALUES(4, 4, '2015-10-31', 17, '17th', 1, 0, 1, 'win', 1, 0, 114, 98, 1, 0, 0, 0, 0, 0, '1-0', '1-0', 1, 114, 98, 1.00, 16, 16);
-
-insert into standing (id, teamId, standingDate, rank, ordinalRank, gamesWon, gamesLost, streak, streakType, streakTotal, gamesBack, pointsFor, pointsAgainst, homeWins, homeLosses,
-awayWins, awayLosses, conferenceWins, conferenceLosses, lastFive, lastTen, gamesPlayed, pointsScoredPerGame, PointsAllowedPerGame, WinPercentage, PointDifferential, pointDifferentialPerGame)
-VALUES(5, 5, '2015-10-31', 17, '17th', 1, 0, 1, 'win', 1, 0, 114, 98, 1, 0, 0, 0, 0, 0, '1-0', '1-0', 1, 114, 98, 1.00, 16, 16);
-
-insert into standing (id, teamId, standingDate, rank, ordinalRank, gamesWon, gamesLost, streak, streakType, streakTotal, gamesBack, pointsFor, pointsAgainst, homeWins, homeLosses,
-awayWins, awayLosses, conferenceWins, conferenceLosses, lastFive, lastTen, gamesPlayed, pointsScoredPerGame, PointsAllowedPerGame, WinPercentage, PointDifferential, pointDifferentialPerGame)
-VALUES(6, 6, '2015-10-31', 17, '17th', 1, 0, 1, 'win', 1, 0, 114, 98, 1, 0, 0, 0, 0, 0, '1-0', '1-0', 1, 114, 98, 1.00, 16, 16);
+insert into standing (id, teamId, standingDate, rank, ordinalRank, gamesWon, gamesLost, streak, streakType, streakTotal, gamesBack, pointsFor, pointsAgainst, homeWins, homeLosses, awayWins, awayLosses, conferenceWins, conferenceLosses, lastFive, lastTen, gamesPlayed, pointsScoredPerGame, PointsAllowedPerGame, WinPercentage, PointDifferential, pointDifferentialPerGame) VALUES(1, 1, '2015-10-30', 1, '1st', 1, 0, 1, 'win', 1, 0, 114, 98, 1, 0, 0, 0, 0, 0, '1-0', '1-0', 1, 114, 98, 1.00, 16, 16);
+insert into standing (id, teamId, standingDate, rank, ordinalRank, gamesWon, gamesLost, streak, streakType, streakTotal, gamesBack, pointsFor, pointsAgainst, homeWins, homeLosses, awayWins, awayLosses, conferenceWins, conferenceLosses, lastFive, lastTen, gamesPlayed, pointsScoredPerGame, PointsAllowedPerGame, WinPercentage, PointDifferential, pointDifferentialPerGame) VALUES(2, 3, '2015-10-30', 3, '3rd', 1, 0, 1, 'win', 1, 0, 114, 98, 1, 0, 0, 0, 0, 0, '1-0', '1-0', 1, 114, 98, 1.00, 16, 16);
+insert into standing (id, teamId, standingDate, rank, ordinalRank, gamesWon, gamesLost, streak, streakType, streakTotal, gamesBack, pointsFor, pointsAgainst, homeWins, homeLosses, awayWins, awayLosses, conferenceWins, conferenceLosses, lastFive, lastTen, gamesPlayed, pointsScoredPerGame, PointsAllowedPerGame, WinPercentage, PointDifferential, pointDifferentialPerGame) VALUES(3, 3, '2015-10-31', 5, '5th', 1, 0, 1, 'win', 1, 0, 114, 98, 1, 0, 0, 0, 0, 0, '1-0', '1-0', 1, 114, 98, 1.00, 16, 16);
+insert into standing (id, teamId, standingDate, rank, ordinalRank, gamesWon, gamesLost, streak, streakType, streakTotal, gamesBack, pointsFor, pointsAgainst, homeWins, homeLosses, awayWins, awayLosses, conferenceWins, conferenceLosses, lastFive, lastTen, gamesPlayed, pointsScoredPerGame, PointsAllowedPerGame, WinPercentage, PointDifferential, pointDifferentialPerGame) VALUES(4, 4, '2015-10-31', 17, '17th', 1, 0, 1, 'win', 1, 0, 114, 98, 1, 0, 0, 0, 0, 0, '1-0', '1-0', 1, 114, 98, 1.00, 16, 16);
+insert into standing (id, teamId, standingDate, rank, ordinalRank, gamesWon, gamesLost, streak, streakType, streakTotal, gamesBack, pointsFor, pointsAgainst, homeWins, homeLosses, awayWins, awayLosses, conferenceWins, conferenceLosses, lastFive, lastTen, gamesPlayed, pointsScoredPerGame, PointsAllowedPerGame, WinPercentage, PointDifferential, pointDifferentialPerGame) VALUES(5, 5, '2015-10-31', 17, '17th', 1, 0, 1, 'win', 1, 0, 114, 98, 1, 0, 0, 0, 0, 0, '1-0', '1-0', 1, 114, 98, 1.00, 16, 16);
+insert into standing (id, teamId, standingDate, rank, ordinalRank, gamesWon, gamesLost, streak, streakType, streakTotal, gamesBack, pointsFor, pointsAgainst, homeWins, homeLosses, awayWins, awayLosses, conferenceWins, conferenceLosses, lastFive, lastTen, gamesPlayed, pointsScoredPerGame, PointsAllowedPerGame, WinPercentage, PointDifferential, pointDifferentialPerGame) VALUES(6, 6, '2015-10-31', 17, '17th', 1, 0, 1, 'win', 1, 0, 114, 98, 1, 0, 0, 0, 0, 0, '1-0', '1-0', 1, 114, 98, 1.00, 16, 16);
