@@ -13,7 +13,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@SuppressWarnings("SpringJavaAutowiredMembersInspection")
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = com.rossotti.basketball.config.ServiceConfig.class)
 public class GameJpaServiceTest {
@@ -34,7 +33,7 @@ public class GameJpaServiceTest {
 
 	@Test
 	public void listAll() {
-		@SuppressWarnings("unchecked") List<Game> games = (List<Game>) gameJpaService.listAll();
+		List<Game> games = (List<Game>) gameJpaService.listAll();
 		Assert.assertTrue(games.size() >= 9);
 	}
 

@@ -13,7 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDate;
 import java.util.List;
 
-@SuppressWarnings("SpringJavaAutowiredMembersInspection")
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = com.rossotti.basketball.config.ServiceConfig.class)
 public class StandingJpaServiceTest {
@@ -35,7 +34,7 @@ public class StandingJpaServiceTest {
 
 	@Test
 	public void listAll() {
-		@SuppressWarnings("unchecked") List<Standing> standings = (List<Standing>) standingJpaService.listAll();
+		List<Standing> standings = (List<Standing>) standingJpaService.listAll();
 		Assert.assertTrue(standings.size() >= 4);
 	}
 

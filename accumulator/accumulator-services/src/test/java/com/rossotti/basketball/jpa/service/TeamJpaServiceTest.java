@@ -10,11 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import java.time.LocalDate;
 import java.util.List;
 
-@SuppressWarnings("SpringJavaAutowiredMembersInspection")
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = com.rossotti.basketball.config.ServiceConfig.class)
 public class TeamJpaServiceTest {
@@ -35,7 +33,7 @@ public class TeamJpaServiceTest {
 
 	@Test
 	public void listAll() {
-		@SuppressWarnings("unchecked") List<Team> teams = (List<Team>) teamJpaService.listAll();
+		List<Team> teams = (List<Team>) teamJpaService.listAll();
 		Assert.assertTrue(teams.size() >= 11);
 	}
 

@@ -15,9 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDate;
 import java.util.List;
 
-@SuppressWarnings("SpringJavaAutowiredMembersInspection")
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = com.rossotti.basketball.config.ServiceConfig.class)
 public class TeamRepositoryTest {
 
 	private TeamRepository teamRepository;
