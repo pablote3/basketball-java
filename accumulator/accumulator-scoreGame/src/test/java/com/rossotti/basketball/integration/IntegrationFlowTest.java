@@ -14,10 +14,15 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes={IntegrationConfig.class})
-@SpringBootTest
+@SpringBootTest(classes = com.rossotti.basketball.config.ServiceConfig.class)
 public class IntegrationFlowTest {
-    @Autowired
+
     private GatewayService gatewayService;
+
+    @Autowired
+    public void setGatewayService(GatewayService gatewayService) {
+        this.gatewayService = gatewayService;
+    }
 
     @Test
     public void testFlow_GameNotFound() {
@@ -25,7 +30,7 @@ public class IntegrationFlowTest {
         serviceProperties.setGameDate("2016-10-27");
         serviceProperties.setGameTeam("chicago-zephyr's");
         List<Game> games = gatewayService.processGames(serviceProperties);
-        Assert.assertTrue(games.size() == 0);
+        Assert.assertEquals(0, games.size());
     }
 
     @Test
@@ -34,7 +39,7 @@ public class IntegrationFlowTest {
         serviceProperties.setGameDate("2015-10-27");
         serviceProperties.setGameTeam("chicago-zephyr's");
         List<Game> games = gatewayService.processGames(serviceProperties);
-        Assert.assertTrue(games.size() == 1);
+        Assert.assertEquals(1, games.size());
     }
 
     @Test
@@ -43,7 +48,7 @@ public class IntegrationFlowTest {
         serviceProperties.setGameDate("2016-10-27");
         serviceProperties.setGameTeam("st-louis-bomber's");
         List<Game> games = gatewayService.processGames(serviceProperties);
-        Assert.assertTrue(games.size() == 1);
+        Assert.assertEquals(1, games.size());
     }
 
     @Test
@@ -51,7 +56,7 @@ public class IntegrationFlowTest {
         ServiceProperties serviceProperties = new ServiceProperties();
         serviceProperties.setGameDate("2016-10-28");
         List<Game> games = gatewayService.processGames(serviceProperties);
-        Assert.assertTrue(games.size() == 2);
+        Assert.assertEquals(2, games.size());
     }
 
     @Test
@@ -60,7 +65,7 @@ public class IntegrationFlowTest {
         serviceProperties.setGameDate("2016-10-29");
         serviceProperties.setGameTeam("st-louis-bomber's");
         List<Game> games = gatewayService.processGames(serviceProperties);
-        Assert.assertTrue(games.size() == 1);
+        Assert.assertEquals(1, games.size());
     }
 
     @Test
@@ -69,6 +74,6 @@ public class IntegrationFlowTest {
         serviceProperties.setGameDate("2016-10-30");
         serviceProperties.setGameTeam("detroit-pistons");
         List<Game> games = gatewayService.processGames(serviceProperties);
-        Assert.assertTrue(games.size() == 1);
+        Assert.assertEquals(1, games.size());
     }
 }
