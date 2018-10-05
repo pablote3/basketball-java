@@ -71,8 +71,7 @@ public class GameJpaServiceImpl implements GameJpaService {
 
 	@Override
 	public List<?> listAll() {
-		List<Game> games = new ArrayList<>(gameRepository.findAll());
-		return games;
+		return new ArrayList<>(gameRepository.findAll());
 	}
 
 	@Override

@@ -61,7 +61,7 @@ public class GameBusServiceTest {
 	@InjectMocks
 	private GameBusService gameBusService;
 
-	private ObjectMapper objectMapper = Jackson2ObjectMapperBuilder.json().build();
+	private final ObjectMapper objectMapper = Jackson2ObjectMapperBuilder.json().build();
 
 	@Test
 	public void propertyException() {
