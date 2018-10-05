@@ -142,14 +142,14 @@ public class TeamRepositoryTest {
 
 	@Test
 	public void update_Updated() {
-		teamRepository.save(updateMockTeam(3L, "st-louis-bomber's", LocalDate.of(2009, 7, 1), LocalDate.of(2010, 6, 30), "St. Louis Bombier's"));
+		teamRepository.save(updateMockTeam("st-louis-bomber's", LocalDate.of(2009, 7, 1), LocalDate.of(2010, 6, 30), "St. Louis Bombier's"));
 		Team team = teamRepository.findByTeamKeyAndFromDateAndToDate("st-louis-bomber's", LocalDate.of(2010, 5, 30), LocalDate.of(2010, 5, 30));
 		Assert.assertEquals("St. Louis Bombier's", team.getFullName());
 	}
 
 	@Test(expected=DataIntegrityViolationException.class)
 	public void update_MissingRequiredData() {
-		teamRepository.save(updateMockTeam(3L,"st-louis-bomber's", LocalDate.of(2009, 7, 1), LocalDate.of(2010, 6, 30), null));
+		teamRepository.save(updateMockTeam("st-louis-bomber's", LocalDate.of(2009, 7, 1), LocalDate.of(2010, 6, 30), null));
 	}
 
 	@Test
@@ -181,9 +181,9 @@ public class TeamRepositoryTest {
 		return team;
 	}
 
-	private Team updateMockTeam(Long id, String key, LocalDate fromDate, LocalDate toDate, String fullName) {
+	private Team updateMockTeam(String key, LocalDate fromDate, LocalDate toDate, String fullName) {
 		Team team = createMockTeam(key, fromDate, toDate, fullName);
-		team.setId(id);
+		team.setId(3L);
 		return team;
 	}
 }

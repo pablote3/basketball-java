@@ -149,7 +149,7 @@ public class GameJpaServiceTest {
 
 	@Test
 	public void update_Updated() {
-		Game updateGame = gameJpaService.update(updateMockGame(LocalDateTime.of(2015, 1, 7, 19, 0), 20L, "chicago-bulls", 21L, "utah-jazz", Game.GameStatus.Completed));
+		Game updateGame = gameJpaService.update(updateMockGame(LocalDateTime.of(2015, 1, 7, 19, 0), "utah-jazz", Game.GameStatus.Completed));
 		Game findGame = gameJpaService.findByTeamKeyAndAsOfDate("chicago-bulls", LocalDate.of(2015, 1, 7));
 		Assert.assertTrue(updateGame.isUpdated());
 		Assert.assertEquals(Game.GameStatus.Completed, findGame.getStatus());
@@ -167,19 +167,19 @@ public class GameJpaServiceTest {
 
 	@Test
 	public void update_NotFound_TeamKey() {
-		Game updateGame = gameJpaService.update(updateMockGame(LocalDateTime.of(2015, 1, 7, 19, 0), 20L, "chicago-bulls", 21L, "utah-jazzers", Game.GameStatus.Completed));
+		Game updateGame = gameJpaService.update(updateMockGame(LocalDateTime.of(2015, 1, 7, 19, 0), "utah-jazzers", Game.GameStatus.Completed));
 		Assert.assertTrue(updateGame.isNotFound());
 	}
 
 	@Test
 	public void update_NotFound_AsOfDateTime() {
-		Game updateGame = gameJpaService.update(updateMockGame(LocalDateTime.of(2014, 1, 7, 19, 0), 20L, "chicago-bulls", 21L, "utah-jazz", Game.GameStatus.Completed));
+		Game updateGame = gameJpaService.update(updateMockGame(LocalDateTime.of(2014, 1, 7, 19, 0), "utah-jazz", Game.GameStatus.Completed));
 		Assert.assertTrue(updateGame.isNotFound());
 	}
 
 	@Test(expected=DataIntegrityViolationException.class)
 	public void update_MissingRequiredData() {
-		gameJpaService.update(updateMockGame(LocalDateTime.of(2015, 1, 7, 19, 0), 20L, "chicago-bulls", 21L, "utah-jazz", null));
+		gameJpaService.update(updateMockGame(LocalDateTime.of(2015, 1, 7, 19, 0), "utah-jazz", null));
 	}
 
 	@Test
@@ -221,8 +221,8 @@ public class GameJpaServiceTest {
 		return team;
 	}
 
-	private Game updateMockGame(LocalDateTime gameDateTime, Long teamIdHome, String teamKeyHome, Long teamIdAway, String teamKeyAway, Game.GameStatus status) {
-		Game game = createMockGame(gameDateTime, teamIdHome, teamKeyHome, teamIdAway, teamKeyAway, status);
+	private Game updateMockGame(LocalDateTime gameDateTime, String teamKeyAway, Game.GameStatus status) {
+		Game game = createMockGame(gameDateTime, 20L, "chicago-bulls", 21L, teamKeyAway, status);
 		game.addGameOfficial(createMockGameOfficial(game, 1L, "LateCall", "Joe"));
 		game.addGameOfficial(createMockGameOfficial(game, 3L, "MissedCa'll", "Mike"));
 		game.addGameOfficial(createMockGameOfficial(game, 4L, "QuestionableCall", "Hefe"));
@@ -288,7 +288,7 @@ public class GameJpaServiceTest {
 	private BoxScorePlayer createMockBoxScorePlayerHome_0() {
 		BoxScorePlayer homeBoxScorePlayer = new BoxScorePlayer();
 		homeBoxScorePlayer.setBoxScoreStats(new BoxScoreStats());
-		homeBoxScorePlayer.setRosterPlayer(getMockRosterPlayer(2L, "Puzdrakiewicz", "Luke", LocalDate.of(2002, 2, 20), LocalDate.of(2009, 11, 30), LocalDate.of(9999, 12, 31)));
+		homeBoxScorePlayer.setRosterPlayer(getMockRosterPlayer(2L, "Luke", LocalDate.of(2002, 2, 20), LocalDate.of(2009, 11, 30), LocalDate.of(9999, 12, 31)));
 		homeBoxScorePlayer.setPosition(RosterPlayer.Position.F);
 		homeBoxScorePlayer.getBoxScoreStats().setFreeThrowMade((short)4);
 		return homeBoxScorePlayer;
@@ -297,7 +297,7 @@ public class GameJpaServiceTest {
 	private BoxScorePlayer createMockBoxScorePlayerHome_1() {
 		BoxScorePlayer homeBoxScorePlayer = new BoxScorePlayer();
 		homeBoxScorePlayer.setBoxScoreStats(new BoxScoreStats());
-		homeBoxScorePlayer.setRosterPlayer(getMockRosterPlayer(3L, "Puzdrakiewicz", "Thad", LocalDate.of(1966, 6, 2), LocalDate.of(2009, 10, 30), LocalDate.of(2009, 11, 4)));
+		homeBoxScorePlayer.setRosterPlayer(getMockRosterPlayer(3L, "Thad", LocalDate.of(1966, 6, 2), LocalDate.of(2009, 10, 30), LocalDate.of(2009, 11, 4)));
 		homeBoxScorePlayer.setPosition(RosterPlayer.Position.C);
 		homeBoxScorePlayer.getBoxScoreStats().setFreeThrowMade((short)0);
 		return homeBoxScorePlayer;
@@ -306,16 +306,16 @@ public class GameJpaServiceTest {
 	private BoxScorePlayer createMockBoxScorePlayerAway() {
 		BoxScorePlayer awayBoxScorePlayer = new BoxScorePlayer();
 		awayBoxScorePlayer.setBoxScoreStats(new BoxScoreStats());
-		awayBoxScorePlayer.setRosterPlayer(getMockRosterPlayer(5L, "Puzdrakiewicz", "Junior", LocalDate.of(1966, 6, 10), LocalDate.of(2009, 10, 30), LocalDate.of(9999, 12, 31)));
+		awayBoxScorePlayer.setRosterPlayer(getMockRosterPlayer(5L, "Junior", LocalDate.of(1966, 6, 10), LocalDate.of(2009, 10, 30), LocalDate.of(9999, 12, 31)));
 		awayBoxScorePlayer.setPosition(RosterPlayer.Position.SG);
 		awayBoxScorePlayer.getBoxScoreStats().setFreeThrowMade((short)2);
 		return awayBoxScorePlayer;
 	}
 
-	private RosterPlayer getMockRosterPlayer(Long rosterPlayerId, String lastName, String firstName, LocalDate birthdate, LocalDate fromDate, LocalDate toDate) {
+	private RosterPlayer getMockRosterPlayer(Long rosterPlayerId, String firstName, LocalDate birthdate, LocalDate fromDate, LocalDate toDate) {
 		RosterPlayer rosterPlayer = new RosterPlayer();
 		rosterPlayer.setId(rosterPlayerId);
-		rosterPlayer.setPlayer(GameRepositoryTest.getMockPlayer(lastName, firstName, birthdate));
+		rosterPlayer.setPlayer(GameRepositoryTest.getMockPlayer("Puzdrakiewicz", firstName, birthdate));
 		rosterPlayer.setFromDate(fromDate);
 		rosterPlayer.setToDate(toDate);
 		rosterPlayer.setPosition(RosterPlayer.Position.C);

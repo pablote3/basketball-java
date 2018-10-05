@@ -38,7 +38,7 @@ public class JacksonMapperTest {
 		Assert.assertEquals("Zarba", game.officials[0].getLast_name());
 		Assert.assertEquals("completed", game.event_information.getStatus());
 		Assert.assertEquals(LocalDateTime.of(2015, 11, 29, 18, 0), DateTimeConverter.getLocalDateTime(game.event_information.getStart_date_time()));
-		Assert.assertTrue(game.away_totals.getThree_point_field_goals_attempted().equals((short)24));
+		Assert.assertEquals((short)24, (short)game.away_totals.getThree_point_field_goals_attempted());
 		baseJson.close();
 	}
 

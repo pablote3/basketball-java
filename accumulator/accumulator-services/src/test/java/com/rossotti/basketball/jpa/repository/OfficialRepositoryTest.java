@@ -103,14 +103,14 @@ public class OfficialRepositoryTest {
 
 	@Test
 	public void update_Updated() {
-		officialRepository.save(updateMockOfficial(10L, "Zarba", "Zach", LocalDate.of(2010, 10, 30), LocalDate.of(9999, 12, 31), "58"));
+		officialRepository.save(updateMockOfficial(LocalDate.of(2010, 10, 30), LocalDate.of(9999, 12, 31), "58"));
 		Official team = officialRepository.findByLastNameAndFirstNameAndFromDateAndToDate("Zarba", "Zach", LocalDate.of(2010, 10, 30), LocalDate.of(9999, 12, 31));
 		Assert.assertEquals("58", team.getNumber());
 	}
 
 	@Test(expected=DataIntegrityViolationException.class)
 	public void update_MissingRequiredData() {
-		officialRepository.save(updateMockOfficial(10L, "Zarba", "Zach", LocalDate.of(2010, 10, 30), LocalDate.of(9999, 12, 31), null));
+		officialRepository.save(updateMockOfficial(LocalDate.of(2010, 10, 30), LocalDate.of(9999, 12, 31), null));
 	}
 
 	@Test
@@ -135,9 +135,9 @@ public class OfficialRepositoryTest {
 		return official;
 	}
 
-	private Official updateMockOfficial(Long id, String lastName, String firstName, LocalDate fromDate, LocalDate toDate, String number) {
-		Official official = createMockOfficial(lastName, firstName, fromDate, toDate, number);
-		official.setId(id);
+	private Official updateMockOfficial(LocalDate fromDate, LocalDate toDate, String number) {
+		Official official = createMockOfficial("Zarba", "Zach", fromDate, toDate, number);
+		official.setId(10L);
 		return official;
 	}
 }
