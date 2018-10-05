@@ -40,8 +40,7 @@ public class OfficialJpaServiceImpl implements OfficialJpaService {
 
 	@Override
 	public List<?> listAll() {
-		List<Official> teams = new ArrayList<>();
-        teams.addAll(officialRepository.findAll());
+		List<Official> teams = new ArrayList<>(officialRepository.findAll());
 		return teams;
 	}
 

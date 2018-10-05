@@ -57,8 +57,7 @@ public class TeamJpaServiceImpl implements TeamJpaService {
 
 	@Override
 	public List<?> listAll() {
-		List<Team> teams = new ArrayList<>();
-        teams.addAll(teamRepository.findAll());
+        List<Team> teams = new ArrayList<>(teamRepository.findAll());
 		return teams;
 	}
 

@@ -40,8 +40,7 @@ public class PlayerJpaServiceImpl implements PlayerJpaService {
 
 	@Override
 	public List<?> listAll() {
-		List<Player> players = new ArrayList<>();
-        players.addAll(playerRepository.findAll());
+        List<Player> players = new ArrayList<>(playerRepository.findAll());
 		return players;
 	}
 

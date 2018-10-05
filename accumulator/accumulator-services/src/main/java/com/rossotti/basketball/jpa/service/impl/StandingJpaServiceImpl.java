@@ -45,8 +45,7 @@ public class StandingJpaServiceImpl implements StandingJpaService {
 
 	@Override
 	public List<?> listAll() {
-		List<Standing> standings = new ArrayList<>();
-        standings.addAll(standingRepository.findAll());
+        List<Standing> standings = new ArrayList<>(standingRepository.findAll());
 		return standings;
 	}
 
