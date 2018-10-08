@@ -10,7 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = com.rossotti.basketball.config.ServiceConfig.class)
-@TestPropertySource("classpath:service.properties")
 public class PropertyTest {
 	@Autowired
 	Environment env;
