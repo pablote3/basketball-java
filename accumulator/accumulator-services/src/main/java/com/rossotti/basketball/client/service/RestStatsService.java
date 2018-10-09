@@ -5,14 +5,13 @@ import com.rossotti.basketball.client.dto.GameDTO;
 import com.rossotti.basketball.client.dto.RosterDTO;
 import com.rossotti.basketball.client.dto.StandingsDTO;
 import com.rossotti.basketball.client.dto.StatusCodeDTO.StatusCode;
-import com.rossotti.basketball.util.function.DateTimeConverter;
-import com.rossotti.basketball.util.service.FileService;
-import com.rossotti.basketball.util.service.PropertyService;
-import com.rossotti.basketball.util.service.exception.FileException;
-import com.rossotti.basketball.util.service.exception.PropertyException;
+import com.rossotti.basketball.util.DateTimeConverter;
+import com.rossotti.basketball.util.FileService;
+import com.rossotti.basketball.util.FileServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
@@ -23,29 +22,27 @@ import java.time.LocalDate;
 
 @Service
 public class RestStatsService {
-
-	private final PropertyService propertyService;
+	private final Environment env;
 	private final RestClientService restClientService;
 	private final FileService fileService;
-
 	private final Logger logger = LoggerFactory.getLogger(RestStatsService.class);
 	private final ObjectMapper objectMapper = Jackson2ObjectMapperBuilder.json().build();
 
 	@Autowired
-	public RestStatsService(RestClientService restClientService, PropertyService propertyService, FileService fileService) {
+	public RestStatsService(Environment env, RestClientService restClientService, FileService fileService) {
+		this.env = env;
 		this.restClientService = restClientService;
-		this.propertyService = propertyService;
 		this.fileService = fileService;
 	}
 
 	public GameDTO retrieveBoxScore(String event, boolean persist) {
 		GameDTO gameDTO = new GameDTO();
 		try {
-			String baseUrl = propertyService.getProperty_Http("xmlstats.urlBoxScore");
+			String baseUrl = env.getProperty("xmlstats.urlBoxScore");
 			String eventUrl = baseUrl + event + ".json";
 			ResponseEntity<byte[]> entity = restClientService.getJson(eventUrl);
 			if (persist) {
-				String fileName = propertyService.getProperty_Path("xmlstats.fileBoxScore") + "/" + event + ".json";
+				String fileName = env.getProperty("xmlstats.fileBoxScore") + "/" + event + ".json";
 				fileService.fileStreamWriter(fileName, entity.getBody());
 			}
 			StatusCode statusCode = getStatusCode(entity);
@@ -54,7 +51,7 @@ public class RestStatsService {
 			}
 			gameDTO.setStatusCode(statusCode);
 		}
-		catch (FileException fe) {
+		catch (FileServiceException fe) {
 			logger.info("File exception = " + fe);
 			gameDTO.setStatusCode(StatusCode.ServerException);
 		}
@@ -62,7 +59,7 @@ public class RestStatsService {
 			logger.info("IO exception = " + ioe);
 			gameDTO.setStatusCode(StatusCode.ServerException);
 		}
-		catch (PropertyException pe) {
+		catch (IllegalStateException pe) {
 			logger.info("Property exception = " + pe);
 			gameDTO.setStatusCode(StatusCode.ServerException);
 		}
@@ -72,11 +69,11 @@ public class RestStatsService {
 	public StandingsDTO retrieveStandings(String event, boolean persist) {
 		StandingsDTO standingsDTO = new StandingsDTO();
 		try {
-			String baseUrl = propertyService.getProperty_Http("xmlstats.urlStandings");
+			String baseUrl = env.getProperty("xmlstats.urlStandings");
 			String eventUrl = baseUrl + event + ".json";
 			ResponseEntity<byte[]> entity = restClientService.getJson(eventUrl);
 			if (persist) {
-				String fileName = propertyService.getProperty_Path("xmlstats.fileStandings") + "/" + event + ".json";
+				String fileName = env.getProperty("xmlstats.fileStandings") + "/" + event + ".json";
 				fileService.fileStreamWriter(fileName, entity.getBody());
 			}
 			StatusCode statusCode = getStatusCode(entity);
@@ -86,7 +83,7 @@ public class RestStatsService {
 			}
 			standingsDTO.setStatusCode(statusCode);
 		}
-		catch (FileException fe) {
+		catch (FileServiceException fe) {
 			logger.info("File exception = " + fe);
 			standingsDTO.setStatusCode(StatusCode.ServerException);
 		}
@@ -94,7 +91,7 @@ public class RestStatsService {
 			logger.info("IO exception = " + ioe);
 			standingsDTO.setStatusCode(StatusCode.ServerException);
 		}
-		catch (PropertyException pe) {
+		catch (IllegalStateException pe) {
 			logger.info("Property exception = " + pe);
 			standingsDTO.setStatusCode(StatusCode.ServerException);
 		}
@@ -104,7 +101,7 @@ public class RestStatsService {
 	public RosterDTO retrieveRoster(String event, boolean persist, LocalDate asOfDate) {
 		RosterDTO rosterDTO = new RosterDTO();
 		try {
-			String baseUrl = propertyService.getProperty_Http("xmlstats.urlRoster");
+			String baseUrl = env.getProperty("xmlstats.urlRoster");
 			String eventUrl = baseUrl + event + ".json";
 			ResponseEntity<byte[]> entity = restClientService.getJson(eventUrl);
 
@@ -112,13 +109,13 @@ public class RestStatsService {
 			if (statusCode.equals(StatusCode.Found)) {
 				rosterDTO = objectMapper.readValue(entity.getBody(), RosterDTO.class);
 				if (persist) {
-					String fileName = propertyService.getProperty_Path("xmlstats.fileRoster") + "/" + event + "-" + DateTimeConverter.getStringDateNaked(asOfDate) + ".json";
+					String fileName = env.getProperty("xmlstats.fileRoster") + "/" + event + "-" + DateTimeConverter.getStringDateNaked(asOfDate) + ".json";
 					fileService.fileStreamWriter(fileName, entity.getBody());
 				}
 			}
 			rosterDTO.setStatusCode(statusCode);
 		}
-		catch (FileException fe) {
+		catch (FileServiceException fe) {
 			logger.info("File exception = " + fe);
 			rosterDTO.setStatusCode(StatusCode.ServerException);
 		}
@@ -126,7 +123,7 @@ public class RestStatsService {
 			logger.info("IO exception = " + ioe);
 			rosterDTO.setStatusCode(StatusCode.ServerException);
 		}
-		catch (PropertyException pe) {
+		catch (IllegalStateException pe) {
 			logger.info("Property exception = " + pe);
 			rosterDTO.setStatusCode(StatusCode.ServerException);
 		}

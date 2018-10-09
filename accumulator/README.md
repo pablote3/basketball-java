@@ -28,7 +28,7 @@ Unit tests execute against mock data external to the application
 
     https://drive.google.com/open?id=0ByBsbTluZmwKa3NFTENYcWlDSDQ
 
-  ##### Update accumulator-scoreGame/src/test/resources/service.properties
+  ##### Update accumulator-services/src/test/resources/service.properties
 
     replace xmlstats.fileBoxScore value with path to fileBoxScore directory under testUnit
         
@@ -36,9 +36,9 @@ Unit tests execute against mock data external to the application
         
     replace xmlstats.fileStandings value with path to fileStandings directory under testUnit
 
-## Unit Test Execution for scoreGame
+## Unit Test Execution for services
 
-  Run all tests in package for module accumulator-scoreGame
+  Run all tests in package for module accumulator-services
 
 ## System Test Preparation
 
@@ -48,7 +48,7 @@ System tests uses the file system to supply JSON input files and MySQL database 
    
     https://drive.google.com/open?id=0ByBsbTluZmwKa3NFTENYcWlDSDQ
     
-  ##### Update accumulator-scoreGame/src/main/resources/service.properties
+  ##### Update accumulator-services/src/main/resources/service.properties
   
     replace xmlstats.fileBoxScore value with path to fileBoxScore directory under testSystem
         
@@ -56,7 +56,7 @@ System tests uses the file system to supply JSON input files and MySQL database 
         
     replace xmlstats.fileStandings value with path to fileStandings directory under testSystem
     
-  ##### Update accumulator-loadSchedule/src/main/resources/service.properties
+  ##### Update accumulator-loadSchedule/src/main/resources/service.properties???
       
     replace loader.fileSchedule value with path to fileLoad directory under testSystem
 
@@ -78,7 +78,7 @@ System tests uses the file system to supply JSON input files and MySQL database 
 
     mvn package
      
-  Launch system tests by running commands from accumulator root directory
+  Launch system tests by running commands from accumulator-scoreGame target directory
     
   ##### No roster changes 
     java -DgameDate="2016-10-27" -DgameTeam="sacramento-kings" -jar accumulator-scoreGame.jar

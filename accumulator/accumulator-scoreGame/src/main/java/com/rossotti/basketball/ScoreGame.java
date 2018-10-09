@@ -3,7 +3,7 @@ package com.rossotti.basketball;
 import com.rossotti.basketball.integration.GatewayService;
 import com.rossotti.basketball.integration.ServiceProperties;
 import com.rossotti.basketball.jpa.model.Game;
-import com.rossotti.basketball.util.function.DateTimeConverter;
+import com.rossotti.basketball.util.DateTimeConverter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;

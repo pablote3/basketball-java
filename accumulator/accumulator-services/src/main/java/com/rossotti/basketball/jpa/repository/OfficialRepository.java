@@ -12,11 +12,11 @@ public interface OfficialRepository extends Repository<Official, Long> {
 
 	List<Official> findAll();
 
-	Official findOne(Long id);
+	Official findById(Long id);
 
 	void save(Official official);
 
-	void delete(Long id);
+	void deleteById(Long id);
 
 	String findByLastNameAndFirstNameAndFromDateAndToDate =
 			"from Official " +

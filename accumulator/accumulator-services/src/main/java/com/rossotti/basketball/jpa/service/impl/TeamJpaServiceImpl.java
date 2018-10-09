@@ -57,14 +57,12 @@ public class TeamJpaServiceImpl implements TeamJpaService {
 
 	@Override
 	public List<?> listAll() {
-		List<Team> teams = new ArrayList<>();
-        teams.addAll(teamRepository.findAll());
-		return teams;
+        return new ArrayList<>(teamRepository.findAll());
 	}
 
 	@Override
 	public Team getById(Long id) {
-		return teamRepository.findOne(id);
+		return teamRepository.findById(id);
 	}
 
 	@Override
@@ -105,7 +103,7 @@ public class TeamJpaServiceImpl implements TeamJpaService {
 	public Team delete(Long id) {
 		Team findTeam = getById(id);
 		if (findTeam != null && findTeam.isFound()) {
-			teamRepository.delete(findTeam.getId());
+			teamRepository.deleteById(findTeam.getId());
 			findTeam.setStatusCode(StatusCodeDAO.Deleted);
 			return findTeam;
 		}

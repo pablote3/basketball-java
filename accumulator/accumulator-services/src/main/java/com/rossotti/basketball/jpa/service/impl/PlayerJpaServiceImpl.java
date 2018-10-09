@@ -40,14 +40,12 @@ public class PlayerJpaServiceImpl implements PlayerJpaService {
 
 	@Override
 	public List<?> listAll() {
-		List<Player> players = new ArrayList<>();
-        players.addAll(playerRepository.findAll());
-		return players;
+        return new ArrayList<>(playerRepository.findAll());
 	}
 
 	@Override
 	public Player getById(Long id) {
-		return playerRepository.findOne(id);
+		return playerRepository.findById(id);
 	}
 
 	@Override
@@ -84,7 +82,7 @@ public class PlayerJpaServiceImpl implements PlayerJpaService {
 	public Player delete(Long id) {
 		Player findPlayer = getById(id);
 		if (findPlayer != null && findPlayer.isFound()) {
-			playerRepository.delete(findPlayer.getId());
+			playerRepository.deleteById(findPlayer.getId());
 			findPlayer.setStatusCode(StatusCodeDAO.Deleted);
 			return findPlayer;
 		}

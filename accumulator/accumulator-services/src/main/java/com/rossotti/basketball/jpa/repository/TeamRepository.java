@@ -12,11 +12,11 @@ public interface TeamRepository extends Repository<Team, Long> {
 
 	List<Team> findAll();
 
-	Team findOne(Long id);
+	Team findById(Long id);
 
 	void save(Team team);
 
-	void delete(Long id);
+	void deleteById(Long id);
 
 	String findByTeamKeyAndFromDateAndToDate =
 			"from Team " +

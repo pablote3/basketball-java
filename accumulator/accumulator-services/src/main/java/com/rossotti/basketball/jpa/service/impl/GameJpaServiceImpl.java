@@ -7,7 +7,7 @@ import com.rossotti.basketball.jpa.model.Game;
 import com.rossotti.basketball.jpa.model.GameOfficial;
 import com.rossotti.basketball.jpa.repository.GameRepository;
 import com.rossotti.basketball.jpa.service.GameJpaService;
-import com.rossotti.basketball.util.function.DateTimeConverter;
+import com.rossotti.basketball.util.DateTimeConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,14 +66,12 @@ public class GameJpaServiceImpl implements GameJpaService {
 
 	@Override
 	public Game getById(Long id) {
-		return gameRepository.findOne(id);
+		return gameRepository.findById(id);
 	}
 
 	@Override
 	public List<?> listAll() {
-		List<Game> games = new ArrayList<>();
-        games.addAll(gameRepository.findAll());
-		return games;
+		return new ArrayList<>(gameRepository.findAll());
 	}
 
 	@Override
@@ -184,7 +182,7 @@ public class GameJpaServiceImpl implements GameJpaService {
 	public Game delete(Long id) {
 		Game findGame = getById(id);
 		if (findGame != null && findGame.isFound()) {
-			gameRepository.delete(findGame.getId());
+			gameRepository.deleteById(findGame.getId());
 			findGame.setStatusCode(StatusCodeDAO.Deleted);
 			return findGame;
 		}

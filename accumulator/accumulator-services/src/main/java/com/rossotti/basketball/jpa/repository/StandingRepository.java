@@ -12,11 +12,11 @@ public interface StandingRepository extends Repository<Standing, Long> {
 
 	List<Standing> findAll();
 
-	Standing findOne(Long id);
+	Standing findById(Long id);
 
 	void save(Standing standing);
 
-	void delete(Long id);
+	void deleteById(Long id);
 
 	String findByTeamKey =
 			"select s from Standing s " +

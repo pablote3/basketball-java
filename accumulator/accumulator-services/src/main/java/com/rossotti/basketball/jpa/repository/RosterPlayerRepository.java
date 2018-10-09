@@ -12,11 +12,11 @@ public interface RosterPlayerRepository extends Repository<RosterPlayer, Long> {
 
 	List<RosterPlayer> findAll();
 
-	RosterPlayer findOne(Long id);
+	RosterPlayer findById(Long id);
 
 	void save(RosterPlayer player);
 
-	void delete(Long id);
+	void deleteById(Long id);
 
 	String findByTeamKeyAndAsOfDate =
 			"select rp from RosterPlayer rp " +

@@ -11,7 +11,7 @@ import com.rossotti.basketball.jpa.model.Team;
 import com.rossotti.basketball.jpa.service.GameJpaService;
 import com.rossotti.basketball.jpa.service.StandingJpaService;
 import com.rossotti.basketball.jpa.service.TeamJpaService;
-import com.rossotti.basketball.util.function.DateTimeConverter;
+import com.rossotti.basketball.util.DateTimeConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
