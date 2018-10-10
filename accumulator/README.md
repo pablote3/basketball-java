@@ -8,7 +8,7 @@ It is composed of three main components:
 
 * [accumulator-loadSchedule](https://github.com/pablote3/basketball-java/tree/master/accumulator/accumulator-loadSchedule) loads a .csv file of scheduled games and stores in a relational database
 
-* [accumulator-services](https://github.com/pablote3/basketball-java/tree/master/accumulator/accumulator-services) provides sharable Spring componets extended from Spring Boot projects
+* [accumulator-services](https://github.com/pablote3/basketball-java/tree/master/accumulator/accumulator-services) provides sharable Spring componets for JPA, client, and business services
 
 ## Getting Started
 
@@ -22,13 +22,13 @@ These instructions will get a local instance of the project up and running for d
 
 ## Unit Test Preparation
 
-Unit tests execute against mock data external to the application
+Unit tests execute against in memory H2 database for JPA and mock data for components
 
   ##### Copy testUnit folder to directory on local file system
 
     https://drive.google.com/open?id=0ByBsbTluZmwKa3NFTENYcWlDSDQ
 
-  ##### Update accumulator-services/src/test/resources/service.properties
+  ##### Update accumulator-services/src/test/resources/application.properties
 
     replace xmlstats.fileBoxScore value with path to fileBoxScore directory under testUnit
         
@@ -48,7 +48,7 @@ System tests uses the file system to supply JSON input files and MySQL database 
    
     https://drive.google.com/open?id=0ByBsbTluZmwKa3NFTENYcWlDSDQ
     
-  ##### Update accumulator-services/src/main/resources/service.properties
+  ##### Update accumulator-services/src/main/resources/application.properties
   
     replace xmlstats.fileBoxScore value with path to fileBoxScore directory under testSystem
         
@@ -56,7 +56,7 @@ System tests uses the file system to supply JSON input files and MySQL database 
         
     replace xmlstats.fileStandings value with path to fileStandings directory under testSystem
     
-  ##### Update accumulator-loadSchedule/src/main/resources/service.properties???
+  ##### Update accumulator-loadSchedule/src/main/resources/application.properties???
       
     replace loader.fileSchedule value with path to fileLoad directory under testSystem
 
