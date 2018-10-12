@@ -156,6 +156,10 @@ public class GameBusService {
 			logger.info("Property exception = " + pe);
 			gameBusiness.setStatusCode(StatusCode.ServerError);
 		}
+		catch (NumberFormatException nfe) {
+			logger.info("NumberFormatException = " + nfe);
+			gameBusiness.setStatusCode(StatusCode.ServerError);
+		}
 		catch (Exception e) {
 			logger.info("Unexpected exception = " + e);
 			gameBusiness.setStatusCode(StatusCode.ServerError);
