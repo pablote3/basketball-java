@@ -40,13 +40,13 @@ There are two types of tests that will be executed:
 
     Results are .csv extract files written to the extract directory.  These need to be confirmed manually by comparing against expectations.
 
-    * OfficialBoxScoreTests extract file officialBoxScore.csv should contain 24 official entries from games played on 10/27/2016
+    * OfficialBoxScoreTests extract file officialBoxScore.csv should contain 24 official entries from games played on 10/26/2016
     
-    * PlayerBoxScoreTests extract file playerBoxScore.csv should contain 85 player entries from games played on 10/27/2016
+    * PlayerBoxScoreTests extract file playerBoxScore.csv should contain 85 player entries from games played on 10/26/2016
     
-    * TeamBoxScoreTests extract file teamBoxScore.csv should contain 8 team entries from games played on 10/27/2016
+    * TeamBoxScoreTests extract file teamBoxScore.csv should contain 8 team entries from games played on 10/26/2016
     
-    * StandingTests extract file standings.csv should contain 30 entries from all teams on 10/27/2016
+    * StandingTests extract file standings.csv should contain 30 entries from all teams on 10/26/2016
 
 ## System Test Preparation
 
