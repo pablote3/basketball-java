@@ -1,7 +1,6 @@
 package com.rossotti.basketball.app;
 
 import com.rossotti.basketball.app.service.TeamAppService;
-import com.rossotti.basketball.jpa.exception.DuplicateEntityException;
 import com.rossotti.basketball.jpa.exception.NoSuchEntityException;
 import com.rossotti.basketball.jpa.model.AbstractDomainClass.StatusCodeDAO;
 import com.rossotti.basketball.jpa.model.Team;
@@ -10,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 
@@ -20,7 +18,6 @@ import static org.mockito.Mockito.when;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//@RunWith(SpringRunner.class)
 @SpringBootTest(classes = com.rossotti.basketball.config.ServiceConfig.class)
 public class TeamAppServiceTest {
 	@Mock

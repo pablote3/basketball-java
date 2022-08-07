@@ -1,16 +1,14 @@
 package com.rossotti.basketball.util;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-@RunWith(SpringRunner.class)
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest(classes = com.rossotti.basketball.config.ServiceConfig.class)
 public class FileServiceTest {
 	@Autowired
@@ -22,7 +20,7 @@ public class FileServiceTest {
 		InputStream stream = new ByteArrayInputStream(input.getBytes());
 		String fileName = "/home/pablote/testFile.txt";
 		fileService.fileStreamWriter(fileName, StreamConverter.getBytes(stream));
-		Assert.assertEquals("Test Valančiūnas", fileService.fileLineReader(fileName));
+		assertEquals("Test Valančiūnas", fileService.fileLineReader(fileName));
 		fileService.fileDelete(fileName);
 	}
 
@@ -31,7 +29,7 @@ public class FileServiceTest {
 		InputStream baseJson = this.getClass().getClassLoader().getResourceAsStream("mockClient/rosterClient.json");
 		String fileName = "/home/pablote/testFile.txt";
 		fileService.fileStreamWriter(fileName, StreamConverter.getBytes(baseJson));
-		Assert.assertTrue(fileService.fileExists(fileName));
+		assertTrue(fileService.fileExists(fileName));
 		fileService.fileDelete(fileName);
 	}
 }

@@ -17,12 +17,11 @@ import com.rossotti.basketball.jpa.model.AbstractDomainClass.StatusCodeDAO;
 import com.rossotti.basketball.jpa.model.*;
 import com.rossotti.basketball.jpa.model.BoxScore.Location;
 import com.rossotti.basketball.jpa.model.Game.GameStatus;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.env.Environment;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
@@ -35,7 +34,9 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+import static org.junit.jupiter.api.Assertions.*;
+
+@ExtendWith(MockitoExtension.class)
 public class GameBusServiceTest {
 	@Mock
 	private Environment env;
@@ -68,7 +69,7 @@ public class GameBusServiceTest {
 		when(env.getProperty(anyString()))
 			.thenThrow(new IllegalStateException("property exception"));
 		GameBusiness game = gameBusService.scoreGame(createMockGame_Scheduled());
-		Assert.assertTrue(game.isServerError());
+		assertTrue(game.isServerError());
 	}
 
 	@Test
@@ -76,7 +77,7 @@ public class GameBusServiceTest {
 		when(env.getProperty(anyString()))
 			.thenReturn(null);
 		GameBusiness game = gameBusService.scoreGame(createMockGame_Scheduled());
-		Assert.assertTrue(game.isServerError());
+		assertTrue(game.isServerError());
 	}
 
 	@Test
@@ -86,7 +87,7 @@ public class GameBusServiceTest {
 		when(fileStatsService.retrieveBoxScore(anyString()))
 			.thenReturn(createMockGameDTO_StatusCode(StatusCode.NotFound));
 		GameBusiness game = gameBusService.scoreGame(createMockGame_Scheduled());
-		Assert.assertTrue(game.isClientError());
+		assertTrue(game.isClientError());
 	}
 
 	@Test
@@ -96,7 +97,7 @@ public class GameBusServiceTest {
 		when(fileStatsService.retrieveBoxScore(anyString()))
 			.thenReturn(createMockGameDTO_StatusCode(StatusCode.ClientException));
 		GameBusiness game = gameBusService.scoreGame(createMockGame_Scheduled());
-		Assert.assertTrue(game.isClientError());
+		assertTrue(game.isClientError());
 	}
 
 	@Test
@@ -108,7 +109,7 @@ public class GameBusServiceTest {
 		when(restStatsService.retrieveBoxScore(anyString(), anyBoolean()))
 			.thenReturn(createMockGameDTO_StatusCode(StatusCode.NotFound));
 		GameBusiness game = gameBusService.scoreGame(createMockGame_Scheduled());
-		Assert.assertTrue(game.isClientError());
+		assertTrue(game.isClientError());
 	}
 
 	@Test
@@ -120,7 +121,7 @@ public class GameBusServiceTest {
 		when(restStatsService.retrieveBoxScore(anyString(), anyBoolean()))
 			.thenReturn(createMockGameDTO_StatusCode(StatusCode.ClientException));
 		GameBusiness game = gameBusService.scoreGame(createMockGame_Scheduled());
-		Assert.assertTrue(game.isClientError());
+		assertTrue(game.isClientError());
 	}
 
 	@Test
@@ -134,7 +135,7 @@ public class GameBusServiceTest {
 		when(rosterPlayerAppService.getBoxScorePlayers(any(), any(), any(), anyString()))
 			.thenThrow(new NoSuchEntityException(RosterPlayer.class));
 		GameBusiness game = gameBusService.scoreGame(createMockGame_Scheduled());
-		Assert.assertTrue(game.isRosterUpdate());
+		assertTrue(game.isRosterUpdate());
 	}
 
 	@Test
@@ -150,7 +151,7 @@ public class GameBusServiceTest {
 		when(officialAppService.getGameOfficials(any(), any(), any()))
 			.thenThrow(new NoSuchEntityException(Official.class));
 		GameBusiness game = gameBusService.scoreGame(createMockGame_Scheduled());
-		Assert.assertTrue(game.isOfficialError());
+		assertTrue(game.isOfficialError());
 	}
 
 	@Test
@@ -168,7 +169,7 @@ public class GameBusServiceTest {
 		when(teamAppService.findTeamByTeamKey(anyString(), any()))
 			.thenThrow(new NoSuchEntityException(Team.class));
 		GameBusiness game = gameBusService.scoreGame(createMockGame_Scheduled());
-		Assert.assertTrue(game.isTeamError());
+		assertTrue(game.isTeamError());
 	}
 
 	@Test
@@ -188,7 +189,7 @@ public class GameBusServiceTest {
 		when(gameAppService.updateGame(any()))
 			.thenReturn(createMockGame_Updated());
 		GameBusiness game = gameBusService.scoreGame(createMockGame_Scheduled());
-		Assert.assertTrue(game.isCompleted());
+		assertTrue(game.isCompleted());
 	}
 
 	private GameBusiness createMockGame_Scheduled() {

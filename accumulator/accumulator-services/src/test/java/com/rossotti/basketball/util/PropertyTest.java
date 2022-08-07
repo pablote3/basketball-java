@@ -6,7 +6,6 @@ import org.springframework.core.env.Environment;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//@RunWith(SpringRunner.class)
 @SpringBootTest(classes = com.rossotti.basketball.config.ServiceConfig.class)
 public class PropertyTest {
 	@Autowired
