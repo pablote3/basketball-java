@@ -6,12 +6,9 @@ import com.rossotti.basketball.client.dto.StandingsDTO;
 import com.rossotti.basketball.util.FileService;
 import com.rossotti.basketball.util.FileServiceException;
 import com.rossotti.basketball.util.StreamConverter;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -23,7 +20,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest(classes = com.rossotti.basketball.config.ServiceConfig.class)
 public class RestStatsServiceTest {
 	@Mock
@@ -43,7 +41,7 @@ public class RestStatsServiceTest {
 		when(env.getProperty(anyString()))
 			.thenThrow(new IllegalStateException("property exception"));
 		GameDTO game = restStatsService.retrieveBoxScore("20160311-houston-rockets-at-boston-celtics", false);
-		Assert.assertTrue(game.isServerException());
+		assertTrue(game.isServerException());
 	}
 
 	@Test
@@ -53,7 +51,7 @@ public class RestStatsServiceTest {
 		when(restClientService.getJson(anyString()))
 			.thenThrow(new IllegalStateException("property exception"));
 		GameDTO game = restStatsService.retrieveBoxScore("20160311-houston-rockets-at-boston-celtics", false);
-		Assert.assertTrue(game.isServerException());
+		assertTrue(game.isServerException());
 	}
 
 	@Test
@@ -63,7 +61,7 @@ public class RestStatsServiceTest {
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 		GameDTO game = restStatsService.retrieveBoxScore("20160311-houston-rockets-at-boston-celtics", false);
-		Assert.assertTrue(game.isNotFound());
+		assertTrue(game.isNotFound());
 	}
 
 	@Test
@@ -73,7 +71,7 @@ public class RestStatsServiceTest {
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(HttpStatus.UNAUTHORIZED));
 		GameDTO game = restStatsService.retrieveBoxScore("20160311-houston-rockets-at-boston-celtics", false);
-		Assert.assertTrue(game.isNotFound());
+		assertTrue(game.isNotFound());
 	}
 
 	@Test
@@ -83,7 +81,7 @@ public class RestStatsServiceTest {
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>("test".getBytes(), HttpStatus.OK));
 		GameDTO game = restStatsService.retrieveBoxScore("20160311-houston-rockets-at-boston-celtics", false);
-		Assert.assertTrue(game.isServerException());
+		assertTrue(game.isServerException());
 	}
 
 	@Test
@@ -93,7 +91,7 @@ public class RestStatsServiceTest {
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(StreamConverter.getBytes(getClass().getClassLoader().getResourceAsStream("mockClient/gameClient.json")), HttpStatus.OK));
 		GameDTO game = restStatsService.retrieveBoxScore("20160311-houston-rockets-at-boston-celtics", false);
-		Assert.assertTrue(game.isFound());
+		assertTrue(game.isFound());
 	}
 
 	@Test
@@ -105,7 +103,7 @@ public class RestStatsServiceTest {
 		when(env.getProperty("xmlstats.fileBoxScore"))
 			.thenThrow(new IllegalStateException("property exception"));
 		GameDTO game = restStatsService.retrieveBoxScore("20160311-houston-rockets-at-boston-celtics", true);
-		Assert.assertTrue(game.isServerException());
+		assertTrue(game.isServerException());
 	}
 
 	@Test
@@ -119,7 +117,7 @@ public class RestStatsServiceTest {
 		when(fileService.fileStreamWriter(anyString(), any(byte[].class)))
 			.thenThrow(new FileServiceException("IO Exception"));
 		GameDTO game = restStatsService.retrieveBoxScore("20160311-houston-rockets-at-boston-celtics", true);
-		Assert.assertTrue(game.isServerException());
+		assertTrue(game.isServerException());
 	}
 
 	@Test
@@ -133,7 +131,7 @@ public class RestStatsServiceTest {
 		when(fileService.fileStreamWriter(anyString(), any(byte[].class)))
 			.thenReturn(true);
 		GameDTO game = restStatsService.retrieveBoxScore("20160311-houston-rockets-at-boston-celtics", true);
-		Assert.assertTrue(game.isFound());
+		assertTrue(game.isFound());
 	}
 
 	@Test
@@ -141,7 +139,7 @@ public class RestStatsServiceTest {
         when(env.getProperty(anyString()))
             .thenThrow(new IllegalStateException("property exception"));
 		RosterDTO roster = restStatsService.retrieveRoster("houston-rockets", false, LocalDate.of(2016, 3, 11));
-		Assert.assertTrue(roster.isServerException());
+		assertTrue(roster.isServerException());
 	}
 
 	@Test
@@ -151,7 +149,7 @@ public class RestStatsServiceTest {
 		when(restClientService.getJson(anyString()))
             .thenThrow(new IllegalStateException("property exception"));
 		RosterDTO roster = restStatsService.retrieveRoster("houston-rockets", false, LocalDate.of(2016, 3, 11));
-		Assert.assertTrue(roster.isServerException());
+		assertTrue(roster.isServerException());
 	}
 
 	@Test
@@ -161,7 +159,7 @@ public class RestStatsServiceTest {
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 		RosterDTO roster = restStatsService.retrieveRoster("houston-rockets", false, LocalDate.of(2016, 3, 11));
-		Assert.assertTrue(roster.isNotFound());
+		assertTrue(roster.isNotFound());
 	}
 
 	@Test
@@ -171,7 +169,7 @@ public class RestStatsServiceTest {
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(HttpStatus.UNAUTHORIZED));
 		RosterDTO roster = restStatsService.retrieveRoster("houston-rockets", false, LocalDate.of(2016, 3, 11));
-		Assert.assertTrue(roster.isNotFound());
+		assertTrue(roster.isNotFound());
 	}
 
 	@Test
@@ -181,7 +179,7 @@ public class RestStatsServiceTest {
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>("test".getBytes(), HttpStatus.OK));
 		RosterDTO roster = restStatsService.retrieveRoster("houston-rockets", false, LocalDate.of(2016, 3, 11));
-		Assert.assertTrue(roster.isServerException());
+		assertTrue(roster.isServerException());
 	}
 
 	@Test
@@ -191,7 +189,7 @@ public class RestStatsServiceTest {
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(StreamConverter.getBytes(getClass().getClassLoader().getResourceAsStream("mockClient/rosterClient.json")), HttpStatus.OK));
 		RosterDTO roster = restStatsService.retrieveRoster("houston-rockets", false, LocalDate.of(2016, 3, 11));
-		Assert.assertTrue(roster.isFound());
+		assertTrue(roster.isFound());
 	}
 
 	@Test
@@ -203,7 +201,7 @@ public class RestStatsServiceTest {
         when(env.getProperty("xmlstats.fileRoster"))
             .thenThrow(new IllegalStateException("property exception"));
 		RosterDTO roster = restStatsService.retrieveRoster("houston-rockets", true, LocalDate.of(2016, 3, 11));
-		Assert.assertTrue(roster.isServerException());
+		assertTrue(roster.isServerException());
 	}
 
 	@Test
@@ -217,7 +215,7 @@ public class RestStatsServiceTest {
 		when(fileService.fileStreamWriter(anyString(), any(byte[].class)))
 			.thenThrow(new FileServiceException("IO Exception"));
 		RosterDTO roster = restStatsService.retrieveRoster("houston-rockets", true, LocalDate.of(2016, 3, 11));
-		Assert.assertTrue(roster.isServerException());
+		assertTrue(roster.isServerException());
 	}
 
 	@Test
@@ -231,7 +229,7 @@ public class RestStatsServiceTest {
 		when(fileService.fileStreamWriter(anyString(), any(byte[].class)))
 			.thenReturn(true);
 		RosterDTO roster = restStatsService.retrieveRoster("houston-rockets", true, LocalDate.of(2016, 3, 11));
-		Assert.assertTrue(roster.isFound());
+		assertTrue(roster.isFound());
 	}
 
 	@Test
@@ -239,7 +237,7 @@ public class RestStatsServiceTest {
         when(env.getProperty(anyString()))
             .thenThrow(new IllegalStateException("property exception"));
 		StandingsDTO standings = restStatsService.retrieveStandings("20160311", false);
-		Assert.assertTrue(standings.isServerException());
+		assertTrue(standings.isServerException());
 	}
 
 	@Test
@@ -249,7 +247,7 @@ public class RestStatsServiceTest {
 		when(restClientService.getJson(anyString()))
             .thenThrow(new IllegalStateException("property exception"));
 		StandingsDTO standings = restStatsService.retrieveStandings("20160311", false);
-		Assert.assertTrue(standings.isServerException());
+		assertTrue(standings.isServerException());
 	}
 
 	@Test
@@ -259,7 +257,7 @@ public class RestStatsServiceTest {
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 		StandingsDTO standings = restStatsService.retrieveStandings("20160311", false);
-		Assert.assertTrue(standings.isNotFound());
+		assertTrue(standings.isNotFound());
 	}
 
 	@Test
@@ -269,7 +267,7 @@ public class RestStatsServiceTest {
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(HttpStatus.UNAUTHORIZED));
 		StandingsDTO standings = restStatsService.retrieveStandings("20160311", false);
-		Assert.assertTrue(standings.isNotFound());
+		assertTrue(standings.isNotFound());
 	}
 
 	@Test
@@ -279,7 +277,7 @@ public class RestStatsServiceTest {
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>("test".getBytes(), HttpStatus.OK));
 		StandingsDTO standings = restStatsService.retrieveStandings("20160311", false);
-		Assert.assertTrue(standings.isServerException());
+		assertTrue(standings.isServerException());
 	}
 
 	@Test
@@ -289,7 +287,7 @@ public class RestStatsServiceTest {
 		when(restClientService.getJson(anyString()))
 			.thenReturn(new ResponseEntity<>(StreamConverter.getBytes(getClass().getClassLoader().getResourceAsStream("mockClient/standingsClient.json")), HttpStatus.OK));
 		StandingsDTO standings = restStatsService.retrieveStandings("20160311", false);
-		Assert.assertTrue(standings.isFound());
+		assertTrue(standings.isFound());
 	}
 
 	@Test
@@ -301,7 +299,7 @@ public class RestStatsServiceTest {
         when(env.getProperty("xmlstats.fileStandings"))
             .thenThrow(new IllegalStateException("property exception"));
 		StandingsDTO standings = restStatsService.retrieveStandings("20160311", true);
-		Assert.assertTrue(standings.isServerException());
+		assertTrue(standings.isServerException());
 	}
 
 	@Test
@@ -315,7 +313,7 @@ public class RestStatsServiceTest {
 		when(fileService.fileStreamWriter(anyString(), any(byte[].class)))
 			.thenThrow(new FileServiceException("IO Exception"));
 		StandingsDTO standings = restStatsService.retrieveStandings("20160311", true);
-		Assert.assertTrue(standings.isServerException());
+		assertTrue(standings.isServerException());
 	}
 
 	@Test
@@ -329,6 +327,6 @@ public class RestStatsServiceTest {
 		when(fileService.fileStreamWriter(anyString(), any(byte[].class)))
 			.thenReturn(true);
 		StandingsDTO standings = restStatsService.retrieveStandings("20160311", true);
-		Assert.assertTrue(standings.isFound());
+		assertTrue(standings.isFound());
 	}
 }

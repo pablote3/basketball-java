@@ -3,9 +3,8 @@ package com.rossotti.basketball.jpa.repository;
 import com.rossotti.basketball.jpa.model.Team;
 import com.rossotti.basketball.jpa.model.Team.Conference;
 import com.rossotti.basketball.jpa.model.Team.Division;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -15,7 +14,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDate;
 import java.util.List;
 
-@RunWith(SpringRunner.class)
+import static org.junit.jupiter.api.Assertions.*;
+
+//@RunWith(SpringRunner.class)
 @SpringBootTest(classes = com.rossotti.basketball.config.ServiceConfig.class)
 public class TeamRepositoryTest {
 
@@ -29,139 +30,152 @@ public class TeamRepositoryTest {
 	@Test
 	public void getById() {
 		Team team = teamRepository.findById(1L);
-		Assert.assertEquals("Chicago Zephyr's", team.getFullName());
-		Assert.assertTrue(team.getStandings().size() >= 1);
+		assertEquals("Chicago Zephyr's", team.getFullName());
+		assertTrue(team.getStandings().size() >= 1);
 	}
 
 	@Test
 	public void findAll() {
 		List<Team> teams = teamRepository.findAll();
-		Assert.assertTrue(teams.size() >= 12);
+		assertTrue(teams.size() >= 12);
 	}
 
 	@Test
 	public void findByKey_Found_FromDate() {
 		Team team = teamRepository.findByTeamKeyAndFromDateAndToDate("harlem-globetrotter's", LocalDate.of(2009, 7, 1), LocalDate.of(2009, 7, 1));
-		Assert.assertEquals("Harlem Globetrotter's", team.getFullName());
+		assertEquals("Harlem Globetrotter's", team.getFullName());
 	}
 
 	@Test
 	public void findByKey_Found_ToDate() {
 		Team team = teamRepository.findByTeamKeyAndFromDateAndToDate("harlem-globetrotter's", LocalDate.of(2010, 6, 30), LocalDate.of(2010, 6, 30));
-		Assert.assertEquals("Harlem Globetrotter's", team.getFullName());
+		assertEquals("Harlem Globetrotter's", team.getFullName());
 	}
 
 	@Test
 	public void findByKey_NotFound_TeamKey() {
 		Team team = teamRepository.findByTeamKeyAndFromDateAndToDate("harlem-hoopers", LocalDate.of(2009, 7, 2), LocalDate.of(2009, 7, 2));
-		Assert.assertNull(team);
+		assertNull(team);
 	}
 
 	@Test
 	public void findByKey_NotFound_BeforeAsOfDate() {
 		Team team = teamRepository.findByTeamKeyAndFromDateAndToDate("harlem-globetrotter's", LocalDate.of(2009, 6, 30), LocalDate.of(2009, 6, 30));
-		Assert.assertNull(team);
+		assertNull(team);
 	}
 
 	@Test
 	public void findByKey_NotFound_AfterAsOfDate() {
 		Team team = teamRepository.findByTeamKeyAndFromDateAndToDate("harlem-globetrotter's", LocalDate.of(2016, 7, 1), LocalDate.of(2016, 7, 1));
-		Assert.assertNull(team);
+		assertNull(team);
 	}
 
 	@Test
 	public void findByLastName_Found_FromDate() {
 		Team team = teamRepository.findByLastNameAndFromDateAndToDate("Globetrotter's", LocalDate.of(2009, 7, 2), LocalDate.of(2009, 7, 2));
-		Assert.assertEquals("Harlem Globetrotter's", team.getFullName());
+		assertEquals("Harlem Globetrotter's", team.getFullName());
 	}
 
 	@Test
 	public void findByLastName_Found_ToDate() {
 		Team team = teamRepository.findByLastNameAndFromDateAndToDate("Globetrotter's", LocalDate.of(2010, 6, 29), LocalDate.of(2010, 6, 29));
-		Assert.assertEquals("Harlem Globetrotter's", team.getFullName());
+		assertEquals("Harlem Globetrotter's", team.getFullName());
 	}
 
 	@Test
 	public void findByLastName_NotFound_TeamKey() {
 		Team team = teamRepository.findByLastNameAndFromDateAndToDate("Globetreker's", LocalDate.of(2009, 7, 2), LocalDate.of(2009, 7, 2));
-		Assert.assertNull(team);
+		assertNull(team);
 	}
 
 	@Test
 	public void findByLastName_NotFound_BeforeAsOfDate() {
 		Team team = teamRepository.findByLastNameAndFromDateAndToDate("Globetrotter's", LocalDate.of(2009, 6, 30), LocalDate.of(2009, 6, 30));
-		Assert.assertNull(team);
+		assertNull(team);
 	}
 
 	@Test
 	public void findByLastName_NotFound_AfterAsOfDate() {
 		Team team = teamRepository.findByLastNameAndFromDateAndToDate("Globetrotter's", LocalDate.of(2016, 7, 1), LocalDate.of(2016, 7, 1));
-		Assert.assertNull(team);
+		assertNull(team);
 	}
 
 	@Test
 	public void findByKey_Found() {
 		List<Team> teams = teamRepository.findByTeamKey("st-louis-bomber's");
-		Assert.assertEquals(2, teams.size());
+		assertEquals(2, teams.size());
 	}
 
 	@Test
 	public void findByKey_NotFound() {
 		List<Team> teams = teamRepository.findByTeamKey("st-louis-bombber's");
-		Assert.assertEquals(0, teams.size());
+		assertEquals(0, teams.size());
 	}
 
 	@Test
 	public void findByDate_Found() {
 		List<Team> teams = teamRepository.findByFromDateAndToDate(LocalDate.of(2009, 10, 30), LocalDate.of(2009, 10, 30));
-		Assert.assertTrue(teams.size() >= 3);
+		assertTrue(teams.size() >= 3);
 	}
 
 	@Test
 	public void findByDate_NotFound() {
 		List<Team> teams = teamRepository.findByFromDateAndToDate(LocalDate.of(1909, 10, 30), LocalDate.of(1909, 10, 30));
-		Assert.assertEquals(0, teams.size());
+		assertEquals(0, teams.size());
 	}
 
+	@Disabled("Disabled until new work on persistence")
 	@Test
 	public void create_Created() {
 		teamRepository.save(createMockTeam("baltimore-bullets", LocalDate.of(2006, 7, 1), LocalDate.of(9999, 12, 31), "Baltimore Bullets2"));
 		Team findTeam = teamRepository.findByTeamKeyAndFromDateAndToDate("baltimore-bullets", LocalDate.of(2006, 7, 2), LocalDate.of(2006, 7, 20));
-		Assert.assertEquals("Baltimore Bullets2", findTeam.getFullName());
+		assertEquals("Baltimore Bullets2", findTeam.getFullName());
 	}
 
-	@Test(expected=DataIntegrityViolationException.class)
+	@Test
 	public void create_Existing() {
-		teamRepository.save(createMockTeam("baltimore-bullets", LocalDate.of(2005, 7, 1), LocalDate.of(2006, 6, 30), "Baltimore Bullets"));
+		assertThrows(DataIntegrityViolationException.class,
+			()->{
+				teamRepository.save(createMockTeam("baltimore-bullets", LocalDate.of(2005, 7, 1), LocalDate.of(2006, 6, 30), "Baltimore Bullets"));
+			});
 	}
 
-	@Test(expected=DataIntegrityViolationException.class)
+	@Test
 	public void create_MissingRequiredData() {
-		teamRepository.save(createMockTeam("baltimore-bullets", LocalDate.of(2005, 7, 1), LocalDate.of(2006, 6, 30), null));
+		assertThrows(DataIntegrityViolationException.class,
+			()->{
+				teamRepository.save(createMockTeam("baltimore-bullets", LocalDate.of(2005, 7, 1), LocalDate.of(2006, 6, 30), null));
+			});
 	}
 
 	@Test
 	public void update_Updated() {
 		teamRepository.save(updateMockTeam(LocalDate.of(2009, 7, 1), LocalDate.of(2010, 6, 30), "St. Louis Bombier's"));
 		Team team = teamRepository.findByTeamKeyAndFromDateAndToDate("st-louis-bomber's", LocalDate.of(2010, 5, 30), LocalDate.of(2010, 5, 30));
-		Assert.assertEquals("St. Louis Bombier's", team.getFullName());
+		assertEquals("St. Louis Bombier's", team.getFullName());
 	}
 
-	@Test(expected=DataIntegrityViolationException.class)
+	@Test
 	public void update_MissingRequiredData() {
-		teamRepository.save(updateMockTeam(LocalDate.of(2009, 7, 1), LocalDate.of(2010, 6, 30), null));
+		assertThrows(DataIntegrityViolationException.class,
+			()->{
+				teamRepository.save(updateMockTeam(LocalDate.of(2009, 7, 1), LocalDate.of(2010, 6, 30), null));
+			});
 	}
 
 	@Test
 	public void delete_Deleted() {
 		teamRepository.deleteById(10L);
 		Team findTeam = teamRepository.findById(10L);
-		Assert.assertNull(findTeam);
+		assertNull(findTeam);
 	}
 
-	@Test(expected = EmptyResultDataAccessException.class)
+	@Test
 	public void delete_NotFound() {
-		teamRepository.deleteById(101L);
+		assertThrows(EmptyResultDataAccessException.class,
+			()->{
+				teamRepository.deleteById(101L);
+			});
 	}
 
 	public static Team createMockTeam(String key, LocalDate fromDate, LocalDate toDate, String fullName) {

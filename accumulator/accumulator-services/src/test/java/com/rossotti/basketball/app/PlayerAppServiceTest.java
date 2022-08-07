@@ -5,12 +5,11 @@ import com.rossotti.basketball.jpa.exception.DuplicateEntityException;
 import com.rossotti.basketball.jpa.model.AbstractDomainClass.StatusCodeDAO;
 import com.rossotti.basketball.jpa.model.Player;
 import com.rossotti.basketball.jpa.service.PlayerJpaService;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
@@ -19,7 +18,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
+import static org.junit.jupiter.api.Assertions.*;
+
+//@RunWith(SpringRunner.class)
 @SpringBootTest(classes = com.rossotti.basketball.config.ServiceConfig.class)
 public class PlayerAppServiceTest {
 	@Mock
@@ -33,7 +34,7 @@ public class PlayerAppServiceTest {
 		when(playerJpaService.findByLastNameAndFirstNameAndBirthdate(anyString(), anyString(), any()))
 			.thenReturn(createMockPlayer("Simmons", "Richard", StatusCodeDAO.NotFound));
 		Player player = playerAppService.findByPlayerNameBirthdate("Simmons", "Richard", LocalDate.of(1995, 11, 26));
-		Assert.assertTrue(player.isNotFound());
+		assertTrue(player.isNotFound());
 	}
 
 	@Test
@@ -41,16 +42,19 @@ public class PlayerAppServiceTest {
 		when(playerJpaService.findByLastNameAndFirstNameAndBirthdate(anyString(), anyString(), any()))
 			.thenReturn(createMockPlayer("Adams", "Samuel", StatusCodeDAO.Found));
 		Player player = playerAppService.findByPlayerNameBirthdate("Adams", "Samuel", LocalDate.of(1995, 11, 26));
-		Assert.assertEquals("Samuel", player.getFirstName());
-		Assert.assertTrue(player.isFound());
+		assertEquals("Samuel", player.getFirstName());
+		assertTrue(player.isFound());
 	}
 
-	@Test(expected=DuplicateEntityException.class)
+	@Test
 	public void createPlayer_alreadyExists() {
-		when(playerJpaService.create(any()))
-			.thenThrow(new DuplicateEntityException(Player.class));
-		Player player = playerAppService.createPlayer(createMockPlayer("Smith", "Emmitt", StatusCodeDAO.Found));
-		Assert.assertTrue(player.isNotFound());
+		assertThrows(DuplicateEntityException.class,
+			()->{
+				when(playerJpaService.create(any()))
+					.thenThrow(new DuplicateEntityException(Player.class));
+				Player player = playerAppService.createPlayer(createMockPlayer("Smith", "Emmitt", StatusCodeDAO.Found));
+				assertTrue(player.isNotFound());
+			});
 	}
 
 	@Test
@@ -58,8 +62,8 @@ public class PlayerAppServiceTest {
 		when(playerJpaService.create(any()))
 			.thenReturn(createMockPlayer("Payton", "Walter", StatusCodeDAO.Created));
 		Player player = playerAppService.createPlayer(createMockPlayer("Payton", "Walter", StatusCodeDAO.Created));
-		Assert.assertEquals("Walter", player.getFirstName());
-		Assert.assertTrue(player.isCreated());
+		assertEquals("Walter", player.getFirstName());
+		assertTrue(player.isCreated());
 	}
 
 	private Player createMockPlayer(String lastName, String firstName, StatusCodeDAO statusCode) {

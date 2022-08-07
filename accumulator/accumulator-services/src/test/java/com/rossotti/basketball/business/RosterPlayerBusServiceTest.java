@@ -15,12 +15,11 @@ import com.rossotti.basketball.jpa.model.AbstractDomainClass.StatusCodeDAO;
 import com.rossotti.basketball.jpa.model.Player;
 import com.rossotti.basketball.jpa.model.RosterPlayer;
 import com.rossotti.basketball.jpa.model.Team;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.env.Environment;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
@@ -33,7 +32,9 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+import static org.junit.jupiter.api.Assertions.*;
+
+@ExtendWith(MockitoExtension.class)
 public class RosterPlayerBusServiceTest {
 	@Mock
 	private Environment env;
@@ -60,7 +61,7 @@ public class RosterPlayerBusServiceTest {
 		when(env.getProperty(anyString()))
 			.thenThrow(new IllegalStateException("property exception"));
 		RosterPlayerBusiness roster = rosterPlayerBusService.loadRoster("2014-10-28", "detroit-pistons");
-		Assert.assertTrue(roster.isServerError());
+		assertTrue(roster.isServerError());
 	}
 
 	@Test
@@ -68,7 +69,7 @@ public class RosterPlayerBusServiceTest {
 		when(env.getProperty(anyString()))
 			.thenReturn(null);
 		RosterPlayerBusiness roster = rosterPlayerBusService.loadRoster("2014-10-28", "detroit-pistons");
-		Assert.assertTrue(roster.isServerError());
+		assertTrue(roster.isServerError());
 	}
 
 	@Test
@@ -78,7 +79,7 @@ public class RosterPlayerBusServiceTest {
 		when(fileStatsService.retrieveRoster(anyString(), any()))
 			.thenReturn(createMockRosterDTO_StatusCode(StatusCode.NotFound));
 		RosterPlayerBusiness roster = rosterPlayerBusService.loadRoster("2014-10-28", "detroit-pistons");
-		Assert.assertTrue(roster.isClientError());
+		assertTrue(roster.isClientError());
 	}
 
 	@Test
@@ -88,7 +89,7 @@ public class RosterPlayerBusServiceTest {
 		when(fileStatsService.retrieveRoster(anyString(), any()))
 			.thenReturn(createMockRosterDTO_StatusCode(StatusCode.ClientException));
 		RosterPlayerBusiness roster = rosterPlayerBusService.loadRoster("2014-10-28", "detroit-pistons");
-		Assert.assertTrue(roster.isClientError());
+		assertTrue(roster.isClientError());
 	}
 
 	@Test
@@ -98,7 +99,7 @@ public class RosterPlayerBusServiceTest {
 		when(fileStatsService.retrieveRoster(anyString(), any()))
 			.thenReturn(createMockRosterDTO_StatusCode(StatusCode.Found));
 		RosterPlayerBusiness roster = rosterPlayerBusService.loadRoster("2014-10-28", "detroit-pistons");
-		Assert.assertTrue(roster.isClientError());
+		assertTrue(roster.isClientError());
 	}
 
 	@Test
@@ -110,7 +111,7 @@ public class RosterPlayerBusServiceTest {
 		when(restStatsService.retrieveRoster(anyString(), anyBoolean(), any()))
 			.thenReturn(createMockRosterDTO_StatusCode(StatusCode.NotFound));
 		RosterPlayerBusiness roster = rosterPlayerBusService.loadRoster("2014-10-28", "detroit-pistons");
-		Assert.assertTrue(roster.isClientError());
+		assertTrue(roster.isClientError());
 	}
 
 	@Test
@@ -122,7 +123,7 @@ public class RosterPlayerBusServiceTest {
 		when(restStatsService.retrieveRoster(anyString(), anyBoolean(), any()))
 			.thenReturn(createMockRosterDTO_StatusCode(StatusCode.ClientException));
 		RosterPlayerBusiness roster = rosterPlayerBusService.loadRoster("2014-10-28", "detroit-pistons");
-		Assert.assertTrue(roster.isClientError());
+		assertTrue(roster.isClientError());
 	}
 
 	@Test
@@ -134,7 +135,7 @@ public class RosterPlayerBusServiceTest {
 		when(restStatsService.retrieveRoster(anyString(), anyBoolean(), any()))
 			.thenReturn(createMockRosterDTO_StatusCode(StatusCode.Found));
 		RosterPlayerBusiness roster = rosterPlayerBusService.loadRoster("2014-10-28", "detroit-pistons");
-		Assert.assertTrue(roster.isClientError());
+		assertTrue(roster.isClientError());
 	}
 
 	@Test
@@ -148,7 +149,7 @@ public class RosterPlayerBusServiceTest {
 		when(rosterPlayerAppService.getRosterPlayers(any(), any(), anyString()))
 			.thenThrow(new NoSuchEntityException(Team.class));
 		RosterPlayerBusiness roster = rosterPlayerBusService.loadRoster("2014-10-28", "detroit-pistons");
-		Assert.assertTrue(roster.isClientError());
+		assertTrue(roster.isClientError());
 	}
 
 	@Test
@@ -162,7 +163,7 @@ public class RosterPlayerBusServiceTest {
 		when(rosterPlayerAppService.getRosterPlayers(any(), any(), anyString()))
 			.thenReturn(new ArrayList<>());
 		RosterPlayerBusiness roster = rosterPlayerBusService.loadRoster("2014-10-28", "detroit-pistons");
-		Assert.assertTrue(roster.isServerError());
+		assertTrue(roster.isServerError());
 	}
 
 	@Test
@@ -186,7 +187,7 @@ public class RosterPlayerBusServiceTest {
 		when(rosterPlayerAppService.findByTeamKeyAsOfDate(any(), anyString()))
 			.thenReturn(new ArrayList<>());
 		RosterPlayerBusiness roster = rosterPlayerBusService.loadRoster("2014-10-28", "detroit-pistons");
-		Assert.assertTrue(roster.isServerError());
+		assertTrue(roster.isServerError());
 	}
 
 	@Test
@@ -210,7 +211,7 @@ public class RosterPlayerBusServiceTest {
 		when(rosterPlayerAppService.findByTeamKeyAsOfDate(any(), anyString()))
 			.thenReturn(createMockRosterPlayers());
 		RosterPlayerBusiness roster = rosterPlayerBusService.loadRoster("2014-10-28", "detroit-pistons");
-		Assert.assertTrue(roster.isCompleted());
+		assertTrue(roster.isCompleted());
 	}
 
 	private RosterDTO createMockRosterDTO_Found() {

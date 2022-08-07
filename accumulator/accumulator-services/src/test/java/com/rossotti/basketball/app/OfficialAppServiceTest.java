@@ -8,12 +8,11 @@ import com.rossotti.basketball.jpa.model.Game;
 import com.rossotti.basketball.jpa.model.GameOfficial;
 import com.rossotti.basketball.jpa.model.Official;
 import com.rossotti.basketball.jpa.service.OfficialJpaService;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
@@ -23,7 +22,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
+import static org.junit.jupiter.api.Assertions.*;
+
+//@RunWith(SpringRunner.class)
 @SpringBootTest(classes = com.rossotti.basketball.config.ServiceConfig.class)
 public class OfficialAppServiceTest {
 	@Mock
@@ -32,12 +33,15 @@ public class OfficialAppServiceTest {
 	@InjectMocks
 	private OfficialAppService officialAppService;
 
-	@Test(expected=NoSuchEntityException.class)
+	@Test
 	public void getGameOfficials_notFound() {
-		when(officialJpaService.findByLastNameAndFirstNameAndAsOfDate(anyString(), anyString(), any()))
-			.thenReturn(createMockOfficial("", "", StatusCodeDAO.NotFound));
-		List<GameOfficial> officials = officialAppService.getGameOfficials(createMockOfficialDTOs(), createMockGame(), LocalDate.of(1995, 11, 26));
-		Assert.assertEquals(0, officials.size());
+		assertThrows(NoSuchEntityException.class,
+			()->{
+				when(officialJpaService.findByLastNameAndFirstNameAndAsOfDate(anyString(), anyString(), any()))
+					.thenReturn(createMockOfficial("", "", StatusCodeDAO.NotFound));
+				List<GameOfficial> officials = officialAppService.getGameOfficials(createMockOfficialDTOs(), createMockGame(), LocalDate.of(1995, 11, 26));
+				assertEquals(0, officials.size());
+			});
 	}
 
 	@Test
@@ -46,9 +50,9 @@ public class OfficialAppServiceTest {
 			.thenReturn(createMockOfficial("Adams", "Samuel", StatusCodeDAO.Found))
 			.thenReturn(createMockOfficial("Coors", "Adolph", StatusCodeDAO.Found));
 		List<GameOfficial> officials = officialAppService.getGameOfficials(createMockOfficialDTOs(), createMockGame(), LocalDate.of(1995, 11, 26));
-		Assert.assertEquals(2, officials.size());
-		Assert.assertEquals("Coors", officials.get(1).getOfficial().getLastName());
-		Assert.assertEquals("Adolph", officials.get(1).getOfficial().getFirstName());
+		assertEquals(2, officials.size());
+		assertEquals("Coors", officials.get(1).getOfficial().getLastName());
+		assertEquals("Adolph", officials.get(1).getOfficial().getFirstName());
 	}
 
 	private OfficialDTO[] createMockOfficialDTOs() {

@@ -5,17 +5,15 @@ import com.rossotti.basketball.client.dto.RosterDTO;
 import com.rossotti.basketball.client.dto.StandingsDTO;
 import com.rossotti.basketball.client.dto.StatusCodeDTO.StatusCode;
 import com.rossotti.basketball.util.ThreadSleep;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 
-@RunWith(SpringRunner.class)
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest(classes = com.rossotti.basketball.config.ServiceConfig.class)
 public class RestClientServiceTest {
 
@@ -25,54 +23,54 @@ public class RestClientServiceTest {
 	@Autowired
 	private RestClientService restClientService;
 
-	@Ignore
+	@Disabled
 	@Test
 	public void retrieveRoster_200() {
 		String event = "toronto-raptors";
 		RosterDTO roster = restStatsService.retrieveRoster(event, false, LocalDate.of(2016, 12, 15));
-		Assert.assertEquals(StatusCode.Found, roster.getStatusCode());
-		Assert.assertEquals(15, roster.players.length);
+		assertEquals(StatusCode.Found, roster.getStatusCode());
+		assertEquals(15, roster.players.length);
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void retrieveStandings_200() {
 		String event = "20141028";
 		StandingsDTO standings = restStatsService.retrieveStandings(event, false);
-		Assert.assertEquals(StatusCode.Found, standings.getStatusCode());
-		Assert.assertEquals(30, standings.standing.length);
+		assertEquals(StatusCode.Found, standings.getStatusCode());
+		assertEquals(30, standings.standing.length);
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void retrieveBoxScore_200() {
 		String event = "20150415-utah-jazz-at-houston-rockets";
 		GameDTO game = restStatsService.retrieveBoxScore(event, false);
-		Assert.assertEquals(StatusCode.Found, game.getStatusCode());
-		Assert.assertEquals(3, game.officials.length);
+		assertEquals(StatusCode.Found, game.getStatusCode());
+		assertEquals(3, game.officials.length);
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void retrieveRoster_401() {
 		String accessToken = "badToken";
 		String userAgent = "validUserAgent";
 		String rosterUrl = "https://erikberg.com/nba/roster/toronto-raptors.json";
 		int status = restClientService.getJson(rosterUrl).getStatusCode().value();
-		Assert.assertEquals(401, status);
+		assertEquals(401, status);
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void retrieveRoster_404() {
 		String accessToken = "validAccessToken";
 		String userAgent = "validUserAgent";
 		String badUrl = "https://erikberg.com/nba/roster/toronto-raps.json";
 		int status = restClientService.getJson(badUrl).getStatusCode().value();
-		Assert.assertEquals(404, status);
+		assertEquals(404, status);
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void retrieveRoster_403() {
 		//could cause ban of IP
@@ -80,10 +78,10 @@ public class RestClientServiceTest {
 		String userAgent = "badUserAgent";
 		String rosterUrl = "https://erikberg.com/nba/roster/toronto-raptors.json";
 		int status = restClientService.getJson(rosterUrl).getStatusCode().value();
-		Assert.assertEquals(403, status);
+		assertEquals(403, status);
 	}
 
-	@Ignore
+	@Disabled
 	@Test
 	public void retrieveRoster_429() {
 		//sending more than 6 requests in a minute is counted against account
@@ -91,9 +89,9 @@ public class RestClientServiceTest {
 		String userAgent = "validUserAgent";
 		String rosterUrl = "https://erikberg.com/nba/roster/toronto-raptors.json";
 		int status200 = restClientService.getJson(rosterUrl).getStatusCode().value();
-		Assert.assertEquals(200, status200);
+		assertEquals(200, status200);
 		ThreadSleep.sleep(1);
 		int status429 = restClientService.getJson(rosterUrl).getStatusCode().value();
-		Assert.assertEquals(429, status429);
+		assertEquals(429, status429);
 	}
 }

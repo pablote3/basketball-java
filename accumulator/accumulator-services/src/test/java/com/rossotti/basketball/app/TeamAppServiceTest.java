@@ -1,13 +1,12 @@
 package com.rossotti.basketball.app;
 
 import com.rossotti.basketball.app.service.TeamAppService;
+import com.rossotti.basketball.jpa.exception.DuplicateEntityException;
 import com.rossotti.basketball.jpa.exception.NoSuchEntityException;
 import com.rossotti.basketball.jpa.model.AbstractDomainClass.StatusCodeDAO;
 import com.rossotti.basketball.jpa.model.Team;
 import com.rossotti.basketball.jpa.service.TeamJpaService;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +18,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
+import static org.junit.jupiter.api.Assertions.*;
+
+//@RunWith(SpringRunner.class)
 @SpringBootTest(classes = com.rossotti.basketball.config.ServiceConfig.class)
 public class TeamAppServiceTest {
 	@Mock
@@ -28,12 +29,15 @@ public class TeamAppServiceTest {
 	@InjectMocks
 	private TeamAppService teamAppService;
 
-	@Test(expected=NoSuchEntityException.class)
+	@Test
 	public void findTeamByTeamKey_notFound() {
-		when(teamJpaService.findByTeamKeyAndAsOfDate(anyString(), any()))
-			.thenReturn(createMockTeam("new-orleans-hornets", "Hornets", StatusCodeDAO.NotFound));
-		Team team = teamAppService.findTeamByTeamKey("new-orleans-hornets", LocalDate.of(2015, 11, 26));
-		Assert.assertTrue(team.isNotFound());
+		assertThrows(NoSuchEntityException.class,
+			()->{
+				when(teamJpaService.findByTeamKeyAndAsOfDate(anyString(), any()))
+					.thenReturn(createMockTeam("new-orleans-hornets", "Hornets", StatusCodeDAO.NotFound));
+				Team team = teamAppService.findTeamByTeamKey("new-orleans-hornets", LocalDate.of(2015, 11, 26));
+				assertTrue(team.isNotFound());
+			});
 	}
 
 	@Test
@@ -41,16 +45,19 @@ public class TeamAppServiceTest {
 		when(teamJpaService.findByTeamKeyAndAsOfDate(anyString(), any()))
 			.thenReturn(createMockTeam("denver-nuggets", "Nuggets", StatusCodeDAO.Found));
 		Team team = teamAppService.findTeamByTeamKey("denver-nuggets", LocalDate.of(2015, 11, 26));
-		Assert.assertEquals("denver-nuggets", team.getTeamKey());
-		Assert.assertTrue(team.isFound());
+		assertEquals("denver-nuggets", team.getTeamKey());
+		assertTrue(team.isFound());
 	}
 
-	@Test(expected=NoSuchEntityException.class)
+	@Test
 	public void findTeamByLastName_notFound() {
-		when(teamJpaService.findByLastNameAndAsOfDate(anyString(), any()))
-			.thenReturn(createMockTeam("new-orleans-hornets", "Hornets", StatusCodeDAO.NotFound));
-		Team team = teamAppService.findTeamByLastName("Hornets", LocalDate.of(2015, 11, 26));
-		Assert.assertTrue(team.isNotFound());
+		assertThrows(NoSuchEntityException.class,
+			()->{
+				when(teamJpaService.findByLastNameAndAsOfDate(anyString(), any()))
+					.thenReturn(createMockTeam("new-orleans-hornets", "Hornets", StatusCodeDAO.NotFound));
+				Team team = teamAppService.findTeamByLastName("Hornets", LocalDate.of(2015, 11, 26));
+				assertTrue(team.isNotFound());
+			});
 	}
 
 	@Test
@@ -58,8 +65,8 @@ public class TeamAppServiceTest {
 		when(teamJpaService.findByLastNameAndAsOfDate(anyString(), any()))
 			.thenReturn(createMockTeam("denver-nuggets", "Nuggets", StatusCodeDAO.Found));
 		Team team = teamAppService.findTeamByLastName("Hornets", LocalDate.of(2015, 11, 26));
-		Assert.assertEquals("Nuggets", team.getLastName());
-		Assert.assertTrue(team.isFound());
+		assertEquals("Nuggets", team.getLastName());
+		assertTrue(team.isFound());
 	}
 
 	private Team createMockTeam(String teamKey, String lastName, StatusCodeDAO statusCode) {

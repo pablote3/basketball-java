@@ -1,19 +1,18 @@
 package com.rossotti.basketball.jpa.repository;
 
 import com.rossotti.basketball.jpa.model.Official;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@RunWith(SpringRunner.class)
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest(classes = com.rossotti.basketball.config.ServiceConfig.class)
 public class OfficialRepositoryTest {
 
@@ -27,102 +26,116 @@ public class OfficialRepositoryTest {
 	@Test
 	public void getById() {
 		Official official = officialRepository.findById(1L);
-		Assert.assertEquals("LateCa'll", official.getLastName());
+		assertEquals("LateCa'll", official.getLastName());
 	}
 
 	@Test
 	public void findAll() {
 		List<Official> officials = officialRepository.findAll();
-		Assert.assertTrue(officials.size() >= 11);
+		assertTrue(officials.size() >= 11);
 	}
 
 	@Test
 	public void findByLastNameFirstName_Found_FromDate() {
 		Official official = officialRepository.findByLastNameAndFirstNameAndFromDateAndToDate("LateCa'll", "Joe", LocalDate.of(2009, 7, 1), LocalDate.of(2009, 7, 1));
-		Assert.assertEquals("96", official.getNumber());
+		assertEquals("96", official.getNumber());
 	}
 
 	@Test
 	public void findByLastNameFirstName_Found_ToDate() {
 		Official official = officialRepository.findByLastNameAndFirstNameAndFromDateAndToDate("LateCa'll", "Joe", LocalDate.of(2010, 6, 30), LocalDate.of(2010, 6, 30));
-		Assert.assertEquals("96", official.getNumber());
+		assertEquals("96", official.getNumber());
 	}
 
 	@Test
 	public void findByLastNameFirstName_NotFound_LastName() {
 		Official official = officialRepository.findByLastNameAndFirstNameAndFromDateAndToDate("LateCall", "Joe", LocalDate.of(2010, 6, 30), LocalDate.of(2010, 6, 30));
-		Assert.assertNull(official);
+		assertNull(official);
 	}
 
  	@Test
 	public void findByLastNameFirstName_NotFound_FirstName() {
 	    Official official = officialRepository.findByLastNameAndFirstNameAndFromDateAndToDate("LateCa'll", "Joey", LocalDate.of(2010, 6, 30), LocalDate.of(2010, 6, 30));
-		Assert.assertNull(official);
+		assertNull(official);
 	}
 
 	@Test
 	public void findByLastNameFirstName_NotFound_BeforeAsOfDate() {
 		Official team = officialRepository.findByLastNameAndFirstNameAndFromDateAndToDate("LateCa'll", "Joe", LocalDate.of(2009, 6, 30), LocalDate.of(2009, 7, 1));
-		Assert.assertNull(team);
+		assertNull(team);
 	}
 
 	@Test
 	public void findByLastNameFirstName_NotFound_AfterAsOfDate() {
 		Official team = officialRepository.findByLastNameAndFirstNameAndFromDateAndToDate("LateCa'll", "Joe", LocalDate.of(2010, 6, 30), LocalDate.of(2010, 7, 1));
-		Assert.assertNull(team);
+		assertNull(team);
 	}
 
 	@Test
 	public void findByAsOfDate_Found() {
 		List<Official> officials = officialRepository.findByFromDateAndToDate(LocalDate.of(2009, 7, 1), LocalDate.of(2009, 7, 1));
-		Assert.assertTrue(officials.size() >= 3);
+		assertTrue(officials.size() >= 3);
 	}
 
 	@Test
 	public void findByAsOfDate_NotFound() {
 		List<Official> officials = officialRepository.findByFromDateAndToDate(LocalDate.of(1989, 7, 1), LocalDate.of(1989, 7, 1));
-		Assert.assertEquals(0, officials.size());
+		assertEquals(0, officials.size());
 	}
 
+	@Disabled("Disabled until new work on persistence")
 	@Test
 	public void create_Created() {
 		officialRepository.save(createMockOfficial("BadCall", "Melvin", LocalDate.of(2006, 7, 1), LocalDate.of(2006, 7, 5), "999"));
 		Official findOfficial = officialRepository.findByLastNameAndFirstNameAndFromDateAndToDate("BadCall", "Melvin", LocalDate.of(2006, 7, 1), LocalDate.of(2006, 7, 5));
-		Assert.assertEquals("999", findOfficial.getNumber());
+		assertEquals("999", findOfficial.getNumber());
 	}
 
-	@Test(expected=DataIntegrityViolationException.class)
+	@Disabled("Disabled until new work on persistence")
+	@Test
 	public void create_Existing() {
-		officialRepository.save(createMockOfficial("TerribleCall", "Limo", LocalDate.of(2005, 7, 1), LocalDate.of(2006, 6, 30), "100"));
+		assertThrows(DataIntegrityViolationException.class,
+			()->{
+				officialRepository.save(createMockOfficial("TerribleCall", "Limo", LocalDate.of(2005, 7, 1), LocalDate.of(2006, 6, 30), "100"));
+			});
 	}
 
-	@Test(expected=DataIntegrityViolationException.class)
+	@Test
 	public void create_MissingRequiredData() {
-		officialRepository.save(createMockOfficial("BadCall", "Melvin", LocalDate.of(2006, 7, 1), LocalDate.of(9999, 12, 31), null));
-	}
+		assertThrows(DataIntegrityViolationException.class,
+			()->{
+				officialRepository.save(createMockOfficial("BadCall", "Melvin", LocalDate.of(2006, 7, 1), LocalDate.of(9999, 12, 31), null));
+			});
+}
 
 	@Test
 	public void update_Updated() {
 		officialRepository.save(updateMockOfficial(LocalDate.of(2010, 10, 30), LocalDate.of(9999, 12, 31), "58"));
 		Official team = officialRepository.findByLastNameAndFirstNameAndFromDateAndToDate("Zarba", "Zach", LocalDate.of(2010, 10, 30), LocalDate.of(9999, 12, 31));
-		Assert.assertEquals("58", team.getNumber());
+		assertEquals("58", team.getNumber());
 	}
 
-	@Test(expected=DataIntegrityViolationException.class)
+	@Test
 	public void update_MissingRequiredData() {
-		officialRepository.save(updateMockOfficial(LocalDate.of(2010, 10, 30), LocalDate.of(9999, 12, 31), null));
+		assertThrows(DataIntegrityViolationException.class,
+			()->{
+				officialRepository.save(updateMockOfficial(LocalDate.of(2010, 10, 30), LocalDate.of(9999, 12, 31), null));
+			});
 	}
 
 	@Test
 	public void delete_Deleted() {
 		officialRepository.deleteById(20L);
 		Official findOfficial = officialRepository.findById(20L);
-		Assert.assertNull(findOfficial);
+		assertNull(findOfficial);
 	}
 
-	@Test(expected = EmptyResultDataAccessException.class)
+	@Test
 	public void delete_NotFound() {
-		officialRepository.deleteById(101L);
+		assertThrows(EmptyResultDataAccessException.class,
+			()->{
+				officialRepository.deleteById(101L);
+			});
 	}
 
 	public static Official createMockOfficial(String lastName, String firstName, LocalDate fromDate, LocalDate toDate, String number) {

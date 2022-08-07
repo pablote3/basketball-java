@@ -14,24 +14,23 @@ import com.rossotti.basketball.jpa.model.Team;
 import com.rossotti.basketball.jpa.service.GameJpaService;
 import com.rossotti.basketball.jpa.service.StandingJpaService;
 import com.rossotti.basketball.jpa.service.TeamJpaService;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest(classes = com.rossotti.basketball.config.ServiceConfig.class)
 public class StandingAppServiceTest {
 	@Mock
@@ -46,12 +45,15 @@ public class StandingAppServiceTest {
 	@InjectMocks
 	private StandingAppService standingAppService;
 
-	@Test(expected=NoSuchEntityException.class)
+	@Test
 	public void findByTeamKeyAndAsOfDate_teamNotFound() {
-		when(teamJpaService.findByTeamKeyAndAsOfDate(anyString(), any()))
-			.thenReturn(createMockTeam("denver-mcnuggets", StatusCodeDAO.NotFound));
-		List<Standing> standings = standingAppService.getStandings(createMockStandingsDTO_teamNotFound());
-		Assert.assertEquals(0, standings.size());
+		assertThrows(NoSuchEntityException.class,
+			()->{
+				when(teamJpaService.findByTeamKeyAndAsOfDate(anyString(), any()))
+					.thenReturn(createMockTeam("denver-mcnuggets", StatusCodeDAO.NotFound));
+				List<Standing> standings = standingAppService.getStandings(createMockStandingsDTO_teamNotFound());
+				assertEquals(0, standings.size());
+		});
 	}
 
 	@Test
@@ -59,9 +61,9 @@ public class StandingAppServiceTest {
 		when(teamJpaService.findByTeamKeyAndAsOfDate(anyString(), any()))
 			.thenReturn(createMockTeam("denver-nuggets", StatusCodeDAO.Found));
 		List<Standing> standings = standingAppService.getStandings(createMockStandingsDTO_teamFound());
-		Assert.assertEquals(1, standings.size());
-		Assert.assertEquals("denver-nuggets", standings.get(0).getTeam().getTeamKey());
-		Assert.assertTrue(standings.get(0).isFound());
+		assertEquals(1, standings.size());
+		assertEquals("denver-nuggets", standings.get(0).getTeam().getTeamKey());
+		assertTrue(standings.get(0).isFound());
 	}
 
 	@Test
@@ -69,7 +71,7 @@ public class StandingAppServiceTest {
 		when(standingJpaService.findByTeamKeyAndAsOfDate(anyString(), any()))
 			.thenReturn(createMockStanding("denver-mcnuggets", null, null, null, null, StatusCodeDAO.NotFound));
 		Standing standing = standingAppService.findStanding("denver-mcnuggets", LocalDate.of(2015, 11, 26));
-		Assert.assertTrue(standing.isNotFound());
+		assertTrue(standing.isNotFound());
 	}
 
 	@Test
@@ -77,8 +79,8 @@ public class StandingAppServiceTest {
 		when(standingJpaService.findByTeamKeyAndAsOfDate(anyString(), any()))
 			.thenReturn(createMockStanding("denver-nuggets", (short)4, (short)7, 18, 35, StatusCodeDAO.Found));
 		Standing standing = standingAppService.findStanding("denver-nuggets", LocalDate.of(2015, 11, 26));
-		Assert.assertEquals("denver-nuggets", standing.getTeam().getTeamKey());
-		Assert.assertTrue(standing.isFound());
+		assertEquals("denver-nuggets", standing.getTeam().getTeamKey());
+		assertTrue(standing.isFound());
 	}
 
 	@Test
@@ -86,7 +88,7 @@ public class StandingAppServiceTest {
 		when(standingJpaService.findByAsOfDate(any()))
 			.thenReturn(new ArrayList<>());
 		List<Standing> standings = standingAppService.findStandings(LocalDate.of(2015, 11, 26));
-		Assert.assertEquals(new ArrayList<Standing>(), standings);
+		assertEquals(0, standings.size());
 	}
 
 	@Test
@@ -94,17 +96,20 @@ public class StandingAppServiceTest {
 		when(standingJpaService.findByAsOfDate(any()))
 			.thenReturn(createMockStandings());
 		List<Standing> standings = standingAppService.findStandings(LocalDate.of(2015, 11, 26));
-		Assert.assertEquals(5, standings.size());
-		Assert.assertEquals("utah-jazz", standings.get(1).getTeam().getTeamKey());
-		Assert.assertTrue(standings.get(1).isFound());
+		assertEquals(5, standings.size());
+		assertEquals("utah-jazz", standings.get(1).getTeam().getTeamKey());
+		assertTrue(standings.get(1).isFound());
 	}
 
-	@Test(expected=DuplicateEntityException.class)
+	@Test
 	public void createStanding_alreadyExists() {
-		when(standingJpaService.create(any()))
-			.thenThrow(new DuplicateEntityException(Standing.class));
-		Standing standing = standingAppService.createStanding(createMockStanding("houston-rockets", (short)7, (short)10, null, null, StatusCodeDAO.Found));
-		Assert.assertTrue(standing.isNotFound());
+		assertThrows(DuplicateEntityException.class,
+			()->{
+				when(standingJpaService.create(any()))
+					.thenThrow(new DuplicateEntityException(Standing.class));
+				Standing standing = standingAppService.createStanding(createMockStanding("houston-rockets", (short)7, (short)10, null, null, StatusCodeDAO.Found));
+				assertTrue(standing.isNotFound());
+			});
 	}
 
 	@Test
@@ -112,8 +117,8 @@ public class StandingAppServiceTest {
 		when(standingJpaService.create(any()))
 			.thenReturn(createMockStanding("sacramento-kings",(short)1, (short)4, null, null, StatusCodeDAO.Created));
 		Standing standing = standingAppService.createStanding(createMockStanding("sacramento-kings", (short)5, (short)15, null, null, StatusCodeDAO.NotFound));
-		Assert.assertEquals("sacramento-kings", standing.getTeam().getTeamKey());
-		Assert.assertTrue(standing.isCreated());
+		assertEquals("sacramento-kings", standing.getTeam().getTeamKey());
+		assertTrue(standing.isCreated());
 	}
 
 	@Test
@@ -121,8 +126,8 @@ public class StandingAppServiceTest {
 		when(standingJpaService.update(any()))
 			.thenReturn(createMockStanding("seattle-supersonics", null, null, null, null, StatusCodeDAO.NotFound));
 		Standing standing = standingAppService.updateStanding(createMockStanding("seattle-supersonics", null, null, null, null, StatusCodeDAO.NotFound));
-		Assert.assertEquals("seattle-supersonics", standing.getTeam().getTeamKey());
-		Assert.assertTrue(standing.isNotFound());
+		assertEquals("seattle-supersonics", standing.getTeam().getTeamKey());
+		assertTrue(standing.isNotFound());
 	}
 
 	@Test
@@ -130,8 +135,8 @@ public class StandingAppServiceTest {
 		when(standingJpaService.update(any()))
 			.thenReturn(createMockStanding("toronto-raptors", (short)10, (short)15, 25, 35, StatusCodeDAO.Updated));
 		Standing standing = standingAppService.updateStanding(createMockStanding("toronto-raptors", (short)18, (short)22, 42, 68, StatusCodeDAO.Found));
-		Assert.assertEquals("toronto-raptors", standing.getTeam().getTeamKey());
-		Assert.assertTrue(standing.isUpdated());
+		assertEquals("toronto-raptors", standing.getTeam().getTeamKey());
+		assertTrue(standing.isUpdated());
 	}
 
 	@Test
@@ -139,7 +144,7 @@ public class StandingAppServiceTest {
 		when(standingJpaService.findByAsOfDate(any()))
 			.thenReturn(new ArrayList<>());
 		List<Standing> standings = standingAppService.deleteStandings(any());
-		Assert.assertEquals(0, standings.size());
+		assertEquals(0, standings.size());
 	}
 
 	@Test
@@ -147,7 +152,7 @@ public class StandingAppServiceTest {
 		when(gameJpaService.findByTeamKeyAndAsOfDateSeason(anyString(), any()))
 			.thenReturn(new ArrayList<>());
 		Map<String, StandingRecord> standingsMap = standingAppService.buildStandingsMap(new ArrayList<>(), LocalDate.of(2012, 6, 12));
-		Assert.assertEquals(new HashMap<String, StandingRecord>(), standingsMap);
+		assertEquals(new HashMap<String, StandingRecord>(), standingsMap);
 	}
 
 	@Test
@@ -156,11 +161,11 @@ public class StandingAppServiceTest {
 			.thenReturn(createMockGames_Kings())
 			.thenReturn(createMockGames_Jazz());
 		Map<String, StandingRecord> standingsMap = standingAppService.buildStandingsMap(createMockStandings(), LocalDate.of(2012, 6, 12));
-		Assert.assertEquals(5, standingsMap.size());
-		Assert.assertEquals(3, standingsMap.get("utah-jazz").getGamesWon().intValue());
-		Assert.assertEquals(4, standingsMap.get("utah-jazz").getGamesPlayed().intValue());
-		Assert.assertEquals(4, standingsMap.get("utah-jazz").getOpptGamesWon().intValue());
-		Assert.assertEquals(11, standingsMap.get("utah-jazz").getOpptGamesPlayed().intValue());
+		assertEquals(5, standingsMap.size());
+		assertEquals(3, standingsMap.get("utah-jazz").getGamesWon().intValue());
+		assertEquals(4, standingsMap.get("utah-jazz").getGamesPlayed().intValue());
+		assertEquals(4, standingsMap.get("utah-jazz").getOpptGamesWon().intValue());
+		assertEquals(11, standingsMap.get("utah-jazz").getOpptGamesPlayed().intValue());
 	}
 
 	@Test
@@ -171,18 +176,18 @@ public class StandingAppServiceTest {
 		Map<String, StandingRecord> headToHeadMap;
 		//headToHead map with entries
 		headToHeadMap = standingAppService.buildHeadToHeadMap("sacramento-kings", LocalDate.of(2012, 6, 12), createMockStandingsMap());
-		Assert.assertEquals(3, headToHeadMap.size());
-		Assert.assertEquals(0, headToHeadMap.get("detroit-pistons").getGamesWon().intValue());
-		Assert.assertEquals(1, headToHeadMap.get("detroit-pistons").getGamesPlayed().intValue());
-		Assert.assertEquals(1, headToHeadMap.get("detroit-pistons").getOpptGamesWon().intValue());
-		Assert.assertEquals(4, headToHeadMap.get("detroit-pistons").getOpptGamesPlayed().intValue());
+		assertEquals(3, headToHeadMap.size());
+		assertEquals(0, headToHeadMap.get("detroit-pistons").getGamesWon().intValue());
+		assertEquals(1, headToHeadMap.get("detroit-pistons").getGamesPlayed().intValue());
+		assertEquals(1, headToHeadMap.get("detroit-pistons").getOpptGamesWon().intValue());
+		assertEquals(4, headToHeadMap.get("detroit-pistons").getOpptGamesPlayed().intValue());
 
 		headToHeadMap = standingAppService.buildHeadToHeadMap("utah-jazz", LocalDate.of(2012, 6, 12), createMockStandingsMap());
-		Assert.assertEquals(3, headToHeadMap.size());
-		Assert.assertEquals(0, headToHeadMap.get("phoenix-suns").getGamesWon().intValue());
-		Assert.assertEquals(2, headToHeadMap.get("phoenix-suns").getGamesPlayed().intValue());
-		Assert.assertEquals(6, headToHeadMap.get("phoenix-suns").getOpptGamesWon().intValue());
-		Assert.assertEquals(8, headToHeadMap.get("phoenix-suns").getOpptGamesPlayed().intValue());
+		assertEquals(3, headToHeadMap.size());
+		assertEquals(0, headToHeadMap.get("phoenix-suns").getGamesWon().intValue());
+		assertEquals(2, headToHeadMap.get("phoenix-suns").getGamesPlayed().intValue());
+		assertEquals(6, headToHeadMap.get("phoenix-suns").getOpptGamesWon().intValue());
+		assertEquals(8, headToHeadMap.get("phoenix-suns").getOpptGamesPlayed().intValue());
 	}
 
 	@Test
@@ -191,10 +196,10 @@ public class StandingAppServiceTest {
 			.thenReturn(createMockGames_Kings())
 			.thenReturn(createMockGames_Jazz());
 		StandingRecord standingRecord = standingAppService.calculateStrengthOfSchedule("sacramento-kings", LocalDate.of(2012, 6, 12), createMockStandingsMap(), createMockHeadToHeadMap_Kings());
-		Assert.assertEquals(3, standingRecord.getGamesWon().intValue());
-		Assert.assertEquals(7, standingRecord.getGamesPlayed().intValue());
-		Assert.assertEquals(-12, standingRecord.getOpptGamesWon().intValue());
-		Assert.assertEquals(-19, standingRecord.getOpptGamesPlayed().intValue());
+		assertEquals(3, standingRecord.getGamesWon().intValue());
+		assertEquals(7, standingRecord.getGamesPlayed().intValue());
+		assertEquals(-12, standingRecord.getOpptGamesWon().intValue());
+		assertEquals(-19, standingRecord.getOpptGamesPlayed().intValue());
 	}
 
 	private StandingsDTO createMockStandingsDTO_teamNotFound() {

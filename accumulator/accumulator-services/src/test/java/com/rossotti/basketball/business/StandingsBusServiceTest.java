@@ -14,12 +14,11 @@ import com.rossotti.basketball.jpa.exception.NoSuchEntityException;
 import com.rossotti.basketball.jpa.model.AbstractDomainClass.StatusCodeDAO;
 import com.rossotti.basketball.jpa.model.Standing;
 import com.rossotti.basketball.jpa.model.Team;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.env.Environment;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
@@ -34,7 +33,9 @@ import java.util.Map;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+import static org.junit.jupiter.api.Assertions.*;
+
+@ExtendWith(MockitoExtension.class)
 public class StandingsBusServiceTest {
 	@Mock
 	private Environment env;
@@ -58,7 +59,7 @@ public class StandingsBusServiceTest {
 		when(env.getProperty(anyString()))
 			.thenThrow(new IllegalStateException("property exception"));
 		StandingsBusiness standings = standingsBusinessService.rankStandings("2014-10-28");
-		Assert.assertTrue(standings.isServerError());
+		assertTrue(standings.isServerError());
 	}
 
 	@Test
@@ -68,7 +69,7 @@ public class StandingsBusServiceTest {
 		when(fileStatsService.retrieveStandings(anyString()))
 			.thenReturn(createMockStandingsDTO_StatusCode(StatusCode.NotFound));
 		StandingsBusiness standings = standingsBusinessService.rankStandings("2014-10-28");
-		Assert.assertTrue(standings.isClientError());
+		assertTrue(standings.isClientError());
 	}
 
 	@Test
@@ -78,7 +79,7 @@ public class StandingsBusServiceTest {
 		when(fileStatsService.retrieveStandings(anyString()))
 			.thenReturn(createMockStandingsDTO_StatusCode(StatusCode.ClientException));
 		StandingsBusiness standings = standingsBusinessService.rankStandings("2014-10-28");
-		Assert.assertTrue(standings.isClientError());
+		assertTrue(standings.isClientError());
 	}
 
 	@Test
@@ -88,7 +89,7 @@ public class StandingsBusServiceTest {
 		when(fileStatsService.retrieveStandings(anyString()))
 			.thenReturn(createMockStandingsDTO_StatusCode(StatusCode.Found));
 		StandingsBusiness standings = standingsBusinessService.rankStandings("2014-10-28");
-		Assert.assertTrue(standings.isClientError());
+		assertTrue(standings.isClientError());
 	}
 
 	@Test
@@ -100,7 +101,7 @@ public class StandingsBusServiceTest {
 		when(restStatsService.retrieveStandings(anyString(), anyBoolean()))
 			.thenReturn(createMockStandingsDTO_StatusCode(StatusCode.NotFound));
 		StandingsBusiness standings = standingsBusinessService.rankStandings("2014-10-28");
-		Assert.assertTrue(standings.isClientError());
+		assertTrue(standings.isClientError());
 	}
 
 	@Test
@@ -112,7 +113,7 @@ public class StandingsBusServiceTest {
 		when(restStatsService.retrieveStandings(anyString(), anyBoolean()))
 			.thenReturn(createMockStandingsDTO_StatusCode(StatusCode.ClientException));
 		StandingsBusiness standings = standingsBusinessService.rankStandings("2014-10-28");
-		Assert.assertTrue(standings.isClientError());
+		assertTrue(standings.isClientError());
 	}
 
 	@Test
@@ -124,7 +125,7 @@ public class StandingsBusServiceTest {
 		when(restStatsService.retrieveStandings(anyString(), anyBoolean()))
 			.thenReturn(createMockStandingsDTO_StatusCode(StatusCode.Found));
 		StandingsBusiness standings = standingsBusinessService.rankStandings("2014-10-28");
-		Assert.assertTrue(standings.isClientError());
+		assertTrue(standings.isClientError());
 	}
 
 	@Test
@@ -138,7 +139,7 @@ public class StandingsBusServiceTest {
 		when(standingAppService.getStandings(any()))
 			.thenThrow(new NoSuchEntityException(Team.class));
 		StandingsBusiness standings = standingsBusinessService.rankStandings("2014-10-28");
-		Assert.assertTrue(standings.isClientError());
+		assertTrue(standings.isClientError());
 	}
 
 	@Test
@@ -160,7 +161,7 @@ public class StandingsBusServiceTest {
 		when(standingAppService.createStanding(any()))
 			.thenReturn(createMockStanding_StatusCode(StatusCodeDAO.Found));
 		StandingsBusiness standings = standingsBusinessService.rankStandings("2014-10-28");
-		Assert.assertTrue(standings.isServerError());
+		assertTrue(standings.isServerError());
 	}
 
 	@Test
@@ -182,7 +183,7 @@ public class StandingsBusServiceTest {
 		when(standingAppService.createStanding(any()))
 			.thenReturn(createMockStanding_StatusCode(StatusCodeDAO.Created));
 		StandingsBusiness standings = standingsBusinessService.rankStandings("2014-10-28");
-		Assert.assertTrue(standings.isCompleted());
+		assertTrue(standings.isCompleted());
 	}
 
 	private StandingsDTO createStandingsDTO_Found() {
