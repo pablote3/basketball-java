@@ -2,13 +2,11 @@ package com.rossotti.basketball;
 
 import com.rossotti.basketball.batch.TeamBoxScore;
 import com.rossotti.basketball.batch.TeamBoxScoreProcessor;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 public class TeamBoxScoreTests {
 
@@ -16,72 +14,72 @@ public class TeamBoxScoreTests {
     public void processorCalculations() {
         TeamBoxScoreProcessor teamBoxScoreProcessor = new TeamBoxScoreProcessor();
         TeamBoxScore teamBoxScore = teamBoxScoreProcessor.process(createMockTeamBoxScore());
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamTwoPointAttempts(), (short)69));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamTwoPointMade(), (short)28));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamTwoPointPct(), (float)0.4058));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamTwoPointRate(), (float)0.8214));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamFieldGoalPct(), (float)0.4286));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamThreePointPct(), (float)0.5333));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamThreePointRate(), (float)0.1786));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamFreeThrowPct(), (float)0.6818));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamFreeThrowRate(), (float)0.2619));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamReboundsTotal(), (short)44));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamTwoPointAttempts(), (short)69));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamTwoPointMade(), (short)28));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamTwoPointPct(), (float)0.4058));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamTwoPointRate(), (float)0.8214));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamFieldGoalPct(), (float)0.4286));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamThreePointPct(), (float)0.5333));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamThreePointRate(), (float)0.1786));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamFreeThrowPct(), (float)0.6818));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamFreeThrowRate(), (float)0.2619));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamReboundsTotal(), (short)44));
 
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamTrueShootingPct(), 0.5284f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamEffectiveFieldGoalPct(), 0.4762f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamOffensiveReboundPct(), 21.0526f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamDefensiveReboundPct(), 78.2609f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamTotalReboundPct(), 52.381f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamAssistedFieldGoalPct(), 61.1111f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamTurnoverPct(), 13.802f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamStealPct(), 11.3004f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamBlockPct(), 5.1365f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamBlockRate(), 7.2464f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamPointsPerShot(), 1.1786f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamFloorImpactCounter(), 76.75f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamFloorImpactCounterPer40(), 63.9583f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamOffensiveRating(), 101.7033f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamDefensiveRating(), 103.7579f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamEfficiencyDifferential(), -2.0546f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamPlayPct(), 0.3956f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamAssistRate(), 16.835f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamAssistToTurnoverRatio(), 1.4667f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getTeamStealToTurnoverRatio(), 73.3333f));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamTrueShootingPct(), 0.5284f));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamEffectiveFieldGoalPct(), 0.4762f));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamOffensiveReboundPct(), 21.0526f));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamDefensiveReboundPct(), 78.2609f));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamTotalReboundPct(), 52.381f));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamAssistedFieldGoalPct(), 61.1111f));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamTurnoverPct(), 13.802f));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamStealPct(), 11.3004f));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamBlockPct(), 5.1365f));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamBlockRate(), 7.2464f));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamPointsPerShot(), 1.1786f));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamFloorImpactCounter(), 76.75f));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamFloorImpactCounterPer40(), 63.9583f));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamOffensiveRating(), 101.7033f));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamDefensiveRating(), 103.7579f));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamEfficiencyDifferential(), -2.0546f));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamPlayPct(), 0.3956f));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamAssistRate(), 16.835f));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamAssistToTurnoverRatio(), 1.4667f));
+        assertEquals(0, Float.compare(teamBoxScore.getTeamStealToTurnoverRatio(), 73.3333f));
 
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptTwoPointAttempts(), (short)65));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptTwoPointMade(), (short)36));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptTwoPointPct(), (float)0.5538));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptTwoPointRate(), (float)0.7831));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptFieldGoalPct(), (float)0.5181));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptThreePointPct(), (float)0.3889));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptThreePointRate(), (float)0.2169));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptFreeThrowPct(), (float)0.72));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptFreeThrowRate(), (float)0.3012));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptReboundsTotal(), (short)40));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptTwoPointAttempts(), (short)65));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptTwoPointMade(), (short)36));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptTwoPointPct(), (float)0.5538));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptTwoPointRate(), (float)0.7831));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptFieldGoalPct(), (float)0.5181));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptThreePointPct(), (float)0.3889));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptThreePointRate(), (float)0.2169));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptFreeThrowPct(), (float)0.72));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptFreeThrowRate(), (float)0.3012));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptReboundsTotal(), (short)40));
 
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptTrueShootingPct(), 0.5372f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptEffectiveFieldGoalPct(), 0.5602f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptOffensiveReboundPct(), 25.0f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptDefensiveReboundPct(), 75.0f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptTotalReboundPct(), 47.619f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptAssistedFieldGoalPct(), 46.5116f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptTurnoverPct(), 12.963f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptStealPct(), 11.3004f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptBlockPct(), 4.1092f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptBlockRate(), 6.1538f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptPointsPerShot(), 1.2169f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptFloorImpactCounter(), 73.375f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptFloorImpactCounterPer40(), 61.1458f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptOffensiveRating(), 103.7579f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptDefensiveRating(), 101.7033f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptEfficiencyDifferential(), 2.0546f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptPlayPct(), 0.4943f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptAssistRate(), 15.625f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptAssistToTurnoverRatio(), 1.4286f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getOpptStealToTurnoverRatio(), 78.5714f));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptTrueShootingPct(), 0.5372f));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptEffectiveFieldGoalPct(), 0.5602f));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptOffensiveReboundPct(), 25.0f));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptDefensiveReboundPct(), 75.0f));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptTotalReboundPct(), 47.619f));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptAssistedFieldGoalPct(), 46.5116f));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptTurnoverPct(), 12.963f));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptStealPct(), 11.3004f));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptBlockPct(), 4.1092f));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptBlockRate(), 6.1538f));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptPointsPerShot(), 1.2169f));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptFloorImpactCounter(), 73.375f));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptFloorImpactCounterPer40(), 61.1458f));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptOffensiveRating(), 103.7579f));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptDefensiveRating(), 101.7033f));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptEfficiencyDifferential(), 2.0546f));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptPlayPct(), 0.4943f));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptAssistRate(), 15.625f));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptAssistToTurnoverRatio(), 1.4286f));
+        assertEquals(0, Float.compare(teamBoxScore.getOpptStealToTurnoverRatio(), 78.5714f));
 
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getPossessions(), 97.342f));
-        Assert.assertEquals(0, Float.compare(teamBoxScore.getPace(), 97.342f));
+        assertEquals(0, Float.compare(teamBoxScore.getPossessions(), 97.342f));
+        assertEquals(0, Float.compare(teamBoxScore.getPace(), 97.342f));
     }
 
     private TeamBoxScore createMockTeamBoxScore() {

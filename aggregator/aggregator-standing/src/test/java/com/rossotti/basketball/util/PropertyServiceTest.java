@@ -1,15 +1,13 @@
 package com.rossotti.basketball.util;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 
-@RunWith(SpringRunner.class)
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 public class PropertyServiceTest {
     @Autowired
@@ -18,50 +16,49 @@ public class PropertyServiceTest {
     @Test
     public void getProperty_String_Valid() {
         String prop = propertyService.getProperty_String("aggregator.string.valid");
-        Assert.assertEquals("validString", prop);
+        assertEquals("validString", prop);
     }
     @Test()
     public void getProperty_String_Empty() {
-        Assert.assertNull(propertyService.getProperty_String("aggregator.string.empty"));
+        assertNull(propertyService.getProperty_String("aggregator.string.empty"));
     }
 
     @Test
     public void getProperty_LocalDate_Valid() {
         LocalDate localDate = propertyService.getProperty_LocalDate("aggregator.localDate.valid");
-        Assert.assertEquals(LocalDate.of(2017, 5, 29), localDate);
+        assertEquals(LocalDate.of(2017, 5, 29), localDate);
     }
     @Test()
     public void getProperty_LocalDate_Invalid() {
-        Assert.assertNull(propertyService.getProperty_LocalDate("aggregator.localDate.invalid"));
+        assertNull(propertyService.getProperty_LocalDate("aggregator.localDate.invalid"));
     }
     @Test()
     public void getProperty_LocalDate_Empty() {
-        Assert.assertNull(propertyService.getProperty_LocalDate("aggregator.localDate.empty"));
+        assertNull(propertyService.getProperty_LocalDate("aggregator.localDate.empty"));
     }
     @Test()
     public void getProperty_LocalDate_Null() {
-        Assert.assertNull(propertyService.getProperty_LocalDate("aggregator.localDate.null"));
+        assertNull(propertyService.getProperty_LocalDate("aggregator.localDate.null"));
     }
 
     @Test
     public void getProperty_Path_Valid() {
         String prop = propertyService.getProperty_Path("aggregator.path.valid");
-        Assert.assertEquals("/usr/bin", prop);
+        assertEquals("/usr/bin", prop);
     }
     @Test()
     public void getProperty_Path_Invalid() {
         String prop = propertyService.getProperty_Path("aggregator.path.invalid");
-        Assert.assertNull(prop);
+        assertNull(prop);
     }
     @Test()
     public void getProperty_Path_Empty() {
         String prop = propertyService.getProperty_Path("aggregator.path.empty");
-        Assert.assertNull(prop);
+        assertNull(prop);
     }
     @Test()
     public void getProperty_Path_Null() {
         String prop = propertyService.getProperty_Path("aggregator.path.null");
-        Assert.assertNull(prop);
+        assertNull(prop);
     }
-
 }

@@ -2,13 +2,11 @@ package com.rossotti.basketball;
 
 import com.rossotti.basketball.batch.PlayerBoxScore;
 import com.rossotti.basketball.batch.PlayerBoxScoreProcessor;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 public class PlayerBoxScoreTests {
 
@@ -16,13 +14,13 @@ public class PlayerBoxScoreTests {
     public void processorCalculations() {
         PlayerBoxScoreProcessor playerBoxScoreProcessor = new PlayerBoxScoreProcessor();
         PlayerBoxScore playerBoxScore = playerBoxScoreProcessor.process(createMockPlayerBoxScore());
-        Assert.assertEquals(0, Float.compare(playerBoxScore.getTwoPointAttempts(), (short)69));
-        Assert.assertEquals(0, Float.compare(playerBoxScore.getTwoPointMade(), (short)28));
-        Assert.assertEquals(0, Float.compare(playerBoxScore.getTwoPointPct(), (float)0.4058));
-        Assert.assertEquals(0, Float.compare(playerBoxScore.getFieldGoalPct(), (float)0.4286));
-        Assert.assertEquals(0, Float.compare(playerBoxScore.getThreePointPct(), (float)0.5333));
-        Assert.assertEquals(0, Float.compare(playerBoxScore.getFreeThrowPct(), (float)0.6818));
-        Assert.assertEquals(0, Float.compare(playerBoxScore.getReboundsTotal(), (short)44));
+        assertEquals(0, Float.compare(playerBoxScore.getTwoPointAttempts(), (short)69));
+        assertEquals(0, Float.compare(playerBoxScore.getTwoPointMade(), (short)28));
+        assertEquals(0, Float.compare(playerBoxScore.getTwoPointPct(), (float)0.4058));
+        assertEquals(0, Float.compare(playerBoxScore.getFieldGoalPct(), (float)0.4286));
+        assertEquals(0, Float.compare(playerBoxScore.getThreePointPct(), (float)0.5333));
+        assertEquals(0, Float.compare(playerBoxScore.getFreeThrowPct(), (float)0.6818));
+        assertEquals(0, Float.compare(playerBoxScore.getReboundsTotal(), (short)44));
     }
 
     private PlayerBoxScore createMockPlayerBoxScore() {
