@@ -83,7 +83,6 @@ public class OfficialRepositoryTest {
 		assertEquals(0, officials.size());
 	}
 
-	@Disabled("Disabled until new work on persistence")
 	@Test
 	public void create_Created() {
 		officialRepository.save(createMockOfficial("BadCall", "Melvin", LocalDate.of(2006, 7, 1), LocalDate.of(2006, 7, 5), "999"));
@@ -91,7 +90,6 @@ public class OfficialRepositoryTest {
 		assertEquals("999", findOfficial.getNumber());
 	}
 
-	@Disabled("Disabled until new work on persistence")
 	@Test
 	public void create_Existing() {
 		assertThrows(DataIntegrityViolationException.class,
