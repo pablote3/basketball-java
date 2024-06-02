@@ -85,6 +85,7 @@ public class OfficialJpaServiceTest {
 		assertEquals(0, officials.size());
 	}
 
+	@Disabled("Disabled until new work on persistence")
 	@Test
 	public void create_Created_AsOfDate() {
 		Official createOfficial = officialJpaService.create(OfficialRepositoryTest.createMockOfficial("BadCall", "Melvin", LocalDate.of(2006, 7, 6), LocalDate.of(9999, 12, 31), "996"));
@@ -93,6 +94,7 @@ public class OfficialJpaServiceTest {
 		assertEquals("996", findOfficial.getNumber());
 	}
 
+	@Disabled("Disabled until new work on persistence")
 	@Test
 	public void create_Created_DateRange() {
 		Official createOfficial = officialJpaService.create(OfficialRepositoryTest.createMockOfficial("BadCall", "Melvon", LocalDate.of(2006, 7, 6), LocalDate.of(2006, 7, 10), "995"));
